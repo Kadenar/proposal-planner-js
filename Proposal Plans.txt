@@ -1,0 +1,7 @@
+Landing page to open existing pdfs (ability to print them)
+Landing page to create new pdfs to author proposals
+Landing page to price out a proposal (commission, tax, parts, etc)
+Landing page to author / change settings for the application itself
+Landing page to edit entries in the "database" of parts
+Landing page to input jobs sold / that have been paid
+Landing page to visualize sales made during a period of time
