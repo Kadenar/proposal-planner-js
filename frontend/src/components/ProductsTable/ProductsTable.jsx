@@ -4,11 +4,12 @@ import MaterialTable from "material-table";
 import { Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { productDialog } from "../coreui/dialogs/EditProductDialog2";
+import { productDialog } from "../coreui/dialogs/ProductDialog";
 import {
   PushNewProduct,
   EditExistingProduct,
   flattenProductData,
+  deleteProduct,
 } from "../../data-management/InteractWithBackendData";
 import { updateProducts } from "../../data-management/Reducers";
 
@@ -30,8 +31,6 @@ export default function ProductsTable() {
   ) {
     let response = {};
     if (guid !== "") {
-      console.log("editing existing product");
-
       response = await EditExistingProduct({
         guid,
         selectedFilter,
@@ -40,7 +39,6 @@ export default function ProductsTable() {
         unitCost,
       });
     } else {
-      console.log("pushing new product");
       response = await PushNewProduct({
         selectedFilter,
         modelName,
@@ -136,9 +134,14 @@ export default function ProductsTable() {
             icon: "delete",
             tooltip: "Remove product",
             onClick: (event, rowData) => {
-              confirmDialog("Do you really want to delete this?", () =>
-                console.log("deleting product from table!")
-              );
+              confirmDialog("Do you really want to delete this?", async () => {
+                const response = await deleteProduct(rowData.guid, rowData.key);
+
+                const flattenedProductData = flattenProductData(
+                  response.data.products
+                );
+                dispatch(updateProducts(flattenedProductData));
+              });
             },
           },
         ]}

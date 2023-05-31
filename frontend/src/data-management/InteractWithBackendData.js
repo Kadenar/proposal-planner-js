@@ -1,6 +1,24 @@
 import axios from "axios";
 
 /**
+ * Fetch all commissions in the database
+ * @returns
+ */
+export const FetchCommissions = async () => {
+  const commissions = await axios.get("http://localhost:4000/commissions");
+  return commissions.data || [];
+};
+
+/**
+ * Fetch all multipliers in the database
+ * @returns
+ */
+export const FetchMultipliers = async () => {
+  const multipliers = await axios.get("http://localhost:4000/multipliers");
+  return multipliers.data || [];
+};
+
+/**
  * Fetch all product types in the database
  * @returns
  */
@@ -28,26 +46,31 @@ export const FetchProductData = async () => {
 };
 
 /**
- * Edit an existing product in the database
- * @param {*} productInfo
+ * Creates a new product and adds it to the database
+ * @param {*} newProduct
  * @returns
  */
-export const AddGUIDs = async () => {
+export const PushNewProduct = async (newProduct) => {
+  const { selectedFilter, modelName, catalogNum, unitCost } = newProduct;
   const existingProductData = await FetchProductData();
 
-  const setObjectOfKeys = {};
-  Object.keys(existingProductData).forEach((key) => {
-    const arrayOfProductsForType = [...existingProductData[key]];
-
-    const newArrayOfProductsForType = arrayOfProductsForType.map((prod) => {
-      return { ...prod, guid: crypto.randomUUID() };
-    });
-
-    setObjectOfKeys[key] = newArrayOfProductsForType;
-  });
+  const productData = {
+    ...existingProductData,
+    [selectedFilter.standard_value]: [
+      ...(existingProductData[selectedFilter.standard_value] || []),
+      ...[
+        {
+          model: modelName,
+          catalog: catalogNum,
+          cost: unitCost,
+          guid: crypto.randomUUID(),
+        },
+      ],
+    ],
+  };
 
   const response = await axios
-    .post("http://localhost:4000/products", setObjectOfKeys)
+    .post("http://localhost:4000/products", productData)
     .then((res) => {
       return res;
     });
@@ -93,25 +116,25 @@ export const EditExistingProduct = async (productInfo) => {
  * @param {*} productName
  * @returns
  */
-export const deleteProduct = async (guid, selectedFilter) => {
+export const deleteProduct = async (guid, filter) => {
   const existingProductData = await FetchProductData();
-  const standard_value = selectedFilter.toLowerCase().replaceAll(" ", "_");
 
-  const index = existingProductData[standard_value].findIndex((existing) => {
+  const index = existingProductData[filter].findIndex((existing) => {
     return existing.guid === guid;
   });
 
-  const items = [...existingProductData];
+  const items = [...existingProductData[filter]];
   items.splice(index, 1);
 
-  console.log(items);
+  const newProductsData = { ...existingProductData };
+  newProductsData[filter] = items;
 
-  // const response = await axios
-  //   .post("http://localhost:4000/products", existingProductData)
-  //   .then((res) => {
-  //     return res;
-  //   });
-  return null;
+  const response = await axios
+    .post("http://localhost:4000/products", newProductsData)
+    .then((res) => {
+      return res;
+    });
+  return response;
 };
 
 /**
@@ -135,40 +158,29 @@ export const AddNewProductType = async (newType) => {
       return res;
     });
 
-  console.log(response);
   return response;
 };
 
 /**
- * Creates a new product and adds it to the database
- * @param {*} newProduct
+ * Delete a given product type from the database
+ * @param {*} productName
  * @returns
  */
-export const PushNewProduct = async (newProduct) => {
-  const { selectedFilter, modelName, catalogNum, unitCost } = newProduct;
-  const existingProductData = await FetchProductData();
+export const deleteProductType = async (name) => {
+  const existingProductTypes = await FetchProductTypes();
 
-  const productData = {
-    ...existingProductData,
-    [selectedFilter.standard_value]: [
-      ...(existingProductData[selectedFilter.standard_value] || []),
-      ...[
-        {
-          model: modelName,
-          catalog: catalogNum,
-          cost: unitCost,
-          guid: crypto.randomUUID(),
-        },
-      ],
-    ],
-  };
+  const index = existingProductTypes.findIndex((existing) => {
+    return existing.standard_value === name;
+  });
+
+  const newProductTypes = [...existingProductTypes];
+  newProductTypes.splice(index, 1);
 
   const response = await axios
-    .post("http://localhost:4000/products", productData)
+    .post("http://localhost:4000/types", newProductTypes)
     .then((res) => {
       return res;
     });
-
   return response;
 };
 
@@ -197,4 +209,32 @@ export const flattenProductData = (productData) => {
 export const getFlattenedProductData = async () => {
   const productData = await FetchProductData();
   return flattenProductData(productData);
+};
+
+/**
+ * Edit an existing product in the database
+ * @param {*} productInfo
+ * @returns
+ */
+export const AddGUIDs = async () => {
+  const existingProductData = await FetchProductData();
+
+  const setObjectOfKeys = {};
+  Object.keys(existingProductData).forEach((key) => {
+    const arrayOfProductsForType = [...existingProductData[key]];
+
+    const newArrayOfProductsForType = arrayOfProductsForType.map((prod) => {
+      return { ...prod, guid: crypto.randomUUID() };
+    });
+
+    setObjectOfKeys[key] = newArrayOfProductsForType;
+  });
+
+  const response = await axios
+    .post("http://localhost:4000/products", setObjectOfKeys)
+    .then((res) => {
+      return res;
+    });
+
+  return response;
 };

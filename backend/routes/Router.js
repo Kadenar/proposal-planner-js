@@ -5,111 +5,149 @@ const fs = require("fs");
 const router = express.Router();
 const cache = new NodeCache();
 
-router.post("/types", (req, res) => {
+const writeFileFunc = (path, req, res, errMsg, successMsg, cacheKey) => {
   const body = JSON.stringify(req.body, null, 2);
-
-  // TODO - replace with actual db file when done testing
-  fs.writeFile("editable-data/typesTesting.json", body, (err) => {
+  fs.writeFile(path, body, (err) => {
     if (err) {
-      console.log(`Product type could not be added - ${err}`);
+      console.log(`${errMsg} - ${err}`);
 
       res.send({
-        message: `Product type could not be added - ${err}`,
-        types: {},
+        message: `${errMsg} - ${err}`,
+        [cacheKey]: {},
       });
     } else {
-      console.log("Product type was added successfully!");
+      console.log(successMsg);
 
       res.send({
-        message: "Product type successfully added!",
-        types: req.body,
+        message: successMsg,
+        [cacheKey]: req.body,
       });
 
-      cache.set("types", req.body);
+      cache.set(cacheKey, req.body);
     }
   });
+};
+
+const readFileFunc = (path, res, cacheMsg, dbMsg, cacheKey) => {
+  if (cache.has(cacheKey)) {
+    console.log(cacheMsg);
+    res.send(cache.get(cacheKey));
+  } else {
+    console.log(dbMsg);
+
+    fs.readFile(path, "utf8", function (err, data) {
+      res.send(data);
+      cache.set(cacheKey, data);
+    });
+  }
+};
+
+router.post("/types", (req, res) => {
+  writeFileFunc(
+    "data/typesTesting.json",
+    req,
+    res,
+    "Product type could not be added",
+    "Product type was added successfully!",
+    "types"
+  );
 });
 
 // TODO - replace with actual db file when done testing
-
 router.get("/types", (req, res) => {
-  if (cache.has("types")) {
-    console.log("Fetching cached types.");
-    res.send(cache.get("types"));
-  } else {
-    console.log("Reading types from file system.");
-
-    fs.readFile(
-      "editable-data/typesTesting.json",
-      "utf8",
-      function (err, data) {
-        res.send(data);
-        cache.set("types", data);
-      }
-    );
-  }
+  readFileFunc(
+    "data/typesTesting.json",
+    res,
+    "Fetching cached types.",
+    "Reading types from file system.",
+    "types"
+  );
 });
 
 // TODO - replace with actual db file when done testing
 router.get("/products", (req, res) => {
-  if (cache.has("products")) {
-    console.log("Fetching cached products.");
-    res.send(cache.get("products"));
-  } else {
-    console.log("Reading products from file system.");
-
-    fs.readFile(
-      "editable-data/productsTesting.json",
-      "utf8",
-      function (err, data) {
-        res.send(data);
-        cache.set("products", data);
-      }
-    );
-  }
+  readFileFunc(
+    "data/productsTesting.json",
+    res,
+    "Fetching cached products.",
+    "Reading products from file system.",
+    "products"
+  );
 });
 
 // TODO - replace with actual db file when done testing
 router.post("/products", (req, res) => {
-  const body = JSON.stringify(req.body, null, 2);
-
-  fs.writeFile("editable-data/productsTesting.json", body, (err) => {
-    if (err) {
-      console.log(`Product could not be added - ${err}`);
-
-      res.send({
-        message: `Product could not be added - ${err}`,
-        products: {},
-      });
-    } else {
-      console.log("Product was added successfully!");
-
-      res.send({
-        message: "Product successfully added!",
-        products: req.body,
-      });
-
-      cache.set("products", req.body);
-    }
-  });
+  writeFileFunc(
+    "data/productsTesting.json",
+    req,
+    res,
+    "Product could not be added",
+    "Product was added successfully!",
+    "products"
+  );
 });
 
 router.get("/proposals", (req, res) => {
-  if (cache.has("proposals")) {
-    console.log("Fetching cached proposals.");
-    res.send(cache.get("proposals"));
-  } else {
-    console.log("Reading proposals from file system.");
+  readFileFunc(
+    "data/proposals.json",
+    res,
+    "Fetching cached proposals.",
+    "Reading proposals from file system.",
+    "proposals"
+  );
+});
 
-    fs.readFile(
-      "editable-data/proposals.json",
-      "utf8",
-      function (err, proposalData) {
-        res.send(proposalData);
-        cache.set("proposals", proposalData);
-      }
-    );
-  }
+router.post("/proposals", (req, res) => {
+  writeFileFunc(
+    "data/proposals.json",
+    req,
+    res,
+    "Proposal could not be added",
+    "Proposal was added successfully!",
+    "proposals"
+  );
+});
+
+router.get("/commissions", (req, res) => {
+  readFileFunc(
+    "data/commissions.json",
+    res,
+    "Fetching cached commissions.",
+    "Reading commissions from file system.",
+    "commissions"
+  );
+});
+
+router.post("/commissions", (req, res) => {
+  writeFileFunc(
+    "data/commissions.json",
+    req,
+    res,
+    "Commission could not be added",
+    "Commission was added successfully!",
+    "commissions"
+  );
+});
+
+router.get("/multipliers", (req, res) => {
+  readFileFunc(
+    "data/multipliers.json",
+    res,
+    "Fetching cached multipliers.",
+    "Reading multipliers from file system.",
+    "multipliers"
+  );
+});
+
+router.post("/multipliers", (req, res) => {
+  writeFileFunc(
+    "data/multipliers.json",
+    req,
+    res,
+    "Multiplier could not be added",
+    "Multiplier was added successfully!",
+    "multipliers"
+  );
 });
 
 module.exports = router;

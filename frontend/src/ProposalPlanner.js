@@ -2,14 +2,19 @@ import "./components/Pages/page-styles.css";
 import { useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
+import { batch } from "react-redux";
 import {
   getFlattenedProductData,
   FetchProductTypes,
+  FetchMultipliers,
+  FetchCommissions,
 } from "./data-management/InteractWithBackendData";
 
 import { Provider } from "react-redux";
 import PricingReducer, {
   updateFilters,
+  updateMultipliers,
+  updateCommissions,
   updateProducts,
 } from "./data-management/Reducers";
 import thunk from "redux-thunk";
@@ -22,7 +27,7 @@ import ProposalsPage from "./components/Pages/ProposalsPage";
 import ClientsPage from "./components/Pages/ClientsPage";
 import DatabasePage from "./components/Pages/DatabasePage";
 import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog";
-import ProductDialog from "./components/coreui/dialogs/EditProductDialog2";
+import ProductDialog from "./components/coreui/dialogs/ProductDialog";
 import ProductTypeDialog from "./components/coreui/dialogs/AddProductType";
 
 export default function ProposalPlanner() {
@@ -37,10 +42,16 @@ export default function ProposalPlanner() {
   useEffect(() => {
     const asyncFunc = async () => {
       const filterData = await FetchProductTypes();
+      const multipliers = await FetchMultipliers();
+      const commissions = await FetchCommissions();
       const productData = await getFlattenedProductData();
 
-      store.dispatch(updateFilters(filterData));
-      store.dispatch(updateProducts(productData));
+      batch(() => {
+        store.dispatch(updateFilters(filterData));
+        store.dispatch(updateProducts(productData));
+        store.dispatch(updateMultipliers(multipliers));
+        store.dispatch(updateCommissions(commissions));
+      });
     };
 
     asyncFunc();

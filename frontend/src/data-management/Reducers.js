@@ -7,7 +7,9 @@ const initialState = {
   selectedProduct: null,
   jobTableContents: [],
   unitCostTax: 8.375,
+  multipliers: [],
   multiplier: 1.6,
+  commissions: [],
   commission: 10.0,
   fees: {
     permit: {
@@ -155,6 +157,14 @@ const unitCostTax = (state = initialState.unitCostTax, action) => {
   return state;
 };
 
+const multipliers = (state = initialState.multipliers, action) => {
+  if (action.type === "UPDATE_MULTIPLIERS") {
+    return action.value;
+  }
+
+  return state;
+};
+
 /**
  * Reducer used for updating the multiplier to be applied to the pricing
  * @param {*} state
@@ -163,6 +173,20 @@ const unitCostTax = (state = initialState.unitCostTax, action) => {
  */
 const multiplier = (state = initialState.multiplier, action) => {
   if (action.type === "UPDATE_MULTIPLIER") {
+    return action.value;
+  }
+
+  return state;
+};
+
+/**
+ * Reducer used for updating the commissions available
+ * @param {*} state
+ * @param {*} value
+ * @returns
+ */
+const commissions = (state = initialState.commissions, action) => {
+  if (action.type === "UPDATE_COMMISSIONS") {
     return action.value;
   }
 
@@ -259,7 +283,9 @@ const allReducers = combineReducers({
   selectedProduct, // the selected product
   jobTableContents, // the contents the user has added to the table for pricing out a job
   unitCostTax,
+  multipliers,
   multiplier,
+  commissions,
   commission,
   fees,
   labor,
@@ -276,6 +302,8 @@ const PricingReducer = (state, action) => {
         allProducts: state.allProducts,
         filters: state.filters,
         selectedProposal: state.selectedProposal,
+        commissions: state.commissions,
+        multipliers: state.multipliers,
       },
       action
     );
@@ -300,9 +328,23 @@ export function updateUnitCostTax(value) {
   };
 }
 
+export function updateMultipliers(value) {
+  return {
+    type: "UPDATE_MULTIPLIERS",
+    value,
+  };
+}
+
 export function updateMultiplier(value) {
   return {
     type: "UPDATE_MULTIPLIER",
+    value,
+  };
+}
+
+export function updateCommissions(value) {
+  return {
+    type: "UPDATE_COMMISSIONS",
     value,
   };
 }

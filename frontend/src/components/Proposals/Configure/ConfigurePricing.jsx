@@ -1,5 +1,4 @@
 import React from "react";
-import * as Constants from "../../../Constants";
 
 import { updateFee } from "../../../data-management/Reducers";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,8 +49,8 @@ export function ConfigureFees() {
 }
 
 export function ConfigureCommission() {
+  const commissions = useSelector((state) => state.commissions);
   const commission = useSelector((state) => state.commission);
-
   const dispatch = useDispatch();
 
   return (
@@ -65,10 +64,10 @@ export function ConfigureCommission() {
         label="Commission"
         onChange={(e) => dispatch(updateCommission(e.target.value))}
       >
-        {Constants.COMMISSION_OPTIONS.map((commission, index) => {
+        {commissions.map((commission, index) => {
           return (
-            <MenuItem key={index} value={commission}>
-              {commission}
+            <MenuItem key={index} value={commission.value}>
+              {commission.value}
             </MenuItem>
           );
         })}
@@ -100,6 +99,7 @@ export function ConfigureUnitCostTax() {
  * @returns
  */
 export function ConfigureMultiplier() {
+  const multipliers = useSelector((state) => state.multipliers);
   const multiplier = useSelector((state) => state.multiplier);
   const dispatch = useDispatch();
 
@@ -114,10 +114,10 @@ export function ConfigureMultiplier() {
         label="Multiplier"
         onChange={(e) => dispatch(updateMultiplier(e.target.value))}
       >
-        {Constants.MULTIPLIER_OPTIONS.map((multiplier, index) => {
+        {multipliers.map((multiplier, index) => {
           return (
-            <MenuItem key={index} value={multiplier}>
-              {multiplier}
+            <MenuItem key={index} value={multiplier.value}>
+              {multiplier.value}
             </MenuItem>
           );
         })}
