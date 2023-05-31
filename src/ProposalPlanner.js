@@ -1,42 +1,69 @@
 import "./components/Pages/page-styles.css";
-
+import { useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
+import {
+  getFlattenedProductData,
+  FetchProductTypes,
+} from "./data-management/InteractWithBackendData";
 
-import Home from "./components/Pages/Home";
-import Jobs from "./components/Pages/JobVisualizer";
-import Navbar from "./components/coreui/Sidebar/Navbar";
-import Proposals from "./components/Pages/Proposals";
-import Clients from "./components/Pages/Clients";
 import { Provider } from "react-redux";
-import rootReducer from "./reducers/rootReducers";
+import PricingReducer, {
+  updateFilters,
+  updateProducts,
+} from "./data-management/Reducers";
 import thunk from "redux-thunk";
 
 // PAGES
-
-import Products from "./components/Pages/Products";
+import HomePage from "./components/Pages/HomePage";
+import JobsPage from "./components/Pages/JobsPage";
+import Navbar from "./components/coreui/Sidebar/Navbar";
+import ProposalsPage from "./components/Pages/ProposalsPage";
+import ClientsPage from "./components/Pages/ClientsPage";
+import DatabasePage from "./components/Pages/DatabasePage";
+import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog";
+import ProductDialog from "./components/coreui/dialogs/EditProductDialog2";
+import ProductTypeDialog from "./components/coreui/dialogs/AddProductType";
 
 export default function ProposalPlanner() {
   // Create our redux store to manage the state of our application when pricing out a job
-  const store = createStore(rootReducer, applyMiddleware(thunk));
+  const store = createStore(PricingReducer, applyMiddleware(thunk));
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
   // TODO - Remove this when done - only temporary to log the state when it changes
   store.subscribe(() => console.log(store.getState()));
-  //console.log(store.getState());
+
+  // Initialize the available products and filters for the system to use (loaded from back-end server)
+  useEffect(() => {
+    const asyncFunc = async () => {
+      const filterData = await FetchProductTypes();
+      const productData = await getFlattenedProductData();
+
+      store.dispatch(updateFilters(filterData));
+      store.dispatch(updateProducts(productData));
+    };
+
+    asyncFunc();
+  }, [store]);
+
   // Return our tabs
   return (
-    <Provider store={store}>
-      <Router>
-        <Navbar />
-        <Routes classname="routesContent">
-          <Route path="/" exact element={<Home />} />
-          <Route path="/clients" exact element={<Clients />}/>
-          <Route path="/proposals" exact element={<Proposals />} />
-          <Route path="/jobs" exact element={<Jobs />} />
-          <Route path="/products" exact element={<Products />} />
-        </Routes>
-      </Router>
-    </Provider>
+    <>
+      <ConfirmDialog />
+      <ProductDialog />
+      <ProductTypeDialog />
+      <Provider store={store}>
+        <Router>
+          <Navbar />
+          <Routes classname="routesContent">
+            <Route path="/" exact element={<HomePage />} />
+            <Route path="/clients" exact element={<ClientsPage />} />
+            <Route path="/proposals" exact element={<ProposalsPage />} />
+            <Route path="/jobs" exact element={<JobsPage />} />
+            <Route path="/database" exact element={<DatabasePage />} />
+          </Routes>
+        </Router>
+      </Provider>
+    </>
   );
 }

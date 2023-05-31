@@ -4,12 +4,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import React from "react";
-import Slide from "@mui/material/Slide";
+// import Slide from "@mui/material/Slide";
 import { styled } from "@mui/material/styles";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="down" ref={ref} {...props} />;
+// });
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -29,11 +29,12 @@ const BasicDialog = ({
 }) => {
   return (
     <BootstrapDialog
-      TransitionComponent={Transition}
       PaperProps={{
         style: {
           minHeight: "50vh",
-          minWidth: "25vw",
+          minWidth: "300px",
+          maxWidth: "700px",
+          width: "50vw",
         },
       }}
       open={open}

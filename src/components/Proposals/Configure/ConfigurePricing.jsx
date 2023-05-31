@@ -1,9 +1,8 @@
+import React from "react";
 import * as Constants from "../../../Constants";
 
-import { updateFee } from "../../../reducers/rootReducers";
+import { updateFee } from "../../../data-management/Reducers";
 import { useDispatch, useSelector } from "react-redux";
-
-import React from "react";
 
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -13,8 +12,16 @@ import MenuItem from "@mui/material/MenuItem";
 import { Stack } from "@mui/material";
 import { TextField } from "@material-ui/core";
 import Select from "@mui/material/Select";
-import { updateCommission, updateUnitCostTax, updateMultiplier, updateLaborCost, updateLaborQuantity } from "../../../reducers/rootReducers";
+import {
+  updateCommission,
+  updateUnitCostTax,
+  updateMultiplier,
+  updateLaborCost,
+  updateLaborQuantity,
+} from "../../../data-management/Reducers";
 
+// This class is responsible for allowing configuring all of the editable fields for a given proposal such as:
+// Fees, commissions, unit cost tax, labor, etc
 
 export function ConfigureFees() {
   const fees = useSelector((state) => state.fees);
@@ -171,4 +178,3 @@ export function ConfigureLabor() {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -39,22 +39,26 @@ export default function SidebarDrawer({
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-          <List>
+          <List
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+          >
             {SidebarData.map((item, index) => (
               <Link key={index} to={item.path}>
                 <ListItem
-                  sx={[
-                    {
-                      "&:hover": {
-                        color: "white",
-                        backgroundColor: "#1976d2",
-                      },
+                  sx={{
+                    "&:hover": {
+                      color: "white",
+                      backgroundColor: "#1976d2",
                     },
-                  ]}
+                  }}
                   button
                   key={index}
                 >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemIcon sx={{ paddingLeft: "5px", marginLeft: "5px" }}>
+                    {item.icon}
+                  </ListItemIcon>
                   <ListItemText primary={item.title} />
                 </ListItem>
               </Link>

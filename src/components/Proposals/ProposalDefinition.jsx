@@ -1,26 +1,53 @@
 import { Button, Stack } from "@mui/material";
 import React, { useState } from "react";
 
-import AddProduct from "./Configure/AddProduct";
 import Alert from "@mui/material/Alert";
-import BasicDialogue from "../coreui/BasicDialog";
-import ChooseProduct from "./Configure/ChooseProduct";
-import Box from '@mui/material/Box';
+import BasicDialogue from "../coreui/dialogs/BasicDialog";
+import AddProductContent from "./Configure/AddProductContent";
+import AddProductAction from "./Configure/AddProductAction";
+import Box from "@mui/material/Box";
 
 import PricingTable from "./Table/PricingTable";
 import { Snackbar } from "@material-ui/core";
-import { resetProposal } from "../../reducers/rootReducers";
-import { useDispatch } from "react-redux";
-import jsonData from '../../data/proposals.json';
-import { useSelector } from 'react-redux';
+import { resetProposal } from "../../data-management/Reducers";
+import { useDispatch, useSelector } from "react-redux";
+import { FetchProposalData } from "../../data-management/InteractWithBackendData";
 
 // TODO
-function saveProposal(value) {
-  const existingProposals = JSON.parse(JSON.stringify(jsonData));
-  // Find entry corresponding to the proposal we are saving
-  if (existingProposals.find((proposal) => proposal.name === value.selectedProposal)) {
-    // Need to find a way to write to file system using Node server
+async function saveProposal(value) {
+  const existingProposals = await FetchProposalData();
+  console.log(value);
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  const proposalJson = {
+    name: value.name,
+    dateCreated: `${month}/${day}/${year}`,
+    description: value.description,
+    date: {
+      commission: value.commission,
+      fees: {
+        value,
+      },
+    },
+  };
+
+  const index = existingProposals.findIndex((proposal) => {
+    return proposal.name === value.name;
+  });
+
+  console.log(`found index ${index}`);
+  const newProposalData = [...existingProposals];
+
+  if (index > 0) {
+    newProposalData[index] = value;
+  } else {
+    newProposalData.push(value);
   }
+
+  console.log(newProposalData);
 }
 
 /**
@@ -46,7 +73,7 @@ export default function ProposalDefinition() {
 
     setShowSnackbar({ title: "", show: false, status: "success" });
   };
-  
+
   const selectedProposal = useSelector((state) => state.selectedProposal);
   const models = useSelector((state) => state.jobTableContents);
   const unitCostTax = useSelector((state) => state.unitCostTax);
@@ -60,8 +87,8 @@ export default function ProposalDefinition() {
     unitCostTax,
     multiplier,
     commission,
-    fees
-  }
+    fees,
+  };
 
   return (
     <>
@@ -69,11 +96,15 @@ export default function ProposalDefinition() {
         {/* Button for clearing the table contents */}
         <>
           {/* Button for adding a product */}
-          
-            <Button variant="contained" sx={{paddingRight: '5px'}} onClick={() => setShowProductModal(true)}>
-              Add a product
-            </Button>
-            <Box sx={{flexGrow: 1 }}>
+
+          <Button
+            variant="contained"
+            sx={{ paddingRight: "5px" }}
+            onClick={() => setShowProductModal(true)}
+          >
+            Add a product
+          </Button>
+          <Box sx={{ flexGrow: 1 }}>
             <Button
               variant="contained"
               onClick={() => {
@@ -93,7 +124,6 @@ export default function ProposalDefinition() {
             Save proposal
           </Button>
         </>
-        
       </Stack>
       <Stack paddingTop="20px" gap="20px">
         {/* Include our pricing table */}
@@ -125,9 +155,9 @@ export default function ProposalDefinition() {
         handleClose={() => {
           setShowProductModal(false);
         }}
-        content={<ChooseProduct />}
+        content={<AddProductContent />}
         actions={
-          <AddProduct
+          <AddProductAction
             onSubmitHandler={() => setShowProductModal(false)}
             showSnackBar={(title, status) => {
               setShowSnackbar({

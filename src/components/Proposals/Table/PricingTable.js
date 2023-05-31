@@ -1,3 +1,6 @@
+import React, { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+
 import {
   Paper,
   TableBody,
@@ -6,14 +9,18 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { useMemo, useState } from "react";
 
 import { CollapsibleRow } from "./CollapsibleRow";
-import { ConfigureUnitCostTax, ConfigureMultiplier, ConfigureCommission, ConfigureFees, ConfigureLabor } from "../Configure/ConfigurePricing";
+import {
+  ConfigureUnitCostTax,
+  ConfigureMultiplier,
+  ConfigureCommission,
+  ConfigureFees,
+  ConfigureLabor,
+} from "../Configure/ConfigurePricing";
 import Table from "@mui/material/Table";
-import { useSelector } from "react-redux";
 import { withStyles } from "@material-ui/styles";
-import BasicDialogue from "../../coreui/BasicDialog";
+import BasicDialogue from "../../coreui/dialogs/BasicDialog";
 import { Snackbar } from "@material-ui/core";
 import Alert from "@mui/material/Alert";
 
@@ -30,25 +37,6 @@ const StyledTableCell = withStyles((theme) => ({
     width: "200px",
   },
 }))(BoldedTableCell);
-
-// Handle formatting input cells with a '$' in front
-function ccyFormat(num) {
-  if (!num) {
-    num = 0;
-  }
-
-  return `${"$" + Number(num).toFixed(2)}`;
-}
-
-// Calculate the total cost of labor
-function calculateLabor(labor) {
-  let totalLabor = 0;
-  Object.keys(labor).forEach((key) => {
-    totalLabor += labor[key].qty * labor[key].cost;
-  });
-
-  return totalLabor;
-}
 
 /**
  * A table component for rendering data
@@ -128,11 +116,7 @@ export default function PricingTable() {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table
-          stickyHeader={true}
-          sx={{ minWidth: 700 }}
-          aria-label="products table"
-        >
+        <Table stickyHeader={true} aria-label="products table">
           {/* Table header */}
           <TableHead>
             {/* First row contains details and price grouping */}
@@ -167,10 +151,7 @@ export default function PricingTable() {
               ))
             ) : (
               <TableRow>
-                <BoldedTableCell
-                  align="center"
-                  colSpan={5}
-                >
+                <BoldedTableCell align="center" colSpan={5}>
                   No content yet
                 </BoldedTableCell>
               </TableRow>
@@ -312,4 +293,23 @@ export default function PricingTable() {
       </Snackbar>
     </>
   );
+}
+
+// Handle formatting input cells with a '$' in front
+function ccyFormat(num) {
+  if (!num) {
+    num = 0;
+  }
+
+  return `${"$" + Number(num).toFixed(2)}`;
+}
+
+// Calculate the total cost of labor
+function calculateLabor(labor) {
+  let totalLabor = 0;
+  Object.keys(labor).forEach((key) => {
+    totalLabor += labor[key].qty * labor[key].cost;
+  });
+
+  return totalLabor;
 }

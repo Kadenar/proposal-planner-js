@@ -1,18 +1,9 @@
 import { combineReducers } from "redux";
-import filters_data from "../components/ProductsTable/filters";
-import { getFlattenedProductData } from "../data/product-data";
-
-const flattenedProducts = getFlattenedProductData();
 
 const initialState = {
-  selectedProposal: '',
-  filters_data,
-  selectedFilter: filters_data[6],
-  allProducts: flattenedProducts,
-  productsForFilter: flattenedProducts.filter(
-    (product) => product.name === filters_data[6].standard_value
-    // TODO change this back to 0 when air handlers is available
-  ),
+  selectedProposal: "",
+  filters_data: [],
+  allProducts: [], // This is initialized during program execution
   selectedProduct: null,
   jobTableContents: [],
   unitCostTax: 8.375,
@@ -90,20 +81,6 @@ const filters = (state = initialState.filters_data, action) => {
 };
 
 /**
- * Reducer for updating the selected filter from set of available filters
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const selectedFilter = (state = initialState.selectedFilter, action) => {
-  if (action.type === "UPDATE_FILTER") {
-    return action.value;
-  }
-
-  return state;
-};
-
-/**
  * Reducer for updating the available products
  * @param {*} state
  * @param {*} value
@@ -117,27 +94,13 @@ const allProducts = (state = initialState.allProducts, action) => {
   return state;
 };
 
-/**
- * Reducer for updating the products to select from based on selected filter
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const productsForFilter = (state = initialState.productsForFilter, action) => {
-  if (action.type === "UPDATE_PRODUCTS_FOR_FILTER") {
+const selectedProposal = (state = initialState.selectedProposal, action) => {
+  if (action.type === "SELECT_PROPOSAL") {
     return action.value;
   }
 
   return state;
 };
-
-const selectedProposal = (state = initialState.selectedProposal, action) => {
-  if(action.type === "SELECT_PROPOSAL") {
-    return action.value;
-  }
-
-  return state;
-}
 
 /**
  * Reducer for updating the selected product
@@ -166,7 +129,6 @@ const jobTableContents = (state = initialState.jobTableContents, action) => {
       ...action.value,
       key: state.length,
     });
-    
     return state;
   } else if (action.type === "REMOVE_ROW") {
     const idxToRemove = action.value;
@@ -293,9 +255,7 @@ const costOfJob = (state = initialState.costOfJob, action) => {
  */
 const allReducers = combineReducers({
   filters, // the available filters
-  selectedFilter, // the currently active filter
   allProducts, // all of the products available
-  productsForFilter, // the products available based on active filter
   selectedProduct, // the selected product
   jobTableContents, // the contents the user has added to the table for pricing out a job
   unitCostTax,
@@ -309,13 +269,27 @@ const allReducers = combineReducers({
 });
 
 // The root reducer for handling resetting the state
-const rootReducer = (state, action) => {
+const PricingReducer = (state, action) => {
   if (action.type === "RESET_PROPOSAL") {
-    return allReducers({selectedProposal: state.selectedProposal}, action);
+    return allReducers(
+      {
+        allProducts: state.allProducts,
+        filters: state.filters,
+        selectedProposal: state.selectedProposal,
+      },
+      action
+    );
   }
 
   return allReducers(state, action);
 };
+
+export function updateFilters(value) {
+  return {
+    type: "UPDATE_FILTERS",
+    value,
+  };
+}
 
 export function updateUnitCostTax(value) {
   const numValue = isNaN(parseFloat(value, 10)) ? null : parseFloat(value, 10);
@@ -370,16 +344,9 @@ export function updateLaborQuantity(key, value) {
   };
 }
 
-export function updateActiveFilter(value) {
+export function updateProducts(value) {
   return {
-    type: "UPDATE_FILTER",
-    value,
-  };
-}
-
-export function updateActiveProducts(value) {
-  return {
-    type: "UPDATE_PRODUCTS_FOR_FILTER",
+    type: "UPDATE_PRODUCTS",
     value,
   };
 }
@@ -414,8 +381,8 @@ export function resetProposal() {
 export function updateSelectedProposal(value) {
   return {
     type: "SELECT_PROPOSAL",
-    value
-  }
+    value,
+  };
 }
 
-export default rootReducer;
+export default PricingReducer;

@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 // TODO Placeholder
-export default function JobVisualizer() {
+export default function JobsPage() {
   return (
     <Box className="jobs">
       <Stack spacing={2} sx={{ width: "100%" }}>

@@ -1,6 +1,8 @@
 [
     {
         "name" : "Sample 1",
+        "description": "Test proposal",
+        "dateCreated" : "01/01/01",
         "data": {
             "models": [
                 {
@@ -71,6 +73,8 @@
     },
     {
         "name" : "test2",
+        "description": "Test proposal 2",
+        "dateCreated" : "02/02/02",
         "data": {
             "models": [
                 
