@@ -17,26 +17,15 @@ import {
   ConfigureCommission,
   ConfigureFees,
   ConfigureLabor,
-} from "../Configure/ConfigurePricing";
+} from "../PricingInputs";
 import Table from "@mui/material/Table";
-import { withStyles } from "@material-ui/styles";
 import BasicDialogue from "../../coreui/dialogs/BasicDialog";
 import { Snackbar } from "@material-ui/core";
 import Alert from "@mui/material/Alert";
-
-// Table cell with just bolding
-const BoldedTableCell = withStyles((theme) => ({
-  root: {
-    fontWeight: "bold",
-  },
-}))(TableCell);
-
-// Table cell with min width and bolding
-const StyledTableCell = withStyles((theme) => ({
-  root: {
-    width: "200px",
-  },
-}))(BoldedTableCell);
+import {
+  StyledTableCell,
+  BoldedTableCell,
+} from "../../coreui/StyledComponents";
 
 /**
  * A table component for rendering data
@@ -69,7 +58,7 @@ export default function PricingTable() {
   const tableRows = useMemo(() => {
     return rows.map((row) => {
       return {
-        model: row.label,
+        model: row.name,
         catalog: row.catalogNum,
         qty: row.quantity,
         unit: row.unitCost,

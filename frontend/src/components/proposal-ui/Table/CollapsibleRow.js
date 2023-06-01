@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -33,7 +33,7 @@ export function CollapsibleRow({
   breakdown = [],
   configure = () => {},
 }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <>

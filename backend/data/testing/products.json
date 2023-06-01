@@ -136,5 +136,33 @@
       "cost": "2566",
       "guid": "e22abf0a-4f94-4038-b1f4-6e23cfb0bba5"
     }
-  ]
+  ],
+  "air_handlers": [
+    {
+      "model": "test 1",
+      "catalog": "test 1",
+      "cost": "2342",
+      "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294"
+    },
+    {
+      "model": "test 234",
+      "catalog": "trstsr",
+      "cost": "432423",
+      "guid": "4a8e03a4-cd0a-4906-9213-4dd1ae5a9bdc"
+    },
+    {
+      "model": "test 1324",
+      "catalog": "test 2345 ",
+      "cost": "23442",
+      "guid": "06c0a951-659b-4a18-85ab-352dc745a109"
+    },
+    {
+      "model": "fasdfas",
+      "catalog": "fdsafsdfasd",
+      "cost": "423423",
+      "guid": "a3cb11db-386d-4b6c-a236-082204ad600a"
+    }
+  ],
+  "My test": [],
+  "misc_materials": []
 }

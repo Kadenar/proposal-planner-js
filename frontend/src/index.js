@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import ProposalPlanner from "./ProposalPlanner";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <div className="App">
+      <ProposalPlanner />
+    </div>
   </React.StrictMode>,
   document.getElementById("root")
 );

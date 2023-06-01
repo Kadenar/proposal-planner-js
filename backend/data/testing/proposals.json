@@ -1,0 +1,223 @@
+[
+  {
+    "name": "Sample 1",
+    "description": "Test proposal",
+    "dateCreated": "01/01/23",
+    "dateModified": "01/01/23",
+    "client": "Paul Sydney",
+    "guid": "28190eb1-39bb-43cd-afbc-1d0e4f94f10c",
+    "data": {
+      "models": [
+        {
+          "name": "XP25-036-230 Heat Pump 3 Ton/230",
+          "catalogNum": "98W17",
+          "qty": "1",
+          "unitCost": "5008"
+        },
+        {
+          "name": "XP14-030-230 HEAT PUMP/2.5Ton/230-1",
+          "catalogNum": "81W94",
+          "qty": "1",
+          "unitCost": "1723"
+        }
+      ],
+      "unitCostTax": "8.575",
+      "labor": {
+        "twoMenEightHours": {
+          "qty": "1",
+          "cost": "680.00"
+        },
+        "twoMenSixteenHours": {
+          "qty": "0",
+          "cost": "1360.00"
+        },
+        "twoMenTwentyHours": {
+          "qty": "0",
+          "cost": "1700"
+        },
+        "threeMenTwentyFourHours": {
+          "qty": "0",
+          "cost": "2040"
+        },
+        "threeMenThirtyHours": {
+          "qty": "0",
+          "cost": "2550"
+        },
+        "subcontractors": {
+          "qty": "0",
+          "cost": "0"
+        }
+      },
+      "fees": {
+        "permit": {
+          "qty": "1",
+          "cost": "300"
+        },
+        "financing": {
+          "qty": "1",
+          "cost": "0"
+        },
+        "tempTank": {
+          "qty": "1",
+          "cost": "0"
+        },
+        "removal": {
+          "qty": "1",
+          "cost": "0"
+        },
+        "rebates": {
+          "qty": "1",
+          "cost": "0"
+        }
+      },
+      "multiplier": "1.5",
+      "commission": "8"
+    }
+  },
+  {
+    "name": "test2",
+    "description": "Test proposal 2",
+    "dateCreated": "03/23/23",
+    "dateModified": "05/01/23",
+    "client": "Gustavo Fring",
+    "guid": "7d1b9bb5-e242-4140-ad4b-f9872941a13a",
+    "data": {
+      "models": [],
+      "unitCostTax": "8.375",
+      "labor": {
+        "twoMenEightHours": {
+          "qty": "1",
+          "cost": "680.00"
+        },
+        "twoMenSixteenHours": {
+          "qty": "0",
+          "cost": "1360.00"
+        },
+        "twoMenTwentyHours": {
+          "qty": "0",
+          "cost": "1700"
+        },
+        "threeMenTwentyFourHours": {
+          "qty": "0",
+          "cost": "2040"
+        },
+        "threeMenThirtyHours": {
+          "qty": "0",
+          "cost": "2550"
+        },
+        "subcontractors": {
+          "qty": "0",
+          "cost": "0"
+        }
+      },
+      "fees": {
+        "permit": {
+          "qty": "1",
+          "cost": "300"
+        },
+        "financing": {
+          "qty": "1",
+          "cost": "0"
+        },
+        "tempTank": {
+          "qty": "1",
+          "cost": "0"
+        },
+        "removal": {
+          "qty": "1",
+          "cost": "0"
+        },
+        "rebates": {
+          "qty": "1",
+          "cost": "0"
+        }
+      },
+      "multiplier": "1.6",
+      "commission": "10"
+    }
+  },
+  {
+    "name": "test 3",
+    "description": "test 3",
+    "dateCreated": "5/31/2023",
+    "dateModified": "6/1/2023",
+    "client": "Testing",
+    "guid": "88c760f7-d112-4c71-8d83-b6c5020314b5",
+    "data": {
+      "models": [
+        {
+          "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294",
+          "name": "test 1",
+          "catalogNum": "test 1",
+          "unitCost": "2342",
+          "totalCost": null,
+          "key": 0
+        }
+      ],
+      "unitCostTax": 12.375,
+      "labor": {
+        "twoMenEightHours": {
+          "name": "(2) men (8) hours",
+          "qty": 0,
+          "cost": 680
+        },
+        "twoMenSixteenHours": {
+          "name": "(2) men (16) hours",
+          "qty": 0,
+          "cost": 1360
+        },
+        "twoMenTwentyHours": {
+          "name": "(2) men (20) hours",
+          "qty": 0,
+          "cost": 1700
+        },
+        "threeMenTwentyFourHours": {
+          "name": "(3) men (24) hours",
+          "qty": 0,
+          "cost": 2040
+        },
+        "threeMenThirtyHours": {
+          "name": "(3) men (30) hours",
+          "qty": 0,
+          "cost": 2550
+        },
+        "subcontractor": {
+          "name": "Sub contractor labor",
+          "qty": 1,
+          "cost": 0
+        },
+        "labor": {
+          "qty": null,
+          "cost": null
+        }
+      },
+      "fees": {
+        "permit": {
+          "name": "Permit fee",
+          "cost": 300
+        },
+        "financing": {
+          "name": "Financing fee",
+          "cost": 0
+        },
+        "tempTank": {
+          "name": "Temp tank fee",
+          "cost": 0
+        },
+        "removal": {
+          "name": "Removal fee",
+          "cost": 0
+        },
+        "rebates": {
+          "name": "Rebates",
+          "cost": 0
+        },
+        "fees": {
+          "cost": null
+        }
+      },
+      "multiplier": 1.7,
+      "commission": 10
+    }
+  }
+]

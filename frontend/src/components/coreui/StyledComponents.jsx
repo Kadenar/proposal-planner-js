@@ -2,7 +2,11 @@ import Tab, { tabClasses } from "@mui/base/Tab";
 import { buttonClasses } from "@mui/base/Button";
 import TabsList from "@mui/base/TabsList";
 import TabPanel from "@mui/base/TabPanel";
-import { styled } from "@mui/material/styles";
+import { emphasize, styled } from "@mui/material/styles";
+import Chip from "@mui/material/Chip";
+import { Dialog } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+import { TableCell } from "@mui/material";
 
 const blue = {
   50: "#F0F7FF",
@@ -30,13 +34,57 @@ const grey = {
   900: "#24292f",
 };
 
+// Table cell with just bolding
+export const BoldedTableCell = withStyles((theme) => ({
+  root: {
+    fontWeight: "bold",
+  },
+}))(TableCell);
+
+// Table cell with min width and bolding
+export const StyledTableCell = withStyles((theme) => ({
+  root: {
+    width: "200px",
+  },
+}))(BoldedTableCell);
+
+export const StyledBootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
+export const StyledBreadcrumb = styled(Chip)(({ theme }) => {
+  const backgroundColor =
+    theme.palette.mode === "light"
+      ? theme.palette.grey[100]
+      : theme.palette.grey[800];
+  return {
+    backgroundColor,
+    height: theme.spacing(3),
+    marginBottom: "15px",
+    color: theme.palette.text.primary,
+    fontWeight: theme.typography.fontWeightRegular,
+    "&:hover, &:focus": {
+      backgroundColor: emphasize(backgroundColor, 0.06),
+    },
+    "&:active": {
+      boxShadow: theme.shadows[1],
+      backgroundColor: emphasize(backgroundColor, 0.12),
+    },
+  };
+});
+
 export const StyledTab = styled(Tab)`
   font-family: IBM Plex Sans, sans-serif;
   color: #fff;
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 600;
-  background-color: transparent;
+  background-color: ${blue[400]};
   width: 100%;
   padding: 10px 12px;
   margin: 6px 6px;
@@ -46,7 +94,7 @@ export const StyledTab = styled(Tab)`
   justify-content: center;
 
   &:hover {
-    background-color: ${blue[400]};
+    background-color: ${blue[200]};
   }
 
   &:focus {

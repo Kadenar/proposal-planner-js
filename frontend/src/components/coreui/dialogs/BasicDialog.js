@@ -1,24 +1,14 @@
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import React from "react";
+import { StyledBootstrapDialog } from "../StyledComponents";
 // import Slide from "@mui/material/Slide";
-import { styled } from "@mui/material/styles";
 
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //   return <Slide direction="down" ref={ref} {...props} />;
 // });
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
 
 const BasicDialog = ({
   header = "Basic dialog",
@@ -28,7 +18,7 @@ const BasicDialog = ({
   handleClose = () => {},
 }) => {
   return (
-    <BootstrapDialog
+    <StyledBootstrapDialog
       PaperProps={{
         style: {
           minHeight: "50vh",
@@ -55,7 +45,7 @@ const BasicDialog = ({
           </Button>
         )}
       </DialogActions>
-    </BootstrapDialog>
+    </StyledBootstrapDialog>
   );
 };
 

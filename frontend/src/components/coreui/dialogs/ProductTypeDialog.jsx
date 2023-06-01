@@ -1,6 +1,4 @@
-import { useState } from "react";
 import {
-  Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
@@ -9,62 +7,27 @@ import {
 import { Stack } from "@mui/material";
 import { TextField } from "@material-ui/core";
 import { create } from "zustand";
-import { styled } from "@mui/material/styles";
-import { Snackbar } from "@material-ui/core";
-import Alert from "@mui/material/Alert";
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+import { StyledBootstrapDialog } from "../StyledComponents";
 
 const useProductTypeStore = create((set) => ({
   header: "",
   onSubmit: undefined,
-  validateOnSubmit: undefined,
   productType: "",
   updateProductType: (productType) => set(() => ({ productType: productType })),
   close: () => set({ onSubmit: undefined }),
 }));
 
 const ProductTypeDialog = () => {
-  const { onSubmit, validateOnSubmit, close } = useProductTypeStore();
+  const { onSubmit, close } = useProductTypeStore();
 
   const [productType, updateProductType] = useProductTypeStore((state) => [
     state.productType,
     state.updateProductType,
   ]);
 
-  const [snackBarInfo, setSnackbarInfo] = useState({
-    title: "",
-    show: false,
-    status: "success",
-  });
-
-  const showSnackbar = (title, status) => {
-    setSnackbarInfo({
-      title: title,
-      show: true,
-      status,
-    });
-  };
-
-  // Handle closing the snackbar
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackbarInfo({ title: "", show: false, status: "success" });
-  };
-
   return (
     <>
-      <BootstrapDialog
+      <StyledBootstrapDialog
         PaperProps={{
           style: {
             minWidth: "300px",
@@ -99,49 +62,30 @@ const ProductTypeDialog = () => {
             color="primary"
             variant="contained"
             onClick={async () => {
-              if (validateOnSubmit(productType) === undefined) {
-                if (onSubmit) {
-                  showSnackbar("Successfully added type!", "success");
-                  await onSubmit(productType);
-                }
-
+              if (!onSubmit) {
                 close();
-              } else {
-                showSnackbar("Product type already exists!", "error");
+                return;
+              }
+
+              const isValid = await onSubmit(productType);
+
+              if (isValid) {
+                close();
               }
             }}
           >
             Confirm
           </Button>
         </DialogActions>
-      </BootstrapDialog>
-      <Snackbar
-        open={snackBarInfo.show}
-        autoHideDuration={2000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackBarInfo.status}
-          sx={{ width: "100%" }}
-        >
-          {snackBarInfo.title}
-        </Alert>
-      </Snackbar>
+      </StyledBootstrapDialog>
     </>
   );
 };
 
-export const productTypeDialog = (
-  header,
-  productType,
-  validateOnSubmit,
-  onSubmit
-) => {
+export const productTypeDialog = ({ header, productType, onSubmit }) => {
   useProductTypeStore.setState({
     header,
     productType,
-    validateOnSubmit,
     onSubmit,
   });
 };

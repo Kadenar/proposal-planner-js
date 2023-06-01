@@ -1,11 +1,10 @@
-import ProposalDefinition from "../Proposals/ProposalDefinition";
-import DocumentationDefinition from "./DocumentationDefinition";
+import ProposalJobPricing from "./ProposalJobPricing";
+import ProposalJobDocumentation from "./ProposalJobDocumentation";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { emphasize, styled } from "@mui/material/styles";
+
 import Tabs from "@mui/base/Tabs";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Chip from "@mui/material/Chip";
 import HomeIcon from "@mui/icons-material/Home";
 import { updateSelectedProposal } from "../../data-management/Reducers";
 import { Stack } from "@mui/material";
@@ -13,37 +12,17 @@ import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-} from "../coreui/StyledTabs";
+  StyledBreadcrumb,
+} from "../coreui/StyledComponents";
 
-const StyledBreadcrumb = styled(Chip)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === "light"
-      ? theme.palette.grey[100]
-      : theme.palette.grey[800];
-  return {
-    backgroundColor,
-    height: theme.spacing(3),
-    marginBottom: "15px",
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightRegular,
-    "&:hover, &:focus": {
-      backgroundColor: emphasize(backgroundColor, 0.06),
-    },
-    "&:active": {
-      boxShadow: theme.shadows[1],
-      backgroundColor: emphasize(backgroundColor, 0.12),
-    },
-  };
-});
-
-export default function ProposalDefinitionWrapper() {
+export default function ProposalTabs() {
   const selectedProposal = useSelector((state) => state.selectedProposal);
   const dispatch = useDispatch();
 
   // Handle navigating back to the main table of proposals
   function navigateBackToAllProposalsTable(event) {
     event.preventDefault();
-    dispatch(updateSelectedProposal(""));
+    dispatch(updateSelectedProposal(null));
   }
 
   return (
@@ -58,7 +37,7 @@ export default function ProposalDefinitionWrapper() {
               sx={{ cursor: "pointer" }}
             />
           </div>
-          <StyledBreadcrumb component="a" label={selectedProposal} />
+          <StyledBreadcrumb component="a" label={selectedProposal.name} />
         </Breadcrumbs>
       </Stack>
       <Tabs defaultValue={0}>
@@ -67,10 +46,10 @@ export default function ProposalDefinitionWrapper() {
           <StyledTab value={1}>Documentation</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
-          <ProposalDefinition />
+          <ProposalJobPricing />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
-          <DocumentationDefinition />
+          <ProposalJobDocumentation />
         </StyledTabPanel>
       </Tabs>
     </div>

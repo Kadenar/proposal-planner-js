@@ -1,13 +1,14 @@
 import React from "react";
-import ProductsTable from "../ProductsTable/ProductsTable";
-import ProductTypesTable from "../ProductsTable/ProductTypesTable";
+import ProductsTable from "../database-ui/ProductsTable";
+import ProductTypesTable from "../database-ui/ProductTypesTable";
+import CommissionMultipliers from "../database-ui/CommissionMultipliers";
 
 import Tabs from "@mui/base/Tabs";
 import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-} from "../coreui/StyledTabs";
+} from "../coreui/StyledComponents";
 
 export default function DatabasePage() {
   return (
@@ -16,12 +17,16 @@ export default function DatabasePage() {
         <StyledTabsList>
           <StyledTab value={0}>Products</StyledTab>
           <StyledTab value={1}>Product types</StyledTab>
+          <StyledTab value={2}>Commissions & Multipliers</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
           <ProductsTable />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
           <ProductTypesTable />
+        </StyledTabPanel>
+        <StyledTabPanel value={2}>
+          <CommissionMultipliers />
         </StyledTabPanel>
       </Tabs>
     </div>

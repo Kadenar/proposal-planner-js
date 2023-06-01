@@ -4,10 +4,6 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
-import InputAdornment from "@mui/material/InputAdornment";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import { Stack } from "@mui/material";
 import { TextField } from "@material-ui/core";
 import { Autocomplete } from "@mui/material";
@@ -15,48 +11,44 @@ import { create } from "zustand";
 import { StyledBootstrapDialog } from "../StyledComponents";
 
 const useProductDialogStore = create((set) => ({
-  header: "",
-  guid: "",
   onSubmit: undefined,
+  filters: [],
   selectedFilter: "",
-  modelName: "",
-  catalogNum: "",
-  unitCost: "",
+  allModels: [],
+  selectedProduct: {},
+  quantity: 0,
   updateSelectedFilter: (selectedFilter) =>
     set(() => ({ selectedFilter: selectedFilter })),
-  updateModelName: (modelName) => set(() => ({ modelName: modelName })),
-  updateCatalogNum: (catalogNum) => set(() => ({ catalogNum: catalogNum })),
-  updateUnitCost: (unitCost) => set(() => ({ unitCost: unitCost })),
+  updateSelectedProduct: (selectedProduct) =>
+    set(() => ({ selectedProduct: selectedProduct })),
+  updateQuantity: (quantity) => set(() => ({ quantity: quantity })),
   close: () => set({ onSubmit: undefined }),
 }));
 
-const ProductDialog = () => {
-  const { header, onSubmit, close, guid, filters } = useProductDialogStore();
+const AddProductToProposalDialog = () => {
+  const { onSubmit, close, filters, allModels } = useProductDialogStore();
 
   const [selectedFilter, updateSelectedFilter] = useProductDialogStore(
     (state) => [state.selectedFilter, state.updateSelectedFilter]
   );
 
-  const [modelName, updateModelName] = useProductDialogStore((state) => [
-    state.modelName,
-    state.updateModelName,
+  const [selectedProduct, updateSelectedProduct] = useProductDialogStore(
+    (state) => [state.selectedProduct, state.updateSelectedProduct]
+  );
+
+  const [quantity, updateQuantity] = useProductDialogStore((state) => [
+    state.quantity,
+    state.updateQuantity,
   ]);
 
-  const [catalogNum, updateCatalogNum] = useProductDialogStore((state) => [
-    state.catalogNum,
-    state.updateCatalogNum,
-  ]);
-
-  const [unitCost, updateUnitCost] = useProductDialogStore((state) => [
-    state.unitCost,
-    state.updateUnitCost,
-  ]);
+  const models = allModels[selectedFilter.standard_value] || [];
 
   return (
     <>
       <StyledBootstrapDialog
         PaperProps={{
           style: {
+            minHeight: "50vh",
             minWidth: "300px",
             maxWidth: "700px",
             width: "50vw",
@@ -66,20 +58,20 @@ const ProductDialog = () => {
         onClose={close}
         maxWidth="sm"
         fullWidth
+        scroll={"paper"}
       >
-        <DialogTitle>{header}</DialogTitle>
+        <DialogTitle>Add product to this proposal</DialogTitle>
         <DialogContent>
           <div style={{ paddingTop: "5px" }}>
             <Stack spacing={2}>
               <Autocomplete
                 disablePortal
                 id="filters"
-                disabled={guid !== ""}
-                options={filters}
                 getOptionLabel={(option) => option.label}
                 getOptionSelected={(option, value) => {
-                  return option.standard_value === value.standard_value;
+                  return option.guid === value.guid;
                 }}
+                options={filters}
                 value={selectedFilter}
                 renderInput={(params) => (
                   <div ref={params.InputProps.ref}>
@@ -88,35 +80,33 @@ const ProductDialog = () => {
                 )}
                 onChange={(event, value) => {
                   updateSelectedFilter(value);
+                  updateSelectedProduct(undefined);
+                }}
+              />
+              <Autocomplete
+                disablePortal
+                id="models"
+                options={models}
+                getOptionLabel={(option) => option.model}
+                getOptionSelected={(option, value) => {
+                  return option.guid === value.guid;
+                }}
+                value={selectedProduct}
+                renderInput={(params) => (
+                  <TextField {...params} label="Model name" />
+                )}
+                onChange={(event, value) => {
+                  updateSelectedProduct(value);
                 }}
               />
               <TextField
-                label="Model name"
-                value={modelName}
+                label="Quantity"
+                type="number"
+                value={quantity}
                 onChange={({ target: { value } }) => {
-                  updateModelName(value);
+                  updateQuantity(value);
                 }}
               />
-              <TextField
-                label="Catalog #"
-                value={catalogNum || ""}
-                onChange={({ target: { value } }) => {
-                  updateCatalogNum(value);
-                }}
-              />
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="unit-cost-amount">Unit cost</InputLabel>
-                <Input
-                  type="number"
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  value={unitCost || ""}
-                  onChange={({ target: { value } }) => {
-                    updateUnitCost(value);
-                  }}
-                />
-              </FormControl>
             </Stack>
           </div>
         </DialogContent>
@@ -133,16 +123,12 @@ const ProductDialog = () => {
                 return;
               }
 
-              const returnValue = await onSubmit(
-                selectedFilter,
-                modelName,
-                catalogNum,
-                unitCost
-              );
-
+              const returnValue = await onSubmit(selectedProduct, quantity);
               if (returnValue) {
                 close();
               }
+
+              return returnValue;
             }}
           >
             Confirm
@@ -153,26 +139,22 @@ const ProductDialog = () => {
   );
 };
 
-export const productDialog = ({
-  header,
-  guid,
-  filters,
+export const addProductToProposalDialog = ({
+  filters = [],
   selectedFilter,
-  modelName,
-  catalogNum,
-  unitCost,
+  allModels = [],
+  selectedProduct,
+  quantity,
   onSubmit,
 }) => {
   useProductDialogStore.setState({
-    header,
-    guid,
     filters,
     selectedFilter,
-    modelName,
-    catalogNum,
-    unitCost,
+    allModels,
+    selectedProduct,
+    quantity,
     onSubmit,
   });
 };
 
-export default ProductDialog;
+export default AddProductToProposalDialog;

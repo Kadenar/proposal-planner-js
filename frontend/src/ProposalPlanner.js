@@ -1,34 +1,38 @@
-import "./components/Pages/page-styles.css";
+import "./components/landingpages/page-styles.css";
 import { useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
-import { batch } from "react-redux";
+import { batch, Provider } from "react-redux";
 import {
-  getFlattenedProductData,
-  FetchProductTypes,
-  FetchMultipliers,
-  FetchCommissions,
+  fetchProducts,
+  fetchMultipliers,
+  fetchCommissions,
+  fetchProductTypes,
+  fetchProposals,
 } from "./data-management/InteractWithBackendData";
-
-import { Provider } from "react-redux";
 import PricingReducer, {
   updateFilters,
   updateMultipliers,
   updateCommissions,
   updateProducts,
+  updateProposals,
 } from "./data-management/Reducers";
 import thunk from "redux-thunk";
 
-// PAGES
-import HomePage from "./components/Pages/HomePage";
-import JobsPage from "./components/Pages/JobsPage";
 import Navbar from "./components/coreui/Sidebar/Navbar";
-import ProposalsPage from "./components/Pages/ProposalsPage";
-import ClientsPage from "./components/Pages/ClientsPage";
-import DatabasePage from "./components/Pages/DatabasePage";
 import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog";
 import ProductDialog from "./components/coreui/dialogs/ProductDialog";
-import ProductTypeDialog from "./components/coreui/dialogs/AddProductType";
+import ProductTypeDialog from "./components/coreui/dialogs/ProductTypeDialog";
+import AddProductToProposalDialog from "./components/coreui/dialogs/AddProductToProposalDialog";
+import NewProposalDialog from "./components/coreui/dialogs/NewProposalDialog";
+import CustomSnackbar from "./components/coreui/CustomSnackbar";
+
+// PAGES
+import HomePage from "./components/landingpages/HomePage";
+import JobsPage from "./components/landingpages/JobsPage";
+import ProposalsPage from "./components/landingpages/ProposalsPage";
+import ClientsPage from "./components/landingpages/ClientsPage";
+import DatabasePage from "./components/landingpages/DatabasePage";
 
 export default function ProposalPlanner() {
   // Create our redux store to manage the state of our application when pricing out a job
@@ -41,16 +45,18 @@ export default function ProposalPlanner() {
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
     const asyncFunc = async () => {
-      const filterData = await FetchProductTypes();
-      const multipliers = await FetchMultipliers();
-      const commissions = await FetchCommissions();
-      const productData = await getFlattenedProductData();
+      const productData = await fetchProducts();
+      const filterData = await fetchProductTypes();
+      const multipliers = await fetchMultipliers();
+      const commissions = await fetchCommissions();
+      const proposals = await fetchProposals();
 
       batch(() => {
         store.dispatch(updateFilters(filterData));
         store.dispatch(updateProducts(productData));
         store.dispatch(updateMultipliers(multipliers));
         store.dispatch(updateCommissions(commissions));
+        store.dispatch(updateProposals(proposals));
       });
     };
 
@@ -60,9 +66,12 @@ export default function ProposalPlanner() {
   // Return our tabs
   return (
     <>
+      <CustomSnackbar />
+      <NewProposalDialog />
       <ConfirmDialog />
       <ProductDialog />
       <ProductTypeDialog />
+      <AddProductToProposalDialog />
       <Provider store={store}>
         <Router>
           <Navbar />

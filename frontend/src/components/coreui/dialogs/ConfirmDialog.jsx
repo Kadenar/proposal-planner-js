@@ -37,11 +37,17 @@ const ConfirmDialog = () => {
         <Button
           color="primary"
           variant="contained"
-          onClick={() => {
-            if (onSubmit) {
-              onSubmit();
+          onClick={async () => {
+            if (!onSubmit) {
+              close();
+              return;
             }
-            close();
+
+            const returnValue = await onSubmit();
+
+            if (returnValue) {
+              close();
+            }
           }}
         >
           Confirm
@@ -51,7 +57,7 @@ const ConfirmDialog = () => {
   );
 };
 
-export const confirmDialog = (message, onSubmit) => {
+export const confirmDialog = ({ message, onSubmit }) => {
   useConfirmDialogStore.setState({
     message,
     onSubmit,

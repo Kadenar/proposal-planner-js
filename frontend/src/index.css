@@ -13,7 +13,7 @@ code {
     monospace;
 }
 
-.MuiButton-root {
+/* .MuiButton-root {
   background-color: #1565c0 !important;
   border-bottom-color: #1565c0 !important;
   height: 36.5px !important;
@@ -21,4 +21,4 @@ code {
   min-width: 64px !important;
   padding: 16px 6px 16px 6px !important;
   border-radius: 4px !important;
-}
+} */

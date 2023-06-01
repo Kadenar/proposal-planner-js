@@ -1,6 +1,6 @@
 import React from "react";
 
-import { updateFee } from "../../../data-management/Reducers";
+import { updateFee } from "../../data-management/Reducers";
 import { useDispatch, useSelector } from "react-redux";
 
 import FormControl from "@mui/material/FormControl";
@@ -17,7 +17,7 @@ import {
   updateMultiplier,
   updateLaborCost,
   updateLaborQuantity,
-} from "../../../data-management/Reducers";
+} from "../../data-management/Reducers";
 
 // This class is responsible for allowing configuring all of the editable fields for a given proposal such as:
 // Fees, commissions, unit cost tax, labor, etc

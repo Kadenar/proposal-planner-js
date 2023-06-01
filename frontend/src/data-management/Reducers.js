@@ -1,16 +1,17 @@
 import { combineReducers } from "redux";
 
 const initialState = {
-  selectedProposal: "",
-  filters_data: [],
+  filters_data: [], // This is initialized during program execution
   allProducts: [], // This is initialized during program execution
+  multipliers: [], // This is initialized during program execution
+  commissions: [], // This is initialized during program execution
+  allProposals: [],
+  multiplier: 1.6,
+  commission: 10.0,
+  unitCostTax: 8.375,
+  selectedProposal: null,
   selectedProduct: null,
   jobTableContents: [],
-  unitCostTax: 8.375,
-  multipliers: [],
-  multiplier: 1.6,
-  commissions: [],
-  commission: 10.0,
   fees: {
     permit: {
       name: "Permit fee",
@@ -96,6 +97,26 @@ const allProducts = (state = initialState.allProducts, action) => {
   return state;
 };
 
+/**
+ * Reducer for updating the available proposals
+ * @param {*} state
+ * @param {*} action
+ * @returns
+ */
+const allProposals = (state = initialState.allProposals, action) => {
+  if (action.type === "UPDATE_PROPOSALS") {
+    return action.value;
+  }
+
+  return state;
+};
+
+/**
+ * Reducer for updating the actively selected proposal
+ * @param {*} state
+ * @param {*} action
+ * @returns
+ */
 const selectedProposal = (state = initialState.selectedProposal, action) => {
   if (action.type === "SELECT_PROPOSAL") {
     return action.value;
@@ -290,7 +311,7 @@ const allReducers = combineReducers({
   fees,
   labor,
   costOfJob,
-  resetProposal,
+  allProposals,
   selectedProposal,
 });
 
@@ -300,6 +321,7 @@ const PricingReducer = (state, action) => {
     return allReducers(
       {
         allProducts: state.allProducts,
+        allProposals: state.allProposals,
         filters: state.filters,
         selectedProposal: state.selectedProposal,
         commissions: state.commissions,
@@ -417,6 +439,13 @@ export function removeProductFromTable(index) {
 export function resetProposal() {
   return {
     type: "RESET_PROPOSAL",
+  };
+}
+
+export function updateProposals(value) {
+  return {
+    type: "UPDATE_PROPOSALS",
+    value,
   };
 }
 

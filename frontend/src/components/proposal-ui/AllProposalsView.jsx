@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback } from "react";
 
-import { useDispatch, batch } from "react-redux";
+import { useDispatch, batch, useSelector } from "react-redux";
 import MaterialTable from "material-table";
 import { Stack } from "@mui/material";
+import { updateStore } from "../../data-management/Dispatcher";
+
+import {
+  addProposal,
+  deleteProposal,
+} from "../../data-management/InteractWithBackendData";
 
 import {
   updateCommission,
@@ -14,41 +20,35 @@ import {
   updateLaborCost,
   addProductToTable,
   resetProposal,
+  updateProposals,
 } from "../../data-management/Reducers";
-import { FetchProposalData } from "../../data-management/InteractWithBackendData";
+
 import { CircularProgress } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
+import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
 
-export default function ListOfExistingProposals() {
+export default function ExistingProposals() {
   const dispatch = useDispatch();
-  const [allProposals, setProposals] = useState(null);
-
-  useEffect(() => {
-    const asyncFunc = async () => {
-      const proposals = await FetchProposalData();
-      setProposals(proposals);
-    };
-
-    return asyncFunc();
-  }, []);
+  const allProposals = useSelector((state) => state.allProposals);
 
   const selectProposal = useCallback(
     (value) => {
       // Batch to prevent multiple rerenders
       batch(() => {
-        dispatch(updateSelectedProposal(value.name));
+        // Handle the job table contents
+        dispatch(resetProposal());
+
+        dispatch(updateSelectedProposal(value));
         dispatch(updateUnitCostTax(value.data.unitCostTax));
         dispatch(updateCommission(value.data.commission));
         dispatch(updateMultiplier(value.data.multiplier));
 
-        // Handle the job table contents
-        dispatch(resetProposal());
-
         value.data.models.forEach((model) => {
           dispatch(
             addProductToTable({
-              label: model.name,
+              guid: model.guid,
+              name: model.name,
               catalogNum: model.catalogNum,
               unitCost: model.unitCost,
               quantity: model.qty,
@@ -79,22 +79,49 @@ export default function ListOfExistingProposals() {
   return (
     <Stack padding={2} gap={2}>
       <Stack spacing={1} direction="row" justifyContent="flex-end">
-        <Button variant="contained">Create new proposal</Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            newProposalDialog({
+              name: "",
+              description: "",
+              onSubmit: async (name, description) => {
+                return updateStore({
+                  dispatch,
+                  dbOperation: async () =>
+                    addProposal({
+                      name,
+                      description,
+                    }),
+                  methodToDispatch: updateProposals,
+                  dataKey: "proposals",
+                  successMessage: "Successfully added new proposal!",
+                });
+              },
+            });
+          }}
+        >
+          Create new proposal
+        </Button>
       </Stack>
       <MaterialTable
         title={""}
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
-          { title: "Date", field: "date" },
+          { title: "Client", field: "client" },
+          { title: "Date created", field: "dateCreated" },
+          { title: "Date modified", field: "dateModified" },
         ]}
         data={allProposals.map((proposal) => {
           return {
-            type:
-              proposal.name.charAt(0).toUpperCase() + proposal.name.slice(1),
+            type: proposal.guid,
             name: proposal.name,
             description: proposal.description,
-            date: proposal.dateCreated,
+            client: proposal.client,
+            dateCreated: proposal.dateCreated,
+            dateModified: proposal.dateModified,
+            guid: proposal.guid,
             data: proposal.data,
           };
         })}
@@ -108,11 +135,22 @@ export default function ListOfExistingProposals() {
           },
           {
             icon: "delete",
-            tooltip: "Remove product",
+            tooltip: "Delete proposal",
             onClick: (event, rowData) => {
-              confirmDialog("Do you really want to delete this?", () =>
-                console.log("deleting all the data!")
-              );
+              confirmDialog({
+                message:
+                  "Do you really want to delete this? This action cannot be undone.",
+                onSubmit: async () => {
+                  return updateStore({
+                    dispatch,
+                    dbOperation: async () =>
+                      deleteProposal({ guid: rowData.guid }),
+                    methodToDispatch: updateProposals,
+                    dataKey: "proposals",
+                    successMessage: `Successfully deleted ${rowData.label}`,
+                  });
+                },
+              });
             },
           },
         ]}
