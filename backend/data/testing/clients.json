@@ -1,0 +1,60 @@
+[
+  {
+    "address": "43A Secor Rd",
+    "apt": "",
+    "state": "CT",
+    "city": "Brookfield",
+    "zip": "06804",
+    "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
+    "accountNum": "new account 2",
+    "name": "Kyle Steike",
+    "phone": "8455190575",
+    "email": "ksteike1@gmail.com"
+  },
+  {
+    "address": "Some address",
+    "apt": "",
+    "state": "NY",
+    "city": "Poughquag",
+    "zip": "2",
+    "guid": "3e188b45-d50c-4ac6-bceb-5fd014bcd757",
+    "name": "Sammy Giuliano",
+    "accountNum": "new account"
+  },
+  {
+    "name": "Tim Fernandez",
+    "address": "13 Kelly Ridge Rd",
+    "apt": "",
+    "state": "NY",
+    "city": "Carmel",
+    "zip": "10512",
+    "guid": "50eaa137-8883-4eb4-815b-0e2239be204e"
+  },
+  {
+    "name": "Katie Steike",
+    "address": "150 Huntington Ave",
+    "apt": "Apt NL7",
+    "state": "MA",
+    "city": "Boston",
+    "zip": "10615",
+    "guid": "4ed95159-f4db-4c10-aeac-abbef57259e3"
+  },
+  {
+    "name": "Paul Sydney",
+    "address": "36 Brook Trail",
+    "apt": "",
+    "state": "NY",
+    "city": "Carmel",
+    "zip": "10512",
+    "guid": "3905d785-d347-4b40-87d4-446034c88efa"
+  },
+  {
+    "name": "Hannah Dosset",
+    "address": "Somewhere",
+    "apt": "",
+    "state": "GA",
+    "city": "City",
+    "zip": "05416",
+    "guid": "8c60ddd1-fe06-4730-b704-f26a6633b40e"
+  }
+]

@@ -8,6 +8,29 @@ const cache = new NodeCache();
 // The starting file path for fetching json files from
 const filePath = "data/testing";
 
+// CLIENTS \\
+router.get("/clients", (req, res) => {
+  readFileFunc(
+    `${filePath}/clients.json`,
+    res,
+    "Fetching cached clients.",
+    "Reading clients from file system.",
+    "clients"
+  );
+});
+
+router.post("/clients", (req, res) => {
+  writeFileFunc(
+    `${filePath}/clients.json`,
+    req,
+    res,
+    "Client could not be updated",
+    "Client update was successful!",
+    "clients"
+  );
+});
+
+// PRODUCTS \\
 router.get("/products", (req, res) => {
   readFileFunc(
     `${filePath}/products.json`,
@@ -23,23 +46,13 @@ router.post("/products", (req, res) => {
     `${filePath}/products.json`,
     req,
     res,
-    "Product could not be added",
-    "Product was added successfully!",
+    "Product could not be updated",
+    "Product update was successful!",
     "products"
   );
 });
 
-router.post("/types", (req, res) => {
-  writeFileFunc(
-    `${filePath}/productTypes.json`,
-    req,
-    res,
-    "Product type could not be added",
-    "Product type was added successfully!",
-    "types"
-  );
-});
-
+// PRODUCT TYPES \\
 router.get("/types", (req, res) => {
   readFileFunc(
     `${filePath}/productTypes.json`,
@@ -50,6 +63,18 @@ router.get("/types", (req, res) => {
   );
 });
 
+router.post("/types", (req, res) => {
+  writeFileFunc(
+    `${filePath}/productTypes.json`,
+    req,
+    res,
+    "Product type could not be updated",
+    "Product type update was successful!",
+    "types"
+  );
+});
+
+// PROPOSALS \\
 router.get("/proposals", (req, res) => {
   readFileFunc(
     `${filePath}/proposals.json`,
@@ -65,12 +90,13 @@ router.post("/proposals", (req, res) => {
     `${filePath}/proposals.json`,
     req,
     res,
-    "Proposal could not be added",
-    "Proposal was added successfully!",
+    "Proposal could not be updated",
+    "Proposal update was successful!",
     "proposals"
   );
 });
 
+// COMMISSIONS \\
 router.get("/commissions", (req, res) => {
   readFileFunc(
     `${filePath}/commissions.json`,
@@ -86,12 +112,13 @@ router.post("/commissions", (req, res) => {
     `${filePath}/commissions.json`,
     req,
     res,
-    "Commission could not be added",
-    "Commission was added successfully!",
+    "Commission could not be updated",
+    "Commission update was successful!",
     "commissions"
   );
 });
 
+// MULTIPLIERS \\
 router.get("/multipliers", (req, res) => {
   readFileFunc(
     `${filePath}/multipliers.json`,
@@ -107,8 +134,8 @@ router.post("/multipliers", (req, res) => {
     `${filePath}/multipliers.json`,
     req,
     res,
-    "Multiplier could not be added",
-    "Multiplier was added successfully!",
+    "Multiplier could not be updated",
+    "Multiplier updated was successful!",
     "multipliers"
   );
 });

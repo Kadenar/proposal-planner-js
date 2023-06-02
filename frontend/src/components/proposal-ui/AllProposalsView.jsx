@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 
 import { useDispatch, batch, useSelector } from "react-redux";
-import MaterialTable from "material-table";
-import { Stack } from "@mui/material";
+import MaterialTable from "@material-table/core";
+import { Stack, CircularProgress, Button } from "@mui/material";
 import { updateStore } from "../../data-management/Dispatcher";
 
 import {
@@ -23,14 +23,13 @@ import {
   updateProposals,
 } from "../../data-management/Reducers";
 
-import { CircularProgress } from "@material-ui/core";
-import Button from "@mui/material/Button";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
 
 export default function ExistingProposals() {
   const dispatch = useDispatch();
   const allProposals = useSelector((state) => state.allProposals);
+  const allClients = useSelector((state) => state.allClients);
 
   const selectProposal = useCallback(
     (value) => {
@@ -85,13 +84,16 @@ export default function ExistingProposals() {
             newProposalDialog({
               name: "",
               description: "",
-              onSubmit: async (name, description) => {
+              selectedClient: {},
+              allClients,
+              onSubmit: async (name, description, selectedClient) => {
                 return updateStore({
                   dispatch,
                   dbOperation: async () =>
                     addProposal({
                       name,
                       description,
+                      client: selectedClient,
                     }),
                   methodToDispatch: updateProposals,
                   dataKey: "proposals",
@@ -125,6 +127,11 @@ export default function ExistingProposals() {
             data: proposal.data,
           };
         })}
+        options={{
+          pageSizeOptions: [5, 10, 15, 20],
+          pageSize: 15,
+          actionsColumnIndex: -1,
+        }}
         actions={[
           {
             icon: "settings",
@@ -154,11 +161,6 @@ export default function ExistingProposals() {
             },
           },
         ]}
-        options={{
-          pageSizeOptions: [5, 10, 15, 20],
-          pageSize: 15,
-          actionsColumnIndex: -1,
-        }}
       />
     </Stack>
   );

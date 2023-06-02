@@ -54,13 +54,5 @@
   {
     "label": "Misc materials",
     "standard_value": "misc_materials"
-  },
-  {
-    "label": "test 1",
-    "standard_value": "test_1"
-  },
-  {
-    "label": "test 2",
-    "standard_value": "test_2"
   }
 ]

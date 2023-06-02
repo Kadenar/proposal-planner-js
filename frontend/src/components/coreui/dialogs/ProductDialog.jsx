@@ -3,16 +3,17 @@ import {
   DialogContent,
   DialogActions,
   Button,
-} from "@material-ui/core";
-import InputAdornment from "@mui/material/InputAdornment";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
-import { Stack } from "@mui/material";
-import { TextField } from "@material-ui/core";
-import { Autocomplete } from "@mui/material";
+  TextField,
+  Stack,
+  Input,
+  Autocomplete,
+  InputLabel,
+  FormControl,
+  InputAdornment,
+} from "@mui/material";
 import { create } from "zustand";
 import { StyledBootstrapDialog } from "../StyledComponents";
+import FileUpload from "../FileUpload";
 
 const useProductDialogStore = create((set) => ({
   header: "",
@@ -69,56 +70,53 @@ const ProductDialog = () => {
       >
         <DialogTitle>{header}</DialogTitle>
         <DialogContent>
-          <div style={{ paddingTop: "5px" }}>
-            <Stack spacing={2}>
-              <Autocomplete
-                disablePortal
-                id="filters"
-                disabled={guid !== ""}
-                options={filters}
-                getOptionLabel={(option) => option.label}
-                getOptionSelected={(option, value) => {
-                  return option.standard_value === value.standard_value;
-                }}
-                value={selectedFilter}
-                renderInput={(params) => (
-                  <div ref={params.InputProps.ref}>
-                    <TextField {...params} label="Product type" />
-                  </div>
-                )}
-                onChange={(event, value) => {
-                  updateSelectedFilter(value);
-                }}
-              />
-              <TextField
-                label="Model name"
-                value={modelName}
+          <Stack paddingTop={3} spacing={2}>
+            <Autocomplete
+              disablePortal
+              id="filters"
+              disabled={guid !== ""}
+              options={filters}
+              getOptionLabel={(option) => option.label}
+              getOptionSelected={(option, value) => {
+                return option.standard_value === value.standard_value;
+              }}
+              value={selectedFilter}
+              renderInput={(params) => (
+                <TextField {...params} label="Product type" />
+              )}
+              onChange={(event, value) => {
+                updateSelectedFilter(value);
+              }}
+            />
+            <TextField
+              label="Model name"
+              value={modelName}
+              onChange={({ target: { value } }) => {
+                updateModelName(value);
+              }}
+            />
+            <TextField
+              label="Catalog #"
+              value={catalogNum || ""}
+              onChange={({ target: { value } }) => {
+                updateCatalogNum(value);
+              }}
+            />
+            <FormControl fullWidth sx={{ m: 1 }}>
+              <InputLabel htmlFor="unit-cost-amount">Unit cost</InputLabel>
+              <Input
+                type="number"
+                startAdornment={
+                  <InputAdornment position="start">$</InputAdornment>
+                }
+                value={unitCost || ""}
                 onChange={({ target: { value } }) => {
-                  updateModelName(value);
+                  updateUnitCost(value);
                 }}
               />
-              <TextField
-                label="Catalog #"
-                value={catalogNum || ""}
-                onChange={({ target: { value } }) => {
-                  updateCatalogNum(value);
-                }}
-              />
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="unit-cost-amount">Unit cost</InputLabel>
-                <Input
-                  type="number"
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  value={unitCost || ""}
-                  onChange={({ target: { value } }) => {
-                    updateUnitCost(value);
-                  }}
-                />
-              </FormControl>
-            </Stack>
-          </div>
+            </FormControl>
+            {/* <FileUpload /> */}
+          </Stack>
         </DialogContent>
         <DialogActions>
           <Button color="secondary" variant="contained" onClick={close}>

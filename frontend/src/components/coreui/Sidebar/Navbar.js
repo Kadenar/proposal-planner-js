@@ -4,17 +4,15 @@ import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import SidebarDrawer from "./SidebarDrawer";
-import { Toolbar } from "@material-ui/core";
+import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useLocation } from "react-router-dom";
-
-// DATA FILE
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const location = useLocation();
 
-  // Hacky solution for setting the header in the appbar for now
+  // TODO Hacky solution for setting the header in the appbar for now
   let header = location.pathname.substring(1);
 
   if (header !== "") {

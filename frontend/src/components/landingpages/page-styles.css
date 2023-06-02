@@ -7,8 +7,7 @@
   height: 75vh;
 }
 
-.home,
-.jobs {
+.landing-page {
   display: flex;
   height: 90vh;
   align-items: center;

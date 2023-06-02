@@ -4,12 +4,12 @@ import {
   DialogContent,
   DialogActions,
   Button,
-} from "@material-ui/core";
-import { Stack } from "@mui/material";
-import { TextField } from "@material-ui/core";
+  Stack,
+  TextField,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import { create } from "zustand";
-import { Snackbar } from "@material-ui/core";
-import Alert from "@mui/material/Alert";
 import { StyledBootstrapDialog } from "../StyledComponents";
 const useScalarValueStore = create((set) => ({
   header: "",
@@ -76,6 +76,7 @@ const AddScalarValueDialog = () => {
                 onChange={({ target: { value } }) => {
                   updateValue(value);
                 }}
+                autoFocus
               />
             </Stack>
           </div>

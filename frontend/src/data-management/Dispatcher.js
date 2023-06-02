@@ -11,7 +11,7 @@ export async function updateStore({
 
   if (!response) {
     showSnackbar({
-      title: "Some random db/io operation is failing?!?!!?",
+      title: "Database operation returned no response.",
       show: true,
       status: "error",
     });

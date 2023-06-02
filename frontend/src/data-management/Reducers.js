@@ -5,10 +5,12 @@ const initialState = {
   allProducts: [], // This is initialized during program execution
   multipliers: [], // This is initialized during program execution
   commissions: [], // This is initialized during program execution
+  allClients: [], // This is initialized during program execution
   allProposals: [],
   multiplier: 1.6,
   commission: 10.0,
   unitCostTax: 8.375,
+  selectedClient: null,
   selectedProposal: null,
   selectedProduct: null,
   jobTableContents: [],
@@ -84,6 +86,20 @@ const filters = (state = initialState.filters_data, action) => {
 };
 
 /**
+ * Reducer for updating the clients
+ * @param {*} state
+ * @param {*} value
+ * @returns
+ */
+const allClients = (state = initialState.allClients, action) => {
+  if (action.type === "UPDATE_CLIENTS") {
+    return action.value;
+  }
+
+  return state;
+};
+
+/**
  * Reducer for updating the available products
  * @param {*} state
  * @param {*} value
@@ -119,6 +135,14 @@ const allProposals = (state = initialState.allProposals, action) => {
  */
 const selectedProposal = (state = initialState.selectedProposal, action) => {
   if (action.type === "SELECT_PROPOSAL") {
+    return action.value;
+  }
+
+  return state;
+};
+
+const selectedClient = (state = initialState.selectedClient, action) => {
+  if (action.type === "SELECT_CLIENT") {
     return action.value;
   }
 
@@ -243,10 +267,6 @@ const fees = (state = initialState.fees, action) => {
         cost: action.value,
       },
     };
-    // return {
-    //   ...state,
-    //   [action.key]: action.value,
-    // };
   }
 
   return state;
@@ -313,6 +333,8 @@ const allReducers = combineReducers({
   costOfJob,
   allProposals,
   selectedProposal,
+  allClients,
+  selectedClient,
 });
 
 // The root reducer for handling resetting the state
@@ -326,6 +348,7 @@ const PricingReducer = (state, action) => {
         selectedProposal: state.selectedProposal,
         commissions: state.commissions,
         multipliers: state.multipliers,
+        allClients: state.allClients,
       },
       action
     );
@@ -452,6 +475,20 @@ export function updateProposals(value) {
 export function updateSelectedProposal(value) {
   return {
     type: "SELECT_PROPOSAL",
+    value,
+  };
+}
+
+export function updateSelectedClient(value) {
+  return {
+    type: "SELECT_CLIENT",
+    value,
+  };
+}
+
+export function updateClients(value) {
+  return {
+    type: "UPDATE_CLIENTS",
     value,
   };
 }

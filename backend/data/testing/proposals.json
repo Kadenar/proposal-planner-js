@@ -137,87 +137,65 @@
     }
   },
   {
-    "name": "test 3",
-    "description": "test 3",
-    "dateCreated": "5/31/2023",
+    "name": "Test Kyle as client",
+    "description": "Test",
+    "dateCreated": "6/1/2023",
     "dateModified": "6/1/2023",
-    "client": "Testing",
-    "guid": "88c760f7-d112-4c71-8d83-b6c5020314b5",
+    "client": "Kyle Steike",
+    "guid": "66068b98-b4a8-4aa7-a8a7-41ed2f153bad",
     "data": {
-      "models": [
-        {
-          "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294",
-          "name": "test 1",
-          "catalogNum": "test 1",
-          "unitCost": "2342",
-          "totalCost": null,
-          "key": 0
-        }
-      ],
-      "unitCostTax": 12.375,
+      "models": [],
+      "unitCostTax": "8.375",
       "labor": {
         "twoMenEightHours": {
-          "name": "(2) men (8) hours",
-          "qty": 0,
-          "cost": 680
+          "qty": "1",
+          "cost": "680.00"
         },
         "twoMenSixteenHours": {
-          "name": "(2) men (16) hours",
-          "qty": 0,
-          "cost": 1360
+          "qty": "0",
+          "cost": "1360.00"
         },
         "twoMenTwentyHours": {
-          "name": "(2) men (20) hours",
-          "qty": 0,
-          "cost": 1700
+          "qty": "0",
+          "cost": "1700"
         },
         "threeMenTwentyFourHours": {
-          "name": "(3) men (24) hours",
-          "qty": 0,
-          "cost": 2040
+          "qty": "0",
+          "cost": "2040"
         },
         "threeMenThirtyHours": {
-          "name": "(3) men (30) hours",
-          "qty": 0,
-          "cost": 2550
+          "qty": "0",
+          "cost": "2550"
         },
-        "subcontractor": {
-          "name": "Sub contractor labor",
-          "qty": 1,
-          "cost": 0
-        },
-        "labor": {
-          "qty": null,
-          "cost": null
+        "subcontractors": {
+          "qty": "0",
+          "cost": "0"
         }
       },
       "fees": {
         "permit": {
-          "name": "Permit fee",
-          "cost": 300
+          "qty": "1",
+          "cost": "300"
         },
         "financing": {
-          "name": "Financing fee",
-          "cost": 0
+          "qty": "1",
+          "cost": "0"
         },
         "tempTank": {
-          "name": "Temp tank fee",
-          "cost": 0
+          "qty": "1",
+          "cost": "0"
         },
         "removal": {
-          "name": "Removal fee",
-          "cost": 0
+          "qty": "1",
+          "cost": "0"
         },
         "rebates": {
-          "name": "Rebates",
-          "cost": 0
-        },
-        "fees": {
-          "cost": null
+          "qty": "1",
+          "cost": "0"
         }
       },
-      "multiplier": 1.7,
-      "commission": 10
+      "multiplier": "1.5",
+      "commission": "8"
     }
   }
 ]

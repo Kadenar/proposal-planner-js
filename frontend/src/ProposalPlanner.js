@@ -9,6 +9,7 @@ import {
   fetchCommissions,
   fetchProductTypes,
   fetchProposals,
+  fetchClients,
 } from "./data-management/InteractWithBackendData";
 import PricingReducer, {
   updateFilters,
@@ -16,6 +17,7 @@ import PricingReducer, {
   updateCommissions,
   updateProducts,
   updateProposals,
+  updateClients,
 } from "./data-management/Reducers";
 import thunk from "redux-thunk";
 
@@ -33,6 +35,7 @@ import JobsPage from "./components/landingpages/JobsPage";
 import ProposalsPage from "./components/landingpages/ProposalsPage";
 import ClientsPage from "./components/landingpages/ClientsPage";
 import DatabasePage from "./components/landingpages/DatabasePage";
+import NewClientDialog from "./components/coreui/dialogs/NewClientDialog";
 
 export default function ProposalPlanner() {
   // Create our redux store to manage the state of our application when pricing out a job
@@ -50,6 +53,7 @@ export default function ProposalPlanner() {
       const multipliers = await fetchMultipliers();
       const commissions = await fetchCommissions();
       const proposals = await fetchProposals();
+      const clients = await fetchClients();
 
       batch(() => {
         store.dispatch(updateFilters(filterData));
@@ -57,6 +61,7 @@ export default function ProposalPlanner() {
         store.dispatch(updateMultipliers(multipliers));
         store.dispatch(updateCommissions(commissions));
         store.dispatch(updateProposals(proposals));
+        store.dispatch(updateClients(clients));
       });
     };
 
@@ -67,6 +72,7 @@ export default function ProposalPlanner() {
   return (
     <>
       <CustomSnackbar />
+      <NewClientDialog />
       <NewProposalDialog />
       <ConfirmDialog />
       <ProductDialog />

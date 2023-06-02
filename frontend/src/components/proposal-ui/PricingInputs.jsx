@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import { OutlinedInput } from "@material-ui/core";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
-import { Stack } from "@mui/material";
-import { TextField } from "@material-ui/core";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import {
   updateCommission,

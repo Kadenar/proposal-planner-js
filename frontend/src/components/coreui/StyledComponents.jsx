@@ -4,8 +4,7 @@ import TabsList from "@mui/base/TabsList";
 import TabPanel from "@mui/base/TabPanel";
 import { emphasize, styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
-import { Dialog } from "@material-ui/core";
-import { withStyles } from "@material-ui/styles";
+import Dialog from "@mui/material/Dialog";
 import { TableCell } from "@mui/material";
 
 const blue = {
@@ -35,18 +34,19 @@ const grey = {
 };
 
 // Table cell with just bolding
-export const BoldedTableCell = withStyles((theme) => ({
+export const BoldedTableCell = styled(TableCell)(({ theme }) => ({
   root: {
     fontWeight: "bold",
+    width: "200px",
   },
-}))(TableCell);
+}));
 
 // Table cell with min width and bolding
-export const StyledTableCell = withStyles((theme) => ({
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   root: {
     width: "200px",
   },
-}))(BoldedTableCell);
+}));
 
 export const StyledBootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {

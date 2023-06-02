@@ -1,10 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-// TODO Placeholder
+import AllClientsView from "../client-ui/AllClientsView";
+import ClientTabsView from "../client-ui/ClientTabsView";
+
 export default function ClientsPage() {
-  return (
-    <div className="clients">
-      <h1>Clients</h1>
-    </div>
-  );
+  const selectedClient = useSelector((state) => state.selectedClient);
+  return <>{!selectedClient ? <AllClientsView /> : <ClientTabsView />};</>;
 }

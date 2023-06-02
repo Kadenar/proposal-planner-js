@@ -1,15 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import Box from "@mui/material/Box";
+import { Box, Stack, Button, Slider, Typography, Card } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button } from "@material-ui/core";
-import { Stack } from "@mui/material";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import Slider from "@mui/material/Slider";
 
 import {
   updateCommissions,
@@ -76,9 +71,6 @@ export default function CommissionMultipliers() {
       })}
     </Box>
   );
-}
-function valuetext(value) {
-  return `${value}`;
 }
 
 function constructCard({

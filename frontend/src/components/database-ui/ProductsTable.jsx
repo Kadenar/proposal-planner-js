@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import MaterialTable from "material-table";
+import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import { productDialog } from "../coreui/dialogs/ProductDialog";

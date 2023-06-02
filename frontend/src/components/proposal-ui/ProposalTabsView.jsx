@@ -1,11 +1,11 @@
-import ProposalJobPricing from "./ProposalJobPricing";
-import ProposalJobDocumentation from "./ProposalJobDocumentation";
+import ProposalPricingView from "./ProposalPricingView";
+import ProposalDocumentationView from "./ProposalDocumentationView";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Tabs from "@mui/base/Tabs";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import HomeIcon from "@mui/icons-material/Home";
+import FeedIcon from "@mui/icons-material/Feed";
 import { updateSelectedProposal } from "../../data-management/Reducers";
 import { Stack } from "@mui/material";
 import {
@@ -15,7 +15,7 @@ import {
   StyledBreadcrumb,
 } from "../coreui/StyledComponents";
 
-export default function ProposalTabs() {
+export default function ProposalTabsView() {
   const selectedProposal = useSelector((state) => state.selectedProposal);
   const dispatch = useDispatch();
 
@@ -32,8 +32,8 @@ export default function ProposalTabs() {
           <div onClick={navigateBackToAllProposalsTable}>
             <StyledBreadcrumb
               component="a"
-              label="Home"
-              icon={<HomeIcon fontSize="small" />}
+              label="All proposals"
+              icon={<FeedIcon fontSize="small" />}
               sx={{ cursor: "pointer" }}
             />
           </div>
@@ -46,10 +46,10 @@ export default function ProposalTabs() {
           <StyledTab value={1}>Documentation</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
-          <ProposalJobPricing />
+          <ProposalPricingView />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
-          <ProposalJobDocumentation />
+          <ProposalDocumentationView />
         </StyledTabPanel>
       </Tabs>
     </div>

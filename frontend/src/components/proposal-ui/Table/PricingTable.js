@@ -8,6 +8,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Alert,
+  Snackbar,
+  Table,
 } from "@mui/material";
 
 import { CollapsibleRow } from "./CollapsibleRow";
@@ -18,10 +21,8 @@ import {
   ConfigureFees,
   ConfigureLabor,
 } from "../PricingInputs";
-import Table from "@mui/material/Table";
+
 import BasicDialogue from "../../coreui/dialogs/BasicDialog";
-import { Snackbar } from "@material-ui/core";
-import Alert from "@mui/material/Alert";
 import {
   StyledTableCell,
   BoldedTableCell,

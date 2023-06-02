@@ -19,7 +19,7 @@ import { showSnackbar } from "../coreui/CustomSnackbar";
  * selecting a product to append to the table
  * @returns
  */
-export default function ProposalJobPricing() {
+export default function ProposalPricingView() {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
   const selectedProposal = useSelector((state) => state.selectedProposal);
@@ -149,7 +149,7 @@ export default function ProposalJobPricing() {
           </Button>
         </>
       </Stack>
-      <Stack paddingTop="20px" gap="20px" className="tableStyles">
+      <Stack paddingTop="20px" gap="20px">
         <PricingTable />
       </Stack>
     </>

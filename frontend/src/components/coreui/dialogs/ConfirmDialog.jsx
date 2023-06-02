@@ -7,7 +7,7 @@ import {
   Box,
   IconButton,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { create } from "zustand";
 

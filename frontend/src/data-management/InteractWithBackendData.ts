@@ -1,69 +1,75 @@
-import axios from "axios";
+import { validateClientInfo, validateProductInfo } from "./BackendValidation";
 import {
-  validateClientInfo,
-  validateProductInfo,
-} from "./BackendValidation.ts";
+  runGetRequest,
+  runPostRequest,
+  simpleDeleteItemInArrayFromDatabase,
+  simpleDeleteFromDatabase,
+  simpleAddToDatabase,
+  simpleAddObjectToDatabase,
+} from "./BackendHelpers";
+import * as Interface from "./Interfaces";
 
 /**
  * Fetch all clients in the database
  * @returns
  */
-export const fetchClients = async () => {
+export async function fetchClients(): Promise<Interface.Clients> {
   return runGetRequest("clients");
-};
+}
 
 /**
  * Fetch all products in the database
  * @returns
  */
-export const fetchProducts = async () => {
+export async function fetchProducts(): Promise<Interface.Products> {
   return runGetRequest("products");
-};
+}
 
 /**
  * Fetch all product types in the database
  * @returns
  */
-export const fetchProductTypes = async () => {
+export async function fetchProductTypes(): Promise<Interface.ProductTypes> {
   return runGetRequest("types");
-};
+}
 
 /**
  * Fetch all proposals in the database
  * @returns
  */
-export const fetchProposals = async () => {
+export async function fetchProposals(): Promise<Interface.Proposals> {
   return runGetRequest("proposals");
-};
+}
 
 /**
  * Fetch all commissions in the database
  * @returns
  */
-export const fetchCommissions = async () => {
+export async function fetchCommissions(): Promise<
+  [{ value: number; guid: string }]
+> {
   return runGetRequest("commissions");
-};
+}
 
 /**
  * Fetch all multipliers in the database
  * @returns
  */
-export const fetchMultipliers = async () => {
+export async function fetchMultipliers(): Promise<any> {
   return runGetRequest("multipliers");
-};
+}
 
 /**
  * Adds a new product to the database
- * @param {*} newProduct
  * @returns
  */
-export const addNewProduct = async ({
-  selectedFilter,
-  modelName,
-  catalogNum,
-  unitCost,
-  image,
-}) => {
+export async function addNewProduct(
+  selectedFilter: { label: string; standard_value: string },
+  modelName: string,
+  catalogNum: string,
+  unitCost: number,
+  image?: any
+) {
   const error = validateProductInfo(
     selectedFilter,
     modelName,
@@ -124,17 +130,20 @@ export const addNewProduct = async ({
 
   const newProductResponse = await runPostRequest(newProducts, "products");
   return newProductResponse;
-};
+}
 
 /**
  * Edit an existing product in the database
- * @param {*} productInfo
  * @returns
  */
-export const editExistingProduct = async (productInfo) => {
-  const { guid, selectedFilter, modelName, catalogNum, unitCost, image } =
-    productInfo;
-
+export async function editExistingProduct(
+  guid: string,
+  selectedFilter: string,
+  modelName: string,
+  catalogNum: string,
+  unitCost: number,
+  image?: any
+) {
   const error = validateProductInfo(
     { label: selectedFilter, standard_value: selectedFilter },
     modelName,
@@ -149,9 +158,11 @@ export const editExistingProduct = async (productInfo) => {
   const standard_value = selectedFilter.toLowerCase().replaceAll(" ", "_");
   const existingProductData = await fetchProducts();
 
-  const index = existingProductData[standard_value].findIndex((existing) => {
-    return existing.guid === guid;
-  });
+  const index = existingProductData[standard_value].findIndex(
+    (existing: Interface.ProductObject) => {
+      return existing.guid === guid;
+    }
+  );
 
   if (index === -1) {
     return {
@@ -172,31 +183,29 @@ export const editExistingProduct = async (productInfo) => {
   };
 
   return runPostRequest(newProductsData, "products");
-};
+}
 
 /**
  * Delete a given product from the database
- * @param {*} productName
  * @returns
  */
-export const deleteProduct = async ({ guid, filter }) => {
-  const response = await simpleDeleteItemInArrayFromDatabase({
-    fetchItemsFunc: fetchProducts,
-    path: "products",
-    arrayKey: filter,
-    valueToDelete: guid,
-    valueKey: "guid",
-  });
+export async function deleteProduct(guid: string, filter: string) {
+  const response = await simpleDeleteItemInArrayFromDatabase(
+    fetchProducts,
+    "products",
+    filter,
+    guid,
+    "guid"
+  );
 
   return response;
-};
+}
 
 /**
  * Adds a new product type to the database
- * @param {*} newProduct
  * @returns
  */
-export const addNewProductType = async ({ label }) => {
+export async function addNewProductType(label: string) {
   if (label === "") {
     return {
       status: 500,
@@ -225,7 +234,7 @@ export const addNewProductType = async ({ label }) => {
     }),
     "types"
   );
-};
+}
 
 export const editProductType = async ({ label, standard_value }) => {
   const existingTypes = await fetchProductTypes();
@@ -272,73 +281,54 @@ export const editProductType = async ({ label, standard_value }) => {
  * @param {*} productName
  * @returns
  */
-export const deleteProductType = async ({ name }) => {
-  return simpleDeleteFromDatabase({
-    fetchItemsFunc: fetchProductTypes,
-    path: "types",
-    valueToDelete: name,
-    key: "standard_value",
-  });
-};
+export async function deleteProductType(name: string) {
+  return simpleDeleteFromDatabase(
+    fetchProductTypes,
+    "types",
+    name,
+    "standard_value"
+  );
+}
 
 /**
  * Adds a new commission to the database
- * @param {*} newProduct
  * @returns
  */
-export const addNewCommission = async (value) => {
-  return simpleAddToDatabase({
-    fetchItemsFunc: fetchCommissions,
-    path: "commissions",
-    valueToAdd: value,
-  });
-};
+export async function addNewCommission(value: string) {
+  return simpleAddToDatabase(fetchCommissions, "commissions", value);
+}
 
 /**
  * Delete a given commission from the database
  * @param {*} productName
  * @returns
  */
-export const deleteCommission = async (value) => {
-  return simpleDeleteFromDatabase({
-    fetchItemsFunc: fetchCommissions,
-    path: "commissions",
-    valueToDelete: value,
-  });
-};
+export async function deleteCommission(value: string) {
+  return simpleDeleteFromDatabase(fetchCommissions, "commissions", value);
+}
 
 /**
  * Adds a new multiplier to the database
- * @param {*} newProduct
  * @returns
  */
-export const addMultiplier = async (value) => {
-  return simpleAddToDatabase({
-    fetchItemsFunc: fetchMultipliers,
-    path: "multipliers",
-    valueToAdd: value,
-  });
-};
+export async function addMultiplier(value: string) {
+  return simpleAddToDatabase(fetchMultipliers, "multipliers", value);
+}
 
 /**
  * Delete a given multiplier from the database
- * @param {*} productName
  * @returns
  */
-export const deleteMultiplier = async (value) => {
-  return simpleDeleteFromDatabase({
-    fetchItemsFunc: fetchMultipliers,
-    path: "multipliers",
-    valueToDelete: value,
-  });
+export const deleteMultiplier = async (value: string) => {
+  return simpleDeleteFromDatabase(fetchMultipliers, "multipliers", value);
 };
 
-export const addProposal = async ({ name, description, client }) => {
-  const existingItems = await fetchProposals();
-  const date = new Date();
-  const dateNow = `${
-    date.getMonth() + 1
-  }/${date.getDate()}/${date.getFullYear()}`;
+export async function addProposal(
+  name: string,
+  description: string,
+  client: string
+) {
+  const existingProposals = await fetchProposals();
 
   if (client === "") {
     return {
@@ -349,127 +339,52 @@ export const addProposal = async ({ name, description, client }) => {
     };
   }
 
-  const newItem = {
-    name,
-    description,
-    dateCreated: dateNow,
-    dateModified: dateNow,
-    client,
-    guid: crypto.randomUUID(),
-    data: {
-      models: [],
-      unitCostTax: "8.375",
-      labor: {
-        twoMenEightHours: {
-          qty: "1",
-          cost: "680.00",
-        },
-        twoMenSixteenHours: {
-          qty: "0",
-          cost: "1360.00",
-        },
-        twoMenTwentyHours: {
-          qty: "0",
-          cost: "1700",
-        },
-        threeMenTwentyFourHours: {
-          qty: "0",
-          cost: "2040",
-        },
-        threeMenThirtyHours: {
-          qty: "0",
-          cost: "2550",
-        },
-        subcontractors: {
-          qty: "0",
-          cost: "0",
-        },
-      },
-      fees: {
-        permit: {
-          qty: "1",
-          cost: "300",
-        },
-        financing: {
-          qty: "1",
-          cost: "0",
-        },
-        tempTank: {
-          qty: "1",
-          cost: "0",
-        },
-        removal: {
-          qty: "1",
-          cost: "0",
-        },
-        rebates: {
-          qty: "1",
-          cost: "0",
-        },
-      },
-      multiplier: "1.5",
-      commission: "8",
-    },
-  };
-
-  return runPostRequest(existingItems.concat(newItem), "proposals");
-};
+  const newProposal = getNewProposalItem(name, description, client);
+  const newProposals = existingProposals.concat(newProposal);
+  return runPostRequest(newProposals, "proposals");
+}
 
 /**
  * Delete a given proposal from the database
  * @param {*} productName
  * @returns
  */
-export const deleteProposal = async ({ guid }) => {
-  return simpleDeleteFromDatabase({
-    fetchItemsFunc: fetchProposals,
-    path: "proposals",
-    valueToDelete: guid,
-    key: "guid",
-  });
-};
+export async function deleteProposal(guid) {
+  return simpleDeleteFromDatabase(fetchProposals, "proposals", guid, "guid");
+}
 
-export const addNewClient = async ({
-  name,
-  address,
-  apt,
-  state,
-  city,
-  zip,
-}) => {
-  const error = validateClientInfo(name, address, apt, state, city, zip);
+export async function addNewClient(
+  name: string,
+  address: string,
+  apt: string,
+  state: string,
+  city: string,
+  zip: string
+) {
+  const error = validateClientInfo(name, address, state, city, zip);
 
   if (error) {
     return error;
   }
 
-  return simpleAddObjectToDatabase({
-    fetchItemsFunc: fetchClients,
-    path: "clients",
-    objectToAdd: {
-      name,
-      address,
-      apt,
-      state,
-      city,
-      zip,
-      guid: crypto.randomUUID(),
-    },
+  return simpleAddObjectToDatabase(fetchClients, "clients", {
+    name,
+    address,
+    apt,
+    state,
+    city,
+    zip,
+    guid: crypto.randomUUID(),
   });
-};
+}
 
 /**
  * Deletes a given client
  * @param {*} param0
  * @returns
  */
-export async function deleteClient({ guid }) {
-  return simpleDeleteFromDatabase({
-    fetchItemsFunc: fetchClients,
-    path: "clients",
-    valueToDelete: guid,
-    key: "guid",
-  });
+export async function deleteClient(guid: string) {
+  return simpleDeleteFromDatabase(fetchClients, "clients", guid, "guid");
 }
 
 /**
@@ -477,18 +392,18 @@ export async function deleteClient({ guid }) {
  * @param {*} param0
  * @returns
  */
-export async function saveClient({
-  guid,
-  name,
-  address,
-  apt,
-  city,
-  state,
-  zip,
-  phone,
-  email,
-  accountNum,
-}) {
+export async function saveClient(
+  guid: string,
+  name: string,
+  address: string,
+  apt: string,
+  city: string,
+  state: string,
+  zip: string,
+  phone: string,
+  email: string,
+  accountNum: string
+) {
   const errors = validateClientInfo(name, address, state, city, zip);
 
   if (errors) {
@@ -530,15 +445,15 @@ export async function saveClient({
  * @param {*} param0
  * @returns
  */
-export async function saveProposal({
-  guid,
-  commission,
-  fees = [],
-  labor = [],
-  models = [],
-  unitCostTax,
-  multiplier,
-}) {
+export async function saveProposal(
+  guid: string,
+  commission: number,
+  fees: Interface.FeeObject,
+  labor: Interface.LaborObject,
+  models: Interface.Models,
+  unitCostTax: number,
+  multiplier: number
+) {
   const existingProposals = await fetchProposals();
   const date = new Date();
   let day = date.getDate();
@@ -568,30 +483,41 @@ export async function saveProposal({
     commission,
     unitCostTax,
     multiplier,
+    labor,
+    fees,
+    models,
   };
 
-  newProposals[index].data.fees = fees;
-  newProposals[index].data.labor = labor;
-  newProposals[index].data.models = models;
+  // newProposals[index].data = {
+  //   ...newProposals[index].data,
+  //   fees,
+  //   labor,
+  //   models,
+  // };
+  // newProposals[index].data.fees = fees;
+  // newProposals[index].data.labor = labor;
+  // newProposals[index].data.models = models;
 
   return runPostRequest(newProposals, "proposals");
 }
 
 /**
  * Given the database product data, flatten all of the keys into a single array
- * @param {*} productData
  * @returns
  */
-export const flattenProductData = (productData) => {
-  const products = [];
+export const flattenProductData = (
+  productData: Interface.ProductKeyObject<Interface.ProductObject>[]
+) => {
+  const products: Interface.FlattenedProductObject[] = [];
   Object.keys(productData).map((key) => {
-    return productData[key].forEach((model) => {
+    return productData[key].forEach((model: Interface.ProductObject) => {
       products.push({
         category: key,
         label: model.model,
         catalog: model.catalog,
         cost: model.cost,
         guid: model.guid,
+        image: model.image,
       });
     });
   });
@@ -604,140 +530,80 @@ export const getFlattenedProductData = async () => {
   return flattenProductData(productData);
 };
 
-// HELPER FUNCTIONS RESIDE HERE \\
-const runGetRequest = async (path = "") => {
-  if (path === "") {
-    return {
-      status: 500,
-      data: { message: "No path specified in get request." },
-    };
-  }
-
-  const axiosGetResponse = await axios.get(`http://localhost:4000/${path}`);
-  return axiosGetResponse.data || [];
-};
-
-const runPostRequest = async (items = [], path) => {
-  const axiosPostResponse = await axios
-    .post(`http://localhost:4000/${path}`, items)
-    .then((res) => {
-      return res;
-    });
-
-  return axiosPostResponse;
-};
-
-const simpleAddToDatabase = async ({
-  fetchItemsFunc = async () => {},
-  path = "",
-  valueToAdd = "",
-  conflictChecker = {
-    key: "value",
-    checkForConflicts: true,
-  },
-}) => {
-  const existingItems = await fetchItemsFunc();
-
-  if (conflictChecker.checkForConflicts) {
-    const conflict = existingItems.find((existing) => {
-      return existing[conflictChecker.key] === valueToAdd;
-    });
-
-    if (conflict) {
-      return {
-        status: 500,
-        data: {
-          message: "Object already exists. Specify a different name.",
-        },
-      };
-    }
-  }
-
-  const newItem = {
-    value: valueToAdd,
+const getNewProposalItem = (
+  name: string,
+  description: string,
+  client: string
+): Interface.ProposalObject => {
+  const date = new Date();
+  const dateNow = `${
+    date.getMonth() + 1
+  }/${date.getDate()}/${date.getFullYear()}`;
+  return {
+    name,
+    description,
+    dateCreated: dateNow,
+    dateModified: dateNow,
+    client,
     guid: crypto.randomUUID(),
+    data: {
+      models: [],
+      unitCostTax: 8.375,
+      labor: {
+        twoMenEightHours: {
+          qty: 1,
+          cost: 680.0,
+        },
+        twoMenSixteenHours: {
+          qty: 0,
+          cost: 1360.0,
+        },
+        twoMenTwentyHours: {
+          qty: 0,
+          cost: 1700,
+        },
+        threeMenTwentyFourHours: {
+          qty: 0,
+          cost: 2040,
+        },
+        threeMenThirtyHours: {
+          qty: 0,
+          cost: 2550,
+        },
+        subcontractors: {
+          qty: 0,
+          cost: 0,
+        },
+      },
+      fees: {
+        permit: {
+          qty: 1,
+          cost: 300,
+        },
+        financing: {
+          qty: 1,
+          cost: 0,
+        },
+        tempTank: {
+          qty: 1,
+          cost: 0,
+        },
+        removal: {
+          qty: 1,
+          cost: 0,
+        },
+        rebates: {
+          qty: 1,
+          cost: 0,
+        },
+      },
+      multiplier: 1.5,
+      commission: 8,
+    },
   };
-  return runPostRequest(existingItems.concat(newItem), path);
 };
 
-const simpleAddObjectToDatabase = async ({
-  fetchItemsFunc = async () => {},
-  path = "",
-  objectToAdd = {},
-}) => {
-  const existingItems = await fetchItemsFunc();
-  return runPostRequest(existingItems.concat(objectToAdd), path);
-};
-
-// Deletes a top level item from the database
-const simpleDeleteFromDatabase = async ({
-  fetchItemsFunc = async () => {},
-  path = "",
-  valueToDelete,
-  key = "value",
-}) => {
-  if (path === "") {
-    return {
-      status: 500,
-      data: { message: "Internal server error - incorrect path for delete." },
-    };
-  }
-
-  const existingItems = await fetchItemsFunc();
-
-  const index = existingItems.findIndex((existing) => {
-    return existing[key] === valueToDelete;
-  });
-
-  if (index === -1) {
-    return {
-      status: 500,
-      data: { message: "Could not find entry to delete." },
-    };
-  }
-
-  const newItems = [...existingItems];
-  newItems.splice(index, 1);
-
-  return runPostRequest(newItems, path);
-};
-
-// Deletes an item from an array in the database
-const simpleDeleteItemInArrayFromDatabase = async (
-  fetchItemsFunc = async () => {},
-  path = "",
-  arrayKey = "",
-  valueToDelete,
-  valueKey = "guid"
-) => {
-  if (path === "") {
-    return {
-      status: 500,
-      data: { message: "Internal server error - incorrect path for delete." },
-    };
-  }
-
-  const existingItems = await fetchItemsFunc();
-
-  const index = existingItems[arrayKey].findIndex((existing) => {
-    return existing[valueKey] === valueToDelete;
-  });
-
-  if (index === -1) {
-    return {
-      status: 500,
-      data: { message: "Could not find entry to delete." },
-    };
-  }
-
-  const items = [...existingItems[arrayKey]];
-  items.splice(index, 1);
-
-  const newItems = { ...existingItems };
-  newItems[arrayKey] = items;
-
-  return runPostRequest(newItems, path);
-};
+// HELPER FUNCTIONS RESIDE HERE \\
 
 // export const updateProductsTest = async () => {
 //   const existingProductData = await FetchProductData();

@@ -4,11 +4,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import React from "react";
 import { StyledBootstrapDialog } from "../StyledComponents";
-// import Slide from "@mui/material/Slide";
-
-// const Transition = React.forwardRef(function Transition(props, ref) {
-//   return <Slide direction="down" ref={ref} {...props} />;
-// });
 
 const BasicDialog = ({
   header = "Basic dialog",

@@ -3,10 +3,10 @@ import {
   DialogContent,
   DialogActions,
   Button,
-} from "@material-ui/core";
-import { Stack } from "@mui/material";
-import { TextField } from "@material-ui/core";
-import { Autocomplete } from "@mui/material";
+  Stack,
+  TextField,
+  Autocomplete,
+} from "@mui/material";
 import { create } from "zustand";
 import { StyledBootstrapDialog } from "../StyledComponents";
 

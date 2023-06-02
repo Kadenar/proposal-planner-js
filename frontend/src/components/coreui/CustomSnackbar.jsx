@@ -1,4 +1,4 @@
-import { Snackbar } from "@material-ui/core";
+import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { create } from "zustand";
 

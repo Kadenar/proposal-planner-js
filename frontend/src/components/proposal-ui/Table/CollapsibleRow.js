@@ -10,20 +10,11 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { withStyles } from "@material-ui/styles";
 import SettingsIcon from "@mui/icons-material/Settings";
-
-const BoldedTableCell = withStyles((theme) => ({
-  root: {
-    fontWeight: "bold",
-  },
-}))(TableCell);
-
-const StyledTableCell = withStyles((theme) => ({
-  root: {
-    width: "27vw",
-  },
-}))(TableCell);
+import {
+  BoldedTableCell,
+  StyledTableCell,
+} from "../../coreui/StyledComponents";
 
 export function CollapsibleRow({
   title = "",
