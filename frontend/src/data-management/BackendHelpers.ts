@@ -90,7 +90,7 @@ export async function simpleDeleteFromDatabase(
 
   const existingItems = await fetchItemsFunc();
 
-  const index = existingItems.findIndex((existing) => {
+  const index = existingItems.findIndex((existing: any) => {
     return existing[key] === valueToDelete;
   });
 
@@ -132,7 +132,7 @@ export async function simpleDeleteItemInArrayFromDatabase(
 
   const existingItems = await fetchItemsFunc();
 
-  const index = existingItems[arrayKey].findIndex((existing) => {
+  const index = existingItems[arrayKey].findIndex((existing: any) => {
     return existing[valueKey] === valueToDelete;
   });
 

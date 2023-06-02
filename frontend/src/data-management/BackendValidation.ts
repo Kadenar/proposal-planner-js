@@ -1,13 +1,13 @@
 export function validateProductInfo(
   filter: {
     label: string;
-    standard_value: string;
+    guid: string;
   },
   modelName: String,
   catalogNum: String,
   unitCost: number
 ) {
-  if (!filter || filter.label === "" || filter.standard_value === "") {
+  if (!filter || filter.label === "" || filter.guid === "") {
     return {
       status: 500,
       data: { message: "Please specify a valid filter." },

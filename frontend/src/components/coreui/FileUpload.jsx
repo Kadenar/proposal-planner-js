@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Stack, Button, Container } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-export default function FileUpload() {
-  const [imageUrl, setImageUrl] = useState(null);
+export default function FileUpload(imageUrl, setImageUrl = () => {}) {
+  const reader = useMemo(() => {
+    return new FileReader();
+  }, []);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -12,7 +14,6 @@ export default function FileUpload() {
       setImageUrl(null);
       return;
     }
-    const reader = new FileReader();
 
     reader.onloadend = () => {
       setImageUrl(reader.result);

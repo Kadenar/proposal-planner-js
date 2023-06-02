@@ -56,5 +56,17 @@
     "city": "City",
     "zip": "05416",
     "guid": "8c60ddd1-fe06-4730-b704-f26a6633b40e"
+  },
+  {
+    "guid": "de733a36-c1f7-4f28-85fa-833465697a57",
+    "name": "Stephanie Steike",
+    "address": "43A Secor Rd",
+    "apt": "",
+    "state": "CT",
+    "city": "Brookfield",
+    "zip": "06804",
+    "phone": "845-803-1853",
+    "email": "sfern4@gmail.com",
+    "accountNum": "111-333"
   }
 ]

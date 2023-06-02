@@ -41,8 +41,6 @@ const NewProposalDialog = () => {
     (state) => [state.selectedClient, state.updateSelectedClient]
   );
 
-  console.log(allClients);
-
   return (
     <>
       <StyledBootstrapDialog
@@ -88,11 +86,7 @@ const NewProposalDialog = () => {
                 return option.guid === value.guid;
               }}
               value={selectedClient}
-              renderInput={(params) => (
-                <div ref={params.InputProps.ref}>
-                  <TextField {...params} label="Client" />
-                </div>
-              )}
+              renderInput={(params) => <TextField {...params} label="Client" />}
               onChange={(event, value) => {
                 updateSelectedClient(value);
               }}
@@ -115,7 +109,7 @@ const NewProposalDialog = () => {
               const returnValue = await onSubmit(
                 name,
                 description,
-                selectedClient.name
+                selectedClient.guid
               );
 
               if (returnValue) {

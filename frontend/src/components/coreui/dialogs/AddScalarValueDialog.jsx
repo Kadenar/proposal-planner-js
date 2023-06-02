@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   DialogTitle,
   DialogContent,
@@ -6,50 +5,24 @@ import {
   Button,
   Stack,
   TextField,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import { create } from "zustand";
 import { StyledBootstrapDialog } from "../StyledComponents";
 const useScalarValueStore = create((set) => ({
   header: "",
-  onSubmit: undefined,
-  validateOnSubmit: undefined,
   value: "",
+  onSubmit: undefined,
   updateValue: (value) => set(() => ({ value: value })),
   close: () => set({ onSubmit: undefined }),
 }));
 
 const AddScalarValueDialog = () => {
-  const { onSubmit, validateOnSubmit, close } = useScalarValueStore();
+  const { onSubmit, close } = useScalarValueStore();
 
   const [value, updateValue] = useScalarValueStore((state) => [
     state.value,
     state.updateValue,
   ]);
-
-  const [snackBarInfo, setSnackbarInfo] = useState({
-    title: "",
-    show: false,
-    status: "success",
-  });
-
-  const showSnackbar = (title, status) => {
-    setSnackbarInfo({
-      title: title,
-      show: true,
-      status,
-    });
-  };
-
-  // Handle closing the snackbar
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackbarInfo({ title: "", show: false, status: "success" });
-  };
 
   return (
     <>
@@ -89,15 +62,13 @@ const AddScalarValueDialog = () => {
             color="primary"
             variant="contained"
             onClick={async () => {
-              if (validateOnSubmit(value) === undefined) {
-                if (onSubmit) {
-                  showSnackbar("Successfully added value!", "success");
-                  await onSubmit(value);
-                }
-
+              if (!onSubmit) {
                 close();
-              } else {
-                showSnackbar("Value already exists!", "error");
+              }
+
+              const returnValue = await onSubmit(value);
+              if (returnValue) {
+                close();
               }
             }}
           >
@@ -105,33 +76,14 @@ const AddScalarValueDialog = () => {
           </Button>
         </DialogActions>
       </StyledBootstrapDialog>
-      <Snackbar
-        open={snackBarInfo.show}
-        autoHideDuration={2000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackBarInfo.status}
-          sx={{ width: "100%" }}
-        >
-          {snackBarInfo.title}
-        </Alert>
-      </Snackbar>
     </>
   );
 };
 
-export const addScalarValueDialog = (
-  header,
-  value,
-  validateOnSubmit,
-  onSubmit
-) => {
+export const addScalarValueDialog = (header, value, onSubmit) => {
   useScalarValueStore.setState({
     header,
     value,
-    validateOnSubmit,
     onSubmit,
   });
 };

@@ -1,58 +1,58 @@
 [
   {
     "label": "Air handlers",
-    "standard_value": "air_handlers"
+    "guid": "air_handlers"
   },
   {
     "label": "Boilers",
-    "standard_value": "boilers"
+    "guid": "boilers"
   },
   {
     "label": "Coils",
-    "standard_value": "coils"
+    "guid": "coils"
   },
   {
     "label": "Condensers",
-    "standard_value": "condensers"
+    "guid": "condensers"
   },
   {
     "label": "Furnaces",
-    "standard_value": "furnaces"
+    "guid": "furnaces"
   },
   {
     "label": "Generators",
-    "standard_value": "generators"
+    "guid": "generators"
   },
   {
     "label": "Heat pumps",
-    "standard_value": "heat_pumps"
+    "guid": "heat_pumps"
   },
   {
     "label": "Mini splits",
-    "standard_value": "mini_splits"
+    "guid": "mini_splits"
   },
   {
     "label": "Oil tanks",
-    "standard_value": "oil_tanks"
+    "guid": "oil_tanks"
   },
   {
     "label": "Thermostats",
-    "standard_value": "thermostats"
+    "guid": "thermostats"
   },
   {
     "label": "Water heaters",
-    "standard_value": "water_heaters"
+    "guid": "water_heaters"
   },
   {
     "label": "Water treatment",
-    "standard_value": "water_treatment"
+    "guid": "water_treatment"
   },
   {
     "label": "Zoning kits",
-    "standard_value": "zoning_kits"
+    "guid": "zoning_kits"
   },
   {
     "label": "Misc materials",
-    "standard_value": "misc_materials"
+    "guid": "misc_materials"
   }
 ]

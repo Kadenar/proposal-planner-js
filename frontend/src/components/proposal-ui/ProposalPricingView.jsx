@@ -11,7 +11,7 @@ import {
 } from "../../data-management/Reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToProposalDialog } from "../coreui/dialogs/AddProductToProposalDialog";
-import { saveProposal } from "../../data-management/InteractWithBackendData";
+import { saveProposal } from "../../data-management/InteractWithBackendData.ts";
 import { showSnackbar } from "../coreui/CustomSnackbar";
 
 /**
@@ -118,15 +118,15 @@ export default function ProposalPricingView() {
           <Button
             variant="contained"
             onClick={async () => {
-              const response = await saveProposal({
-                guid: selectedProposal.guid,
+              const response = await saveProposal(
+                selectedProposal.guid,
                 commission,
                 fees,
                 labor,
+                jobTableContents,
                 unitCostTax,
-                multiplier,
-                models: jobTableContents,
-              });
+                multiplier
+              );
 
               if (response.status === 200) {
                 showSnackbar({

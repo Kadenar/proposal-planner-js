@@ -41,7 +41,7 @@ const AddProductToProposalDialog = () => {
     state.updateQuantity,
   ]);
 
-  const models = allModels[selectedFilter.standard_value] || [];
+  const models = allModels[selectedFilter.guid] || [];
 
   return (
     <>

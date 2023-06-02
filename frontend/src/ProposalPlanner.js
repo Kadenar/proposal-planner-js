@@ -1,6 +1,7 @@
 import "./components/landingpages/page-styles.css";
 import { useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+// import { configureStore } from "@reduxjs/toolkit";
 import { applyMiddleware, createStore } from "redux";
 import { batch, Provider } from "react-redux";
 import {
@@ -10,7 +11,7 @@ import {
   fetchProductTypes,
   fetchProposals,
   fetchClients,
-} from "./data-management/InteractWithBackendData";
+} from "./data-management/InteractWithBackendData.ts";
 import PricingReducer, {
   updateFilters,
   updateMultipliers,

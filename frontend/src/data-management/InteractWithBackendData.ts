@@ -1,4 +1,7 @@
-import { validateClientInfo, validateProductInfo } from "./BackendValidation";
+import {
+  validateClientInfo,
+  validateProductInfo,
+} from "./BackendValidation.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -6,7 +9,7 @@ import {
   simpleDeleteFromDatabase,
   simpleAddToDatabase,
   simpleAddObjectToDatabase,
-} from "./BackendHelpers";
+} from "./BackendHelpers.ts";
 import * as Interface from "./Interfaces";
 
 /**
@@ -42,6 +45,23 @@ export async function fetchProposals(): Promise<Interface.Proposals> {
 }
 
 /**
+ * Fetch all proposals in the database
+ * @returns
+ */
+export async function deleteProposalsForClient(
+  client_guid: string
+): Promise<any> {
+  const proposals = await fetchProposals();
+
+  const filtered_proposals = proposals.filter((proposal) => {
+    return proposal.client_guid !== client_guid;
+  });
+
+  // Run a post request with our original proposals
+  return runPostRequest(filtered_proposals, "proposals");
+}
+
+/**
  * Fetch all commissions in the database
  * @returns
  */
@@ -64,7 +84,7 @@ export async function fetchMultipliers(): Promise<any> {
  * @returns
  */
 export async function addNewProduct(
-  selectedFilter: { label: string; standard_value: string },
+  selectedFilter: { label: string; guid: string },
   modelName: string,
   catalogNum: string,
   unitCost: number,
@@ -83,8 +103,8 @@ export async function addNewProduct(
 
   const existingProductData = await fetchProducts();
 
-  const conflict = existingProductData[selectedFilter.standard_value].find(
-    (existing) => {
+  const conflict = existingProductData[selectedFilter.guid].find(
+    (existing: Interface.ProductObject) => {
       return existing.model === modelName || existing.catalog === catalogNum;
     }
   );
@@ -101,8 +121,8 @@ export async function addNewProduct(
 
   const newProducts = { ...existingProductData };
 
-  if (newProducts[selectedFilter.standard_value] === undefined) {
-    newProducts[selectedFilter.standard_value] = [
+  if (newProducts[selectedFilter.guid] === undefined) {
+    newProducts[selectedFilter.guid] = [
       {
         model: modelName,
         catalog: catalogNum,
@@ -112,10 +132,8 @@ export async function addNewProduct(
       },
     ];
   } else {
-    newProducts[selectedFilter.standard_value] = [
-      ...(existingProductData[selectedFilter.standard_value] || [
-        selectedFilter.standard_value,
-      ]),
+    newProducts[selectedFilter.guid] = [
+      ...(existingProductData[selectedFilter.guid] || [selectedFilter.guid]),
       ...[
         {
           model: modelName,
@@ -145,7 +163,7 @@ export async function editExistingProduct(
   image?: any
 ) {
   const error = validateProductInfo(
-    { label: selectedFilter, standard_value: selectedFilter },
+    { label: selectedFilter, guid: selectedFilter },
     modelName,
     catalogNum,
     unitCost
@@ -155,10 +173,10 @@ export async function editExistingProduct(
     return error;
   }
 
-  const standard_value = selectedFilter.toLowerCase().replaceAll(" ", "_");
+  const filter_guid = selectedFilter.toLowerCase().replaceAll(" ", "_");
   const existingProductData = await fetchProducts();
 
-  const index = existingProductData[standard_value].findIndex(
+  const index = existingProductData[filter_guid].findIndex(
     (existing: Interface.ProductObject) => {
       return existing.guid === guid;
     }
@@ -174,8 +192,8 @@ export async function editExistingProduct(
   }
 
   const newProductsData = { ...existingProductData };
-  newProductsData[standard_value][index] = {
-    ...newProductsData[standard_value][index],
+  newProductsData[filter_guid][index] = {
+    ...newProductsData[filter_guid][index],
     model: modelName,
     catalog: catalogNum,
     cost: unitCost,
@@ -215,9 +233,9 @@ export async function addNewProductType(label: string) {
 
   const existingTypes = await fetchProductTypes();
 
-  const standard_value = label.toLowerCase().replaceAll(" ", "_");
+  const guid = label.toLowerCase().replaceAll(" ", "_");
   const conflict = existingTypes.find((existing) => {
-    return existing.standard_value === standard_value;
+    return existing.guid === guid;
   });
 
   if (conflict) {
@@ -230,19 +248,25 @@ export async function addNewProductType(label: string) {
   return runPostRequest(
     existingTypes.concat({
       label,
-      standard_value,
+      guid,
     }),
     "types"
   );
 }
 
-export const editProductType = async ({ label, standard_value }) => {
+/**
+ * Edits a property type
+ * @param label the new label of the property type
+ * @param guid the new back_end value of the property type
+ * @returns
+ */
+export const editProductType = async (label: string, guid: string) => {
   const existingTypes = await fetchProductTypes();
 
-  // Cannot have a conflicting entry already
-  const new_standard_value = label.toLowerCase().replaceAll(" ", "_");
+  // A product type with the same guid already exists
+  const new_guid = label.toLowerCase().replaceAll(" ", "_");
   const conflict = existingTypes.find((existing) => {
-    return existing.standard_value === new_standard_value;
+    return existing.guid === new_guid;
   });
 
   if (conflict) {
@@ -255,7 +279,7 @@ export const editProductType = async ({ label, standard_value }) => {
   }
 
   const index = existingTypes.findIndex((existing) => {
-    return existing.standard_value === standard_value;
+    return existing.guid === guid;
   });
 
   if (index === -1) {
@@ -270,7 +294,7 @@ export const editProductType = async ({ label, standard_value }) => {
   const newProductTypes = [...existingTypes];
   newProductTypes[index] = {
     label: label,
-    standard_value: new_standard_value,
+    guid: guid,
   };
 
   return runPostRequest(newProductTypes, "types");
@@ -282,12 +306,7 @@ export const editProductType = async ({ label, standard_value }) => {
  * @returns
  */
 export async function deleteProductType(name: string) {
-  return simpleDeleteFromDatabase(
-    fetchProductTypes,
-    "types",
-    name,
-    "standard_value"
-  );
+  return simpleDeleteFromDatabase(fetchProductTypes, "types", name, "guid");
 }
 
 /**
@@ -300,7 +319,6 @@ export async function addNewCommission(value: string) {
 
 /**
  * Delete a given commission from the database
- * @param {*} productName
  * @returns
  */
 export async function deleteCommission(value: string) {
@@ -326,11 +344,18 @@ export const deleteMultiplier = async (value: string) => {
 export async function addProposal(
   name: string,
   description: string,
-  client: string
+  client_guid: string
 ) {
-  const existingProposals = await fetchProposals();
+  if (name === "") {
+    return {
+      status: 500,
+      data: {
+        message: "Proposal name cannot be blank.",
+      },
+    };
+  }
 
-  if (client === "") {
+  if (client_guid === "") {
     return {
       status: 500,
       data: {
@@ -339,72 +364,70 @@ export async function addProposal(
     };
   }
 
-  const newProposal = getNewProposalItem(name, description, client);
-  const newProposals = existingProposals.concat(newProposal);
-  return runPostRequest(newProposals, "proposals");
+  const existingProposals = await fetchProposals();
+  const newProposal = getNewProposalItem(name, description, client_guid);
+  return runPostRequest(existingProposals.concat(newProposal), "proposals");
 }
 
 /**
  * Delete a given proposal from the database
- * @param {*} productName
  * @returns
  */
-export async function deleteProposal(guid) {
+export async function deleteProposal(guid: string) {
   return simpleDeleteFromDatabase(fetchProposals, "proposals", guid, "guid");
 }
 
-export async function addNewClient(
-  name: string,
-  address: string,
-  apt: string,
-  state: string,
-  city: string,
-  zip: string
-) {
-  const error = validateClientInfo(name, address, state, city, zip);
+export async function addNewClient(clientInfo: Interface.ClientObject) {
+  const error = validateClientInfo(
+    clientInfo.name,
+    clientInfo.address,
+    clientInfo.state,
+    clientInfo.city,
+    clientInfo.zip
+  );
 
   if (error) {
     return error;
   }
 
   return simpleAddObjectToDatabase(fetchClients, "clients", {
-    name,
-    address,
-    apt,
-    state,
-    city,
-    zip,
     guid: crypto.randomUUID(),
+    name: clientInfo.name,
+    address: clientInfo.address,
+    apt: clientInfo.apt,
+    state: clientInfo.state,
+    city: clientInfo.city,
+    zip: clientInfo.zip,
   });
 }
 
 /**
  * Deletes a given client
- * @param {*} param0
  * @returns
  */
 export async function deleteClient(guid: string) {
-  return simpleDeleteFromDatabase(fetchClients, "clients", guid, "guid");
+  const response = await simpleDeleteFromDatabase(
+    fetchClients,
+    "clients",
+    guid,
+    "guid"
+  );
+
+  return response;
 }
 
 /**
  * Saves a given client details
- * @param {*} param0
  * @returns
  */
-export async function saveClient(
-  guid: string,
-  name: string,
-  address: string,
-  apt: string,
-  city: string,
-  state: string,
-  zip: string,
-  phone: string,
-  email: string,
-  accountNum: string
-) {
-  const errors = validateClientInfo(name, address, state, city, zip);
+export async function saveClient(clientInfo: Interface.ClientObject) {
+  const errors = validateClientInfo(
+    clientInfo.name,
+    clientInfo.address,
+    clientInfo.state,
+    clientInfo.city,
+    clientInfo.zip
+  );
 
   if (errors) {
     return errors;
@@ -413,7 +436,7 @@ export async function saveClient(
   const existingClients = await fetchClients();
 
   const index = existingClients.findIndex((client) => {
-    return client.guid === guid;
+    return client.guid === clientInfo.guid;
   });
 
   if (index === -1) {
@@ -426,15 +449,15 @@ export async function saveClient(
   const newClients = [...existingClients];
   newClients[index] = {
     ...newClients[index],
-    name,
-    address,
-    apt,
-    city,
-    state,
-    zip,
-    phone,
-    email,
-    accountNum,
+    name: clientInfo.name,
+    address: clientInfo.address,
+    apt: clientInfo.apt,
+    city: clientInfo.city,
+    state: clientInfo.state,
+    zip: clientInfo.zip,
+    phone: clientInfo.phone,
+    email: clientInfo.email,
+    accountNum: clientInfo.accountNum,
   };
 
   return runPostRequest(newClients, "clients");
@@ -442,7 +465,6 @@ export async function saveClient(
 
 /**
  * Saves a given proposal
- * @param {*} param0
  * @returns
  */
 export async function saveProposal(
@@ -533,18 +555,19 @@ export const getFlattenedProductData = async () => {
 const getNewProposalItem = (
   name: string,
   description: string,
-  client: string
+  client_guid: string
 ): Interface.ProposalObject => {
   const date = new Date();
   const dateNow = `${
     date.getMonth() + 1
   }/${date.getDate()}/${date.getFullYear()}`;
+
   return {
     name,
     description,
     dateCreated: dateNow,
     dateModified: dateNow,
-    client,
+    client_guid,
     guid: crypto.randomUUID(),
     data: {
       models: [],

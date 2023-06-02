@@ -11,7 +11,7 @@ import {
   updateSelectedClient,
   updateSelectedProposal,
 } from "../../data-management/Reducers";
-import { deleteProposal } from "../../data-management/InteractWithBackendData";
+import { deleteProposal } from "../../data-management/InteractWithBackendData.ts";
 
 const ClientProposalsView = () => {
   const dispatch = useDispatch();
@@ -72,8 +72,7 @@ const ClientProposalsView = () => {
               onSubmit: async () => {
                 return updateStore({
                   dispatch,
-                  dbOperation: async () =>
-                    deleteProposal({ guid: rowData.guid }),
+                  dbOperation: async () => deleteProposal(rowData.guid),
                   methodToDispatch: updateProposals,
                   dataKey: "proposals",
                   successMessage: `Successfully deleted ${rowData.name}`,

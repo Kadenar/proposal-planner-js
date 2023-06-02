@@ -23,11 +23,13 @@ const useProductDialogStore = create((set) => ({
   modelName: "",
   catalogNum: "",
   unitCost: "",
+  image: undefined,
   updateSelectedFilter: (selectedFilter) =>
     set(() => ({ selectedFilter: selectedFilter })),
   updateModelName: (modelName) => set(() => ({ modelName: modelName })),
   updateCatalogNum: (catalogNum) => set(() => ({ catalogNum: catalogNum })),
   updateUnitCost: (unitCost) => set(() => ({ unitCost: unitCost })),
+  updateImage: (image) => set(() => ({ image: image })),
   close: () => set({ onSubmit: undefined }),
 }));
 
@@ -51,6 +53,11 @@ const ProductDialog = () => {
   const [unitCost, updateUnitCost] = useProductDialogStore((state) => [
     state.unitCost,
     state.updateUnitCost,
+  ]);
+
+  const [image, updateImage] = useProductDialogStore((state) => [
+    state.image,
+    state.updateImage,
   ]);
 
   return (
@@ -78,7 +85,7 @@ const ProductDialog = () => {
               options={filters}
               getOptionLabel={(option) => option.label}
               getOptionSelected={(option, value) => {
-                return option.standard_value === value.standard_value;
+                return option.guid === value.guid;
               }}
               value={selectedFilter}
               renderInput={(params) => (
@@ -115,7 +122,7 @@ const ProductDialog = () => {
                 }}
               />
             </FormControl>
-            {/* <FileUpload /> */}
+            <FileUpload imageUrl={image} setImageUrl={updateImage} />
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -159,6 +166,7 @@ export const productDialog = ({
   modelName,
   catalogNum,
   unitCost,
+  image,
   onSubmit,
 }) => {
   useProductDialogStore.setState({
@@ -169,6 +177,7 @@ export const productDialog = ({
     modelName,
     catalogNum,
     unitCost,
+    image,
     onSubmit,
   });
 };

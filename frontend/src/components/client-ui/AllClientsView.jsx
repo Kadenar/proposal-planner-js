@@ -7,11 +7,13 @@ import { updateStore } from "../../data-management/Dispatcher";
 import {
   addNewClient,
   deleteClient,
-} from "../../data-management/InteractWithBackendData";
+  deleteProposalsForClient,
+} from "../../data-management/InteractWithBackendData.ts";
 
 import {
   updateClients,
   updateSelectedClient,
+  updateProposals,
 } from "../../data-management/Reducers";
 
 import { CircularProgress } from "@mui/material";
@@ -32,7 +34,7 @@ export default function AllClientsView() {
 
     return allClients.map((client) => {
       const proposals = allProposals.filter((proposal) => {
-        return proposal.client === client.name;
+        return proposal.client_guid === client.guid;
       });
 
       return { ...client, proposals };
@@ -60,14 +62,7 @@ export default function AllClientsView() {
                 return updateStore({
                   dispatch,
                   dbOperation: async () =>
-                    addNewClient({
-                      name,
-                      address,
-                      apt,
-                      state,
-                      city,
-                      zip,
-                    }),
+                    addNewClient({ name, address, apt, state, city, zip }),
                   methodToDispatch: updateClients,
                   dataKey: "clients",
                   successMessage: "Successfully added new client!",
@@ -120,15 +115,28 @@ export default function AllClientsView() {
             onClick: (event, rowData) => {
               confirmDialog({
                 message:
-                  "Do you really want to delete this? This action cannot be undone.",
+                  "Are you sure? This action cannot be undone. Upon deleting a client, ALL proposals belonging to that client will also be deleted.",
                 onSubmit: async () => {
-                  return updateStore({
+                  const client_guid = rowData.fullInfo.guid;
+                  const updatedClients = await updateStore({
                     dispatch,
-                    dbOperation: async () =>
-                      deleteClient({ guid: rowData.fullInfo.guid }),
+                    dbOperation: async () => deleteClient(client_guid),
                     methodToDispatch: updateClients,
                     dataKey: "clients",
-                    successMessage: `Successfully deleted ${rowData.label}`,
+                    successMessage: `Successfully deleted client ${rowData.name}`,
+                  });
+
+                  if (!updatedClients) {
+                    return false;
+                  }
+
+                  return await updateStore({
+                    dispatch,
+                    dbOperation: async () =>
+                      deleteProposalsForClient(client_guid),
+                    methodToDispatch: updateProposals,
+                    dataKey: "proposals",
+                    successMessage: `Successfully deleted proposals for client ${rowData.name}`,
                   });
                 },
               });

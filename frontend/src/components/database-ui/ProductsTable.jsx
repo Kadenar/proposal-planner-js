@@ -9,7 +9,7 @@ import {
   editExistingProduct,
   deleteProduct,
   flattenProductData,
-} from "../../data-management/InteractWithBackendData";
+} from "../../data-management/InteractWithBackendData.ts";
 import { updateProducts } from "../../data-management/Reducers";
 import AddNewItem from "../coreui/AddNewItem";
 import { updateStore } from "../../data-management/Dispatcher";
@@ -48,12 +48,12 @@ export default function ProductsTable() {
               const result = await updateStore({
                 dispatch,
                 dbOperation: async () => {
-                  addNewProduct({
-                    selectedFilter: newFilter,
-                    modelName: newModelName,
-                    catalogNum: newCatalogNum,
-                    unitCost: newUnitCost,
-                  });
+                  addNewProduct(
+                    newFilter,
+                    newModelName,
+                    newCatalogNum,
+                    newUnitCost
+                  );
                 },
                 methodToDispatch: updateProducts,
                 dataKey: "products",
@@ -112,22 +112,28 @@ export default function ProductsTable() {
                 filters,
                 selectedFilter: {
                   label: rowData.type,
-                  standard_value: rowData.key,
+                  guid: rowData.key,
                 },
                 modelName: rowData.model,
                 catalogNum: rowData.catalogNum,
                 unitCost: rowData.unitCost,
-                onSubmit: async (newModelName, newCatalogNum, newUnitCost) => {
+                onSubmit: async (
+                  newModelName,
+                  newCatalogNum,
+                  newUnitCost,
+                  image
+                ) => {
                   return updateStore({
                     dispatch,
                     dbOperation: async () => {
-                      editExistingProduct({
-                        guid: rowData.guid,
-                        selectedFilter: rowData.key,
-                        modelName: newModelName,
-                        catalogNum: newCatalogNum,
-                        unitCost: newUnitCost,
-                      });
+                      editExistingProduct(
+                        rowData.guid,
+                        rowData.key,
+                        newModelName,
+                        newCatalogNum,
+                        newUnitCost,
+                        image
+                      );
                     },
                     methodToDispatch: updateProducts,
                     dataKey: "products",

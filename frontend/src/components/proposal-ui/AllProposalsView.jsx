@@ -8,7 +8,7 @@ import { updateStore } from "../../data-management/Dispatcher";
 import {
   addProposal,
   deleteProposal,
-} from "../../data-management/InteractWithBackendData";
+} from "../../data-management/InteractWithBackendData.ts";
 
 import {
   updateCommission,
@@ -33,9 +33,7 @@ export default function ExistingProposals() {
 
   const selectProposal = useCallback(
     (value) => {
-      // Batch to prevent multiple rerenders
       batch(() => {
-        // Handle the job table contents
         dispatch(resetProposal());
 
         dispatch(updateSelectedProposal(value));
@@ -86,15 +84,11 @@ export default function ExistingProposals() {
               description: "",
               selectedClient: {},
               allClients,
-              onSubmit: async (name, description, selectedClient) => {
+              onSubmit: async (name, description, client_guid) => {
                 return updateStore({
                   dispatch,
                   dbOperation: async () =>
-                    addProposal({
-                      name,
-                      description,
-                      client: selectedClient,
-                    }),
+                    addProposal(name, description, client_guid),
                   methodToDispatch: updateProposals,
                   dataKey: "proposals",
                   successMessage: "Successfully added new proposal!",
@@ -116,11 +110,15 @@ export default function ExistingProposals() {
           { title: "Date modified", field: "dateModified" },
         ]}
         data={allProposals.map((proposal) => {
+          const matchingClient = allClients.find((client) => {
+            return client.guid === proposal.client_guid;
+          });
+
           return {
             type: proposal.guid,
             name: proposal.name,
             description: proposal.description,
-            client: proposal.client,
+            client: matchingClient?.name || "Orphaned proposal",
             dateCreated: proposal.dateCreated,
             dateModified: proposal.dateModified,
             guid: proposal.guid,
@@ -150,8 +148,7 @@ export default function ExistingProposals() {
                 onSubmit: async () => {
                   return updateStore({
                     dispatch,
-                    dbOperation: async () =>
-                      deleteProposal({ guid: rowData.guid }),
+                    dbOperation: async () => deleteProposal(rowData.guid),
                     methodToDispatch: updateProposals,
                     dataKey: "proposals",
                     successMessage: `Successfully deleted ${rowData.label}`,

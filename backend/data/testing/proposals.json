@@ -1,201 +1,126 @@
 [
   {
-    "name": "Sample 1",
-    "description": "Test proposal",
-    "dateCreated": "01/01/23",
-    "dateModified": "01/01/23",
-    "client": "Paul Sydney",
-    "guid": "28190eb1-39bb-43cd-afbc-1d0e4f94f10c",
+    "name": "Proposal for Kyle",
+    "description": "First proposal option",
+    "dateCreated": "6/2/2023",
+    "dateModified": "6/2/2023",
+    "client_guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
+    "guid": "7787ddae-d602-4c03-9f66-b65efa442b23",
     "data": {
-      "models": [
-        {
-          "name": "XP25-036-230 Heat Pump 3 Ton/230",
-          "catalogNum": "98W17",
-          "qty": "1",
-          "unitCost": "5008"
-        },
-        {
-          "name": "XP14-030-230 HEAT PUMP/2.5Ton/230-1",
-          "catalogNum": "81W94",
-          "qty": "1",
-          "unitCost": "1723"
-        }
-      ],
-      "unitCostTax": "8.575",
+      "models": [],
+      "unitCostTax": 8.375,
       "labor": {
         "twoMenEightHours": {
-          "qty": "1",
-          "cost": "680.00"
+          "qty": 1,
+          "cost": 680
         },
         "twoMenSixteenHours": {
-          "qty": "0",
-          "cost": "1360.00"
+          "qty": 0,
+          "cost": 1360
         },
         "twoMenTwentyHours": {
-          "qty": "0",
-          "cost": "1700"
+          "qty": 0,
+          "cost": 1700
         },
         "threeMenTwentyFourHours": {
-          "qty": "0",
-          "cost": "2040"
+          "qty": 0,
+          "cost": 2040
         },
         "threeMenThirtyHours": {
-          "qty": "0",
-          "cost": "2550"
+          "qty": 0,
+          "cost": 2550
         },
         "subcontractors": {
-          "qty": "0",
-          "cost": "0"
+          "qty": 0,
+          "cost": 0
         }
       },
       "fees": {
         "permit": {
-          "qty": "1",
-          "cost": "300"
+          "qty": 1,
+          "cost": 300
         },
         "financing": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         },
         "tempTank": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         },
         "removal": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         },
         "rebates": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         }
       },
-      "multiplier": "1.5",
-      "commission": "8"
+      "multiplier": 1.5,
+      "commission": 8
     }
   },
   {
-    "name": "test2",
-    "description": "Test proposal 2",
-    "dateCreated": "03/23/23",
-    "dateModified": "05/01/23",
-    "client": "Gustavo Fring",
-    "guid": "7d1b9bb5-e242-4140-ad4b-f9872941a13a",
+    "name": "Proposal for Tim",
+    "description": "First proposal option",
+    "dateCreated": "6/2/2023",
+    "dateModified": "6/2/2023",
+    "client_guid": "50eaa137-8883-4eb4-815b-0e2239be204e",
+    "guid": "6e435c47-dcad-4779-9216-1e3441fcc012",
     "data": {
       "models": [],
-      "unitCostTax": "8.375",
+      "unitCostTax": 8.375,
       "labor": {
         "twoMenEightHours": {
-          "qty": "1",
-          "cost": "680.00"
+          "qty": 1,
+          "cost": 680
         },
         "twoMenSixteenHours": {
-          "qty": "0",
-          "cost": "1360.00"
+          "qty": 0,
+          "cost": 1360
         },
         "twoMenTwentyHours": {
-          "qty": "0",
-          "cost": "1700"
+          "qty": 0,
+          "cost": 1700
         },
         "threeMenTwentyFourHours": {
-          "qty": "0",
-          "cost": "2040"
+          "qty": 0,
+          "cost": 2040
         },
         "threeMenThirtyHours": {
-          "qty": "0",
-          "cost": "2550"
+          "qty": 0,
+          "cost": 2550
         },
         "subcontractors": {
-          "qty": "0",
-          "cost": "0"
+          "qty": 0,
+          "cost": 0
         }
       },
       "fees": {
         "permit": {
-          "qty": "1",
-          "cost": "300"
+          "qty": 1,
+          "cost": 300
         },
         "financing": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         },
         "tempTank": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         },
         "removal": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         },
         "rebates": {
-          "qty": "1",
-          "cost": "0"
+          "qty": 1,
+          "cost": 0
         }
       },
-      "multiplier": "1.6",
-      "commission": "10"
-    }
-  },
-  {
-    "name": "Test Kyle as client",
-    "description": "Test",
-    "dateCreated": "6/1/2023",
-    "dateModified": "6/1/2023",
-    "client": "Kyle Steike",
-    "guid": "66068b98-b4a8-4aa7-a8a7-41ed2f153bad",
-    "data": {
-      "models": [],
-      "unitCostTax": "8.375",
-      "labor": {
-        "twoMenEightHours": {
-          "qty": "1",
-          "cost": "680.00"
-        },
-        "twoMenSixteenHours": {
-          "qty": "0",
-          "cost": "1360.00"
-        },
-        "twoMenTwentyHours": {
-          "qty": "0",
-          "cost": "1700"
-        },
-        "threeMenTwentyFourHours": {
-          "qty": "0",
-          "cost": "2040"
-        },
-        "threeMenThirtyHours": {
-          "qty": "0",
-          "cost": "2550"
-        },
-        "subcontractors": {
-          "qty": "0",
-          "cost": "0"
-        }
-      },
-      "fees": {
-        "permit": {
-          "qty": "1",
-          "cost": "300"
-        },
-        "financing": {
-          "qty": "1",
-          "cost": "0"
-        },
-        "tempTank": {
-          "qty": "1",
-          "cost": "0"
-        },
-        "removal": {
-          "qty": "1",
-          "cost": "0"
-        },
-        "rebates": {
-          "qty": "1",
-          "cost": "0"
-        }
-      },
-      "multiplier": "1.5",
-      "commission": "8"
+      "multiplier": 1.5,
+      "commission": 8
     }
   }
 ]

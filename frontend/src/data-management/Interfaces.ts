@@ -22,7 +22,7 @@ export interface Products extends Array<ProductKeyObject<ProductObject>> {}
 // PRODUCT TYPES \\
 export interface ProductTypeObject {
   label: string;
-  standard_value: string;
+  guid: string;
 }
 export interface ProductTypes extends Array<ProductTypeObject> {}
 
@@ -31,13 +31,13 @@ export interface ClientObject {
   guid: string;
   name: string;
   address: string;
-  apt: string;
   state: string;
   city: string;
   zip: string;
-  phone: string;
-  email: string;
-  accountNum: string;
+  apt?: string;
+  phone?: string;
+  email?: string;
+  accountNum?: string;
 }
 export interface Clients extends Array<ClientObject> {}
 
@@ -85,7 +85,7 @@ export interface ProposalObject {
   guid: string;
   name: string;
   description: string;
-  client: string;
+  client_guid: string;
   dateCreated: string;
   dateModified: string;
   data: ProposalData;

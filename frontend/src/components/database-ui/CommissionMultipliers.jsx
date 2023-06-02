@@ -13,7 +13,7 @@ import {
 import {
   deleteCommission,
   deleteMultiplier,
-} from "../../data-management/InteractWithBackendData";
+} from "../../data-management/InteractWithBackendData.ts";
 import AddNewItem from "../coreui/AddNewItem";
 import { addScalarValueDialog } from "../coreui/dialogs/AddScalarValueDialog";
 

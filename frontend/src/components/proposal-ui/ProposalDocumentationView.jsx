@@ -18,7 +18,7 @@ import SaveIcon from "@mui/icons-material/Save";
 
 import { updateStore } from "../../data-management/Dispatcher";
 import { updateClients } from "../../data-management/Reducers";
-import { saveClient } from "../../data-management/InteractWithBackendData";
+import { saveClient } from "../../data-management/InteractWithBackendData.ts";
 
 import StateSelection from "../coreui/StateSelection";
 

@@ -11,7 +11,7 @@ import {
   updateClients,
   updateSelectedClient,
 } from "../../data-management/Reducers";
-import { saveClient } from "../../data-management/InteractWithBackendData";
+import { saveClient } from "../../data-management/InteractWithBackendData.ts";
 import StateSelection from "../coreui/StateSelection";
 
 const ClientAddressView = () => {

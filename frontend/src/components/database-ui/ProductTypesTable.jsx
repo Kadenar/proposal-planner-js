@@ -8,7 +8,7 @@ import {
   addNewProductType,
   editProductType,
   deleteProductType,
-} from "../../data-management/InteractWithBackendData";
+} from "../../data-management/InteractWithBackendData.ts";
 import { updateFilters } from "../../data-management/Reducers";
 import AddNewItem from "../coreui/AddNewItem";
 
@@ -32,7 +32,7 @@ export default function ProductTypesTable() {
             onSubmit: async (value) => {
               return updateStore({
                 dispatch,
-                dbOperation: async () => addNewProductType({ label: value }),
+                dbOperation: async () => addNewProductType(value),
                 methodToDispatch: updateFilters,
                 dataKey: "types",
                 successMessage: "Successfully added new product type!",
@@ -46,12 +46,12 @@ export default function ProductTypesTable() {
         title={"Database management"}
         columns={[
           { title: "Label", field: "label" },
-          { title: "Key name", field: "standard_value", searchable: false },
+          { title: "Key name", field: "guid", searchable: false },
         ]}
         data={filters.map((filter) => {
           return {
             label: filter.label,
-            standard_value: filter.standard_value,
+            guid: filter.guid,
           };
         })}
         options={{
@@ -73,10 +73,7 @@ export default function ProductTypesTable() {
                   return updateStore({
                     dispatch,
                     dbOperation: async () =>
-                      editProductType({
-                        label: value,
-                        standard_value: rowData.standard_value,
-                      }),
+                      editProductType(value, rowData.guid),
                     methodToDispatch: updateFilters,
                     dataKey: "types",
                     successMessage: `Successfully edited ${rowData.label} to ${value}`,
@@ -95,8 +92,7 @@ export default function ProductTypesTable() {
                 onSubmit: async () => {
                   return updateStore({
                     dispatch,
-                    dbOperation: async () =>
-                      deleteProductType({ name: rowData.standard_value }),
+                    dbOperation: async () => deleteProductType(rowData.guid),
                     methodToDispatch: updateFilters,
                     dataKey: "types",
                     successMessage: `Successfully deleted ${rowData.label}`,

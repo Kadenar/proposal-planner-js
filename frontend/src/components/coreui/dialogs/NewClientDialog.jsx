@@ -73,7 +73,7 @@ const NewClientDialog = () => {
       >
         <DialogTitle>Add new client</DialogTitle>
         <DialogContent>
-          <Grid container spacing={2}>
+          <Grid container marginTop={1} spacing={2}>
             <Grid item xs={11}>
               <TextField
                 label="Client name"
