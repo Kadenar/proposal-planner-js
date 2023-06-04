@@ -55,20 +55,15 @@ const ProposalPlanner = () => {
   //   [store]
   // );
 
-  let theme = createTheme({
+  const theme = createTheme({
     palette: {
-      mode: store.useDarkMode ? "dark" : "light",
+      mode: "dark",
     },
   });
 
   // TODO - Remove this when done - only temporary to log the state when it changes
   store.subscribe(() => {
     console.log(store.getState());
-    theme = createTheme({
-      palette: {
-        mode: store.useDarkMode ? "dark" : "light",
-      },
-    });
   });
 
   // Initialize the available products and filters for the system to use (loaded from back-end server)
