@@ -45,6 +45,7 @@ export default function ExistingProposals() {
               description: "",
               selectedClient: {},
               clients,
+              isExistingProposal: false,
               onSubmit: async (name, description, client_guid) => {
                 return updateStore({
                   dispatch,
@@ -94,10 +95,34 @@ export default function ExistingProposals() {
         }}
         actions={[
           {
-            icon: "settings",
+            icon: "edit",
+
             tooltip: "Edit proposal",
             onClick: (event, rowData) => {
               selectProposalCallback(rowData);
+            },
+          },
+          {
+            icon: "save",
+            tooltip: "Copy proposal",
+            onClick: (event, rowData) => {
+              newProposalDialog({
+                name: rowData.name,
+                description: rowData.description,
+                selectedClient: rowData.client,
+                clients,
+                isExistingProposal: true,
+                onSubmit: async (name, description, client_guid) => {
+                  return updateStore({
+                    dispatch,
+                    dbOperation: async () =>
+                      addProposal(name, description, client_guid, rowData),
+                    methodToDispatch: updateProposals,
+                    dataKey: "proposals",
+                    successMessage: "Successfully copied proposal!",
+                  });
+                },
+              });
             },
           },
           {

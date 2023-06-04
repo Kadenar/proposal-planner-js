@@ -88,10 +88,10 @@ const PaymentOptions = ({ invoice }) => (
       </View>
     </View>
 
-    <View style={{ marginTop: 10 }}>
-      <Text style={{ fontSize: 6, width: "50%", marginBottom: 10 }}>
+    <View style={{ fontSize: 10, marginTop: 10, flexDirection: "row" }}>
+      <Text style={{ fontSize: 6, flexGrow: 1, marginBottom: 10 }}>
         All material is warranted to be as specified. All work to be completed
-        in a workmanlike manner. Any alteration or deivation from above
+        in a workmanlike manner. Any alteration or deviation from above
         specifications involving extra costs found during or after installation
         will become an extra charge over and above the estimate. These may
         include extra code requirements, asbestos abatement, fire rated
@@ -102,31 +102,40 @@ const PaymentOptions = ({ invoice }) => (
         control. Homeowner to carry homeowner's insurance (fire, etc). All
         workmen will have workmen's' comp and public liability insurance.
       </Text>
-      <Text style={{ fontSize: 11 }}>
-        <Text style={styles.text_bolded}>Acceptance of Proposal: </Text>
+      <View style={{ flexGrow: 1 }}>
+        <Text>Authorized Signature: ________________________ </Text>
         <Text>
-          The above prices, specifications and conditions are satisfactory and
-          are hereby accepted. Robison is authorized to do the work. Payment
-          will be made as outlined above. To the extend that the price is being
-          reduced by anticipated rebates, the customer will be responsible for
-          the full price in the event rebate application is denied for any
-          reason. Robison will make reasonable efforts to resubmit documents to
-          remediate denial and will be in communication with homeowner
-          throughout, including authorization to commence, choose alternate
-          equipment or full cancellation option.
+          Note: This proposal may be withdrawn by Robison if not accepted within
+          30 days and is contingent upon managers approval.
         </Text>
-      </Text>
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 30,
-          fontSize: 14,
-          flexWrap: "nowrap",
-        }}
-      >
-        <Text>Signature: _______________________________________</Text>
-        <Text style={{ marginLeft: 10 }}>Date: ____________</Text>
+        <Text>Approved: ______________</Text>
+        <Text>Date: ______________</Text>
       </View>
+    </View>
+    <View style={{ fontSize: 11 }}>
+      <Text style={styles.text_bolded}>Acceptance of Proposal: </Text>
+      <Text>
+        The above prices, specifications and conditions are satisfactory and are
+        hereby accepted. Robison is authorized to do the work. Payment will be
+        made as outlined above. To the extend that the price is being reduced by
+        anticipated rebates, the customer will be responsible for the full price
+        in the event rebate application is denied for any reason. Robison will
+        make reasonable efforts to resubmit documents to remediate denial and
+        will be in communication with homeowner throughout, including
+        authorization to commence, choose alternate equipment or full
+        cancellation option.
+      </Text>
+    </View>
+    <View
+      style={{
+        flexDirection: "row",
+        marginTop: 30,
+        fontSize: 14,
+        flexWrap: "nowrap",
+      }}
+    >
+      <Text>Signature: _______________________________________</Text>
+      <Text style={{ marginLeft: 10 }}>Date: ____________</Text>
     </View>
     <Text
       style={styles.pageNumber}

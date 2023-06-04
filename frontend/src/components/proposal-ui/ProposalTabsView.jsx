@@ -1,9 +1,7 @@
 import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import Card from "@mui/material/Card";
 import Tabs from "@mui/base/Tabs";
-import Collapse from "@mui/material/Collapse";
 
 import {
   StyledTabsList,
@@ -41,19 +39,20 @@ export default function ProposalTabsView() {
         <StyledTabsList>
           <StyledTab value={0}>Costs</StyledTab>
           <StyledTab value={1}>Documentation</StyledTab>
+          <StyledTab value={2}>PDF</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
           <ProposalPricingView />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
-          <ProposalCardDetails />
           <ClientCardDetails activeClient={clientInfo} />
-          <Card sx={{ padding: 2 }}>
-            <PdfDocument
-              clientInfo={clientInfo}
-              proposalDetails={selectedProposal}
-            />
-          </Card>
+          <ProposalCardDetails />
+        </StyledTabPanel>
+        <StyledTabPanel value={2}>
+          <PdfDocument
+            clientInfo={clientInfo}
+            proposalDetails={selectedProposal}
+          />
         </StyledTabPanel>
       </Tabs>
     </div>

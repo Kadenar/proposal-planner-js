@@ -11,12 +11,17 @@ import {
   updateSelectedClient,
   selectProposal,
 } from "../../data-management/store/Reducers";
-import { deleteProposal } from "../../data-management/backend-helpers/InteractWithBackendData.ts";
+import {
+  addProposal,
+  deleteProposal,
+} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
+import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
 
 const ClientProposalsView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const clients = useSelector((state) => state.clients);
   const selectedClient = useSelector((state) => state.selectedClient);
   const proposals = useSelector((state) => state.proposals);
 
@@ -55,12 +60,35 @@ const ClientProposalsView = () => {
       }}
       actions={[
         {
-          icon: "settings",
+          icon: "edit",
           tooltip: "View proposal",
           onClick: (event, rowData) => {
             dispatch(updateSelectedClient(null));
             dispatch(selectProposal(rowData));
             navigate("/proposals");
+          },
+        },
+        {
+          icon: "save",
+          tooltip: "Copy proposal",
+          onClick: (event, rowData) => {
+            newProposalDialog({
+              name: rowData.name,
+              description: rowData.description,
+              selectedClient: rowData.client,
+              clients,
+              isExistingProposal: true,
+              onSubmit: async (name, description, client_guid) => {
+                return updateStore({
+                  dispatch,
+                  dbOperation: async () =>
+                    addProposal(name, description, client_guid, rowData),
+                  methodToDispatch: updateProposals,
+                  dataKey: "proposals",
+                  successMessage: "Successfully copied proposal!",
+                });
+              },
+            });
           },
         },
         {

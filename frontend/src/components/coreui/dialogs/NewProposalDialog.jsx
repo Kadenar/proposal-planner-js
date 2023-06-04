@@ -17,6 +17,7 @@ const useProposalDialogStore = create((set) => ({
   selectedClient: {},
   clients: [],
   onSubmit: undefined,
+  isExistingProposal: false,
   updateName: (name) => set(() => ({ name: name })),
   updateDescription: (description) => set(() => ({ description: description })),
   updateSelectedClient: (selectedClient) =>
@@ -25,7 +26,8 @@ const useProposalDialogStore = create((set) => ({
 }));
 
 const NewProposalDialog = () => {
-  const { onSubmit, close, clients } = useProposalDialogStore();
+  const { onSubmit, close, clients, isExistingProposal } =
+    useProposalDialogStore();
 
   const [name, updateName] = useProposalDialogStore((state) => [
     state.name,
@@ -56,7 +58,9 @@ const NewProposalDialog = () => {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Create a new proposal</DialogTitle>
+        <DialogTitle>
+          {isExistingProposal ? "Copy proposal" : "Create a new proposal"}
+        </DialogTitle>
         <DialogContent>
           <div style={{ paddingTop: "5px", minHeight: "50vh" }}>
             <Stack spacing={2}>
@@ -130,6 +134,7 @@ export const newProposalDialog = ({
   description = "",
   selectedClient = {},
   clients = [],
+  isExistingProposal = false,
   onSubmit,
 }) => {
   useProposalDialogStore.setState({
@@ -137,6 +142,7 @@ export const newProposalDialog = ({
     description,
     selectedClient,
     clients,
+    isExistingProposal,
     onSubmit,
   });
 };

@@ -1,21 +1,28 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
+  Text,
   Document,
   Page,
-  Text,
   StyleSheet,
-  Font,
   PDFViewer,
-  View,
 } from "@react-pdf/renderer";
+
+import Collapse from "@mui/material/Collapse";
+import Card from "@mui/material/Card";
+import Stack from "@mui/material/Stack";
+
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
+import { StyledIconButton } from "../../../coreui/StyledComponents";
 import RobisonInvoiceHeader from "../pdf/InvoiceHeader";
 import SubmittedToContent from "../pdf/SubmittedToContent";
 import { calculateTotalCost } from "../../../../data-management/utils";
-import { NumericFormat } from "react-number-format";
 import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";
 
 export const PdfDocument = ({ clientInfo, proposalDetails }) => {
+  const [open, setOpen] = useState(true);
   // Prepare invoice data for PDF
   const invoice_data = useMemo(() => {
     return {
@@ -41,14 +48,44 @@ export const PdfDocument = ({ clientInfo, proposalDetails }) => {
     );
   }
   return (
-    <>
-      <PDFViewer
-        fullWidth
-        style={{ margin: "0 auto", minHeight: "60vh", minWidth: "85vw" }}
+    <Card sx={{ padding: 2 }}>
+      <StyledIconButton
+        aria-label="expand row"
+        size="small"
+        onClick={() => setOpen(!open)}
+        style={{ fontWeight: "bold", marginButton: 10 }}
       >
-        <MyDocument invoice={invoice_data} />
-      </PDFViewer>
-    </>
+        {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+        PDF Document
+      </StyledIconButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <Stack
+          style={{
+            flexDirection: "row",
+            marginTop: 10,
+            minHeight: "75vh",
+          }}
+        >
+          <PDFViewer fullWidth style={{ minWidth: "100%" }}>
+            <Document>
+              <Page style={styles.body}>
+                <RobisonInvoiceHeader />
+                <SubmittedToContent invoice={invoice_data} />
+                <Specifications invoice={invoice_data} />
+                <Text
+                  style={styles.pageNumber}
+                  render={({ pageNumber, totalPages }) =>
+                    `${pageNumber} / ${totalPages}`
+                  }
+                  fixed
+                />
+              </Page>
+              <PaymentOptions />
+            </Document>
+          </PDFViewer>
+        </Stack>
+      </Collapse>
+    </Card>
   );
 };
 
@@ -58,20 +95,8 @@ const styles = StyleSheet.create({
     paddingBottom: 65,
     paddingHorizontal: 35,
   },
-  proposal_view: {
-    border: "1px solid black",
-    padding: 5,
-    flexGrow: 1,
-  },
   small_text: {
     fontSize: 10,
-  },
-  proposal_body: {
-    padding: 12,
-    margin: 12,
-    fontSize: 14,
-    textAlign: "justify",
-    fontFamily: "Times-Roman",
   },
   pageNumber: {
     position: "absolute",
@@ -82,84 +107,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
-});
-
-const NumberAsCurrency = ({ value }) => {
-  return (
-    <NumericFormat
-      sx={{ fontSize: 10 }}
-      value={value}
-      displayType={"text"}
-      decimalScale={2}
-      thousandSeparator={true}
-      prefix={"$"}
-      renderText={(formattedValue) => (
-        <Text
-          style={{
-            fontSize: 10,
-            marginLeft: 5,
-            fontFamily: "Times-Bold",
-            borderBottom: "1px solid black",
-            paddingBottom: 5,
-            paddingLeft: 25,
-            flexGrow: 1,
-            marginRight: 50,
-          }}
-        >
-          {formattedValue}
-        </Text>
-      )}
-    />
-  );
-};
-
-const MyDocument = ({ invoice }) => {
-  return (
-    <Document>
-      <Page style={styles.body}>
-        <RobisonInvoiceHeader />
-        <SubmittedToContent invoice={invoice} />
-
-        {/* Submitted to content STARTS here */}
-        <View style={styles.proposal_view}>
-          <Text style={{ paddingLeft: 5, fontSize: 7, position: "absolute" }}>
-            We hereby submit specifications and estimate for:
-          </Text>
-          <Text style={styles.proposal_body}>{invoice.proposal_title}</Text>
-          <Text style={styles.proposal_body}>{invoice.proposal_summary}</Text>
-          <Text style={styles.proposal_body}>
-            {invoice.proposal_specifications}
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 15,
-            paddingRight: 10,
-            fontSize: 10,
-            fontFamily: "Times-Bold",
-          }}
-        >
-          <Text style={{}}>
-            Robison will provide material and labor for the above specifications
-            for the sum of:
-          </Text>
-          <NumberAsCurrency value={invoice.invoiceTotal}>
-            {"$"}
-            {invoice.invoiceTotal}
-          </NumberAsCurrency>
-        </View>
-        {/* <Specifications invoice={invoice} /> */}
-      </Page>
-
-      {/* Submitted to content ENDS here */}
-      <PaymentOptions />
-    </Document>
-  );
-};
-
-Font.register({
-  family: "Oswald",
-  src: "https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf",
 });

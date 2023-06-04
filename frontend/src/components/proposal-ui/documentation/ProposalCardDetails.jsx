@@ -1,12 +1,20 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "lodash";
 
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { StyledTextarea } from "../../coreui/StyledComponents";
+import Collapse from "@mui/material/Collapse";
+import TextField from "@mui/material/TextField";
+
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
+import {
+  StyledTextarea,
+  StyledIconButton,
+} from "../../coreui/StyledComponents";
 import {
   updateProposalTitle,
   updateProposalSummary,
@@ -15,7 +23,7 @@ import {
 } from "../../../data-management/store/Reducers";
 import { updateStore } from "../../../data-management/store/Dispatcher";
 import { saveProposal } from "../../../data-management/backend-helpers/InteractWithBackendData.ts";
-import { TextField } from "@mui/material";
+import TransferList from "./TransferList";
 
 const ProposalCardDetails = () => {
   const selectedProposal = useSelector((state) => state.selectedProposal);
@@ -29,8 +37,10 @@ const ProposalCardDetails = () => {
   const debouncedSearch = useRef(
     debounce(async (functionToRun) => {
       dispatch(functionToRun());
-    }, 300)
+    }, 1000)
   ).current;
+
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     return () => {
@@ -54,12 +64,18 @@ const ProposalCardDetails = () => {
   }
 
   return (
-    <>
-      <Card sx={{ marginBottom: 2 }}>
-        <Stack flexDirection="row" margin={1} justifyContent="space-between">
-          <Typography sx={{ marginLeft: 1 }} variant="h5">
-            Proposal specifications
-          </Typography>
+    <Card sx={{ marginBottom: 2 }}>
+      <Stack flexDirection="row" margin={1} justifyContent="space-between">
+        <StyledIconButton
+          aria-label="expand row"
+          size="small"
+          onClick={() => setOpen(!open)}
+          style={{ fontWeight: "bold" }}
+        >
+          {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+          Proposal specifications
+        </StyledIconButton>
+        {open && (
           <Button
             variant="contained"
             onClick={async () => {
@@ -86,37 +102,43 @@ const ProposalCardDetails = () => {
           >
             Save proposal
           </Button>
-        </Stack>
-        <TextField
-          ref={titleRef}
-          sx={{ marginLeft: 2, width: "545px" }}
-          label={"Proposal title"}
-          onChange={({ target: { value } }) => handleTitleChange(value)}
-          defaultValue={selectedProposal.data?.title || ""}
-        />
-        <Stack flexDirection="row" margin={2} gap={2}>
-          <StyledTextarea
-            placeholder={"Brief summary"}
-            ref={briefSummaryRef}
-            sx={{ flexGrow: 1 }}
-            onChange={({ target: { value } }) => handleSummaryChange(value)}
-            minRows={10}
-            defaultValue={selectedProposal.data?.summary || ""}
+        )}
+      </Stack>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <Stack margin={1} gap={2}>
+          <TextField
+            ref={titleRef}
+            sx={{ marginLeft: 2, flexGrow: 1 }}
+            label={"Proposal title"}
+            onChange={({ target: { value } }) => handleTitleChange(value)}
+            defaultValue={selectedProposal.data?.title || ""}
           />
-
-          <StyledTextarea
-            placeholder={"Installation details"}
-            ref={specificationRef}
-            sx={{ flexGrow: 1 }}
-            onChange={({ target: { value } }) =>
-              handleSpecificationChange(value)
-            }
-            minRows={10}
-            defaultValue={selectedProposal.data?.specifications || ""}
-          />
+          <Stack flexDirection="row" margin={2} gap={2}>
+            <StyledTextarea
+              placeholder={"Brief summary"}
+              ref={briefSummaryRef}
+              onChange={({ target: { value } }) => handleSummaryChange(value)}
+              sx={{ flexGrow: 1 }}
+              minRows={8}
+              maxRows={8}
+              defaultValue={selectedProposal.data?.summary || ""}
+            />
+            <StyledTextarea
+              placeholder={"Installation details"}
+              ref={specificationRef}
+              sx={{ flexGrow: 1 }}
+              onChange={({ target: { value } }) =>
+                handleSpecificationChange(value)
+              }
+              minRows={8}
+              maxRows={8}
+              defaultValue={selectedProposal.data?.specifications || ""}
+            />
+          </Stack>
+          <TransferList />
         </Stack>
-      </Card>
-    </>
+      </Collapse>
+    </Card>
   );
 };
 

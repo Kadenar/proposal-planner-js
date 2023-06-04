@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 
 const initialState = {
   useDarkMode: true, // This controls whether the user is in dark or light mode
-  filters_data: [], // This is initialized during program execution
+  filters: [], // This is initialized during program execution
   products: [], // This is initialized during program execution
   multipliers: [], // This is initialized during program execution
   commissions: [], // This is initialized during program execution
@@ -87,7 +87,7 @@ const useDarkMode = (state = initialState.useDarkMode, action) => {
 /**
  * Reducer for updating the set of filters available in dropdown
  */
-const filters = (state = initialState.filters_data, action) => {
+const filters = (state = initialState.filters, action) => {
   if (action.type === "UPDATE_FILTERS") {
     return action.value;
   }
@@ -418,13 +418,6 @@ export function updateLaborQuantity(key, value) {
 export function updateProducts(value) {
   return {
     type: "UPDATE_PRODUCTS",
-    value,
-  };
-}
-
-export function updateSelectedProduct(value) {
-  return {
-    type: "UPDATE_SELECTED_PRODUCT",
     value,
   };
 }

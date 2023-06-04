@@ -109,7 +109,7 @@ export default function AllClientsView() {
         }}
         actions={[
           {
-            icon: "settings",
+            icon: "edit",
             tooltip: "View client",
             onClick: (event, rowData) => {
               dispatch(updateSelectedClient(rowData.fullInfo));

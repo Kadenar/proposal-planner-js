@@ -69,7 +69,7 @@ export default function ProductsTable() {
       />
 
       <MaterialTable
-        title={"Database management"}
+        title={"Products management"}
         columns={[
           { title: "Type", field: "type" },
           { title: "Model", field: "model" },
@@ -108,7 +108,7 @@ export default function ProductsTable() {
         }}
         actions={[
           {
-            icon: "settings",
+            icon: "edit",
             tooltip: "Edit product",
             onClick: (event, rowData) => {
               productDialog({

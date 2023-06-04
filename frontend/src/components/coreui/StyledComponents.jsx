@@ -220,7 +220,6 @@ export const StyledSwitch = styled(Switch)(({ theme }) => ({
 
 export const StyledTextarea = styled(TextareaAutosize)(
   ({ theme }) => `
-      width: 320px;
       font-family: IBM Plex Sans, sans-serif;
       font-size: 0.875rem;
       font-weight: 400;

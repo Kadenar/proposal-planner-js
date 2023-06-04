@@ -45,8 +45,31 @@ const ProposalPlanner = () => {
   const store = createStore(PricingReducer, applyMiddleware(thunk));
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
+  // const theme = useMemo(
+  //   () =>
+  //     createTheme({
+  //       palette: {
+  //         mode: store.useDarkMode ? "dark" : "light",
+  //       },
+  //     }),
+  //   [store]
+  // );
+
+  let theme = createTheme({
+    palette: {
+      mode: store.useDarkMode ? "dark" : "light",
+    },
+  });
+
   // TODO - Remove this when done - only temporary to log the state when it changes
-  store.subscribe(() => console.log(store.getState()));
+  store.subscribe(() => {
+    console.log(store.getState());
+    theme = createTheme({
+      palette: {
+        mode: store.useDarkMode ? "dark" : "light",
+      },
+    });
+  });
 
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
@@ -70,17 +93,6 @@ const ProposalPlanner = () => {
 
     asyncFunc();
   }, [store]);
-  const themeColor = "dark";
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: themeColor,
-        },
-      }),
-    [themeColor]
-  );
 
   return (
     <Provider store={store}>

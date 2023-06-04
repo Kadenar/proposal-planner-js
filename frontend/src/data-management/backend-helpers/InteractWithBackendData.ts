@@ -344,7 +344,8 @@ export const deleteMultiplier = async (value: string) => {
 export async function addProposal(
   name: string,
   description: string,
-  client_guid: string
+  client_guid: string,
+  existingProposal: Interface.ProposalObject | null
 ) {
   if (name === "") {
     return {
@@ -365,7 +366,30 @@ export async function addProposal(
   }
 
   const existingProposals = await fetchProposals();
-  const newProposal = getNewProposalItem(name, description, client_guid);
+
+  let newProposal = getNewProposalItem(name, description, client_guid);
+
+  if (existingProposal) {
+    newProposal = {
+      ...newProposal,
+      name,
+      description,
+      client_guid,
+      data: {
+        models: existingProposal.data.models,
+        fees: existingProposal.data.fees,
+        labor: existingProposal.data.labor,
+        multiplier: existingProposal.data.multiplier,
+        unitCostTax: existingProposal.data.unitCostTax,
+        commission: existingProposal.data.commission,
+        title: existingProposal.data.title,
+        summary: existingProposal.data.summary,
+        specifications: existingProposal.data.specifications,
+      },
+    };
+    return runPostRequest(existingProposals.concat(newProposal), "proposals");
+  }
+
   return runPostRequest(existingProposals.concat(newProposal), "proposals");
 }
 

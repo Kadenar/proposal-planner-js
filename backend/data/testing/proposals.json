@@ -174,8 +174,195 @@
       },
       "multiplier": 1.5,
       "commission": 8,
-      "specifications": "testtest",
-      "summary": "test"
+      "specifications": "1. We will file permits with the Town of Southeast Building Department immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval.\n2. We will remove the old Weil McLain 69 series oil-fired boiler that was manufactured in 1994.\n3. Install (1) Energy Kinetics - System 2000 - Model # EK1 - High Efficiency - Oil Fired Boiler\n4. Install (1) Energy Kinetcis/Beckett high speed retention burner",
+      "summary": "This proposal is for the installation of an Energy Kinetics System 2000 high efficiency oil-fired boiler. We will file all necessary permits and specifications with the Town of Southeast Building Department as required by code. All parts and labor are included in this proposal to complete items listed in this proposal to local and state codes as well as manufactures specifications.",
+      "title": "Energy Kinetics - System 2000 - High Efficiency Oil Fired Boiler"
+    }
+  },
+  {
+    "name": "Proposal for Kyle 2",
+    "description": "Second proposal option",
+    "dateCreated": "6/4/2023",
+    "dateModified": "6/4/2023",
+    "client_guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
+    "guid": "5cac9280-1921-4ac0-9057-f05447f12abe",
+    "data": {
+      "models": [
+        {
+          "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294",
+          "name": "test 1",
+          "catalogNum": "test 1",
+          "unitCost": "2342",
+          "quantity": "1",
+          "totalCost": 2342,
+          "key": 0
+        },
+        {
+          "guid": "c735d723-fc53-4918-b597-7be3f5ef8ed4",
+          "name": "SLP98UH090XV36C Furnace-Gas/90Bt/3T",
+          "catalogNum": "60W25",
+          "unitCost": "2139",
+          "quantity": "1",
+          "totalCost": 2139
+        }
+      ],
+      "fees": {
+        "permit": {
+          "name": "Permit fee",
+          "cost": 300
+        },
+        "financing": {
+          "name": "Financing fee",
+          "cost": 0
+        },
+        "tempTank": {
+          "name": "Temp tank fee",
+          "cost": 0
+        },
+        "removal": {
+          "name": "Removal fee",
+          "cost": 0
+        },
+        "rebates": {
+          "name": "Rebates",
+          "cost": 0
+        }
+      },
+      "labor": {
+        "twoMenEightHours": {
+          "name": "(2) men (8) hours",
+          "qty": 1,
+          "cost": 680
+        },
+        "twoMenSixteenHours": {
+          "name": "(2) men (16) hours",
+          "qty": 0,
+          "cost": 1360
+        },
+        "twoMenTwentyHours": {
+          "name": "(2) men (20) hours",
+          "qty": 0,
+          "cost": 1700
+        },
+        "threeMenTwentyFourHours": {
+          "name": "(3) men (24) hours",
+          "qty": 0,
+          "cost": 2040
+        },
+        "threeMenThirtyHours": {
+          "name": "(3) men (30) hours",
+          "qty": 0,
+          "cost": 2550
+        },
+        "subcontractor": {
+          "name": "Sub contractor labor",
+          "qty": 1,
+          "cost": 0
+        },
+        "subcontractors": {
+          "qty": 0,
+          "cost": 0
+        }
+      },
+      "multiplier": 1.5,
+      "unitCostTax": 8.375,
+      "commission": 8,
+      "title": "Energy Kinetics - System 2000 - High Efficiency Oil Fired Boiler",
+      "summary": "This proposal is for the installation of an Energy Kinetics System 2000 high efficiency oil-fired boiler. We will file all necessary permits and specifications with the Town of Southeast Building Department as required by code. All parts and labor are included in this proposal to complete items listed in this proposal to local and state codes as well as manufactures specifications.",
+      "specifications": "1. We will file permits with the Town of Southeast Building Department immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval.\n2. We will remove the old Weil McLain 69 series oil-fired boiler that was manufactured in 1994.\n3. Install (1) Energy Kinetics - System 2000 - Model # EK1 - High Efficnency - Oil Fired Boiler\n4. Install (1) Energy Kinetcis/Beckett high speed retention burner"
+    }
+  },
+  {
+    "name": "Proposal for Kyle 3",
+    "description": "Third proposal option",
+    "dateCreated": "6/4/2023",
+    "dateModified": "6/4/2023",
+    "client_guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
+    "guid": "5a3f28d2-a99e-48bb-a81c-88262e3fdca9",
+    "data": {
+      "models": [
+        {
+          "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294",
+          "name": "test 1",
+          "catalogNum": "test 1",
+          "unitCost": "2342",
+          "quantity": "1",
+          "totalCost": 2342,
+          "key": 0
+        },
+        {
+          "guid": "c735d723-fc53-4918-b597-7be3f5ef8ed4",
+          "name": "SLP98UH090XV36C Furnace-Gas/90Bt/3T",
+          "catalogNum": "60W25",
+          "unitCost": "2139",
+          "quantity": "1",
+          "totalCost": 2139
+        }
+      ],
+      "fees": {
+        "permit": {
+          "name": "Permit fee",
+          "cost": 300
+        },
+        "financing": {
+          "name": "Financing fee",
+          "cost": 0
+        },
+        "tempTank": {
+          "name": "Temp tank fee",
+          "cost": 0
+        },
+        "removal": {
+          "name": "Removal fee",
+          "cost": 0
+        },
+        "rebates": {
+          "name": "Rebates",
+          "cost": 0
+        }
+      },
+      "labor": {
+        "twoMenEightHours": {
+          "name": "(2) men (8) hours",
+          "qty": 1,
+          "cost": 680
+        },
+        "twoMenSixteenHours": {
+          "name": "(2) men (16) hours",
+          "qty": 0,
+          "cost": 1360
+        },
+        "twoMenTwentyHours": {
+          "name": "(2) men (20) hours",
+          "qty": 0,
+          "cost": 1700
+        },
+        "threeMenTwentyFourHours": {
+          "name": "(3) men (24) hours",
+          "qty": 0,
+          "cost": 2040
+        },
+        "threeMenThirtyHours": {
+          "name": "(3) men (30) hours",
+          "qty": 0,
+          "cost": 2550
+        },
+        "subcontractor": {
+          "name": "Sub contractor labor",
+          "qty": 1,
+          "cost": 0
+        },
+        "subcontractors": {
+          "qty": 0,
+          "cost": 0
+        }
+      },
+      "multiplier": 1.5,
+      "unitCostTax": 8.375,
+      "commission": 8,
+      "title": "Energy Kinetics - System 2000 - High Efficiency Oil Fired Boiler",
+      "summary": "This proposal is for the installation of an Energy Kinetics System 2000 high efficiency oil-fired boiler. We will file all necessary permits and specifications with the Town of Southeast Building Department as required by code. All parts and labor are included in this proposal to complete items listed in this proposal to local and state codes as well as manufactures specifications.",
+      "specifications": "1. We will file permits with the Town of Southeast Building Department immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval.\n2. We will remove the old Weil McLain 69 series oil-fired boiler that was manufactured in 1994.\n3. Install (1) Energy Kinetics - System 2000 - Model # EK1 - High Efficnency - Oil Fired Boiler\n4. Install (1) Energy Kinetcis/Beckett high speed retention burner"
     }
   }
 ]

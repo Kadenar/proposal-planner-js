@@ -43,7 +43,7 @@ export default function ProductTypesTable() {
       />
 
       <MaterialTable
-        title={"Database management"}
+        title={"Product types management"}
         columns={[
           { title: "Label", field: "label" },
           { title: "Key name", field: "guid", searchable: false },
@@ -63,7 +63,7 @@ export default function ProductTypesTable() {
         }}
         actions={[
           {
-            icon: "settings",
+            icon: "edit",
             tooltip: "Edit type",
             onClick: (event, rowData) => {
               productTypeDialog({
