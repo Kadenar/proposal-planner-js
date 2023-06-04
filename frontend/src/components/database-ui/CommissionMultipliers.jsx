@@ -9,11 +9,11 @@ import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import {
   updateCommissions,
   updateMultipliers,
-} from "../../data-management/Reducers";
+} from "../../data-management/store/Reducers";
 import {
   deleteCommission,
   deleteMultiplier,
-} from "../../data-management/InteractWithBackendData.ts";
+} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
 import AddNewItem from "../coreui/AddNewItem";
 import { addScalarValueDialog } from "../coreui/dialogs/AddScalarValueDialog";
 

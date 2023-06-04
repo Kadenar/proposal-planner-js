@@ -1,19 +1,20 @@
 import { combineReducers } from "redux";
 
 const initialState = {
+  useDarkMode: true, // This controls whether the user is in dark or light mode
   filters_data: [], // This is initialized during program execution
-  allProducts: [], // This is initialized during program execution
+  products: [], // This is initialized during program execution
   multipliers: [], // This is initialized during program execution
   commissions: [], // This is initialized during program execution
-  allClients: [], // This is initialized during program execution
-  allProposals: [],
+  clients: [], // This is initialized during program execution
+  proposals: [], // This is initialized during program execution
+  selectedClient: null, // This controls whether to show All clients view or selected client view
+  selectedProposal: null, // This controls whether to show All proposals view or selected client view
+  selectedProduct: null, // TODO - unsure whether this is needed?
+  // The values below are never updates and are ONLY used for defaulting for new proposals
   multiplier: 1.6,
   commission: 10.0,
   unitCostTax: 8.375,
-  selectedClient: null,
-  selectedProposal: null,
-  selectedProduct: null,
-  jobTableContents: [],
   fees: {
     permit: {
       name: "Permit fee",
@@ -71,11 +72,20 @@ const initialState = {
   },
   costOfJob: 0,
 };
+
 /**
  * Reducer for updating the set of filters available in dropdown
- * @param {*} state
- * @param {*} value
- * @returns
+ */
+const useDarkMode = (state = initialState.useDarkMode, action) => {
+  if (action.type === "TOGGLE_THEME") {
+    return action.value;
+  }
+
+  return state;
+};
+
+/**
+ * Reducer for updating the set of filters available in dropdown
  */
 const filters = (state = initialState.filters_data, action) => {
   if (action.type === "UPDATE_FILTERS") {
@@ -87,11 +97,8 @@ const filters = (state = initialState.filters_data, action) => {
 
 /**
  * Reducer for updating the clients
- * @param {*} state
- * @param {*} value
- * @returns
  */
-const allClients = (state = initialState.allClients, action) => {
+const clients = (state = initialState.clients, action) => {
   if (action.type === "UPDATE_CLIENTS") {
     return action.value;
   }
@@ -101,11 +108,8 @@ const allClients = (state = initialState.allClients, action) => {
 
 /**
  * Reducer for updating the available products
- * @param {*} state
- * @param {*} value
- * @returns
  */
-const allProducts = (state = initialState.allProducts, action) => {
+const products = (state = initialState.products, action) => {
   if (action.type === "UPDATE_PRODUCTS") {
     return action.value;
   }
@@ -115,11 +119,8 @@ const allProducts = (state = initialState.allProducts, action) => {
 
 /**
  * Reducer for updating the available proposals
- * @param {*} state
- * @param {*} action
- * @returns
  */
-const allProposals = (state = initialState.allProposals, action) => {
+const proposals = (state = initialState.proposals, action) => {
   if (action.type === "UPDATE_PROPOSALS") {
     return action.value;
   }
@@ -129,13 +130,131 @@ const allProposals = (state = initialState.allProposals, action) => {
 
 /**
  * Reducer for updating the actively selected proposal
- * @param {*} state
- * @param {*} action
- * @returns
  */
 const selectedProposal = (state = initialState.selectedProposal, action) => {
   if (action.type === "SELECT_PROPOSAL") {
     return action.value;
+  }
+
+  if (
+    action.type === "UPDATE_PROPOSAL_TITLE" ||
+    action.type === "UPDATE_PROPOSAL_SUMMARY" ||
+    action.type === "UPDATE_PROPOSAL_SPECIFICATIONS"
+  ) {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        [action.key]: action.value,
+      },
+    };
+  }
+
+  if (action.type === "ADD_ROW") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        models: [...state.data.models, { ...action.value }],
+      },
+    };
+  }
+
+  if (action.type === "REMOVE_ROW") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        models: state.data.models.filter((_, i) => i !== action.value),
+      },
+    };
+  }
+
+  if (action.type === "UPDATE_UNIT_COST") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        unitCostTax: action.value,
+      },
+    };
+  }
+  if (action.type === "UPDATE_MULTIPLIER") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        multiplier: action.value,
+      },
+    };
+  }
+
+  if (action.type === "UPDATE_COMMISSION") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        commission: action.value,
+      },
+    };
+  }
+
+  if (action.type === "UPDATE_LABOR_COST" && action.key !== "") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        labor: {
+          ...state.data.labor,
+          [action.key]: {
+            ...state.data.labor[action.key],
+            cost: action.value,
+          },
+        },
+      },
+    };
+  }
+
+  if (action.type === "UPDATE_LABOR_QUANTITY" && action.key !== "") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        labor: {
+          ...state.data.labor,
+          [action.key]: {
+            ...state.data.labor[action.key],
+            qty: action.value,
+          },
+        },
+      },
+    };
+  }
+
+  if (action.type === "UPDATE_FEE" && action.key !== "") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        fees: {
+          ...state.data.fees,
+          [action.key]: {
+            ...state.data.fees[action.key],
+            cost: action.value,
+          },
+        },
+      },
+    };
+  }
+
+  if (action.type === "RESET_PROPOSAL") {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        models: [],
+      },
+    };
   }
 
   return state;
@@ -151,51 +270,9 @@ const selectedClient = (state = initialState.selectedClient, action) => {
 
 /**
  * Reducer for updating the selected product
- * @param {*} state
- * @param {*} value
- * @returns
  */
 const selectedProduct = (state = initialState.selectedProduct, action) => {
   if (action.type === "UPDATE_SELECTED_PRODUCT") {
-    return action.value;
-  }
-
-  return state;
-};
-
-/**
- * Reducer used for updating the job table contents
- * Allows for adding a new entry, removing a specific entry and clearing the entire table
- * @param {*} state
- * @param {*} action
- * @returns
- */
-const jobTableContents = (state = initialState.jobTableContents, action) => {
-  if (action.type === "ADD_ROW") {
-    state.push({
-      ...action.value,
-      key: state.length,
-    });
-    return state;
-  } else if (action.type === "REMOVE_ROW") {
-    const idxToRemove = action.value;
-    state.splice(idxToRemove, 1);
-    return state;
-  } else if (action.type === "RESET_PROPOSAL") {
-    return [];
-  } else {
-    return state;
-  }
-};
-
-/**
- * Reducer used for updating the unit cost tax to be applied to the pricing
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const unitCostTax = (state = initialState.unitCostTax, action) => {
-  if (action.type === "UPDATE_UNIT_COST") {
     return action.value;
   }
 
@@ -211,24 +288,7 @@ const multipliers = (state = initialState.multipliers, action) => {
 };
 
 /**
- * Reducer used for updating the multiplier to be applied to the pricing
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const multiplier = (state = initialState.multiplier, action) => {
-  if (action.type === "UPDATE_MULTIPLIER") {
-    return action.value;
-  }
-
-  return state;
-};
-
-/**
  * Reducer used for updating the commissions available
- * @param {*} state
- * @param {*} value
- * @returns
  */
 const commissions = (state = initialState.commissions, action) => {
   if (action.type === "UPDATE_COMMISSIONS") {
@@ -239,102 +299,19 @@ const commissions = (state = initialState.commissions, action) => {
 };
 
 /**
- * Reducer used for updating the commission to be applied to the pricing
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const commission = (state = initialState.commission, action) => {
-  if (action.type === "UPDATE_COMMISSION") {
-    return action.value;
-  }
-
-  return state;
-};
-
-/**
- * Reducer used for updating any permit fees applicable to the job
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const fees = (state = initialState.fees, action) => {
-  if (action.type === "UPDATE_FEE" && action.key !== "") {
-    return {
-      ...state,
-      [action.key]: {
-        ...state[action.key],
-        cost: action.value,
-      },
-    };
-  }
-
-  return state;
-};
-
-/**
- * Reducer used for updating any permit fees applicable to the job
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const labor = (state = initialState.labor, action) => {
-  if (action.type === "UPDATE_LABOR_COST" && action.key !== "") {
-    return {
-      ...state,
-      [action.key]: {
-        ...state[action.key],
-        cost: action.value,
-      },
-    };
-  } else if (action.type === "UPDATE_LABOR_QUANTITY" && action.key !== "") {
-    return {
-      ...state,
-      [action.key]: {
-        ...state[action.key],
-        qty: action.value,
-      },
-    };
-  }
-
-  return state;
-};
-
-/**
- * Reducer used for updating the total cost of the job
- * (this is calculated based on selected products, fees, commission, etc)
- * @param {*} state
- * @param {*} value
- * @returns
- */
-const costOfJob = (state = initialState.costOfJob, action) => {
-  if (action.type === "UPDATE_COST_JOB") {
-    return action.value;
-  }
-
-  return state;
-};
-
-/**
  * Combine all of our reducers into a single reducer for export and use to create a global store
  */
 const allReducers = combineReducers({
+  useDarkMode,
   filters, // the available filters
-  allProducts, // all of the products available
-  selectedProduct, // the selected product
-  jobTableContents, // the contents the user has added to the table for pricing out a job
-  unitCostTax,
-  multipliers,
-  multiplier,
-  commissions,
-  commission,
-  fees,
-  labor,
-  costOfJob,
-  allProposals,
-  selectedProposal,
-  allClients,
-  selectedClient,
+  products, // all of the products available
+  selectedProduct, // the selected product ??? Is this needed?
+  multipliers, // the available multipliers for proposal
+  commissions, // available commissions for proposal
+  proposals, // all of the proposals for the salesman
+  selectedProposal, // the active proposal being viewed / edited
+  clients, // all of the clients for the salesman
+  selectedClient, // the active client being viewed / edited
 });
 
 // The root reducer for handling resetting the state
@@ -342,13 +319,13 @@ const PricingReducer = (state, action) => {
   if (action.type === "RESET_PROPOSAL") {
     return allReducers(
       {
-        allProducts: state.allProducts,
-        allProposals: state.allProposals,
+        products: state.products,
+        proposals: state.proposals,
         filters: state.filters,
         selectedProposal: state.selectedProposal,
         commissions: state.commissions,
         multipliers: state.multipliers,
-        allClients: state.allClients,
+        clients: state.clients,
       },
       action
     );
@@ -356,6 +333,13 @@ const PricingReducer = (state, action) => {
 
   return allReducers(state, action);
 };
+
+export function toggleTheme(value) {
+  return {
+    type: "TOGGLE_THEME",
+    value,
+  };
+}
 
 export function updateFilters(value) {
   return {
@@ -472,7 +456,31 @@ export function updateProposals(value) {
   };
 }
 
-export function updateSelectedProposal(value) {
+export function updateProposalTitle(value) {
+  return {
+    type: "UPDATE_PROPOSAL_TITLE",
+    key: "title",
+    value,
+  };
+}
+
+export function updateProposalSummary(value) {
+  return {
+    type: "UPDATE_PROPOSAL_SUMMARY",
+    key: "summary",
+    value,
+  };
+}
+
+export function updateProposalSpecifications(value) {
+  return {
+    type: "UPDATE_PROPOSAL_SPECIFICATIONS",
+    key: "specifications",
+    value,
+  };
+}
+
+export function selectProposal(value) {
   return {
     type: "SELECT_PROPOSAL",
     value,

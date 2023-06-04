@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
@@ -6,23 +8,26 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SidebarDrawer from "./SidebarDrawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useLocation } from "react-router-dom";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import { toggleTheme } from "../../../data-management/store/Reducers";
+import { StyledSwitch } from "../StyledComponents";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme);
 
-  // TODO Hacky solution for setting the header in the appbar for now
-  let header = location.pathname.substring(1);
-
-  if (header !== "") {
-    header = header.charAt(0).toUpperCase() + header.slice(1);
-  } else {
-    header = "Home";
-  }
+  const header = useMemo(() => {
+    const pathStart = location.pathname.substring(1);
+    if (pathStart !== "") {
+      return pathStart.charAt(0).toUpperCase() + pathStart.slice(1);
+    } else {
+      return "Home";
+    }
+  }, [location]);
 
   const setShowSidebar = () => setSidebar(!sidebar);
-
   return (
     <>
       <AppBar position="static">
@@ -36,9 +41,21 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" component="div">
+          <Typography
+            variant="h6"
+            color="inherit"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
             {header}
           </Typography>
+          <FormControlLabel
+            control={
+              <StyledSwitch sx={{ m: 1 }} value={theme} defaultChecked />
+            }
+            label="Theme"
+            onChange={(e) => dispatch(toggleTheme(e.target.checked))}
+          />
         </Toolbar>
       </AppBar>
       <SidebarDrawer showDrawer={sidebar} setShowDrawer={setShowSidebar} />

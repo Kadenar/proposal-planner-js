@@ -1,75 +1,36 @@
 import React, { useCallback } from "react";
 
-import { useDispatch, batch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack, CircularProgress, Button } from "@mui/material";
-import { updateStore } from "../../data-management/Dispatcher";
+import { updateStore } from "../../data-management/store/Dispatcher";
 
 import {
   addProposal,
   deleteProposal,
-} from "../../data-management/InteractWithBackendData.ts";
+} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
 
 import {
-  updateCommission,
-  updateFee,
-  updateLaborQuantity,
-  updateMultiplier,
-  updateSelectedProposal,
-  updateUnitCostTax,
-  updateLaborCost,
-  addProductToTable,
-  resetProposal,
   updateProposals,
-} from "../../data-management/Reducers";
+  selectProposal,
+} from "../../data-management/store/Reducers";
 
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
 
 export default function ExistingProposals() {
   const dispatch = useDispatch();
-  const allProposals = useSelector((state) => state.allProposals);
-  const allClients = useSelector((state) => state.allClients);
+  const proposals = useSelector((state) => state.proposals);
+  const clients = useSelector((state) => state.clients);
 
-  const selectProposal = useCallback(
+  const selectProposalCallback = useCallback(
     (value) => {
-      batch(() => {
-        dispatch(resetProposal());
-
-        dispatch(updateSelectedProposal(value));
-        dispatch(updateUnitCostTax(value.data.unitCostTax));
-        dispatch(updateCommission(value.data.commission));
-        dispatch(updateMultiplier(value.data.multiplier));
-
-        value.data.models.forEach((model) => {
-          dispatch(
-            addProductToTable({
-              guid: model.guid,
-              name: model.name,
-              catalogNum: model.catalogNum,
-              unitCost: model.unitCost,
-              quantity: model.qty,
-              totalCost: model.unitCost * model.qty,
-            })
-          );
-        });
-
-        const fees = value.data.fees;
-        Object.keys(fees).forEach((fee) => {
-          dispatch(updateFee(fee, fees[fee].cost));
-        });
-
-        const labors = value.data.labor;
-        Object.keys(labors).forEach((labor) => {
-          dispatch(updateLaborQuantity(labor, labors[labor].qty));
-          dispatch(updateLaborCost(labor, labors[labor].cost));
-        });
-      });
+      dispatch(selectProposal(value));
     },
     [dispatch]
   );
 
-  if (allProposals === null) {
+  if (proposals === null) {
     return <CircularProgress />;
   }
 
@@ -83,7 +44,7 @@ export default function ExistingProposals() {
               name: "",
               description: "",
               selectedClient: {},
-              allClients,
+              clients,
               onSubmit: async (name, description, client_guid) => {
                 return updateStore({
                   dispatch,
@@ -109,8 +70,8 @@ export default function ExistingProposals() {
           { title: "Date created", field: "dateCreated" },
           { title: "Date modified", field: "dateModified" },
         ]}
-        data={allProposals.map((proposal) => {
-          const matchingClient = allClients.find((client) => {
+        data={proposals.map((proposal) => {
+          const matchingClient = clients.find((client) => {
             return client.guid === proposal.client_guid;
           });
 
@@ -119,6 +80,7 @@ export default function ExistingProposals() {
             name: proposal.name,
             description: proposal.description,
             client: matchingClient?.name || "Orphaned proposal",
+            client_guid: matchingClient?.guid || "",
             dateCreated: proposal.dateCreated,
             dateModified: proposal.dateModified,
             guid: proposal.guid,
@@ -135,7 +97,7 @@ export default function ExistingProposals() {
             icon: "settings",
             tooltip: "Edit proposal",
             onClick: (event, rowData) => {
-              selectProposal(rowData);
+              selectProposalCallback(rowData);
             },
           },
           {

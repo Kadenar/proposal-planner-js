@@ -1,31 +1,33 @@
 import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import MaterialTable from "@material-table/core";
-import { Stack } from "@mui/material";
-import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { productDialog } from "../coreui/dialogs/ProductDialog";
+
 import {
   addNewProduct,
   editExistingProduct,
   deleteProduct,
   flattenProductData,
-} from "../../data-management/InteractWithBackendData.ts";
-import { updateProducts } from "../../data-management/Reducers";
+} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
+import { updateProducts } from "../../data-management/store/Reducers";
+import { updateStore } from "../../data-management/store/Dispatcher";
+
+import MaterialTable from "@material-table/core";
+import { Stack } from "@mui/material";
+import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
+import { productDialog } from "../coreui/dialogs/ProductDialog";
 import AddNewItem from "../coreui/AddNewItem";
-import { updateStore } from "../../data-management/Dispatcher";
 
 /**
  * Component used to display the set of products that have been selected for this particular job
  * @returns
  */
 export default function ProductsTable() {
-  const allProducts = useSelector((state) => state.allProducts);
+  const products = useSelector((state) => state.products);
   const filters = useSelector((state) => state.filters);
   const dispatch = useDispatch();
 
   const flattenedProductData = useMemo(() => {
-    return flattenProductData(allProducts);
-  }, [allProducts]);
+    return flattenProductData(products);
+  }, [products]);
 
   return (
     <Stack gap={2}>
@@ -71,7 +73,10 @@ export default function ProductsTable() {
         columns={[
           { title: "Type", field: "type" },
           { title: "Model", field: "model" },
-          { title: "Catalog #", field: "catalogNum" },
+          {
+            title: "Catalog #",
+            field: "catalogNum",
+          },
           {
             title: "Unit cost",
             field: "unitCost",

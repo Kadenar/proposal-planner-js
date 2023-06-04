@@ -6,10 +6,10 @@
     "city": "Brookfield",
     "zip": "06804",
     "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
-    "accountNum": "new account 2",
+    "email": "ksteike1@gmail.com",
     "name": "Kyle Steike",
-    "phone": "8455190575",
-    "email": "ksteike1@gmail.com"
+    "phone": "845-519-0575",
+    "accountNum": "111-222"
   },
   {
     "address": "Some address",
@@ -22,13 +22,13 @@
     "accountNum": "new account"
   },
   {
-    "name": "Tim Fernandez",
     "address": "13 Kelly Ridge Rd",
     "apt": "",
     "state": "NY",
     "city": "Carmel",
     "zip": "10512",
-    "guid": "50eaa137-8883-4eb4-815b-0e2239be204e"
+    "guid": "50eaa137-8883-4eb4-815b-0e2239be204e",
+    "name": "Tim Fernandez"
   },
   {
     "name": "Katie Steike",

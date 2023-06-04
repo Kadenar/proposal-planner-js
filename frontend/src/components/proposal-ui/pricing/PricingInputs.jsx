@@ -1,6 +1,4 @@
 import React from "react";
-
-import { updateFee } from "../../data-management/Reducers";
 import { useDispatch, useSelector } from "react-redux";
 
 import FormControl from "@mui/material/FormControl";
@@ -17,13 +15,15 @@ import {
   updateMultiplier,
   updateLaborCost,
   updateLaborQuantity,
-} from "../../data-management/Reducers";
+  updateFee,
+} from "../../../data-management/store/Reducers";
 
 // This class is responsible for allowing configuring all of the editable fields for a given proposal such as:
 // Fees, commissions, unit cost tax, labor, etc
 
 export function ConfigureFees() {
-  const fees = useSelector((state) => state.fees);
+  const selectedProposal = useSelector((state) => state.selectedProposal);
+  const fees = selectedProposal.data.fees;
 
   const dispatch = useDispatch();
 
@@ -50,7 +50,8 @@ export function ConfigureFees() {
 
 export function ConfigureCommission() {
   const commissions = useSelector((state) => state.commissions);
-  const commission = useSelector((state) => state.commission);
+  const selectedProposal = useSelector((state) => state.selectedProposal);
+  const commission = selectedProposal.data.commission;
   const dispatch = useDispatch();
 
   return (
@@ -77,7 +78,8 @@ export function ConfigureCommission() {
 }
 
 export function ConfigureUnitCostTax() {
-  const unitCostTax = useSelector((state) => state.unitCostTax);
+  const selectedProposal = useSelector((state) => state.selectedProposal);
+  const unitCostTax = selectedProposal.data.unitCostTax;
   const dispatch = useDispatch();
 
   return (
@@ -100,7 +102,8 @@ export function ConfigureUnitCostTax() {
  */
 export function ConfigureMultiplier() {
   const multipliers = useSelector((state) => state.multipliers);
-  const multiplier = useSelector((state) => state.multiplier);
+  const selectedProposal = useSelector((state) => state.selectedProposal);
+  const multiplier = selectedProposal.data.multiplier;
   const dispatch = useDispatch();
 
   return (
@@ -152,8 +155,8 @@ const LaborCostInput = ({ label, qty, cost, updateQuantity, updateCost }) => {
 };
 
 export function ConfigureLabor() {
-  const labor = useSelector((state) => state.labor);
-
+  const selectedProposal = useSelector((state) => state.selectedProposal);
+  const labor = selectedProposal.data.labor;
   const dispatch = useDispatch();
 
   return (

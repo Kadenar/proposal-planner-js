@@ -10,7 +10,7 @@ import {
   simpleAddToDatabase,
   simpleAddObjectToDatabase,
 } from "./BackendHelpers.ts";
-import * as Interface from "./Interfaces";
+import * as Interface from "./Interfaces.ts";
 
 /**
  * Fetch all clients in the database
@@ -474,7 +474,10 @@ export async function saveProposal(
   labor: Interface.LaborObject,
   models: Interface.Models,
   unitCostTax: number,
-  multiplier: number
+  multiplier: number,
+  title: string,
+  summary: string,
+  specifications: string
 ) {
   const existingProposals = await fetchProposals();
   const date = new Date();
@@ -498,27 +501,19 @@ export async function saveProposal(
   newProposals[index] = {
     ...newProposals[index],
     dateModified: `${month}/${day}/${year}`,
+    data: {
+      ...newProposals[index].data,
+      commission,
+      unitCostTax,
+      multiplier,
+      labor,
+      fees,
+      models,
+      title,
+      summary,
+      specifications,
+    },
   };
-
-  newProposals[index].data = {
-    ...newProposals[index].data,
-    commission,
-    unitCostTax,
-    multiplier,
-    labor,
-    fees,
-    models,
-  };
-
-  // newProposals[index].data = {
-  //   ...newProposals[index].data,
-  //   fees,
-  //   labor,
-  //   models,
-  // };
-  // newProposals[index].data.fees = fees;
-  // newProposals[index].data.labor = labor;
-  // newProposals[index].data.models = models;
 
   return runPostRequest(newProposals, "proposals");
 }
@@ -622,6 +617,9 @@ const getNewProposalItem = (
       },
       multiplier: 1.5,
       commission: 8,
+      title: "",
+      summary: "",
+      specifications: "",
     },
   };
 };

@@ -8,11 +8,11 @@ import {
   addNewProductType,
   editProductType,
   deleteProductType,
-} from "../../data-management/InteractWithBackendData.ts";
-import { updateFilters } from "../../data-management/Reducers";
+} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
 import AddNewItem from "../coreui/AddNewItem";
 
-import { updateStore } from "../../data-management/Dispatcher";
+import { updateStore } from "../../data-management/store/Dispatcher";
+import { updateFilters } from "../../data-management/store/Reducers";
 
 /**
  * Component used to display the set of products that have been selected for this particular job

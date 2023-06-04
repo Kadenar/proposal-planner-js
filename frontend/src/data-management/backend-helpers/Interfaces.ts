@@ -80,6 +80,9 @@ export interface ProposalData {
   multiplier: number;
   unitCostTax: number;
   commission: number;
+  title: string;
+  summary: string;
+  specifications: string;
 }
 export interface ProposalObject {
   guid: string;

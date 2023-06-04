@@ -2,19 +2,19 @@ import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
-import { updateStore } from "../../data-management/Dispatcher";
+import { updateStore } from "../../data-management/store/Dispatcher";
 
 import {
   addNewClient,
   deleteClient,
   deleteProposalsForClient,
-} from "../../data-management/InteractWithBackendData.ts";
+} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
 
 import {
   updateClients,
   updateSelectedClient,
   updateProposals,
-} from "../../data-management/Reducers";
+} from "../../data-management/store/Reducers";
 
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -24,24 +24,24 @@ import { clientDialog } from "../coreui/dialogs/NewClientDialog";
 export default function AllClientsView() {
   const dispatch = useDispatch();
 
-  const allClients = useSelector((state) => state.allClients);
-  const allProposals = useSelector((state) => state.allProposals);
+  const clients = useSelector((state) => state.clients);
+  const proposals = useSelector((state) => state.proposals);
 
-  const allClientsWithProposalInfo = useMemo(() => {
-    if (allProposals == null || allClients == null) {
+  const clientsWithProposalInfo = useMemo(() => {
+    if (proposals == null || clients == null) {
       return 0;
     }
 
-    return allClients.map((client) => {
-      const proposals = allProposals.filter((proposal) => {
+    return clients.map((client) => {
+      const client_proposals = proposals.filter((proposal) => {
         return proposal.client_guid === client.guid;
       });
 
-      return { ...client, proposals };
+      return { ...client, client_proposals };
     });
-  }, [allProposals, allClients]);
+  }, [proposals, clients]);
 
-  if (allClients === null) {
+  if (clients === null) {
     return <CircularProgress />;
   }
 
@@ -82,9 +82,15 @@ export default function AllClientsView() {
           { title: "Account number", field: "accountNum" },
           { title: "Phone #", field: "phone" },
           { title: "Email", field: "email" },
-          { title: "# of proposals", field: "proposals" },
+          {
+            title: "# of proposals",
+            field: "proposals",
+            cellStyle: {
+              paddingLeft: "50px",
+            },
+          },
         ]}
-        data={allClientsWithProposalInfo.map((client) => {
+        data={clientsWithProposalInfo.map((client) => {
           return {
             type: client.guid,
             name: client.name,
@@ -92,7 +98,7 @@ export default function AllClientsView() {
             accountNum: client.accountNum,
             phone: client.phone,
             email: client.email,
-            proposals: client.proposals.length,
+            proposals: client.client_proposals?.length || 0,
             fullInfo: client,
           };
         })}

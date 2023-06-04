@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 
-import Box from "@mui/material/Box";
-import { Button, Stack } from "@mui/material";
-
-import PricingTable from "./Table/PricingTable";
 import {
   resetProposal,
   addProductToTable,
   updateProposals,
-} from "../../data-management/Reducers";
+} from "../../../data-management/store/Reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToProposalDialog } from "../coreui/dialogs/AddProductToProposalDialog";
-import { saveProposal } from "../../data-management/InteractWithBackendData.ts";
-import { showSnackbar } from "../coreui/CustomSnackbar";
+import { saveProposal } from "../../../data-management/backend-helpers/InteractWithBackendData.ts";
+
+import Box from "@mui/material/Box";
+import { Button, Stack } from "@mui/material";
+import { showSnackbar } from "../../coreui/CustomSnackbar";
+import { addProductToProposalDialog } from "../../coreui/dialogs/AddProductToProposalDialog";
+import PricingTable from "../pricing/Table/PricingTable";
+import { updateStore } from "../../../data-management/store/Dispatcher";
 
 /**
  * Component used for displaying the table of selected products as well as inputs for
@@ -21,18 +22,9 @@ import { showSnackbar } from "../coreui/CustomSnackbar";
  */
 export default function ProposalPricingView() {
   const dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.allProducts);
+  const products = useSelector((state) => state.products);
   const selectedProposal = useSelector((state) => state.selectedProposal);
   const filters = useSelector((state) => state.filters);
-  const jobTableContents = useSelector((state) => state.jobTableContents);
-  const unitCostTax = useSelector((state) => state.unitCostTax);
-  const multiplier = useSelector((state) => state.multiplier);
-  const commission = useSelector((state) => state.commission);
-  const fees = useSelector((state) => state.fees);
-  const labor = useSelector((state) => state.labor);
-
-  // TODO - This is a hack to force a re-render of the component so that pricing table will reflect updates
-  const [hackState, updateHack] = useState(false);
 
   const handleOnAdd = (selectedProduct, quantity) => {
     if (!selectedProduct) {
@@ -53,7 +45,11 @@ export default function ProposalPricingView() {
       return false;
     }
 
-    if (jobTableContents.find((job) => job.guid === selectedProduct.guid)) {
+    if (
+      selectedProposal.data.models.find(
+        (job) => job.guid === selectedProduct.guid
+      )
+    ) {
       showSnackbar({
         title: "Product has already been added to this proposal.",
         show: true,
@@ -79,7 +75,6 @@ export default function ProposalPricingView() {
       status: "success",
     });
 
-    updateHack((prev) => !prev);
     return true;
   };
 
@@ -94,7 +89,7 @@ export default function ProposalPricingView() {
               addProductToProposalDialog({
                 filters,
                 selectedFilter: filters[0],
-                allModels: allProducts,
+                allModels: products,
                 selectedProduct: undefined,
                 quantity: "",
                 onSubmit: (selectedProduct, quantity) => {
@@ -112,36 +107,31 @@ export default function ProposalPricingView() {
                 dispatch(resetProposal());
               }}
             >
-              Remove added products
+              Remove all products
             </Button>
           </Box>
           <Button
             variant="contained"
             onClick={async () => {
-              const response = await saveProposal(
-                selectedProposal.guid,
-                commission,
-                fees,
-                labor,
-                jobTableContents,
-                unitCostTax,
-                multiplier
-              );
-
-              if (response.status === 200) {
-                showSnackbar({
-                  title: "Your proposal has been successfully saved.",
-                  show: true,
-                  status: "success",
-                });
-                dispatch(updateProposals(response.data.proposals));
-              } else {
-                showSnackbar({
-                  title: "Internal server error - failed to save proposal.",
-                  show: true,
-                  status: "error",
-                });
-              }
+              updateStore({
+                dispatch,
+                dbOperation: async () =>
+                  saveProposal(
+                    selectedProposal.guid,
+                    selectedProposal.data.commission,
+                    selectedProposal.data.fees,
+                    selectedProposal.data.labor,
+                    selectedProposal.data.models,
+                    selectedProposal.data.unitCostTax,
+                    selectedProposal.data.multiplier,
+                    selectedProposal.data.title,
+                    selectedProposal.data.summary,
+                    selectedProposal.data.specifications
+                  ),
+                methodToDispatch: updateProposals,
+                dataKey: "proposals",
+                successMessage: "Your proposal has been successfully saved.",
+              });
             }}
             align="right"
           >

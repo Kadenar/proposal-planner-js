@@ -8,6 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { SidebarData } from "./SidebarItems";
+import { StyledListItem } from "../StyledComponents";
 
 export default function SidebarDrawer({
   showDrawer = false,
@@ -34,33 +35,29 @@ export default function SidebarDrawer({
             borderRadius: 2,
             p: 2,
             minWidth: 300,
+            flexGrow: 1,
           }}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
           <List
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            sx={{
+              width: "100%",
+              maxWidth: 360,
+              bgcolor: "background.paper",
+            }}
             component="nav"
             aria-labelledby="nested-list-subheader"
           >
             {SidebarData.map((item, index) => (
               <Link key={index} to={item.path}>
-                <ListItem
-                  sx={{
-                    "&:hover": {
-                      color: "white",
-                      backgroundColor: "#1976d2",
-                    },
-                  }}
-                  button
-                  key={index}
-                >
+                <StyledListItem button key={index}>
                   <ListItemIcon sx={{ paddingLeft: "5px", marginLeft: "5px" }}>
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText primary={item.title} />
-                </ListItem>
+                </StyledListItem>
               </Link>
             ))}
           </List>

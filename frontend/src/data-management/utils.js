@@ -1,3 +1,70 @@
+// Calculate the total cost of labor
+function calculateLabor(labor) {
+  let totalLabor = 0;
+  Object.keys(labor).forEach((key) => {
+    totalLabor += labor[key].qty * labor[key].cost;
+  });
+
+  return totalLabor;
+}
+
+// Handle formatting input cells with a '$' in front
+export function ccyFormat(num) {
+  if (!num) {
+    num = 0;
+  }
+
+  return `${"$" + Number(num).toFixed(2)}`;
+}
+
+export function calculateTotalCost(proposal) {
+  const { unitCostTax, commission, multiplier, models, labor, fees } = proposal;
+  const TAX_RATE = unitCostTax / 100.0;
+
+  // The total for just the products themselves
+  const itemSubtotal = models
+    .map(({ totalCost }) => totalCost)
+    .reduce((sum, i) => sum + i, 0);
+
+  // Total amount of taxes to be paid
+  const invoiceTaxes = TAX_RATE * itemSubtotal;
+
+  const totalWithTaxes = itemSubtotal + invoiceTaxes;
+
+  // Cost for labor
+  const costOfLabor = calculateLabor(labor);
+  const costWithLabor = totalWithTaxes + costOfLabor;
+
+  // Get the cost after applying the multiplier to the job
+  const costAfterMultiplier = costWithLabor * multiplier;
+
+  // Get the cost that the multiplier has added to the job
+  const multiplierValue = costAfterMultiplier - costWithLabor;
+
+  // Cost of fees
+  const costOfFees =
+    fees.permit.cost + fees.tempTank.cost + fees.financing.cost;
+  const costAfterFees = costAfterMultiplier + costOfFees;
+
+  // Commission amount expected to be earned
+  const commissionAmount = costAfterFees * (commission / 100.0);
+  const invoiceTotal = costAfterFees + commissionAmount;
+
+  return {
+    itemSubtotal: itemSubtotal,
+    invoiceTaxes: invoiceTaxes,
+    totalWithTaxes: totalWithTaxes,
+    costOfLabor: costOfLabor,
+    costWithLabor: costWithLabor,
+    multiplierValue: multiplierValue,
+    costAfterMultiplier: costAfterMultiplier,
+    costOfFees: costOfFees,
+    costAfterFees: costAfterFees,
+    commissionAmount: commissionAmount,
+    invoiceTotal: invoiceTotal,
+  };
+}
+
 export const US_STATES = [
   {
     name: "Alabama",

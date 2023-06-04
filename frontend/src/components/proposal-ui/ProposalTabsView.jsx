@@ -1,45 +1,42 @@
-import ProposalPricingView from "./ProposalPricingView";
-import ProposalDocumentationView from "./ProposalDocumentationView";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import Card from "@mui/material/Card";
 import Tabs from "@mui/base/Tabs";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import FeedIcon from "@mui/icons-material/Feed";
-import { updateSelectedProposal } from "../../data-management/Reducers";
-import { Stack } from "@mui/material";
+import Collapse from "@mui/material/Collapse";
+
 import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-  StyledBreadcrumb,
 } from "../coreui/StyledComponents";
 
+import ProposalPricingView from "./pricing/ProposalPricingView";
+import ClientCardDetails from "./documentation/ClientCardDetails";
+import { PdfDocument } from "./documentation/pdf/PdfDocument";
+import BreadcrumbNavigation from "../coreui/BreadcrumbNavigation";
+import { selectProposal } from "../../data-management/store/Reducers";
+import ProposalCardDetails from "./documentation/ProposalCardDetails";
+
 export default function ProposalTabsView() {
+  const clients = useSelector((state) => state.clients);
   const selectedProposal = useSelector((state) => state.selectedProposal);
   const dispatch = useDispatch();
 
-  // Handle navigating back to the main table of proposals
-  function navigateBackToAllProposalsTable(event) {
-    event.preventDefault();
-    dispatch(updateSelectedProposal(null));
-  }
+  // Fetch client information
+  const clientInfo = useMemo(() => {
+    return clients.find((client) => {
+      return client.guid === selectedProposal.client_guid;
+    });
+  }, [selectedProposal, clients]);
 
   return (
     <div className="proposals">
-      <Stack gap="20px" direction="row" width="100%">
-        <Breadcrumbs aria-label="breadcrumb">
-          <div onClick={navigateBackToAllProposalsTable}>
-            <StyledBreadcrumb
-              component="a"
-              label="All proposals"
-              icon={<FeedIcon fontSize="small" />}
-              sx={{ cursor: "pointer" }}
-            />
-          </div>
-          <StyledBreadcrumb component="a" label={selectedProposal.name} />
-        </Breadcrumbs>
-      </Stack>
+      <BreadcrumbNavigation
+        initialBreadCrumbTitle={"All proposals"}
+        navigateBackFunc={() => dispatch(selectProposal(null))}
+        breadcrumbName={selectedProposal.name}
+      />
       <Tabs defaultValue={0}>
         <StyledTabsList>
           <StyledTab value={0}>Costs</StyledTab>
@@ -49,7 +46,14 @@ export default function ProposalTabsView() {
           <ProposalPricingView />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
-          <ProposalDocumentationView />
+          <ProposalCardDetails />
+          <ClientCardDetails activeClient={clientInfo} />
+          <Card sx={{ padding: 2 }}>
+            <PdfDocument
+              clientInfo={clientInfo}
+              proposalDetails={selectedProposal}
+            />
+          </Card>
         </StyledTabPanel>
       </Tabs>
     </div>

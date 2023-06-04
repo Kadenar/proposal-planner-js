@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Table from "@mui/material/Table";
@@ -13,8 +12,9 @@ import TableRow from "@mui/material/TableRow";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
   BoldedTableCell,
+  StyledIconButton,
   StyledTableCell,
-} from "../../coreui/StyledComponents";
+} from "../../../coreui/StyledComponents";
 
 export function CollapsibleRow({
   title = "",
@@ -30,23 +30,23 @@ export function CollapsibleRow({
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>
-          <IconButton
+          <StyledIconButton
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
-            style={{ fontWeight: "bold", color: "black" }}
+            style={{ fontWeight: "bold" }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             {title}
-          </IconButton>
-          <IconButton
+          </StyledIconButton>
+          <StyledIconButton
             aria-label="expand row"
             size="small"
             onClick={configure}
-            style={{ fontWeight: "bold", color: "black" }}
+            style={{ fontWeight: "bold" }}
           >
             {<SettingsIcon />}
-          </IconButton>
+          </StyledIconButton>
         </TableCell>
         <TableCell></TableCell>
         <TableCell align="center">{ccyFormat(costOfItem)}</TableCell>

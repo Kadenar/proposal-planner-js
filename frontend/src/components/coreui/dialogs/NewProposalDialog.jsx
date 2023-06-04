@@ -15,7 +15,7 @@ const useProposalDialogStore = create((set) => ({
   name: "",
   description: "",
   selectedClient: {},
-  allClients: [],
+  clients: [],
   onSubmit: undefined,
   updateName: (name) => set(() => ({ name: name })),
   updateDescription: (description) => set(() => ({ description: description })),
@@ -25,7 +25,7 @@ const useProposalDialogStore = create((set) => ({
 }));
 
 const NewProposalDialog = () => {
-  const { onSubmit, close, allClients } = useProposalDialogStore();
+  const { onSubmit, close, clients } = useProposalDialogStore();
 
   const [name, updateName] = useProposalDialogStore((state) => [
     state.name,
@@ -80,7 +80,7 @@ const NewProposalDialog = () => {
               sx={{ marginTop: 2 }}
               disablePortal
               id="filters"
-              options={allClients}
+              options={clients}
               getOptionLabel={(option) => option.name || ""}
               getOptionSelected={(option, value) => {
                 return option.guid === value.guid;
@@ -129,14 +129,14 @@ export const newProposalDialog = ({
   name = "",
   description = "",
   selectedClient = {},
-  allClients = [],
+  clients = [],
   onSubmit,
 }) => {
   useProposalDialogStore.setState({
     name,
     description,
     selectedClient,
-    allClients,
+    clients,
     onSubmit,
   });
 };

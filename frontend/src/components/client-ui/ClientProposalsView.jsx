@@ -4,27 +4,27 @@ import { useNavigate } from "react-router-dom";
 
 import MaterialTable from "@material-table/core";
 
-import { updateStore } from "../../data-management/Dispatcher";
+import { updateStore } from "../../data-management/store/Dispatcher";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import {
   updateProposals,
   updateSelectedClient,
-  updateSelectedProposal,
-} from "../../data-management/Reducers";
-import { deleteProposal } from "../../data-management/InteractWithBackendData.ts";
+  selectProposal,
+} from "../../data-management/store/Reducers";
+import { deleteProposal } from "../../data-management/backend-helpers/InteractWithBackendData.ts";
 
 const ClientProposalsView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const selectedClient = useSelector((state) => state.selectedClient);
-  const allProposals = useSelector((state) => state.allProposals);
+  const proposals = useSelector((state) => state.proposals);
 
   const proposalsForClient = useMemo(() => {
-    return allProposals.filter((proposal) => {
-      return proposal.client === selectedClient.name;
+    return proposals.filter((proposal) => {
+      return proposal.client_guid === selectedClient.guid;
     });
-  }, [allProposals, selectedClient]);
+  }, [proposals, selectedClient]);
 
   return (
     <MaterialTable
@@ -40,6 +40,7 @@ const ClientProposalsView = () => {
           type: proposal.guid,
           name: proposal.name,
           client: proposal.client,
+          client_guid: proposal.client_guid,
           description: proposal.description,
           dateCreated: proposal.dateCreated,
           dateModified: proposal.dateModified,
@@ -58,7 +59,7 @@ const ClientProposalsView = () => {
           tooltip: "View proposal",
           onClick: (event, rowData) => {
             dispatch(updateSelectedClient(null));
-            dispatch(updateSelectedProposal(rowData));
+            dispatch(selectProposal(rowData));
             navigate("/proposals");
           },
         },

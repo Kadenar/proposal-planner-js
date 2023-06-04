@@ -1,6 +1,5 @@
 import "./components/landingpages/page-styles.css";
-import { useEffect } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { useEffect, useMemo } from "react";
 // import { configureStore } from "@reduxjs/toolkit";
 import { applyMiddleware, createStore } from "redux";
 import { batch, Provider } from "react-redux";
@@ -11,7 +10,7 @@ import {
   fetchProductTypes,
   fetchProposals,
   fetchClients,
-} from "./data-management/InteractWithBackendData.ts";
+} from "./data-management/backend-helpers/InteractWithBackendData.ts";
 import PricingReducer, {
   updateFilters,
   updateMultipliers,
@@ -19,8 +18,11 @@ import PricingReducer, {
   updateProducts,
   updateProposals,
   updateClients,
-} from "./data-management/Reducers";
+} from "./data-management/store/Reducers";
 import thunk from "redux-thunk";
+
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Navbar from "./components/coreui/Sidebar/Navbar";
 import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog";
@@ -38,7 +40,7 @@ import ClientsPage from "./components/landingpages/ClientsPage";
 import DatabasePage from "./components/landingpages/DatabasePage";
 import NewClientDialog from "./components/coreui/dialogs/NewClientDialog";
 
-export default function ProposalPlanner() {
+const ProposalPlanner = () => {
   // Create our redux store to manage the state of our application when pricing out a job
   const store = createStore(PricingReducer, applyMiddleware(thunk));
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -68,18 +70,28 @@ export default function ProposalPlanner() {
 
     asyncFunc();
   }, [store]);
+  const themeColor = "dark";
 
-  // Return our tabs
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: themeColor,
+        },
+      }),
+    [themeColor]
+  );
+
   return (
-    <>
-      <CustomSnackbar />
-      <NewClientDialog />
-      <NewProposalDialog />
-      <ConfirmDialog />
-      <ProductDialog />
-      <ProductTypeDialog />
-      <AddProductToProposalDialog />
-      <Provider store={store}>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CustomSnackbar />
+        <NewClientDialog />
+        <NewProposalDialog />
+        <ConfirmDialog />
+        <ProductDialog />
+        <ProductTypeDialog />
+        <AddProductToProposalDialog />
         <Router>
           <Navbar />
           <Routes classname="routesContent">
@@ -90,7 +102,9 @@ export default function ProposalPlanner() {
             <Route path="/database" exact element={<DatabasePage />} />
           </Routes>
         </Router>
-      </Provider>
-    </>
+      </ThemeProvider>
+    </Provider>
   );
-}
+};
+
+export default ProposalPlanner;

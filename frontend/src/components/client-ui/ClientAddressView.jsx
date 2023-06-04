@@ -10,13 +10,15 @@ import { showSnackbar } from "../coreui/CustomSnackbar";
 import {
   updateClients,
   updateSelectedClient,
-} from "../../data-management/Reducers";
-import { saveClient } from "../../data-management/InteractWithBackendData.ts";
+} from "../../data-management/store/Reducers";
+import { saveClient } from "../../data-management/backend-helpers/InteractWithBackendData.ts";
 import StateSelection from "../coreui/StateSelection";
+import { updateStore } from "../../data-management/store/Dispatcher";
 
 const ClientAddressView = () => {
   const dispatch = useDispatch();
   const selectedClient = useSelector((state) => state.selectedClient);
+  const clients = useSelector((state) => state.clients);
 
   const [name, setName] = useState(selectedClient.name);
   const [address, setAddress] = useState(selectedClient.address);
@@ -34,32 +36,32 @@ const ClientAddressView = () => {
         <Button
           variant="contained"
           onClick={async () => {
-            const response = await saveClient({
-              guid: selectedClient.guid,
-              name,
-              address,
-              apt,
-              city,
-              state,
-              zip,
-              phone,
-              email,
-              accountNum,
+            const response = await updateStore({
+              dispatch,
+              dbOperation: async () =>
+                saveClient({
+                  guid: selectedClient.guid,
+                  name,
+                  address,
+                  apt,
+                  city,
+                  state,
+                  zip,
+                  phone,
+                  email,
+                  accountNum,
+                }),
+              methodToDispatch: updateClients,
+              dataKey: "clients",
+              successMessage: "Client details were saved successfully.",
             });
 
-            if (response.status === 200) {
-              showSnackbar({
-                title: "Client details were saved successfully.",
-                show: true,
-                status: "success",
-              });
-              dispatch(updateClients(response.data.clients));
-
-              const index = response.data.clients.findIndex((client) => {
+            if (response) {
+              const index = clients.findIndex((client) => {
                 return client.guid === selectedClient.guid;
               });
               if (index !== -1) {
-                dispatch(updateSelectedClient(response.data.clients[index]));
+                dispatch(updateSelectedClient(clients[index]));
               }
             } else {
               showSnackbar({

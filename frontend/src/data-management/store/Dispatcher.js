@@ -1,15 +1,16 @@
-import { showSnackbar } from "../components/coreui/CustomSnackbar";
+import { showSnackbar } from "../../components/coreui/CustomSnackbar";
 
 export async function updateStore({
   dispatch,
   dbOperation = async () => {},
   methodToDispatch = () => {},
-  dataKey = "",
-  successMessage = "Success!",
+  dataKey,
+  successMessage,
 }) {
   const response = await dbOperation();
 
   if (!response) {
+    console.log("Did not receive a response yet from database operation....");
     showSnackbar({
       title: "Database operation returned no response.",
       show: true,

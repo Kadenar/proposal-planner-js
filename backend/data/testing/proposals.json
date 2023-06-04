@@ -1,13 +1,38 @@
 [
   {
-    "name": "Proposal for Kyle",
+    "name": "Proposal for Tim",
     "description": "First proposal option",
     "dateCreated": "6/2/2023",
-    "dateModified": "6/2/2023",
-    "client_guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
-    "guid": "7787ddae-d602-4c03-9f66-b65efa442b23",
+    "dateModified": "6/4/2023",
+    "client_guid": "50eaa137-8883-4eb4-815b-0e2239be204e",
+    "guid": "6e435c47-dcad-4779-9216-1e3441fcc012",
     "data": {
-      "models": [],
+      "models": [
+        {
+          "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294",
+          "name": "test 1",
+          "catalogNum": "test 1",
+          "unitCost": "2342",
+          "quantity": "1",
+          "totalCost": 2342
+        },
+        {
+          "guid": "c735d723-fc53-4918-b597-7be3f5ef8ed4",
+          "name": "SLP98UH090XV36C Furnace-Gas/90Bt/3T",
+          "catalogNum": "60W25",
+          "unitCost": "2139",
+          "quantity": "1",
+          "totalCost": 2139
+        },
+        {
+          "guid": "8e703cb7-43dc-4eab-9689-7f5d63806570",
+          "name": "XP25-024-230 Heat Pump 2 Ton/230",
+          "catalogNum": "98W16",
+          "unitCost": "4568",
+          "quantity": "1",
+          "totalCost": 4568
+        }
+      ],
       "unitCostTax": 8.375,
       "labor": {
         "twoMenEightHours": {
@@ -62,35 +87,63 @@
     }
   },
   {
-    "name": "Proposal for Tim",
+    "name": "Proposal for Kyle",
     "description": "First proposal option",
     "dateCreated": "6/2/2023",
-    "dateModified": "6/2/2023",
-    "client_guid": "50eaa137-8883-4eb4-815b-0e2239be204e",
-    "guid": "6e435c47-dcad-4779-9216-1e3441fcc012",
+    "dateModified": "6/4/2023",
+    "client_guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
+    "guid": "7787ddae-d602-4c03-9f66-b65efa442b23",
     "data": {
-      "models": [],
+      "models": [
+        {
+          "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294",
+          "name": "test 1",
+          "catalogNum": "test 1",
+          "unitCost": "2342",
+          "quantity": "1",
+          "totalCost": 2342,
+          "key": 0
+        },
+        {
+          "guid": "c735d723-fc53-4918-b597-7be3f5ef8ed4",
+          "name": "SLP98UH090XV36C Furnace-Gas/90Bt/3T",
+          "catalogNum": "60W25",
+          "unitCost": "2139",
+          "quantity": "1",
+          "totalCost": 2139
+        }
+      ],
       "unitCostTax": 8.375,
       "labor": {
         "twoMenEightHours": {
+          "name": "(2) men (8) hours",
           "qty": 1,
           "cost": 680
         },
         "twoMenSixteenHours": {
+          "name": "(2) men (16) hours",
           "qty": 0,
           "cost": 1360
         },
         "twoMenTwentyHours": {
+          "name": "(2) men (20) hours",
           "qty": 0,
           "cost": 1700
         },
         "threeMenTwentyFourHours": {
+          "name": "(3) men (24) hours",
           "qty": 0,
           "cost": 2040
         },
         "threeMenThirtyHours": {
+          "name": "(3) men (30) hours",
           "qty": 0,
           "cost": 2550
+        },
+        "subcontractor": {
+          "name": "Sub contractor labor",
+          "qty": 1,
+          "cost": 0
         },
         "subcontractors": {
           "qty": 0,
@@ -99,28 +152,30 @@
       },
       "fees": {
         "permit": {
-          "qty": 1,
+          "name": "Permit fee",
           "cost": 300
         },
         "financing": {
-          "qty": 1,
+          "name": "Financing fee",
           "cost": 0
         },
         "tempTank": {
-          "qty": 1,
+          "name": "Temp tank fee",
           "cost": 0
         },
         "removal": {
-          "qty": 1,
+          "name": "Removal fee",
           "cost": 0
         },
         "rebates": {
-          "qty": 1,
+          "name": "Rebates",
           "cost": 0
         }
       },
       "multiplier": 1.5,
-      "commission": 8
+      "commission": 8,
+      "specifications": "testtest",
+      "summary": "test"
     }
   }
 ]
