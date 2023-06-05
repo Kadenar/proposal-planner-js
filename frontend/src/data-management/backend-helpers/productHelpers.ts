@@ -1,4 +1,3 @@
-import { validateProductInfo } from "./BackendValidation.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -10,7 +9,7 @@ import * as Interface from "./Interfaces.ts";
  * Fetch all products in the database
  * @returns
  */
-export async function fetchProducts(): Promise<Interface.Products> {
+export async function fetchProducts(): Promise<Interface.ObjectOfProducts> {
   return runGetRequest("products");
 }
 
@@ -19,14 +18,14 @@ export async function fetchProducts(): Promise<Interface.Products> {
  * @returns
  */
 export async function addProduct(
-  selectedFilter: { label: string; guid: string },
+  filter_guid: string,
   modelName: string,
   catalogNum: string,
   unitCost: number,
   image?: any
 ) {
   const error = validateProductInfo(
-    selectedFilter,
+    filter_guid,
     modelName,
     catalogNum,
     unitCost
@@ -38,7 +37,7 @@ export async function addProduct(
 
   const existingProductData = await fetchProducts();
 
-  const conflict = existingProductData[selectedFilter.guid].find(
+  const conflict = existingProductData[filter_guid]?.find(
     (existing: Interface.ProductObject) => {
       return existing.model === modelName || existing.catalog === catalogNum;
     }
@@ -56,8 +55,8 @@ export async function addProduct(
 
   const newProducts = { ...existingProductData };
 
-  if (newProducts[selectedFilter.guid] === undefined) {
-    newProducts[selectedFilter.guid] = [
+  if (newProducts[filter_guid] === undefined) {
+    newProducts[filter_guid] = [
       {
         model: modelName,
         catalog: catalogNum,
@@ -67,22 +66,27 @@ export async function addProduct(
       },
     ];
   } else {
-    newProducts[selectedFilter.guid] = [
-      ...(existingProductData[selectedFilter.guid] || [selectedFilter.guid]),
-      ...[
-        {
-          model: modelName,
-          catalog: catalogNum,
-          cost: unitCost,
-          image: image,
-          guid: crypto.randomUUID(),
-        },
-      ],
+    newProducts[filter_guid] = [
+      ...newProducts[filter_guid],
+      {
+        guid: crypto.randomUUID(),
+        model: modelName,
+        catalog: catalogNum,
+        cost: unitCost,
+        image: image,
+      },
     ];
   }
 
-  const newProductResponse = await runPostRequest(newProducts, "products");
-  return newProductResponse;
+  // Filter out any categories that have no products associated with them
+  const filteredProducts: Interface.ObjectOfProducts = {};
+  Object.keys(newProducts)
+    .filter((product) => newProducts[product].length !== 0)
+    .forEach((name) => {
+      filteredProducts[name] = newProducts[name];
+    });
+
+  return runPostRequest(filteredProducts, "products");
 }
 
 /**
@@ -98,7 +102,7 @@ export async function editExistingProduct(
   image?: any
 ) {
   const error = validateProductInfo(
-    { label: filter_guid, guid: filter_guid },
+    filter_guid,
     modelName,
     catalogNum,
     unitCost
@@ -155,9 +159,7 @@ export async function deleteProduct(guid: string, filter: string) {
  * Given the database product data, flatten all of the keys into a single array
  * @returns
  */
-export const flattenProductData = (
-  productData: Interface.ProductKeyObject<Interface.ProductObject>[]
-) => {
+export const flattenProductData = (productData: Interface.ObjectOfProducts) => {
   const products: Interface.FlattenedProductObject[] = [];
   Object.keys(productData).map((key) => {
     return productData[key].forEach((model: Interface.ProductObject) => {
@@ -179,3 +181,40 @@ export const getFlattenedProductData = async () => {
   const productData = await fetchProducts();
   return flattenProductData(productData);
 };
+
+function validateProductInfo(
+  filter_guid: string,
+  modelName: string,
+  catalogNum: string,
+  unitCost: number
+) {
+  if (filter_guid === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify a valid filter." },
+    };
+  }
+
+  if (modelName === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify a valid model name." },
+    };
+  }
+
+  if (catalogNum === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify a model #." },
+    };
+  }
+
+  if (!unitCost || unitCost <= 0) {
+    return {
+      status: 500,
+      data: { message: "Please specify a non-zero cost." },
+    };
+  }
+
+  return null;
+}

@@ -14,10 +14,11 @@ export interface FlattenedProductObject {
   guid: string;
   image: any;
 }
-export interface ProductKeyObject<ProductObject> {
-  [key: string]: ProductObject;
+
+export interface Products extends Array<ProductObject> {}
+export interface ObjectOfProducts {
+  [key: string]: Products;
 }
-export interface Products extends Array<ProductKeyObject<ProductObject>> {}
 
 // PRODUCT TYPES \\
 export interface ProductTypeObject {

@@ -1,5 +1,4 @@
 import * as Interface from "./Interfaces.ts";
-import { validateClientInfo } from "./BackendValidation.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -99,4 +98,49 @@ export async function deleteClient(guid: string) {
   );
 
   return response;
+}
+
+function validateClientInfo(
+  name: string,
+  address: string,
+  state: string,
+  city: string,
+  zip: string
+) {
+  if (!name || name === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify a client name." },
+    };
+  }
+
+  if (!address || address === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify the client's address." },
+    };
+  }
+
+  if (!state || state === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify the client's state." },
+    };
+  }
+
+  if (!city || city === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify the client's city." },
+    };
+  }
+
+  if (!zip || zip === "") {
+    return {
+      status: 500,
+      data: { message: "Please specify the client's zip code." },
+    };
+  }
+
+  return null;
 }

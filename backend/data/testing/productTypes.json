@@ -48,11 +48,7 @@
     "guid": "zoning_kits"
   },
   {
-    "label": "Misc materials",
+    "label": "General",
     "guid": "misc_materials"
-  },
-  {
-    "label": "test 2 3",
-    "guid": "test_2"
   }
 ]

@@ -26,6 +26,7 @@ import { initializeCommissions } from "./data-management/store/slices/commission
 import { initializeProposals } from "./data-management/store/slices/proposalsSlice";
 import { initializeProducts } from "./data-management/store/slices/productsSlice";
 import { initializeClients } from "./data-management/store/slices/clientsSlice";
+import AddScalarValueDialog from "./components/coreui/dialogs/AddScalarValueDialog";
 
 const ProposalPlanner = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ const ProposalPlanner = () => {
       <ProductDialog />
       <ProductTypeDialog />
       <AddProductToProposalDialog />
+      <AddScalarValueDialog />
       <Router>
         <Navbar />
         <Routes classname="routesContent">

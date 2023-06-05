@@ -32,7 +32,9 @@ export default function ExistingProposals() {
             newProposalDialog({
               name: "",
               description: "",
-              owner: {},
+              owner: {
+                guid: "",
+              },
               clients,
               isExistingProposal: false,
               onSubmit: async (name, description, client_guid) =>
@@ -89,7 +91,7 @@ export default function ExistingProposals() {
               newProposalDialog({
                 name: rowData.name,
                 description: rowData.description,
-                selectedClient: rowData.owner.client,
+                owner: rowData.owner.client,
                 clients,
                 isExistingProposal: true,
                 onSubmit: (name, description, client_guid) =>

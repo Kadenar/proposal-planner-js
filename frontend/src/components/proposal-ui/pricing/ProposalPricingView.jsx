@@ -83,7 +83,7 @@ export default function ProposalPricingView() {
             onClick={() => {
               addProductToProposalDialog({
                 filters,
-                selectedFilter: filters[0],
+                filter: filters[0],
                 allModels: products,
                 selectedProduct: undefined,
                 quantity: "",

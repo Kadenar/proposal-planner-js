@@ -85,10 +85,9 @@ const ProductDialog = () => {
               disabled={guid !== ""}
               options={filters}
               isOptionEqualToValue={(option, value) =>
-                option.guid === value.guid
+                !value || value.guid === "" || option.guid === value.guid
               }
               getOptionLabel={(option) => option.label}
-              // getOptionSelected={(option, value) => option.guid === value.guid}
               value={filter}
               renderInput={(params) => (
                 <TextField {...params} label="Product type" />

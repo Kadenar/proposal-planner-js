@@ -14,7 +14,9 @@ import { StyledBootstrapDialog } from "../StyledComponents";
 const useProposalDialogStore = create((set) => ({
   name: "",
   description: "",
-  owner: {},
+  owner: {
+    guid: "",
+  },
   clients: [],
   onSubmit: undefined,
   isExistingProposal: false,
@@ -86,11 +88,8 @@ const NewProposalDialog = () => {
               id="filters"
               options={clients}
               getOptionLabel={(option) => option.name || ""}
-              // getOptionSelected={(option, value) => {
-              //   return option.guid === value.guid;
-              // }}
               isOptionEqualToValue={(option, value) =>
-                option.guid === value.guid
+                !value || value.guid === "" || option.guid === value.guid
               }
               value={owner}
               renderInput={(params) => <TextField {...params} label="Client" />}
@@ -131,7 +130,9 @@ const NewProposalDialog = () => {
 export const newProposalDialog = ({
   name = "",
   description = "",
-  owner = {},
+  owner = {
+    guid: "",
+  },
   clients = [],
   isExistingProposal = false,
   onSubmit,

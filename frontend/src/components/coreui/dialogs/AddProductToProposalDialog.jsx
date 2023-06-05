@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   DialogTitle,
   DialogContent,
@@ -13,12 +14,17 @@ import { StyledBootstrapDialog } from "../StyledComponents";
 const useProductDialogStore = create((set) => ({
   onSubmit: undefined,
   filters: [],
-  selectedFilter: "",
+  filter: {
+    guid: "",
+    label: "",
+  },
   allModels: [],
-  selectedProduct: {},
+  selectedProduct: {
+    guid: "",
+    label: "",
+  },
   quantity: 0,
-  updateSelectedFilter: (selectedFilter) =>
-    set(() => ({ selectedFilter: selectedFilter })),
+  updateFilter: (filter) => set(() => ({ filter: filter })),
   updateSelectedProduct: (selectedProduct) =>
     set(() => ({ selectedProduct: selectedProduct })),
   updateQuantity: (quantity) => set(() => ({ quantity: quantity })),
@@ -28,9 +34,10 @@ const useProductDialogStore = create((set) => ({
 const AddProductToProposalDialog = () => {
   const { onSubmit, close, filters, allModels } = useProductDialogStore();
 
-  const [selectedFilter, updateSelectedFilter] = useProductDialogStore(
-    (state) => [state.selectedFilter, state.updateSelectedFilter]
-  );
+  const [filter, updateFilter] = useProductDialogStore((state) => [
+    state.filter,
+    state.updateFilter,
+  ]);
 
   const [selectedProduct, updateSelectedProduct] = useProductDialogStore(
     (state) => [state.selectedProduct, state.updateSelectedProduct]
@@ -41,7 +48,19 @@ const AddProductToProposalDialog = () => {
     state.updateQuantity,
   ]);
 
-  const models = allModels[selectedFilter.guid] || [];
+  // Get the available models for the selected filter
+  const models = useMemo(() => {
+    return allModels[filter.guid] || [];
+  }, [filter, allModels]);
+
+  // Calculate how many products are available for each filter type
+  const sizesOfModels = useMemo(() => {
+    const keyedSizes = {};
+    Object.keys(allModels).forEach((model) => {
+      keyedSizes[model] = allModels[model].length;
+    });
+    return keyedSizes;
+  }, [allModels]);
 
   return (
     <>
@@ -67,35 +86,33 @@ const AddProductToProposalDialog = () => {
               <Autocomplete
                 disablePortal
                 id="filters"
-                getOptionLabel={(option) => option.label}
-                // getOptionSelected={(option, value) => {
-                //   return option.guid === value.guid;
-                // }}
+                getOptionLabel={(option) =>
+                  `${option.label} - (${
+                    sizesOfModels[option.guid] || 0
+                  } products)` || ""
+                }
                 isOptionEqualToValue={(option, value) =>
-                  option.guid === value.guid
+                  !value || value.guid === "" || option.guid === value.guid
                 }
                 options={filters}
-                value={selectedFilter}
+                value={filter}
                 renderInput={(params) => (
                   <div ref={params.InputProps.ref}>
                     <TextField {...params} label="Product type" />
                   </div>
                 )}
                 onChange={(event, value) => {
-                  updateSelectedFilter(value);
-                  updateSelectedProduct(undefined);
+                  updateFilter(value);
+                  updateSelectedProduct(null);
                 }}
               />
               <Autocomplete
                 disablePortal
                 id="models"
                 options={models}
-                getOptionLabel={(option) => option.model}
-                // getOptionSelected={(option, value) => {
-                //   return option.guid === value.guid;
-                // }}
+                getOptionLabel={(option) => option.model || ""}
                 isOptionEqualToValue={(option, value) =>
-                  option.guid === value.guid
+                  !value || value.guid === "" || option.guid === value.guid
                 }
                 value={selectedProduct}
                 renderInput={(params) => (
@@ -147,15 +164,18 @@ const AddProductToProposalDialog = () => {
 
 export const addProductToProposalDialog = ({
   filters = [],
-  selectedFilter,
+  filter,
   allModels = [],
-  selectedProduct,
+  selectedProduct = {
+    guid: "",
+    label: "",
+  },
   quantity,
   onSubmit,
 }) => {
   useProductDialogStore.setState({
     filters,
-    selectedFilter,
+    filter,
     allModels,
     selectedProduct,
     quantity,

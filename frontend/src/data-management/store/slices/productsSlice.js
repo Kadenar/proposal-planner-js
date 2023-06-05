@@ -37,7 +37,7 @@ export async function addProduct(
   return updateStore({
     dispatch,
     dbOperation: async () =>
-      add_product(filter, modelName, catalogNum, unitCost),
+      add_product(filter.guid, modelName, catalogNum, unitCost),
     methodToDispatch: updateProducts,
     dataKey: "products",
     successMessage: "Successfully added product.",

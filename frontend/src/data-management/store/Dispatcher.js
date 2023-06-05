@@ -10,7 +10,6 @@ export async function updateStore({
   const response = await dbOperation();
 
   if (!response) {
-    console.log("Did not receive a response yet from database operation....");
     showSnackbar({
       title: "Database operation returned no response.",
       show: true,
