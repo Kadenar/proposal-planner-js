@@ -2,13 +2,11 @@ import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  addNewProduct,
-  editExistingProduct,
+  editProduct,
   deleteProduct,
-  flattenProductData,
-} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
-import { updateProducts } from "../../data-management/store/Reducers";
-import { updateStore } from "../../data-management/store/Dispatcher";
+  addProduct,
+} from "../../data-management/store/slices/productsSlice.js";
+import { flattenProductData } from "../../data-management/backend-helpers/productHelpers.ts";
 
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
@@ -21,9 +19,9 @@ import AddNewItem from "../coreui/AddNewItem";
  * @returns
  */
 export default function ProductsTable() {
-  const products = useSelector((state) => state.products);
-  const filters = useSelector((state) => state.filters);
   const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products);
+  const { filters } = useSelector((state) => state.filters);
 
   const flattenedProductData = useMemo(() => {
     return flattenProductData(products);
@@ -37,33 +35,12 @@ export default function ProductsTable() {
             header: "Add product",
             guid: "",
             filters,
-            selectedFilter: filters[0],
+            filter: filters[0],
             modelName: "",
             catalogNum: "",
             unitCost: "",
-            onSubmit: async (
-              newFilter,
-              newModelName,
-              newCatalogNum,
-              newUnitCost
-            ) => {
-              const result = await updateStore({
-                dispatch,
-                dbOperation: async () => {
-                  addNewProduct(
-                    newFilter,
-                    newModelName,
-                    newCatalogNum,
-                    newUnitCost
-                  );
-                },
-                methodToDispatch: updateProducts,
-                dataKey: "products",
-                successMessage: "Successfully added product.",
-              });
-
-              return result;
-            },
+            onSubmit: async ({ filter, modelName, catalogNum, unitCost }) =>
+              addProduct(dispatch, { filter, modelName, catalogNum, unitCost }),
           })
         }
       />
@@ -71,10 +48,10 @@ export default function ProductsTable() {
       <MaterialTable
         title={"Products management"}
         columns={[
-          { title: "Type", field: "type" },
-          { title: "Model", field: "model" },
+          { title: "Type", field: "filter_label" },
+          { title: "Model name", field: "model" },
           {
-            title: "Catalog #",
+            title: "Model #",
             field: "catalogNum",
           },
           {
@@ -89,8 +66,9 @@ export default function ProductsTable() {
             model?.category?.replaceAll("_", " ") || " ";
 
           return {
-            key: model.category,
-            type:
+            id: model.guid,
+            filter_guid: model.category,
+            filter_label:
               modelNameSanitized.charAt(0).toUpperCase() +
               modelNameSanitized.slice(1),
             model: model.label,
@@ -100,7 +78,7 @@ export default function ProductsTable() {
           };
         })}
         options={{
-          sorting: true,
+          maxColumnSort: "all_columns",
           search: true,
           filtering: true,
           actionsColumnIndex: -1,
@@ -115,36 +93,27 @@ export default function ProductsTable() {
                 header: "Edit product",
                 guid: rowData.guid,
                 filters,
-                selectedFilter: {
-                  label: rowData.type,
-                  guid: rowData.key,
+                filter: {
+                  label: rowData.filter_label,
+                  guid: rowData.filter_guid,
                 },
                 modelName: rowData.model,
                 catalogNum: rowData.catalogNum,
                 unitCost: rowData.unitCost,
-                onSubmit: async (
-                  newModelName,
-                  newCatalogNum,
-                  newUnitCost,
-                  image
-                ) => {
-                  return updateStore({
-                    dispatch,
-                    dbOperation: async () => {
-                      editExistingProduct(
-                        rowData.guid,
-                        rowData.key,
-                        newModelName,
-                        newCatalogNum,
-                        newUnitCost,
-                        image
-                      );
-                    },
-                    methodToDispatch: updateProducts,
-                    dataKey: "products",
-                    successMessage: `Successfully updated ${rowData.model}`,
-                  });
-                },
+                onSubmit: async ({
+                  modelName: newModelName,
+                  catalogNum: newCatalogNum,
+                  unitCost: newUnitCost,
+                  image,
+                }) =>
+                  editProduct(dispatch, {
+                    guid: rowData.guid,
+                    filter_guid: rowData.filter_guid,
+                    modelName: newModelName,
+                    catalogNum: newCatalogNum,
+                    unitCost: newUnitCost,
+                    image,
+                  }),
               });
             },
           },
@@ -156,20 +125,11 @@ export default function ProductsTable() {
               confirmDialog({
                 message:
                   "Do you really want to delete this? This action cannot be undone.",
-                onSubmit: async () => {
-                  return updateStore({
-                    dispatch,
-                    dbOperation: async () => {
-                      deleteProduct({
-                        guid: rowData.guid,
-                        filter: rowData.key,
-                      });
-                    },
-                    methodToDispatch: updateProducts,
-                    dataKey: "products",
-                    successMessage: `Successfully deleted ${rowData.model}`,
-                  });
-                },
+                onSubmit: async () =>
+                  deleteProduct(dispatch, {
+                    guid: rowData.guid,
+                    filter: rowData.filter_guid,
+                  }),
               });
             },
           },

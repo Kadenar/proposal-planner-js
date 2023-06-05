@@ -23,6 +23,7 @@ export interface Products extends Array<ProductKeyObject<ProductObject>> {}
 export interface ProductTypeObject {
   label: string;
   guid: string;
+  documentationHelp?: Array<string>;
 }
 export interface ProductTypes extends Array<ProductTypeObject> {}
 
@@ -88,7 +89,9 @@ export interface ProposalObject {
   guid: string;
   name: string;
   description: string;
-  client_guid: string;
+  owner: {
+    guid: string;
+  };
   dateCreated: string;
   dateModified: string;
   data: ProposalData;

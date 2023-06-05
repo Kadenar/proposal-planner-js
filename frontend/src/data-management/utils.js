@@ -43,7 +43,10 @@ export function calculateTotalCost(proposal) {
 
   // Cost of fees
   const costOfFees =
-    fees.permit.cost + fees.tempTank.cost + fees.financing.cost;
+    fees.permit.cost +
+    fees.tempTank.cost +
+    fees.financing.cost -
+    fees.rebates.cost;
   const costAfterFees = costAfterMultiplier + costOfFees;
 
   // Commission amount expected to be earned

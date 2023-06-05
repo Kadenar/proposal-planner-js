@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,22 +10,21 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import {
-  updateCommission,
-  updateUnitCostTax,
-  updateMultiplier,
-  updateLaborCost,
-  updateLaborQuantity,
-  updateFee,
-} from "../../../data-management/store/Reducers";
+  setProposalCommission,
+  setProposalFeeCosts,
+  setProposalLaborCosts,
+  setProposalLaborQuantity,
+  setProposalMultiplier,
+  setProposalUnitCostTax,
+} from "../../../data-management/store/slices/selectedProposalSlice";
 
 // This class is responsible for allowing configuring all of the editable fields for a given proposal such as:
 // Fees, commissions, unit cost tax, labor, etc
 
 export function ConfigureFees() {
-  const selectedProposal = useSelector((state) => state.selectedProposal);
-  const fees = selectedProposal.data.fees;
-
   const dispatch = useDispatch();
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const fees = selectedProposal.data.fees;
 
   return (
     <div className="pricing">
@@ -38,7 +37,12 @@ export function ConfigureFees() {
               variant="outlined"
               value={fees[fee].cost}
               InputProps={{ inputProps: { min: 0 } }}
-              onChange={(e) => dispatch(updateFee(fee, e.target.value || 0))}
+              onChange={(e) =>
+                setProposalFeeCosts(dispatch, {
+                  key: fee,
+                  value: e.target?.value || 0,
+                })
+              }
               type="number"
             />
           );
@@ -49,10 +53,11 @@ export function ConfigureFees() {
 }
 
 export function ConfigureCommission() {
-  const commissions = useSelector((state) => state.commissions);
-  const selectedProposal = useSelector((state) => state.selectedProposal);
-  const commission = selectedProposal.data.commission;
   const dispatch = useDispatch();
+
+  const { commissions } = useSelector((state) => state.commissions);
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const commission = selectedProposal.data.commission;
 
   return (
     <FormControl>
@@ -63,7 +68,9 @@ export function ConfigureCommission() {
         id="commission-simple-select"
         value={commission}
         label="Commission"
-        onChange={(e) => dispatch(updateCommission(e.target.value))}
+        onChange={(e) =>
+          setProposalCommission(dispatch, { value: e.target?.value || 0 })
+        }
       >
         {commissions.map((commission, index) => {
           return (
@@ -78,9 +85,10 @@ export function ConfigureCommission() {
 }
 
 export function ConfigureUnitCostTax() {
-  const selectedProposal = useSelector((state) => state.selectedProposal);
-  const unitCostTax = selectedProposal.data.unitCostTax;
   const dispatch = useDispatch();
+
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const unitCostTax = selectedProposal.data.unitCostTax;
 
   return (
     <TextField
@@ -88,7 +96,9 @@ export function ConfigureUnitCostTax() {
       label="Unit cost tax"
       variant="outlined"
       value={unitCostTax}
-      onChange={(e) => dispatch(updateUnitCostTax(e.target.value || 0))}
+      onChange={(e) =>
+        setProposalUnitCostTax(dispatch, { value: e.target?.value || 0 })
+      }
       type="number"
       style={{ maxWidth: "100px" }}
     />
@@ -101,10 +111,10 @@ export function ConfigureUnitCostTax() {
  * @returns
  */
 export function ConfigureMultiplier() {
-  const multipliers = useSelector((state) => state.multipliers);
-  const selectedProposal = useSelector((state) => state.selectedProposal);
-  const multiplier = selectedProposal.data.multiplier;
   const dispatch = useDispatch();
+  const { multipliers } = useSelector((state) => state.multipliers);
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const multiplier = selectedProposal.data.multiplier;
 
   return (
     <FormControl>
@@ -115,7 +125,9 @@ export function ConfigureMultiplier() {
         id="multiplier-simple-select"
         value={multiplier}
         label="Multiplier"
-        onChange={(e) => dispatch(updateMultiplier(e.target.value))}
+        onChange={(e) =>
+          setProposalMultiplier(dispatch, { value: e.target?.value || 0 })
+        }
       >
         {multipliers.map((multiplier, index) => {
           return (
@@ -155,9 +167,9 @@ const LaborCostInput = ({ label, qty, cost, updateQuantity, updateCost }) => {
 };
 
 export function ConfigureLabor() {
-  const selectedProposal = useSelector((state) => state.selectedProposal);
-  const labor = selectedProposal.data.labor;
   const dispatch = useDispatch();
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const labor = selectedProposal.data.labor;
 
   return (
     <div className="pricing">
@@ -169,10 +181,16 @@ export function ConfigureLabor() {
               qty={labor[type].qty}
               cost={labor[type].cost}
               updateQuantity={(e) =>
-                dispatch(updateLaborQuantity(type, e.target.value))
+                setProposalLaborQuantity(dispatch, {
+                  key: type,
+                  value: e.target.value || 0,
+                })
               }
               updateCost={(e) =>
-                dispatch(updateLaborCost(type, e.target.value))
+                setProposalLaborCosts(dispatch, {
+                  key: type,
+                  value: e.target?.value || 0,
+                })
               }
             />
           );

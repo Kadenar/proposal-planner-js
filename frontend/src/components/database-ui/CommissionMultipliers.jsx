@@ -7,31 +7,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 
 import {
-  updateCommissions,
-  updateMultipliers,
-} from "../../data-management/store/Reducers";
-import {
+  addCommission,
   deleteCommission,
+} from "../../data-management/store/slices/commissionsSlice";
+import {
+  addMultiplier,
   deleteMultiplier,
-} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
+} from "../../data-management/store/slices/multipliersSlice";
+
 import AddNewItem from "../coreui/AddNewItem";
 import { addScalarValueDialog } from "../coreui/dialogs/AddScalarValueDialog";
 
 export default function CommissionMultipliers() {
-  const commissions = useSelector((state) => state.commissions);
-  const multipliers = useSelector((state) => state.multipliers);
-
   const dispatch = useDispatch();
-
-  const handleCommissionDelete = async (value) => {
-    const commissions = await deleteCommission(value);
-    dispatch(updateCommissions(commissions.data.commissions));
-  };
-
-  const handleMultiplierDelete = async (value) => {
-    const multipliers = await deleteMultiplier(value);
-    dispatch(updateMultipliers(multipliers.data.multipliers));
-  };
+  const { commissions } = useSelector((state) => state.commissions);
+  const { multipliers } = useSelector((state) => state.multipliers);
 
   return (
     <Box>
@@ -43,14 +33,13 @@ export default function CommissionMultipliers() {
         max: 10,
         step: 0.5,
         addNewFunc: () => {
-          addScalarValueDialog({
+          return addScalarValueDialog({
             header: "Add a commission",
             value: "",
-            onSubmit: () => {},
-            validate: () => {},
+            onSubmit: async (value) => addCommission({ value }),
           });
         },
-        deleteFunc: handleCommissionDelete,
+        deleteFunc: async (value) => deleteCommission(dispatch, { value }),
       })}
       {constructCard({
         heading: "Multipliers",
@@ -60,14 +49,13 @@ export default function CommissionMultipliers() {
         max: 2,
         step: 0.1,
         addNewFunc: () => {
-          addScalarValueDialog({
+          return addScalarValueDialog({
             header: "Add a multiplier",
             value: "",
-            onSubmit: () => {},
-            validate: () => {},
+            onSubmit: async (value) => addMultiplier(dispatch, { value }),
           });
         },
-        deleteFunc: handleMultiplierDelete,
+        deleteFunc: async (value) => deleteMultiplier(dispatch, { value }),
       })}
     </Box>
   );
@@ -99,7 +87,6 @@ function constructCard({
 
       <Grid marginLeft={1} marginBottom={2} container spacing={2}>
         {source.map((entry) => {
-          console.log(entry.value);
           return (
             <>
               <Grid xs={8}>
@@ -114,9 +101,8 @@ function constructCard({
                   aria-labelledby="non-linear-slider"
                   marks={marks}
                 />
-                {/* <Item value={entry.value}>{entry.value}</Item> */}
               </Grid>
-              <Grid>
+              <Grid key={`delete-${entry.value}`}>
                 <Button
                   variant="outlined"
                   startIcon={<DeleteIcon />}
@@ -124,9 +110,7 @@ function constructCard({
                     confirmDialog({
                       message:
                         "Do you really want to delete this? This action cannot be undone.",
-                      onSubmit: () => {
-                        deleteFunc(entry.value);
-                      },
+                      onSubmit: () => deleteFunc(entry.value),
                     });
                   }}
                 >

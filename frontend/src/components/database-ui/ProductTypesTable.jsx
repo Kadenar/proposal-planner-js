@@ -4,23 +4,21 @@ import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import { productTypeDialog } from "../coreui/dialogs/ProductTypeDialog";
-import {
-  addNewProductType,
-  editProductType,
-  deleteProductType,
-} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
-import AddNewItem from "../coreui/AddNewItem";
 
-import { updateStore } from "../../data-management/store/Dispatcher";
-import { updateFilters } from "../../data-management/store/Reducers";
+import AddNewItem from "../coreui/AddNewItem";
+import {
+  addProductType,
+  deleteProductType,
+  editProductType,
+} from "../../data-management/store/slices/productTypesSlice";
 
 /**
  * Component used to display the set of products that have been selected for this particular job
  * @returns
  */
 export default function ProductTypesTable() {
-  const filters = useSelector((state) => state.filters);
   const dispatch = useDispatch();
+  const { filters } = useSelector((state) => state.filters);
 
   return (
     <Stack gap={2}>
@@ -29,15 +27,8 @@ export default function ProductTypesTable() {
           productTypeDialog({
             header: "Add product type?",
             productType: "",
-            onSubmit: async (value) => {
-              return updateStore({
-                dispatch,
-                dbOperation: async () => addNewProductType(value),
-                methodToDispatch: updateFilters,
-                dataKey: "types",
-                successMessage: "Successfully added new product type!",
-              });
-            },
+            onSubmit: async (value) =>
+              addProductType(dispatch, { label: value }),
           })
         }
       />
@@ -50,12 +41,13 @@ export default function ProductTypesTable() {
         ]}
         data={filters.map((filter) => {
           return {
+            id: filter.guid,
             label: filter.label,
             guid: filter.guid,
           };
         })}
         options={{
-          sorting: true,
+          maxColumnSort: "all_columns",
           search: true,
           actionsColumnIndex: -1,
           pageSizeOptions: [5, 10, 15, 20],
@@ -69,16 +61,8 @@ export default function ProductTypesTable() {
               productTypeDialog({
                 header: "Edit product type",
                 productType: rowData.label,
-                onSubmit: async (value) => {
-                  return updateStore({
-                    dispatch,
-                    dbOperation: async () =>
-                      editProductType(value, rowData.guid),
-                    methodToDispatch: updateFilters,
-                    dataKey: "types",
-                    successMessage: `Successfully edited ${rowData.label} to ${value}`,
-                  });
-                },
+                onSubmit: async (value) =>
+                  editProductType(dispatch, { guid: rowData.guid, value }),
               });
             },
           },
@@ -89,15 +73,8 @@ export default function ProductTypesTable() {
               confirmDialog({
                 message:
                   "Do you really want to delete this? This action cannot be undone.",
-                onSubmit: async () => {
-                  return updateStore({
-                    dispatch,
-                    dbOperation: async () => deleteProductType(rowData.guid),
-                    methodToDispatch: updateFilters,
-                    dataKey: "types",
-                    successMessage: `Successfully deleted ${rowData.label}`,
-                  });
-                },
+                onSubmit: async () =>
+                  deleteProductType(dispatch, { guid: rowData.guid }),
               });
             },
           },

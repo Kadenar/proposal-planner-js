@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateSelectedClient } from "../../data-management/store/Reducers";
-
 import Tabs from "@mui/base/Tabs";
 import {
   StyledTabsList,
@@ -12,16 +10,16 @@ import {
 import BreadcrumbNavigation from "../coreui/BreadcrumbNavigation";
 import ClientProposalsView from "./ClientProposalsView";
 import ClientAddressView from "./ClientAddressView";
+import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
 
 export default function ClientTabsView() {
   const dispatch = useDispatch();
-
-  const selectedClient = useSelector((state) => state.selectedClient);
+  const { selectedClient } = useSelector((state) => state.clients);
 
   return (
     <div className="proposals">
       <BreadcrumbNavigation
-        navigateBackFunc={() => dispatch(updateSelectedClient(null))}
+        navigateBackFunc={() => updateActiveClient(dispatch, { value: null })}
         initialBreadCrumbTitle={"All clients"}
         breadcrumbName={selectedClient.name}
       />

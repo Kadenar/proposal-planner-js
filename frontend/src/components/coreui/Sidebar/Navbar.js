@@ -9,14 +9,14 @@ import SidebarDrawer from "./SidebarDrawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { toggleTheme } from "../../../data-management/store/Reducers";
+import { toggleTheme } from "../../../data-management/store/slices/themeSlice";
 import { StyledSwitch } from "../StyledComponents";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.theme);
+  const { darkMode } = useSelector((state) => state.theme);
 
   const header = useMemo(() => {
     const pathStart = location.pathname.substring(1);
@@ -51,7 +51,7 @@ export default function Navbar() {
           </Typography>
           <FormControlLabel
             control={
-              <StyledSwitch sx={{ m: 1 }} value={theme} defaultChecked />
+              <StyledSwitch sx={{ m: 1 }} value={darkMode} defaultChecked />
             }
             label="Theme"
             onChange={(e) => dispatch(toggleTheme(e.target.checked))}

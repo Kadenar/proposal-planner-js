@@ -44,15 +44,15 @@
     "guid": "water_heaters"
   },
   {
-    "label": "Water treatment",
-    "guid": "water_treatment"
-  },
-  {
     "label": "Zoning kits",
     "guid": "zoning_kits"
   },
   {
     "label": "Misc materials",
     "guid": "misc_materials"
+  },
+  {
+    "label": "test 2 3",
+    "guid": "test_2"
   }
 ]

@@ -1,34 +1,26 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Button, Stack } from "@mui/material";
 import Card from "@mui/material/Card";
 
 import { TextField, Typography } from "@mui/material";
-import { showSnackbar } from "../coreui/CustomSnackbar";
-
-import {
-  updateClients,
-  updateSelectedClient,
-} from "../../data-management/store/Reducers";
-import { saveClient } from "../../data-management/backend-helpers/InteractWithBackendData.ts";
 import StateSelection from "../coreui/StateSelection";
-import { updateStore } from "../../data-management/store/Dispatcher";
+import {
+  saveClient,
+  setClientAccountNum,
+  setClientAddress,
+  setClientApt,
+  setClientCity,
+  setClientEmail,
+  setClientName,
+  setClientPhone,
+  setClientState,
+  setClientZip,
+} from "../../data-management/store/slices/clientsSlice";
 
 const ClientAddressView = () => {
   const dispatch = useDispatch();
-  const selectedClient = useSelector((state) => state.selectedClient);
-  const clients = useSelector((state) => state.clients);
-
-  const [name, setName] = useState(selectedClient.name);
-  const [address, setAddress] = useState(selectedClient.address);
-  const [apt, setApt] = useState(selectedClient.apt);
-  const [city, setCity] = useState(selectedClient.city);
-  const [state, setState] = useState(selectedClient.state);
-  const [zip, setZip] = useState(selectedClient.zip);
-  const [phone, setPhone] = useState(selectedClient.phone);
-  const [email, setEmail] = useState(selectedClient.email);
-  const [accountNum, setAccountNum] = useState(selectedClient.accountNum);
+  const { selectedClient } = useSelector((state) => state.clients);
 
   return (
     <>
@@ -36,40 +28,20 @@ const ClientAddressView = () => {
         <Button
           variant="contained"
           onClick={async () => {
-            const response = await updateStore({
-              dispatch,
-              dbOperation: async () =>
-                saveClient({
-                  guid: selectedClient.guid,
-                  name,
-                  address,
-                  apt,
-                  city,
-                  state,
-                  zip,
-                  phone,
-                  email,
-                  accountNum,
-                }),
-              methodToDispatch: updateClients,
-              dataKey: "clients",
-              successMessage: "Client details were saved successfully.",
+            saveClient(dispatch, {
+              guid: selectedClient.guid,
+              newClientInfo: {
+                name: selectedClient.name,
+                address: selectedClient.address,
+                apt: selectedClient.apt,
+                city: selectedClient.city,
+                state: selectedClient.state,
+                zip: selectedClient.zip,
+                phone: selectedClient.phone,
+                email: selectedClient.email,
+                accountNum: selectedClient.accountNum,
+              },
             });
-
-            if (response) {
-              const index = clients.findIndex((client) => {
-                return client.guid === selectedClient.guid;
-              });
-              if (index !== -1) {
-                dispatch(updateSelectedClient(clients[index]));
-              }
-            } else {
-              showSnackbar({
-                title: "Internal server error - failed to save client.",
-                show: true,
-                status: "error",
-              });
-            }
           }}
           align="right"
         >
@@ -81,41 +53,44 @@ const ClientAddressView = () => {
         <Stack marginTop={2} spacing={3}>
           <TextField
             label="Client name"
-            value={name}
+            value={selectedClient.name}
             onChange={({ target: { value } }) => {
-              setName(value);
+              setClientName(dispatch, { value });
             }}
           />
 
           <TextField
             label="Address"
-            value={address}
+            value={selectedClient.address}
             onChange={({ target: { value } }) => {
-              setAddress(value);
+              setClientAddress(dispatch, { value });
             }}
           />
 
           <TextField
             label="Apt, Suite, etc (optional)"
-            value={apt}
+            value={selectedClient.apt}
             onChange={({ target: { value } }) => {
-              setApt(value);
+              setClientApt(dispatch, { value });
             }}
           />
 
           <TextField
             label="City"
-            value={city}
+            value={selectedClient.city}
             onChange={({ target: { value } }) => {
-              setCity(value);
+              setClientCity(dispatch, { value });
             }}
           />
-          <StateSelection initialValue={state} onChangeHandler={setState} />
+          <StateSelection
+            initialValue={selectedClient.state}
+            onChangeHandler={(value) => setClientState(dispatch, { value })}
+          />
           <TextField
             label="Zip"
-            value={zip}
+            value={selectedClient.zip}
             onChange={({ target: { value } }) => {
-              setZip(value);
+              setClientZip(dispatch, { value });
             }}
           />
         </Stack>
@@ -125,25 +100,25 @@ const ClientAddressView = () => {
         <Stack spacing={3} direction="row">
           <TextField
             label="Phone number"
-            value={phone}
+            value={selectedClient.phone}
             onChange={({ target: { value } }) => {
-              setPhone(value);
+              setClientPhone(dispatch, { value });
             }}
           />
 
           <TextField
             label="Email"
-            value={email}
+            value={selectedClient.email}
             onChange={({ target: { value } }) => {
-              setEmail(value);
+              setClientEmail(dispatch, { value });
             }}
           />
 
           <TextField
             label="Account #"
-            value={accountNum}
+            value={selectedClient.accountNum}
             onChange={({ target: { value } }) => {
-              setAccountNum(value);
+              setClientAccountNum(dispatch, { value });
             }}
           />
         </Stack>

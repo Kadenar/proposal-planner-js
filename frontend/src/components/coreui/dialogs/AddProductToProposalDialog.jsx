@@ -68,9 +68,12 @@ const AddProductToProposalDialog = () => {
                 disablePortal
                 id="filters"
                 getOptionLabel={(option) => option.label}
-                getOptionSelected={(option, value) => {
-                  return option.guid === value.guid;
-                }}
+                // getOptionSelected={(option, value) => {
+                //   return option.guid === value.guid;
+                // }}
+                isOptionEqualToValue={(option, value) =>
+                  option.guid === value.guid
+                }
                 options={filters}
                 value={selectedFilter}
                 renderInput={(params) => (
@@ -88,9 +91,12 @@ const AddProductToProposalDialog = () => {
                 id="models"
                 options={models}
                 getOptionLabel={(option) => option.model}
-                getOptionSelected={(option, value) => {
-                  return option.guid === value.guid;
-                }}
+                // getOptionSelected={(option, value) => {
+                //   return option.guid === value.guid;
+                // }}
+                isOptionEqualToValue={(option, value) =>
+                  option.guid === value.guid
+                }
                 value={selectedProduct}
                 renderInput={(params) => (
                   <TextField {...params} label="Model name" />

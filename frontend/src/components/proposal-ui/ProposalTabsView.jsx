@@ -13,18 +13,19 @@ import ProposalPricingView from "./pricing/ProposalPricingView";
 import ClientCardDetails from "./documentation/ClientCardDetails";
 import { PdfDocument } from "./documentation/pdf/PdfDocument";
 import BreadcrumbNavigation from "../coreui/BreadcrumbNavigation";
-import { selectProposal } from "../../data-management/store/Reducers";
 import ProposalCardDetails from "./documentation/ProposalCardDetails";
 
+import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
+
 export default function ProposalTabsView() {
-  const clients = useSelector((state) => state.clients);
-  const selectedProposal = useSelector((state) => state.selectedProposal);
   const dispatch = useDispatch();
+  const { clients } = useSelector((state) => state.clients);
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
 
   // Fetch client information
   const clientInfo = useMemo(() => {
     return clients.find((client) => {
-      return client.guid === selectedProposal.client_guid;
+      return client.guid === selectedProposal?.owner?.guid;
     });
   }, [selectedProposal, clients]);
 
@@ -32,7 +33,9 @@ export default function ProposalTabsView() {
     <div className="proposals">
       <BreadcrumbNavigation
         initialBreadCrumbTitle={"All proposals"}
-        navigateBackFunc={() => dispatch(selectProposal(null))}
+        navigateBackFunc={() =>
+          selectProposal(dispatch, { proposalData: null })
+        }
         breadcrumbName={selectedProposal.name}
       />
       <Tabs defaultValue={0}>

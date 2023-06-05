@@ -13,19 +13,19 @@ import {
 } from "@mui/material";
 import { create } from "zustand";
 import { StyledBootstrapDialog } from "../StyledComponents";
-import FileUpload from "../FileUpload";
+// import FileUpload from "../FileUpload";
 
 const useProductDialogStore = create((set) => ({
   header: "",
   guid: "",
-  onSubmit: undefined,
-  selectedFilter: "",
+  filters: [],
+  filter: "",
   modelName: "",
   catalogNum: "",
   unitCost: "",
   image: undefined,
-  updateSelectedFilter: (selectedFilter) =>
-    set(() => ({ selectedFilter: selectedFilter })),
+  onSubmit: undefined,
+  updateFilter: (filter) => set(() => ({ filter: filter })),
   updateModelName: (modelName) => set(() => ({ modelName: modelName })),
   updateCatalogNum: (catalogNum) => set(() => ({ catalogNum: catalogNum })),
   updateUnitCost: (unitCost) => set(() => ({ unitCost: unitCost })),
@@ -36,9 +36,10 @@ const useProductDialogStore = create((set) => ({
 const ProductDialog = () => {
   const { header, onSubmit, close, guid, filters } = useProductDialogStore();
 
-  const [selectedFilter, updateSelectedFilter] = useProductDialogStore(
-    (state) => [state.selectedFilter, state.updateSelectedFilter]
-  );
+  const [filter, updateFilter] = useProductDialogStore((state) => [
+    state.filter,
+    state.updateFilter,
+  ]);
 
   const [modelName, updateModelName] = useProductDialogStore((state) => [
     state.modelName,
@@ -55,10 +56,10 @@ const ProductDialog = () => {
     state.updateUnitCost,
   ]);
 
-  const [image, updateImage] = useProductDialogStore((state) => [
-    state.image,
-    state.updateImage,
-  ]);
+  // const [image, updateImage] = useProductDialogStore((state) => [
+  //   state.image,
+  //   state.updateImage,
+  // ]);
 
   return (
     <>
@@ -83,16 +84,17 @@ const ProductDialog = () => {
               id="filters"
               disabled={guid !== ""}
               options={filters}
+              isOptionEqualToValue={(option, value) =>
+                option.guid === value.guid
+              }
               getOptionLabel={(option) => option.label}
-              getOptionSelected={(option, value) => {
-                return option.guid === value.guid;
-              }}
-              value={selectedFilter}
+              // getOptionSelected={(option, value) => option.guid === value.guid}
+              value={filter}
               renderInput={(params) => (
                 <TextField {...params} label="Product type" />
               )}
               onChange={(event, value) => {
-                updateSelectedFilter(value);
+                updateFilter(value);
               }}
             />
             <TextField
@@ -103,7 +105,7 @@ const ProductDialog = () => {
               }}
             />
             <TextField
-              label="Catalog #"
+              label="Model #"
               value={catalogNum || ""}
               onChange={({ target: { value } }) => {
                 updateCatalogNum(value);
@@ -122,7 +124,7 @@ const ProductDialog = () => {
                 }}
               />
             </FormControl>
-            <FileUpload imageUrl={image} setImageUrl={updateImage} />
+            {/* <FileUpload imageUrl={image} setImageUrl={updateImage} /> */}
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -138,12 +140,12 @@ const ProductDialog = () => {
                 return;
               }
 
-              const returnValue = await onSubmit(
-                selectedFilter,
+              const returnValue = await onSubmit({
+                filter,
                 modelName,
                 catalogNum,
-                unitCost
-              );
+                unitCost,
+              });
 
               if (returnValue) {
                 close();
@@ -162,7 +164,7 @@ export const productDialog = ({
   header,
   guid,
   filters,
-  selectedFilter,
+  filter,
   modelName,
   catalogNum,
   unitCost,
@@ -173,7 +175,7 @@ export const productDialog = ({
     header,
     guid,
     filters,
-    selectedFilter,
+    filter,
     modelName,
     catalogNum,
     unitCost,

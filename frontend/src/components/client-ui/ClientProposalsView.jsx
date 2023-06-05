@@ -4,31 +4,27 @@ import { useNavigate } from "react-router-dom";
 
 import MaterialTable from "@material-table/core";
 
-import { updateStore } from "../../data-management/store/Dispatcher";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import {
-  updateProposals,
-  updateSelectedClient,
-  selectProposal,
-} from "../../data-management/store/Reducers";
+import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
+
+import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
+import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
 import {
   addProposal,
   deleteProposal,
-} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
-import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
+} from "../../data-management/store/slices/proposalsSlice";
 
 const ClientProposalsView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const clients = useSelector((state) => state.clients);
-  const selectedClient = useSelector((state) => state.selectedClient);
-  const proposals = useSelector((state) => state.proposals);
+  const { clients, selectedClient } = useSelector((state) => state.clients);
+  const { proposals } = useSelector((state) => state.proposals);
 
   const proposalsForClient = useMemo(() => {
-    return proposals.filter((proposal) => {
-      return proposal.client_guid === selectedClient.guid;
-    });
+    return proposals.filter(
+      (proposal) => selectedClient.guid === proposal?.owner?.guid
+    );
   }, [proposals, selectedClient]);
 
   return (
@@ -42,10 +38,9 @@ const ClientProposalsView = () => {
       ]}
       data={proposalsForClient.map((proposal) => {
         return {
-          type: proposal.guid,
+          id: proposal.guid, // needed for material table dev tools warning
           name: proposal.name,
-          client: proposal.client,
-          client_guid: proposal.client_guid,
+          owner: proposal.owner,
           description: proposal.description,
           dateCreated: proposal.dateCreated,
           dateModified: proposal.dateModified,
@@ -63,8 +58,8 @@ const ClientProposalsView = () => {
           icon: "edit",
           tooltip: "View proposal",
           onClick: (event, rowData) => {
-            dispatch(updateSelectedClient(null));
-            dispatch(selectProposal(rowData));
+            updateActiveClient(dispatch, { value: null });
+            selectProposal(dispatch, { proposalData: rowData });
             navigate("/proposals");
           },
         },
@@ -75,19 +70,11 @@ const ClientProposalsView = () => {
             newProposalDialog({
               name: rowData.name,
               description: rowData.description,
-              selectedClient: rowData.client,
+              owner: rowData.owner,
               clients,
               isExistingProposal: true,
-              onSubmit: async (name, description, client_guid) => {
-                return updateStore({
-                  dispatch,
-                  dbOperation: async () =>
-                    addProposal(name, description, client_guid, rowData),
-                  methodToDispatch: updateProposals,
-                  dataKey: "proposals",
-                  successMessage: "Successfully copied proposal!",
-                });
-              },
+              onSubmit: async (name, description, client_guid) =>
+                addProposal(dispatch, { name, description, client_guid }),
             });
           },
         },
@@ -99,13 +86,7 @@ const ClientProposalsView = () => {
               message:
                 "Do you really want to delete this? This action cannot be undone.",
               onSubmit: async () => {
-                return updateStore({
-                  dispatch,
-                  dbOperation: async () => deleteProposal(rowData.guid),
-                  methodToDispatch: updateProposals,
-                  dataKey: "proposals",
-                  successMessage: `Successfully deleted ${rowData.name}`,
-                });
+                return deleteProposal(dispatch, { guid: rowData.guid });
               },
             });
           },

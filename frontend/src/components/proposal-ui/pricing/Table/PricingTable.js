@@ -5,7 +5,6 @@ import {
   calculateTotalCost,
   ccyFormat,
 } from "../../../../data-management/utils";
-import { removeProductFromTable } from "../../../../data-management/store/Reducers";
 
 import {
   Paper,
@@ -36,15 +35,11 @@ import {
 
 import BasicDialogue from "../../../coreui/dialogs/BasicDialog";
 import { showSnackbar } from "../../../coreui/CustomSnackbar";
+import { removeProductFromProposal } from "../../../../data-management/store/slices/selectedProposalSlice";
 
-/**
- * A table component for rendering data
- * @param {*} props
- * @returns
- */
 export default function PricingTable() {
-  const selectedProposal = useSelector((state) => state.selectedProposal);
   const dispatch = useDispatch();
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
   const models = selectedProposal.data.models;
   const fees = selectedProposal.data.fees;
   const labor = selectedProposal.data.labor;
@@ -104,10 +99,10 @@ export default function PricingTable() {
             {/* Second row contains specific information for each entry */}
             <TableRow>
               <BoldedItalicsTableCell align="left">
-                Model
+                Model name
               </BoldedItalicsTableCell>
               <BoldedItalicsTableCell align="left">
-                Catalog #
+                Model #
               </BoldedItalicsTableCell>
               <BoldedItalicsTableCell align="center">
                 Qty
@@ -137,7 +132,9 @@ export default function PricingTable() {
                   <TableCell align="right">
                     <Tooltip title="Remove product">
                       <IconButton
-                        onClick={() => dispatch(removeProductFromTable(index))}
+                        onClick={() =>
+                          removeProductFromProposal(dispatch, { index })
+                        }
                       >
                         <DeleteIcon />
                       </IconButton>

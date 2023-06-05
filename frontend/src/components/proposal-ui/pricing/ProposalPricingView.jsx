@@ -1,19 +1,16 @@
 import React from "react";
-
-import {
-  resetProposal,
-  addProductToTable,
-  updateProposals,
-} from "../../../data-management/store/Reducers";
-import { useDispatch, useSelector } from "react-redux";
-import { saveProposal } from "../../../data-management/backend-helpers/InteractWithBackendData.ts";
+import { useSelector, useDispatch } from "react-redux";
 
 import Box from "@mui/material/Box";
 import { Button, Stack } from "@mui/material";
 import { showSnackbar } from "../../coreui/CustomSnackbar";
 import { addProductToProposalDialog } from "../../coreui/dialogs/AddProductToProposalDialog";
 import PricingTable from "../pricing/Table/PricingTable";
-import { updateStore } from "../../../data-management/store/Dispatcher";
+import {
+  addProductToProposal,
+  removeAllProductsFromProposal,
+} from "../../../data-management/store/slices/selectedProposalSlice";
+import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
 
 /**
  * Component used for displaying the table of selected products as well as inputs for
@@ -22,9 +19,9 @@ import { updateStore } from "../../../data-management/store/Dispatcher";
  */
 export default function ProposalPricingView() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
-  const selectedProposal = useSelector((state) => state.selectedProposal);
-  const filters = useSelector((state) => state.filters);
+  const { products } = useSelector((state) => state.products);
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const { filters } = useSelector((state) => state.filters);
 
   const handleOnAdd = (selectedProduct, quantity) => {
     if (!selectedProduct) {
@@ -58,16 +55,14 @@ export default function ProposalPricingView() {
       return false;
     }
 
-    dispatch(
-      addProductToTable({
-        guid: selectedProduct.guid,
-        name: selectedProduct.model,
-        catalogNum: selectedProduct.catalog,
-        unitCost: selectedProduct.cost,
-        quantity,
-        totalCost: selectedProduct.cost * quantity,
-      })
-    );
+    addProductToProposal(dispatch, {
+      guid: selectedProduct.guid,
+      name: selectedProduct.model,
+      catalogNum: selectedProduct.catalog,
+      unitCost: selectedProduct.cost,
+      quantity,
+      totalCost: selectedProduct.cost * quantity,
+    });
 
     showSnackbar({
       title: "Successfully added product",
@@ -92,9 +87,8 @@ export default function ProposalPricingView() {
                 allModels: products,
                 selectedProduct: undefined,
                 quantity: "",
-                onSubmit: (selectedProduct, quantity) => {
-                  return handleOnAdd(selectedProduct, quantity);
-                },
+                onSubmit: (selectedProduct, quantity) =>
+                  handleOnAdd(selectedProduct, quantity),
               });
             }}
           >
@@ -103,36 +97,27 @@ export default function ProposalPricingView() {
           <Box sx={{ flexGrow: 1 }}>
             <Button
               variant="contained"
-              onClick={() => {
-                dispatch(resetProposal());
-              }}
+              onClick={() => removeAllProductsFromProposal(dispatch)}
             >
               Remove all products
             </Button>
           </Box>
           <Button
             variant="contained"
-            onClick={async () => {
-              updateStore({
-                dispatch,
-                dbOperation: async () =>
-                  saveProposal(
-                    selectedProposal.guid,
-                    selectedProposal.data.commission,
-                    selectedProposal.data.fees,
-                    selectedProposal.data.labor,
-                    selectedProposal.data.models,
-                    selectedProposal.data.unitCostTax,
-                    selectedProposal.data.multiplier,
-                    selectedProposal.data.title,
-                    selectedProposal.data.summary,
-                    selectedProposal.data.specifications
-                  ),
-                methodToDispatch: updateProposals,
-                dataKey: "proposals",
-                successMessage: "Your proposal has been successfully saved.",
-              });
-            }}
+            onClick={async () =>
+              saveProposal(dispatch, {
+                guid: selectedProposal.guid,
+                commission: selectedProposal.data.commission,
+                fees: selectedProposal.data.fees,
+                labor: selectedProposal.data.labor,
+                models: selectedProposal.data.models,
+                unitCostTax: selectedProposal.data.unitCostTax,
+                multiplier: selectedProposal.data.multiplier,
+                title: selectedProposal.data.title,
+                summary: selectedProposal.data.summary,
+                specifications: selectedProposal.data.specifications,
+              })
+            }
             align="right"
           >
             Save proposal

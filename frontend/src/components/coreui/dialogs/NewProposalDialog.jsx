@@ -14,14 +14,13 @@ import { StyledBootstrapDialog } from "../StyledComponents";
 const useProposalDialogStore = create((set) => ({
   name: "",
   description: "",
-  selectedClient: {},
+  owner: {},
   clients: [],
   onSubmit: undefined,
   isExistingProposal: false,
   updateName: (name) => set(() => ({ name: name })),
   updateDescription: (description) => set(() => ({ description: description })),
-  updateSelectedClient: (selectedClient) =>
-    set(() => ({ selectedClient: selectedClient })),
+  updateOwner: (owner) => set(() => ({ owner: owner })),
   close: () => set({ onSubmit: undefined }),
 }));
 
@@ -39,9 +38,10 @@ const NewProposalDialog = () => {
     state.updateDescription,
   ]);
 
-  const [selectedClient, updateSelectedClient] = useProposalDialogStore(
-    (state) => [state.selectedClient, state.updateSelectedClient]
-  );
+  const [owner, updateOwner] = useProposalDialogStore((state) => [
+    state.owner,
+    state.updateOwner,
+  ]);
 
   return (
     <>
@@ -86,13 +86,16 @@ const NewProposalDialog = () => {
               id="filters"
               options={clients}
               getOptionLabel={(option) => option.name || ""}
-              getOptionSelected={(option, value) => {
-                return option.guid === value.guid;
-              }}
-              value={selectedClient}
+              // getOptionSelected={(option, value) => {
+              //   return option.guid === value.guid;
+              // }}
+              isOptionEqualToValue={(option, value) =>
+                option.guid === value.guid
+              }
+              value={owner}
               renderInput={(params) => <TextField {...params} label="Client" />}
               onChange={(event, value) => {
-                updateSelectedClient(value);
+                updateOwner(value);
               }}
             />
           </div>
@@ -110,11 +113,7 @@ const NewProposalDialog = () => {
                 return;
               }
 
-              const returnValue = await onSubmit(
-                name,
-                description,
-                selectedClient.guid
-              );
+              const returnValue = await onSubmit(name, description, owner.guid);
 
               if (returnValue) {
                 close();
@@ -132,7 +131,7 @@ const NewProposalDialog = () => {
 export const newProposalDialog = ({
   name = "",
   description = "",
-  selectedClient = {},
+  owner = {},
   clients = [],
   isExistingProposal = false,
   onSubmit,
@@ -140,7 +139,7 @@ export const newProposalDialog = ({
   useProposalDialogStore.setState({
     name,
     description,
-    selectedClient,
+    owner,
     clients,
     isExistingProposal,
     onSubmit,

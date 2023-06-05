@@ -1,20 +1,14 @@
 import React, { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
-import { updateStore } from "../../data-management/store/Dispatcher";
 
 import {
-  addNewClient,
+  addClient,
   deleteClient,
-  deleteProposalsForClient,
-} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
-
-import {
-  updateClients,
-  updateSelectedClient,
-  updateProposals,
-} from "../../data-management/store/Reducers";
+  updateActiveClient,
+} from "../../data-management/store/slices/clientsSlice";
+import { deleteProposalsForClient } from "../../data-management/store/slices/proposalsSlice";
 
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -23,9 +17,8 @@ import { clientDialog } from "../coreui/dialogs/NewClientDialog";
 
 export default function AllClientsView() {
   const dispatch = useDispatch();
-
-  const clients = useSelector((state) => state.clients);
-  const proposals = useSelector((state) => state.proposals);
+  const { clients } = useSelector((state) => state.clients);
+  const { proposals } = useSelector((state) => state.proposals);
 
   const clientsWithProposalInfo = useMemo(() => {
     if (proposals == null || clients == null) {
@@ -33,9 +26,9 @@ export default function AllClientsView() {
     }
 
     return clients.map((client) => {
-      const client_proposals = proposals.filter((proposal) => {
-        return proposal.client_guid === client.guid;
-      });
+      const client_proposals = proposals.filter(
+        (proposal) => client.guid === proposal?.owner?.guid
+      );
 
       return { ...client, client_proposals };
     });
@@ -58,16 +51,8 @@ export default function AllClientsView() {
               state: "",
               city: "",
               zip: "",
-              onSubmit: async (name, address, apt, state, city, zip) => {
-                return updateStore({
-                  dispatch,
-                  dbOperation: async () =>
-                    addNewClient({ name, address, apt, state, city, zip }),
-                  methodToDispatch: updateClients,
-                  dataKey: "clients",
-                  successMessage: "Successfully added new client!",
-                });
-              },
+              onSubmit: async (name, address, apt, state, city, zip) =>
+                addClient(dispatch, { name, address, apt, state, city, zip }),
             });
           }}
         >
@@ -92,7 +77,7 @@ export default function AllClientsView() {
         ]}
         data={clientsWithProposalInfo.map((client) => {
           return {
-            type: client.guid,
+            id: client.guid, // needed for material table dev tools warning
             name: client.name,
             address: `${client.address} ${client.apt} ${client.state} ${client.city} ${client.zip}`,
             accountNum: client.accountNum,
@@ -112,7 +97,7 @@ export default function AllClientsView() {
             icon: "edit",
             tooltip: "View client",
             onClick: (event, rowData) => {
-              dispatch(updateSelectedClient(rowData.fullInfo));
+              updateActiveClient(dispatch, { value: rowData.fullInfo });
             },
           },
           {
@@ -124,25 +109,17 @@ export default function AllClientsView() {
                   "Are you sure? This action cannot be undone. Upon deleting a client, ALL proposals belonging to that client will also be deleted.",
                 onSubmit: async () => {
                   const client_guid = rowData.fullInfo.guid;
-                  const updatedClients = await updateStore({
-                    dispatch,
-                    dbOperation: async () => deleteClient(client_guid),
-                    methodToDispatch: updateClients,
-                    dataKey: "clients",
-                    successMessage: `Successfully deleted client ${rowData.name}`,
+                  const clientsAfterDelete = await deleteClient(dispatch, {
+                    guid: client_guid,
                   });
 
-                  if (!updatedClients) {
+                  if (!clientsAfterDelete) {
                     return false;
                   }
 
-                  return await updateStore({
-                    dispatch,
-                    dbOperation: async () =>
-                      deleteProposalsForClient(client_guid),
-                    methodToDispatch: updateProposals,
-                    dataKey: "proposals",
-                    successMessage: `Successfully deleted proposals for client ${rowData.name}`,
+                  return deleteProposalsForClient(dispatch, {
+                    clientName: rowData.name,
+                    clientGuid: client_guid,
                   });
                 },
               });

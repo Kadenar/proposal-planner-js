@@ -1,26 +1,24 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import themeSlice from "./reducers/themeSlice";
-import filtersSlice from "./reducers/filtersSlice";
-import productsSlice from "./reducers/productsSlice";
-import proposalsSlice from "./reducers/proposalsSlice";
-import clientsSlice from "./reducers/clientsSlice";
-import commissionsSlice from "./reducers/commissionsSlice";
-import multipliersSlice from "./reducers/multipliersSlice";
-import selectedClientSlice from "./reducers/selectedClientSlice";
-import selectedProposalSlice from "./reducers/selectedProposalSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import themeSlice from "./slices/themeSlice";
+import productTypesSlice from "./slices/productTypesSlice";
+import productsSlice from "./slices/productsSlice";
+import proposalsSlice from "./slices/proposalsSlice";
+import clientsSlice from "./slices/clientsSlice";
+import commissionsSlice from "./slices/commissionsSlice";
+import multipliersSlice from "./slices/multipliersSlice";
+import selectedProposalSlice from "./slices/selectedProposalSlice";
 
-const reducer = combineReducers({
-  theme: themeSlice,
-  filters: filtersSlice,
-  products: productsSlice,
-  proposals: proposalsSlice,
-  clients: clientsSlice,
-  commissions: commissionsSlice,
-  multipliers: multipliersSlice,
-  selectedClient: selectedClientSlice,
-  seletedProposal: selectedProposalSlice,
+const store = configureStore({
+  reducer: {
+    theme: themeSlice,
+    filters: productTypesSlice,
+    products: productsSlice,
+    proposals: proposalsSlice,
+    clients: clientsSlice,
+    commissions: commissionsSlice,
+    multipliers: multipliersSlice,
+    selectedProposal: selectedProposalSlice,
+  },
 });
 
-export const store = configureStore({
-  reducer,
-});
+export default store;

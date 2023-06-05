@@ -10,34 +10,28 @@ import TextField from "@mui/material/TextField";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import TransferList from "./TransferList";
 
 import {
   StyledTextarea,
   StyledIconButton,
 } from "../../coreui/StyledComponents";
 import {
-  updateProposalTitle,
-  updateProposalSummary,
-  updateProposalSpecifications,
-  updateProposals,
-} from "../../../data-management/store/Reducers";
-import { updateStore } from "../../../data-management/store/Dispatcher";
-import { saveProposal } from "../../../data-management/backend-helpers/InteractWithBackendData.ts";
-import TransferList from "./TransferList";
+  setProposalSpecifications,
+  setProposalSummary,
+  setProposalTitle,
+} from "../../../data-management/store/slices/selectedProposalSlice";
+import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
 
 const ProposalCardDetails = () => {
-  const selectedProposal = useSelector((state) => state.selectedProposal);
-
   const dispatch = useDispatch();
-
+  const { selectedProposal } = useSelector((state) => state.selectedProposal);
   const titleRef = useRef();
   const briefSummaryRef = useRef();
   const specificationRef = useRef();
 
   const debouncedSearch = useRef(
-    debounce(async (functionToRun) => {
-      dispatch(functionToRun());
-    }, 1000)
+    debounce(async (functionToRun) => functionToRun(), 300)
   ).current;
 
   const [open, setOpen] = useState(true);
@@ -50,17 +44,19 @@ const ProposalCardDetails = () => {
 
   function handleTitleChange(value) {
     titleRef.current.value = value;
-    debouncedSearch(() => updateProposalTitle(value));
+    debouncedSearch(() => setProposalTitle(dispatch, { title: value }));
   }
 
   function handleSummaryChange(value) {
     briefSummaryRef.current.value = value;
-    debouncedSearch(() => updateProposalSummary(value));
+    debouncedSearch(() => setProposalSummary(dispatch, { summary: value }));
   }
 
   function handleSpecificationChange(value) {
     specificationRef.current.value = value;
-    debouncedSearch(() => updateProposalSpecifications(value));
+    debouncedSearch(() =>
+      setProposalSpecifications(dispatch, { specifications: value })
+    );
   }
 
   return (
@@ -78,27 +74,20 @@ const ProposalCardDetails = () => {
         {open && (
           <Button
             variant="contained"
-            onClick={async () => {
-              updateStore({
-                dispatch,
-                dbOperation: async () =>
-                  saveProposal(
-                    selectedProposal.guid,
-                    selectedProposal.data.commission,
-                    selectedProposal.data.fees,
-                    selectedProposal.data.labor,
-                    selectedProposal.data.models,
-                    selectedProposal.data.unitCostTax,
-                    selectedProposal.data.multiplier,
-                    selectedProposal.data.title,
-                    selectedProposal.data.summary,
-                    selectedProposal.data.specifications
-                  ),
-                methodToDispatch: updateProposals,
-                dataKey: "proposals",
-                successMessage: "Your proposal has been successfully saved.",
-              });
-            }}
+            onClick={async () =>
+              saveProposal(dispatch, {
+                guid: selectedProposal.guid,
+                commission: selectedProposal.data.commission,
+                fees: selectedProposal.data.fees,
+                labor: selectedProposal.data.labor,
+                models: selectedProposal.data.models,
+                unitCostTax: selectedProposal.data.unitCostTax,
+                multiplier: selectedProposal.data.multiplier,
+                title: selectedProposal.data.title,
+                summary: selectedProposal.data.summary,
+                specifications: selectedProposal.data.specifications,
+              })
+            }
           >
             Save proposal
           </Button>

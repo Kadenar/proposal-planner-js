@@ -1,25 +1,6 @@
 import "./components/landingpages/page-styles.css";
-import { useEffect, useMemo } from "react";
-// import { configureStore } from "@reduxjs/toolkit";
-import { applyMiddleware, createStore } from "redux";
-import { batch, Provider } from "react-redux";
-import {
-  fetchProducts,
-  fetchMultipliers,
-  fetchCommissions,
-  fetchProductTypes,
-  fetchProposals,
-  fetchClients,
-} from "./data-management/backend-helpers/InteractWithBackendData.ts";
-import PricingReducer, {
-  updateFilters,
-  updateMultipliers,
-  updateCommissions,
-  updateProducts,
-  updateProposals,
-  updateClients,
-} from "./data-management/store/Reducers";
-import thunk from "redux-thunk";
+import { useMemo, useEffect } from "react";
+import { useSelector, batch, useDispatch } from "react-redux";
 
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -39,78 +20,58 @@ import ProposalsPage from "./components/landingpages/ProposalsPage";
 import ClientsPage from "./components/landingpages/ClientsPage";
 import DatabasePage from "./components/landingpages/DatabasePage";
 import NewClientDialog from "./components/coreui/dialogs/NewClientDialog";
+import { initializeProductTypes } from "./data-management/store/slices/productTypesSlice";
+import { initializeMultipliers } from "./data-management/store/slices/multipliersSlice";
+import { initializeCommissions } from "./data-management/store/slices/commissionsSlice";
+import { initializeProposals } from "./data-management/store/slices/proposalsSlice";
+import { initializeProducts } from "./data-management/store/slices/productsSlice";
+import { initializeClients } from "./data-management/store/slices/clientsSlice";
 
 const ProposalPlanner = () => {
-  // Create our redux store to manage the state of our application when pricing out a job
-  const store = createStore(PricingReducer, applyMiddleware(thunk));
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-
-  // const theme = useMemo(
-  //   () =>
-  //     createTheme({
-  //       palette: {
-  //         mode: store.useDarkMode ? "dark" : "light",
-  //       },
-  //     }),
-  //   [store]
-  // );
-
-  const theme = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
-
-  // TODO - Remove this when done - only temporary to log the state when it changes
-  store.subscribe(() => {
-    console.log(store.getState());
-  });
+  const dispatch = useDispatch();
+  const { darkMode } = useSelector((state) => state.theme);
 
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
-    const asyncFunc = async () => {
-      const productData = await fetchProducts();
-      const filterData = await fetchProductTypes();
-      const multipliers = await fetchMultipliers();
-      const commissions = await fetchCommissions();
-      const proposals = await fetchProposals();
-      const clients = await fetchClients();
+    batch(() => {
+      dispatch(initializeProductTypes());
+      dispatch(initializeMultipliers());
+      dispatch(initializeCommissions());
+      dispatch(initializeProposals());
+      dispatch(initializeProducts());
+      dispatch(initializeClients());
+    });
+  }, [dispatch]);
 
-      batch(() => {
-        store.dispatch(updateFilters(filterData));
-        store.dispatch(updateProducts(productData));
-        store.dispatch(updateMultipliers(multipliers));
-        store.dispatch(updateCommissions(commissions));
-        store.dispatch(updateProposals(proposals));
-        store.dispatch(updateClients(clients));
+  const theme = useMemo(() => {
+    return () =>
+      createTheme({
+        palette: {
+          mode: darkMode ? "dark" : "light",
+        },
       });
-    };
-
-    asyncFunc();
-  }, [store]);
+  }, [darkMode]);
 
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CustomSnackbar />
-        <NewClientDialog />
-        <NewProposalDialog />
-        <ConfirmDialog />
-        <ProductDialog />
-        <ProductTypeDialog />
-        <AddProductToProposalDialog />
-        <Router>
-          <Navbar />
-          <Routes classname="routesContent">
-            <Route path="/" exact element={<HomePage />} />
-            <Route path="/clients" exact element={<ClientsPage />} />
-            <Route path="/proposals" exact element={<ProposalsPage />} />
-            <Route path="/jobs" exact element={<JobsPage />} />
-            <Route path="/database" exact element={<DatabasePage />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <CustomSnackbar />
+      <NewClientDialog />
+      <NewProposalDialog />
+      <ConfirmDialog />
+      <ProductDialog />
+      <ProductTypeDialog />
+      <AddProductToProposalDialog />
+      <Router>
+        <Navbar />
+        <Routes classname="routesContent">
+          <Route path="/" exact element={<HomePage />} />
+          <Route path="/clients" exact element={<ClientsPage />} />
+          <Route path="/proposals" exact element={<ProposalsPage />} />
+          <Route path="/jobs" exact element={<JobsPage />} />
+          <Route path="/database" exact element={<DatabasePage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 };
 

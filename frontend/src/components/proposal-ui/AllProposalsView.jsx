@@ -1,34 +1,23 @@
-import React, { useCallback } from "react";
+import React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack, CircularProgress, Button } from "@mui/material";
-import { updateStore } from "../../data-management/store/Dispatcher";
 
 import {
   addProposal,
+  copyProposal,
   deleteProposal,
-} from "../../data-management/backend-helpers/InteractWithBackendData.ts";
-
-import {
-  updateProposals,
-  selectProposal,
-} from "../../data-management/store/Reducers";
+} from "../../data-management/store/slices/proposalsSlice";
+import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
 
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
 
 export default function ExistingProposals() {
   const dispatch = useDispatch();
-  const proposals = useSelector((state) => state.proposals);
-  const clients = useSelector((state) => state.clients);
-
-  const selectProposalCallback = useCallback(
-    (value) => {
-      dispatch(selectProposal(value));
-    },
-    [dispatch]
-  );
+  const { proposals } = useSelector((state) => state.proposals);
+  const { clients } = useSelector((state) => state.clients);
 
   if (proposals === null) {
     return <CircularProgress />;
@@ -43,19 +32,11 @@ export default function ExistingProposals() {
             newProposalDialog({
               name: "",
               description: "",
-              selectedClient: {},
+              owner: {},
               clients,
               isExistingProposal: false,
-              onSubmit: async (name, description, client_guid) => {
-                return updateStore({
-                  dispatch,
-                  dbOperation: async () =>
-                    addProposal(name, description, client_guid),
-                  methodToDispatch: updateProposals,
-                  dataKey: "proposals",
-                  successMessage: "Successfully added new proposal!",
-                });
-              },
+              onSubmit: async (name, description, client_guid) =>
+                addProposal(dispatch, { name, description, client_guid }),
             });
           }}
         >
@@ -67,21 +48,21 @@ export default function ExistingProposals() {
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
-          { title: "Client", field: "client" },
+          { title: "Client", field: "owner.name" },
           { title: "Date created", field: "dateCreated" },
           { title: "Date modified", field: "dateModified" },
         ]}
         data={proposals.map((proposal) => {
-          const matchingClient = clients.find((client) => {
-            return client.guid === proposal.client_guid;
-          });
-
           return {
-            type: proposal.guid,
+            id: proposal.guid, // needed for material table dev tools warning
             name: proposal.name,
             description: proposal.description,
-            client: matchingClient?.name || "Orphaned proposal",
-            client_guid: matchingClient?.guid || "",
+            owner: {
+              ...proposal.owner,
+              name:
+                clients.find((client) => client.guid === proposal?.owner?.guid)
+                  ?.name || "Orphaned proposal",
+            },
             dateCreated: proposal.dateCreated,
             dateModified: proposal.dateModified,
             guid: proposal.guid,
@@ -98,9 +79,8 @@ export default function ExistingProposals() {
             icon: "edit",
 
             tooltip: "Edit proposal",
-            onClick: (event, rowData) => {
-              selectProposalCallback(rowData);
-            },
+            onClick: (event, rowData) =>
+              selectProposal(dispatch, { proposalData: rowData }),
           },
           {
             icon: "save",
@@ -109,19 +89,16 @@ export default function ExistingProposals() {
               newProposalDialog({
                 name: rowData.name,
                 description: rowData.description,
-                selectedClient: rowData.client,
+                selectedClient: rowData.owner.client,
                 clients,
                 isExistingProposal: true,
-                onSubmit: async (name, description, client_guid) => {
-                  return updateStore({
-                    dispatch,
-                    dbOperation: async () =>
-                      addProposal(name, description, client_guid, rowData),
-                    methodToDispatch: updateProposals,
-                    dataKey: "proposals",
-                    successMessage: "Successfully copied proposal!",
-                  });
-                },
+                onSubmit: (name, description, client_guid) =>
+                  copyProposal(dispatch, {
+                    name,
+                    description,
+                    client_guid,
+                    existing_proposal: rowData,
+                  }),
               });
             },
           },
@@ -132,15 +109,8 @@ export default function ExistingProposals() {
               confirmDialog({
                 message:
                   "Do you really want to delete this? This action cannot be undone.",
-                onSubmit: async () => {
-                  return updateStore({
-                    dispatch,
-                    dbOperation: async () => deleteProposal(rowData.guid),
-                    methodToDispatch: updateProposals,
-                    dataKey: "proposals",
-                    successMessage: `Successfully deleted ${rowData.label}`,
-                  });
-                },
+                onSubmit: async () =>
+                  deleteProposal(dispatch, { guid: rowData.guid }),
               });
             },
           },
