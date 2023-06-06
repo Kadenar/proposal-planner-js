@@ -7,6 +7,8 @@ import clientsSlice from "./slices/clientsSlice";
 import commissionsSlice from "./slices/commissionsSlice";
 import multipliersSlice from "./slices/multipliersSlice";
 import selectedProposalSlice from "./slices/selectedProposalSlice";
+import laborsSlice from "./slices/laborsSlice";
+import feesSlice from "./slices/feesSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +20,8 @@ const store = configureStore({
     commissions: commissionsSlice,
     multipliers: multipliersSlice,
     selectedProposal: selectedProposalSlice,
+    labors: laborsSlice,
+    fees: feesSlice,
   },
 });
 

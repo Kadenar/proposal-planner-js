@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { productTypeDialog } from "../coreui/dialogs/ProductTypeDialog";
+import { productTypeDialog } from "../coreui/dialogs/backend/ProductTypeDialog";
 
 import AddNewItem from "../coreui/AddNewItem";
 import {

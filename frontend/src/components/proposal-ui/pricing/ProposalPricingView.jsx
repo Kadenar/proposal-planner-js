@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import { Button, Stack } from "@mui/material";
 import { showSnackbar } from "../../coreui/CustomSnackbar";
-import { addProductToProposalDialog } from "../../coreui/dialogs/AddProductToProposalDialog";
+import { addProductToProposalDialog } from "../../coreui/dialogs/frontend/AddProductToProposalDialog";
 import PricingTable from "../pricing/Table/PricingTable";
 import {
   addProductToProposal,

@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 import { create } from "zustand";
-import { StyledBootstrapDialog } from "../StyledComponents";
+import { StyledBootstrapDialog } from "../../StyledComponents";
 
 const useProposalDialogStore = create((set) => ({
   name: "",

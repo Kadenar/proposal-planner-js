@@ -12,7 +12,8 @@ import {
 import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
 
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
+import { newProposalDialog } from "../coreui/dialogs/frontend/NewProposalDialog";
+import { getNewProposalItem } from "../../data-management/backend-helpers/proposalHelpers";
 
 export default function ExistingProposals() {
   const dispatch = useDispatch();
@@ -26,6 +27,16 @@ export default function ExistingProposals() {
   return (
     <Stack padding={2} gap={2}>
       <Stack spacing={1} direction="row" justifyContent="flex-end">
+        <Button
+          variant="contained"
+          onClick={async () => {
+            const newItem = await getNewProposalItem();
+            console.log(newItem);
+          }}
+        >
+          Debug
+        </Button>
+
         <Button
           variant="contained"
           onClick={() => {

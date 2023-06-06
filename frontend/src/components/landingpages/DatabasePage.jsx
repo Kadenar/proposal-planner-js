@@ -9,6 +9,7 @@ import {
   StyledTab,
   StyledTabPanel,
 } from "../coreui/StyledComponents";
+import LaborAndFeeTables from "../database-ui/LaborAndFeeTables";
 
 export default function DatabasePage() {
   return (
@@ -17,7 +18,8 @@ export default function DatabasePage() {
         <StyledTabsList>
           <StyledTab value={0}>Products</StyledTab>
           <StyledTab value={1}>Product types</StyledTab>
-          <StyledTab value={2}>Commissions & Multipliers</StyledTab>
+          <StyledTab value={2}>Labor & Fees</StyledTab>
+          <StyledTab value={3}>Commissions & Multipliers</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
           <ProductsTable />
@@ -26,6 +28,9 @@ export default function DatabasePage() {
           <ProductTypesTable />
         </StyledTabPanel>
         <StyledTabPanel value={2}>
+          <LaborAndFeeTables />
+        </StyledTabPanel>
+        <StyledTabPanel value={3}>
           <CommissionMultipliers />
         </StyledTabPanel>
       </Tabs>

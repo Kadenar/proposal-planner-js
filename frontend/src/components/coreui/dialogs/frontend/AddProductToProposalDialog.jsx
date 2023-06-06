@@ -9,7 +9,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { create } from "zustand";
-import { StyledBootstrapDialog } from "../StyledComponents";
+import { StyledBootstrapDialog } from "../../StyledComponents";
 
 const useProductDialogStore = create((set) => ({
   onSubmit: undefined,

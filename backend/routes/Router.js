@@ -140,6 +140,50 @@ router.post("/multipliers", (req, res) => {
   );
 });
 
+// LABORS \\
+router.get("/labors", (req, res) => {
+  readFileFunc(
+    `${filePath}/labors.json`,
+    res,
+    "Fetching cached labors.",
+    "Reading labors from file system.",
+    "labors"
+  );
+});
+
+router.post("/labors", (req, res) => {
+  writeFileFunc(
+    `${filePath}/labors.json`,
+    req,
+    res,
+    "Labor could not be updated",
+    "Labor updated was successful!",
+    "labors"
+  );
+});
+
+// FEES \\
+router.get("/fees", (req, res) => {
+  readFileFunc(
+    `${filePath}/fees.json`,
+    res,
+    "Fetching cached fees.",
+    "Reading fees from file system.",
+    "fees"
+  );
+});
+
+router.post("/fees", (req, res) => {
+  writeFileFunc(
+    `${filePath}/fees.json`,
+    req,
+    res,
+    "Fee could not be updated",
+    "Fee updated was successful!",
+    "fees"
+  );
+});
+
 const writeFileFunc = (path, req, res, errMsg, successMsg, cacheKey) => {
   const body = JSON.stringify(req.body, null, 2);
   fs.writeFile(path, body, (err) => {

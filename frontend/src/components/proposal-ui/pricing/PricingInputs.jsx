@@ -92,7 +92,7 @@ export function ConfigureUnitCostTax() {
 
   return (
     <TextField
-      id="outlined-basic"
+      id="unit-cost-id"
       label="Unit cost tax"
       variant="outlined"
       value={unitCostTax}
@@ -145,7 +145,7 @@ const LaborCostInput = ({ label, qty, cost, updateQuantity, updateCost }) => {
   return (
     <Stack direction="row" gap="20px">
       <TextField
-        id="outlined-basic"
+        id="labor-cost-id"
         label="Quantity"
         variant="outlined"
         value={qty}
@@ -153,9 +153,9 @@ const LaborCostInput = ({ label, qty, cost, updateQuantity, updateCost }) => {
         type="number"
       />
       <FormControl fullWidth sx={{ m: 1 }}>
-        <InputLabel htmlFor="outlined-adornment-amount">{label}</InputLabel>
+        <InputLabel htmlFor="labor-cost-input-label">{label}</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-amount"
+          id="labor-cost-input-label"
           value={cost}
           onChange={updateCost}
           startAdornment={<InputAdornment position="start">$</InputAdornment>}

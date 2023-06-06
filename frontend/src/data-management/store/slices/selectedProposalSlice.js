@@ -52,6 +52,12 @@ export const selectedProposalSlice = createSlice({
       const { key, numValue } = data.payload;
       state.selectedProposal.data.labor[key].qty = numValue;
     },
+    updateLabors: (state, labors) => {
+      state.selectedProposal.data.labor = labors.payload;
+    },
+    updateFees: (state, fees) => {
+      state.selectedProposal.data.fees = fees.payload;
+    },
   },
 });
 
@@ -71,6 +77,8 @@ const {
   updateFeeCost,
   updateLaborCost,
   updateLaborQuantity,
+  updateLabors,
+  updateFees,
 } = selectedProposalSlice.actions;
 
 export const selectProposal = (dispatch, { proposalData }) =>
@@ -131,4 +139,12 @@ export const setProposalLaborQuantity = (dispatch, { key, value }) => {
 
   const numValue = isNaN(parseInt(value, 10)) ? null : parseInt(value, 10);
   dispatch(updateLaborQuantity({ key, numValue }));
+};
+
+export const updateProposalLabors = (dispatch, { newLabors }) => {
+  dispatch(updateLabors(newLabors));
+};
+
+export const updateProposalFees = (dispatch, { newFees }) => {
+  dispatch(updateFees(newFees));
 };

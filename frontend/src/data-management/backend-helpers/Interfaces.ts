@@ -44,40 +44,59 @@ export interface ClientObject {
 export interface Clients extends Array<ClientObject> {}
 
 // PROPOSALS\\
-export interface CostObject {
-  qty: number;
+
+// Costs
+
+// Object of fee arrays
+export interface ArrayOfFeeObjects extends Array<ObjectOfFee> {}
+export interface ArrayOfFees extends Array<Fee> {}
+
+// A Specific fee array
+export interface ObjectOfFee {
+  [key: string]: Fee;
+}
+
+// object that represents a single fee
+export interface Fee {
   cost: number;
+  guid: string;
+  name: string;
+  qty: number;
+  type: string;
 }
-export interface FeeObject {
-  financing: CostObject;
-  permit: CostObject;
-  rebates: CostObject;
-  removal: CostObject;
-  tempTank: CostObject;
-}
-export interface Fees extends Array<FeeObject> {}
 
-export interface LaborObject {
-  twoMenEightHours: CostObject;
-  twoMenSixteenHours: CostObject;
-  twoMenTwentyHours: CostObject;
-  threeMenTwentyFourHours: CostObject;
-  threeMenThirtyHours: CostObject;
-  subcontractors: CostObject;
-}
-export interface Labors extends Array<LaborObject> {}
+// Object of labor arrays
+export interface ArrayOfLaborObjects extends Array<ObjectOfLabor> {}
 
+// Array of Labors
+export interface ArrayOfLabors extends Array<Labor> {}
+
+// A specific labor object
+export interface ObjectOfLabor {
+  [key: string]: Labor;
+}
+
+// Object that represents a single labor
+export interface Labor {
+  cost: number;
+  guid: string;
+  name: string;
+  qty: number;
+}
+
+// Models
 export interface ModelObject {
   name: string;
   catalogNum: string;
   qty: number;
   unitCost: number;
+  quote_option: string;
 }
 export interface Models extends Array<ModelObject> {}
 
 export interface ProposalData {
-  fees: FeeObject;
-  labor: LaborObject;
+  fees: ArrayOfFeeObjects;
+  labor: ArrayOfLaborObjects;
   models: Models;
   multiplier: number;
   unitCostTax: number;

@@ -13,7 +13,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import {
   BoldedTableCell,
   StyledIconButton,
-  StyledTableCell,
 } from "../../../coreui/StyledComponents";
 
 export function CollapsibleRow({
@@ -48,12 +47,12 @@ export function CollapsibleRow({
             {<SettingsIcon />}
           </StyledIconButton>
         </TableCell>
-        <TableCell></TableCell>
+        <TableCell />
         <TableCell align="center">{ccyFormat(costOfItem)}</TableCell>
         <TableCell align="center">{ccyFormat(costWithItem)}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Table size="small" aria-label="purchases">
@@ -67,9 +66,12 @@ export function CollapsibleRow({
                 <TableBody>
                   {breakdown.map((entry) => (
                     <TableRow key={entry.name}>
-                      <StyledTableCell>{entry.name}</StyledTableCell>
+                      <TableCell>{entry.name}</TableCell>
                       <TableCell>{entry.quantity}</TableCell>
-                      <TableCell>{ccyFormat(entry.amount)}</TableCell>
+                      <TableCell>
+                        {(entry?.type === "subtract" ? "-" : "") +
+                          ccyFormat(entry.amount)}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

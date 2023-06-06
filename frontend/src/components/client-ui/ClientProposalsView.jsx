@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MaterialTable from "@material-table/core";
 
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { newProposalDialog } from "../coreui/dialogs/NewProposalDialog";
+import { newProposalDialog } from "../coreui/dialogs/frontend/NewProposalDialog";
 
 import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
 import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";

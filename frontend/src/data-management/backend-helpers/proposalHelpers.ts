@@ -3,7 +3,9 @@ import {
   runPostRequest,
   simpleDeleteFromDatabase,
 } from "./database-actions.ts";
+import { fetchFees } from "./feeHelpers.ts";
 import * as Interface from "./Interfaces.ts";
+import { fetchLabors } from "./laborHelpers.ts";
 
 /**
  * Fetch all proposals in the database
@@ -43,7 +45,7 @@ export async function addProposal(
 
   const existingProposals = await fetchProposals();
 
-  let newProposal = getNewProposalItem(name, description, client_guid);
+  let newProposal = await getNewProposalItem(name, description, client_guid);
 
   if (existingProposal) {
     newProposal = {
@@ -86,8 +88,8 @@ export async function deleteProposal(guid: string) {
 export async function saveProposal(
   guid: string,
   commission: number,
-  fees: Interface.FeeObject,
-  labor: Interface.LaborObject,
+  fees: Interface.ArrayOfFeeObjects,
+  labor: Interface.ArrayOfLaborObjects,
   models: Interface.Models,
   unitCostTax: number,
   multiplier: number,
@@ -155,11 +157,31 @@ export async function deleteProposalsForClient(
  * Helper to return the default json for a new proposal
  * @returns
  */
-const getNewProposalItem = (
+export const getNewProposalItem = async (
   name: string,
   description: string,
   client_guid: string
-): Interface.ProposalObject => {
+): Promise<Interface.ProposalObject> => {
+  // Get fees defaults from database
+  const fees = await fetchFees();
+
+  const reducedFees = fees.reduce<Interface.ArrayOfFeeObjects>(
+    (result, fee) => ({
+      ...result,
+      [fee.guid]: fee,
+    }),
+    {} as Interface.ArrayOfFeeObjects
+  );
+
+  const labors = await fetchLabors();
+  const reducedLabors = labors.reduce<Interface.ArrayOfLaborObjects>(
+    (result, labor) => ({
+      ...result,
+      [labor.guid]: labor,
+    }),
+    {} as Interface.ArrayOfLaborObjects
+  );
+
   const date = new Date();
   const dateNow = `${
     date.getMonth() + 1
@@ -177,54 +199,8 @@ const getNewProposalItem = (
     data: {
       models: [],
       unitCostTax: 8.375,
-      labor: {
-        twoMenEightHours: {
-          qty: 1,
-          cost: 680.0,
-        },
-        twoMenSixteenHours: {
-          qty: 0,
-          cost: 1360.0,
-        },
-        twoMenTwentyHours: {
-          qty: 0,
-          cost: 1700,
-        },
-        threeMenTwentyFourHours: {
-          qty: 0,
-          cost: 2040,
-        },
-        threeMenThirtyHours: {
-          qty: 0,
-          cost: 2550,
-        },
-        subcontractors: {
-          qty: 0,
-          cost: 0,
-        },
-      },
-      fees: {
-        permit: {
-          qty: 1,
-          cost: 300,
-        },
-        financing: {
-          qty: 1,
-          cost: 0,
-        },
-        tempTank: {
-          qty: 1,
-          cost: 0,
-        },
-        removal: {
-          qty: 1,
-          cost: 0,
-        },
-        rebates: {
-          qty: 1,
-          cost: 0,
-        },
-      },
+      labor: reducedLabors,
+      fees: reducedFees,
       multiplier: 1.5,
       commission: 8,
       title: "",

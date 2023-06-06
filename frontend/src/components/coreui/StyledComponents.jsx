@@ -49,6 +49,12 @@ export const BoldedItalicsTableCell = styled(TableCell)(({ theme }) => ({
   width: "200px",
 }));
 
+export const ActionsTableCell = styled(TableCell)(({ theme }) => ({
+  fontWeight: "bold",
+  fontStyle: "italic",
+  width: "20px",
+}));
+
 // Table cell with min width and bolding
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   width: "200px",

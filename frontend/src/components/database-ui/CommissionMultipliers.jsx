@@ -16,7 +16,7 @@ import {
 } from "../../data-management/store/slices/multipliersSlice";
 
 import AddNewItem from "../coreui/AddNewItem";
-import { addScalarValueDialog } from "../coreui/dialogs/AddScalarValueDialog";
+import { addScalarValueDialog } from "../coreui/dialogs/backend/AddScalarValueDialog";
 
 export default function CommissionMultipliers() {
   const dispatch = useDispatch();
@@ -33,8 +33,8 @@ export default function CommissionMultipliers() {
         max: 10,
         step: 0.5,
         addNewFunc: () => {
-          return addScalarValueDialog({
-            header: "Add a commission",
+          addScalarValueDialog({
+            header: "Add commission",
             value: "",
             onSubmit: async (value) => addCommission({ value }),
           });
@@ -49,8 +49,8 @@ export default function CommissionMultipliers() {
         max: 2,
         step: 0.1,
         addNewFunc: () => {
-          return addScalarValueDialog({
-            header: "Add a multiplier",
+          addScalarValueDialog({
+            header: "Add multiplier",
             value: "",
             onSubmit: async (value) => addMultiplier(dispatch, { value }),
           });

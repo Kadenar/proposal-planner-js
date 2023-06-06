@@ -1,9 +1,11 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
   calculateTotalCost,
   ccyFormat,
+  returnOnlyValidFees,
+  returnOnlyValidLabor,
 } from "../../../../data-management/utils";
 
 import {
@@ -22,6 +24,7 @@ import Tooltip from "@mui/material/Tooltip";
 import {
   BoldedItalicsTableCell,
   BoldedTableCell,
+  ActionsTableCell,
 } from "../../../coreui/StyledComponents";
 
 import { CollapsibleRow } from "./CollapsibleRow";
@@ -35,20 +38,42 @@ import {
 
 import BasicDialogue from "../../../coreui/dialogs/BasicDialog";
 import { showSnackbar } from "../../../coreui/CustomSnackbar";
-import { removeProductFromProposal } from "../../../../data-management/store/slices/selectedProposalSlice";
+import {
+  removeProductFromProposal,
+  updateProposalFees,
+  updateProposalLabors,
+} from "../../../../data-management/store/slices/selectedProposalSlice";
 
 export default function PricingTable() {
   const dispatch = useDispatch();
+  const [showFeesModal, setShowFeesModal] = useState(false);
+  const [showLaborModal, setShowLaborModal] = useState(false);
+
   const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const { fees } = useSelector((state) => state.fees);
+  const { labors } = useSelector((state) => state.labors);
+
   const models = selectedProposal.data.models;
-  const fees = selectedProposal.data.fees;
-  const labor = selectedProposal.data.labor;
+  const proposalFees = selectedProposal.data.fees;
+  const proposalLabors = selectedProposal.data.labor;
   const taxRate = selectedProposal.data.unitCostTax;
   const MULTIPLIER = selectedProposal.data.multiplier;
   const COMMISSION = selectedProposal.data.commission;
 
-  const [showFeesModal, setShowFeesModal] = useState(false);
-  const [showLaborModal, setShowLaborModal] = useState(false);
+  const validFees = returnOnlyValidFees({ proposalFees, availableFees: fees });
+  const validLabor = returnOnlyValidLabor({
+    proposalLabors,
+    availableLabors: labors,
+  });
+
+  // TODO - is there a better way to do this avoiding the need for a useEffect entirely?
+  useEffect(() => {
+    updateProposalFees(dispatch, { newFees: validFees });
+    updateProposalLabors(dispatch, { newLabors: validLabor });
+
+    // We only want to run this a SINGLE time
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const tableInfo = useMemo(() => {
     return calculateTotalCost({
@@ -56,30 +81,31 @@ export default function PricingTable() {
       commission: COMMISSION,
       multiplier: MULTIPLIER,
       models,
-      labor,
-      fees,
+      labor: proposalLabors,
+      fees: proposalFees,
     });
-  }, [taxRate, COMMISSION, MULTIPLIER, models, labor, fees]);
+  }, [taxRate, COMMISSION, MULTIPLIER, models, proposalLabors, proposalFees]);
 
   const laborBreakDown = useMemo(() => {
-    return Object.keys(labor).map((type) => {
+    return Object.keys(proposalLabors).map((type) => {
       return {
-        name: labor[type].name,
-        quantity: labor[type].qty,
-        amount: labor[type].cost,
+        name: proposalLabors[type].name,
+        quantity: proposalLabors[type].qty,
+        amount: proposalLabors[type].cost,
       };
     });
-  }, [labor]);
+  }, [proposalLabors]);
 
   const feesBreakDown = useMemo(() => {
-    return Object.keys(fees).map((fee) => {
+    return Object.keys(proposalFees).map((fee) => {
       return {
-        name: fees[fee].name,
+        name: proposalFees[fee].name,
         quantity: 1,
-        amount: fees[fee].cost,
+        amount: proposalFees[fee].cost,
+        type: proposalFees[fee].type,
       };
     });
-  }, [fees]);
+  }, [proposalFees]);
 
   return (
     <>
@@ -92,7 +118,7 @@ export default function PricingTable() {
               <BoldedTableCell colSpan={2} align="center">
                 Details
               </BoldedTableCell>
-              <BoldedTableCell colSpan={5} align="right">
+              <BoldedTableCell colSpan={4} align="right">
                 Price
               </BoldedTableCell>
             </TableRow>
@@ -110,9 +136,10 @@ export default function PricingTable() {
               <BoldedItalicsTableCell align="center">
                 Unit cost
               </BoldedItalicsTableCell>
-              <BoldedItalicsTableCell colSpan={3} align="center">
+              <BoldedItalicsTableCell align="center">
                 Sum
               </BoldedItalicsTableCell>
+              <ActionsTableCell align="center">Actions</ActionsTableCell>
             </TableRow>
           </TableHead>
           {/* Include our data */}
@@ -123,13 +150,13 @@ export default function PricingTable() {
                   <TableCell>{model.name}</TableCell>
                   <TableCell>{model.catalogNum}</TableCell>
                   <TableCell align="center">{model.quantity}</TableCell>
-                  <TableCell colSpan={2} align="center">
+                  <TableCell align="center">
                     {ccyFormat(model.unitCost)}
                   </TableCell>
                   <TableCell align="center">
                     {ccyFormat(model.quantity * model.unitCost)}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     <Tooltip title="Remove product">
                       <IconButton
                         onClick={() =>
@@ -144,7 +171,7 @@ export default function PricingTable() {
               ))
             ) : (
               <TableRow>
-                <BoldedTableCell align="center" colSpan={5}>
+                <BoldedTableCell align="center" colSpan={6}>
                   No content yet
                 </BoldedTableCell>
               </TableRow>
@@ -153,9 +180,10 @@ export default function PricingTable() {
             <TableRow>
               <TableCell rowSpan={9} />
               <BoldedTableCell colSpan={3}>Subtotal</BoldedTableCell>
-              <TableCell colSpan={3} align="center">
+              <TableCell align="center">
                 {ccyFormat(tableInfo.itemSubtotal)}
               </TableCell>
+              <TableCell />
             </TableRow>
             {/* Taxes */}
             <TableRow>
@@ -166,9 +194,10 @@ export default function PricingTable() {
               <TableCell align="center">
                 {ccyFormat(tableInfo.invoiceTaxes)}
               </TableCell>
-              <TableCell colSpan={3} align="center">
+              <TableCell align="center">
                 {ccyFormat(tableInfo.totalWithTaxes)}
               </TableCell>
+              <TableCell />
             </TableRow>
             {/* Labor */}
             <CollapsibleRow
@@ -183,7 +212,7 @@ export default function PricingTable() {
             <TableRow>
               <BoldedTableCell>Multiplier</BoldedTableCell>
               <TableCell align="center">
-                <ConfigureMultiplier align="center" />
+                <ConfigureMultiplier />
               </TableCell>
               <TableCell align="center">
                 {ccyFormat(tableInfo.multiplierValue)}
@@ -191,6 +220,7 @@ export default function PricingTable() {
               <TableCell align="center">
                 {ccyFormat(tableInfo.costAfterMultiplier)}
               </TableCell>
+              <TableCell />
             </TableRow>
             {/* Fees */}
             <CollapsibleRow
@@ -210,13 +240,14 @@ export default function PricingTable() {
               <TableCell align="center">
                 {ccyFormat(tableInfo.commissionAmount)}
               </TableCell>
-              <TableCell colSpan={3} align="center">
+              <TableCell align="center">
                 {ccyFormat(tableInfo.invoiceTotal)}
               </TableCell>
+              <TableCell />
             </TableRow>
             {/* Invoice total */}
             <TableRow>
-              <BoldedTableCell colSpan={2}>Total</BoldedTableCell>
+              <BoldedTableCell>Total</BoldedTableCell>
               <BoldedTableCell
                 style={{ fontSize: "20px" }}
                 colSpan={4}
@@ -225,6 +256,7 @@ export default function PricingTable() {
                 {ccyFormat(tableInfo.invoiceTotal)}
               </BoldedTableCell>
             </TableRow>
+            {/* TODO -> Add a table row for each option that the user adds a model to*/}
           </TableBody>
         </Table>
       </TableContainer>

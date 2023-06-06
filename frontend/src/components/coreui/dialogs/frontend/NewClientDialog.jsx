@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-import { StyledBootstrapDialog } from "../StyledComponents";
-import StateSelection from "../StateSelection";
+import { StyledBootstrapDialog } from "../../StyledComponents";
+import StateSelection from "../../StateSelection";
 
 const useClientStore = create((set) => ({
   name: "",

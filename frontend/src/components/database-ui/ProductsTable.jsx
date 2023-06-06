@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -11,7 +11,7 @@ import { flattenProductData } from "../../data-management/backend-helpers/produc
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { productDialog } from "../coreui/dialogs/ProductDialog";
+import { productDialog } from "../coreui/dialogs/backend/ProductDialog.jsx";
 import AddNewItem from "../coreui/AddNewItem";
 
 /**

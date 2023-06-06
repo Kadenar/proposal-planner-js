@@ -7,10 +7,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Navbar from "./components/coreui/Sidebar/Navbar";
 import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog";
-import ProductDialog from "./components/coreui/dialogs/ProductDialog";
-import ProductTypeDialog from "./components/coreui/dialogs/ProductTypeDialog";
-import AddProductToProposalDialog from "./components/coreui/dialogs/AddProductToProposalDialog";
-import NewProposalDialog from "./components/coreui/dialogs/NewProposalDialog";
+import ProductDialog from "./components/coreui/dialogs/backend/ProductDialog";
+import ProductTypeDialog from "./components/coreui/dialogs/backend/ProductTypeDialog";
+import AddProductToProposalDialog from "./components/coreui/dialogs/frontend/AddProductToProposalDialog";
+import NewProposalDialog from "./components/coreui/dialogs/frontend/NewProposalDialog";
+import AddScalarValueDialog from "./components/coreui/dialogs/backend/AddScalarValueDialog";
 import CustomSnackbar from "./components/coreui/CustomSnackbar";
 
 // PAGES
@@ -19,14 +20,17 @@ import JobsPage from "./components/landingpages/JobsPage";
 import ProposalsPage from "./components/landingpages/ProposalsPage";
 import ClientsPage from "./components/landingpages/ClientsPage";
 import DatabasePage from "./components/landingpages/DatabasePage";
-import NewClientDialog from "./components/coreui/dialogs/NewClientDialog";
+import NewClientDialog from "./components/coreui/dialogs/frontend/NewClientDialog";
 import { initializeProductTypes } from "./data-management/store/slices/productTypesSlice";
 import { initializeMultipliers } from "./data-management/store/slices/multipliersSlice";
 import { initializeCommissions } from "./data-management/store/slices/commissionsSlice";
 import { initializeProposals } from "./data-management/store/slices/proposalsSlice";
 import { initializeProducts } from "./data-management/store/slices/productsSlice";
 import { initializeClients } from "./data-management/store/slices/clientsSlice";
-import AddScalarValueDialog from "./components/coreui/dialogs/AddScalarValueDialog";
+import { initializeLabors } from "./data-management/store/slices/laborsSlice";
+import { initializeFees } from "./data-management/store/slices/feesSlice";
+import LaborDialog from "./components/coreui/dialogs/backend/LaborDialog.jsx";
+import FeeDialog from "./components/coreui/dialogs/backend/FeeDialog.jsx";
 
 const ProposalPlanner = () => {
   const dispatch = useDispatch();
@@ -41,6 +45,8 @@ const ProposalPlanner = () => {
       dispatch(initializeProposals());
       dispatch(initializeProducts());
       dispatch(initializeClients());
+      dispatch(initializeLabors());
+      dispatch(initializeFees());
     });
   }, [dispatch]);
 
@@ -63,6 +69,8 @@ const ProposalPlanner = () => {
       <ProductTypeDialog />
       <AddProductToProposalDialog />
       <AddScalarValueDialog />
+      <LaborDialog />
+      <FeeDialog />
       <Router>
         <Navbar />
         <Routes classname="routesContent">

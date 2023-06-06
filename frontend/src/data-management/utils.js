@@ -1,11 +1,27 @@
 // Calculate the total cost of labor
-function calculateLabor(labor) {
+function calculateLabor(labors) {
   let totalLabor = 0;
-  Object.keys(labor).forEach((key) => {
-    totalLabor += labor[key].qty * labor[key].cost;
+  Object.keys(labors).forEach((labor) => {
+    totalLabor += labors[labor].qty * labors[labor].cost;
   });
 
   return totalLabor;
+}
+
+function calculateFees(fees) {
+  let costOfFees = 0;
+
+  Object.keys(fees).forEach((fee) => {
+    const cost = fees[fee].cost * fees[fee].qty;
+
+    if (fees[fee].type === "add") {
+      costOfFees += cost;
+    } else {
+      costOfFees -= cost;
+    }
+  });
+
+  return costOfFees;
 }
 
 // Handle formatting input cells with a '$' in front
@@ -42,11 +58,7 @@ export function calculateTotalCost(proposal) {
   const multiplierValue = costAfterMultiplier - costWithLabor;
 
   // Cost of fees
-  const costOfFees =
-    fees.permit.cost +
-    fees.tempTank.cost +
-    fees.financing.cost -
-    fees.rebates.cost;
+  const costOfFees = calculateFees(fees);
   const costAfterFees = costAfterMultiplier + costOfFees;
 
   // Commission amount expected to be earned
@@ -66,6 +78,35 @@ export function calculateTotalCost(proposal) {
     commissionAmount: commissionAmount,
     invoiceTotal: invoiceTotal,
   };
+}
+
+// Takes the fees present on the proposal, and removes any that are not in sync with the system
+export function returnOnlyValidFees({ proposalFees = {}, availableFees = [] }) {
+  return availableFees
+    .filter((fee) => proposalFees[fee] === undefined)
+    .reduce(
+      (result, fee) => ({
+        ...result,
+        [fee.guid]: proposalFees[fee.guid],
+      }),
+      {}
+    );
+}
+
+// Takes any labor present on the proposal, and removes any that are not in sync with the system
+export function returnOnlyValidLabor({
+  proposalLabors = {},
+  availableLabors = [],
+}) {
+  return availableLabors
+    .filter((labor) => proposalLabors[labor] === undefined)
+    .reduce(
+      (result, labor) => ({
+        ...result,
+        [labor.guid]: proposalLabors[labor.guid],
+      }),
+      {}
+    );
 }
 
 export const US_STATES = [

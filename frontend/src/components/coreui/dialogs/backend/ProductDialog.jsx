@@ -1,7 +1,4 @@
 import {
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   Button,
   TextField,
   Stack,
@@ -12,7 +9,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { create } from "zustand";
-import { StyledBootstrapDialog } from "../StyledComponents";
+import BaseDialog from "../BaseDialog";
 // import FileUpload from "../FileUpload";
 
 const useProductDialogStore = create((set) => ({
@@ -62,71 +59,59 @@ const ProductDialog = () => {
   // ]);
 
   return (
-    <>
-      <StyledBootstrapDialog
-        PaperProps={{
-          style: {
-            minWidth: "300px",
-            maxWidth: "700px",
-            width: "50vw",
-          },
-        }}
-        open={Boolean(onSubmit)}
-        onClose={close}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>{header}</DialogTitle>
-        <DialogContent>
-          <Stack paddingTop={3} spacing={2}>
-            <Autocomplete
-              disablePortal
-              id="filters"
-              disabled={guid !== ""}
-              options={filters}
-              isOptionEqualToValue={(option, value) =>
-                !value || value.guid === "" || option.guid === value.guid
+    <BaseDialog
+      title={header}
+      content={
+        <Stack paddingTop={3} spacing={2}>
+          <Autocomplete
+            disablePortal
+            id="filters"
+            disabled={guid !== ""}
+            options={filters}
+            isOptionEqualToValue={(option, value) =>
+              !value || value.guid === "" || option.guid === value.guid
+            }
+            getOptionLabel={(option) => option.label}
+            value={filter}
+            renderInput={(params) => (
+              <TextField {...params} label="Product type" />
+            )}
+            onChange={(event, value) => {
+              updateFilter(value);
+            }}
+          />
+          <TextField
+            label="Model name"
+            value={modelName}
+            onChange={({ target: { value } }) => {
+              updateModelName(value);
+            }}
+          />
+          <TextField
+            label="Model #"
+            value={catalogNum || ""}
+            onChange={({ target: { value } }) => {
+              updateCatalogNum(value);
+            }}
+          />
+          <FormControl fullWidth sx={{ m: 1 }}>
+            <InputLabel htmlFor="unit-cost-amount">Unit cost</InputLabel>
+            <Input
+              type="number"
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
               }
-              getOptionLabel={(option) => option.label}
-              value={filter}
-              renderInput={(params) => (
-                <TextField {...params} label="Product type" />
-              )}
-              onChange={(event, value) => {
-                updateFilter(value);
-              }}
-            />
-            <TextField
-              label="Model name"
-              value={modelName}
+              value={unitCost || ""}
               onChange={({ target: { value } }) => {
-                updateModelName(value);
+                updateUnitCost(value);
               }}
             />
-            <TextField
-              label="Model #"
-              value={catalogNum || ""}
-              onChange={({ target: { value } }) => {
-                updateCatalogNum(value);
-              }}
-            />
-            <FormControl fullWidth sx={{ m: 1 }}>
-              <InputLabel htmlFor="unit-cost-amount">Unit cost</InputLabel>
-              <Input
-                type="number"
-                startAdornment={
-                  <InputAdornment position="start">$</InputAdornment>
-                }
-                value={unitCost || ""}
-                onChange={({ target: { value } }) => {
-                  updateUnitCost(value);
-                }}
-              />
-            </FormControl>
-            {/* <FileUpload imageUrl={image} setImageUrl={updateImage} /> */}
-          </Stack>
-        </DialogContent>
-        <DialogActions>
+          </FormControl>
+          {/* <FileUpload imageUrl={image} setImageUrl={updateImage} /> */}
+        </Stack>
+      }
+      actions={
+        <>
           <Button color="secondary" variant="contained" onClick={close}>
             Cancel
           </Button>
@@ -153,9 +138,11 @@ const ProductDialog = () => {
           >
             Confirm
           </Button>
-        </DialogActions>
-      </StyledBootstrapDialog>
-    </>
+        </>
+      }
+      show={Boolean(onSubmit)}
+      close={close}
+    />
   );
 };
 

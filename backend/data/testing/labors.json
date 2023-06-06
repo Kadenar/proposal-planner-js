@@ -1,0 +1,38 @@
+[
+  {
+    "name": "(2) men (8) hours",
+    "qty": "0",
+    "cost": "680",
+    "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f"
+  },
+  {
+    "name": "(2) men (16) hours",
+    "qty": 0,
+    "cost": 1360,
+    "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458"
+  },
+  {
+    "name": "(2) men (20) hours",
+    "qty": 0,
+    "cost": 1700,
+    "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7"
+  },
+  {
+    "name": "(3) men (24) hours",
+    "qty": 0,
+    "cost": 2040,
+    "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb"
+  },
+  {
+    "name": "(3) men (30) hours",
+    "qty": 0,
+    "cost": 2550,
+    "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7"
+  },
+  {
+    "name": "Sub contractor labor",
+    "qty": "1",
+    "cost": "5",
+    "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146"
+  }
+]

@@ -1,24 +1,17 @@
-import {
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Button, Stack, TextField } from "@mui/material";
 import { create } from "zustand";
-import { StyledBootstrapDialog } from "../StyledComponents";
+import BaseDialog from "../BaseDialog";
 
 const useProductTypeStore = create((set) => ({
   header: "",
-  onSubmit: undefined,
   productType: "",
+  onSubmit: undefined,
   updateProductType: (productType) => set(() => ({ productType: productType })),
   close: () => set({ onSubmit: undefined }),
 }));
 
 const ProductTypeDialog = () => {
-  const { onSubmit, close } = useProductTypeStore();
+  const { onSubmit, close, header } = useProductTypeStore();
 
   const [productType, updateProductType] = useProductTypeStore((state) => [
     state.productType,
@@ -26,36 +19,24 @@ const ProductTypeDialog = () => {
   ]);
 
   return (
-    <>
-      <StyledBootstrapDialog
-        PaperProps={{
-          style: {
-            minWidth: "300px",
-            maxWidth: "700px",
-            width: "50vw",
-          },
-        }}
-        open={Boolean(onSubmit)}
-        onClose={close}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>Add product type</DialogTitle>
-        <DialogContent>
-          <div style={{ paddingTop: "5px" }}>
-            <Stack spacing={2}>
-              <TextField
-                label="Product type"
-                value={productType}
-                onChange={({ target: { value } }) => {
-                  updateProductType(value);
-                }}
-                autoFocus
-              />
-            </Stack>
-          </div>
-        </DialogContent>
-        <DialogActions>
+    <BaseDialog
+      title={header}
+      content={
+        <div style={{ paddingTop: "5px" }}>
+          <Stack spacing={2}>
+            <TextField
+              label="Product type"
+              value={productType}
+              onChange={({ target: { value } }) => {
+                updateProductType(value);
+              }}
+              autoFocus
+            />
+          </Stack>
+        </div>
+      }
+      actions={
+        <>
           <Button color="secondary" variant="contained" onClick={close}>
             Cancel
           </Button>
@@ -77,9 +58,11 @@ const ProductTypeDialog = () => {
           >
             Confirm
           </Button>
-        </DialogActions>
-      </StyledBootstrapDialog>
-    </>
+        </>
+      }
+      show={Boolean(onSubmit)}
+      close={close}
+    />
   );
 };
 
