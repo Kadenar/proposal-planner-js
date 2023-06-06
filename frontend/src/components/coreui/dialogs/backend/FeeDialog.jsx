@@ -7,7 +7,7 @@ const useFeeStore = create((set) => ({
   name: "",
   qty: 0,
   cost: 0,
-  type: "+",
+  type: "add",
   onSubmit: undefined,
   updateName: (name) => set(() => ({ name: name })),
   updateQty: (qty) => set(() => ({ qty: qty })),
@@ -71,8 +71,8 @@ const FeeDialog = () => {
           }}
           select
         >
-          <MenuItem value="+">Increase cost</MenuItem>
-          <MenuItem value="-">Decreases cost</MenuItem>
+          <MenuItem value="add">Increase cost</MenuItem>
+          <MenuItem value="subtract">Decreases cost</MenuItem>
         </TextField>
       </Stack>
     </div>
@@ -120,7 +120,7 @@ export const feeDialog = ({
   name,
   qty,
   cost,
-  type = "+",
+  type = "add",
   onSubmit,
 }) => {
   useFeeStore.setState({

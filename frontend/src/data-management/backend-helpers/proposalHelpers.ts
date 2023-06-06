@@ -157,12 +157,11 @@ export async function deleteProposalsForClient(
  * Helper to return the default json for a new proposal
  * @returns
  */
-export const getNewProposalItem = async (
+const getNewProposalItem = async (
   name: string,
   description: string,
   client_guid: string
 ): Promise<Interface.ProposalObject> => {
-  // Get fees defaults from database
   const fees = await fetchFees();
 
   const reducedFees = fees.reduce<Interface.ArrayOfFeeObjects>(

@@ -62,7 +62,7 @@ export interface Fee {
   guid: string;
   name: string;
   qty: number;
-  type: string;
+  type: "add" | "subtract";
 }
 
 // Object of labor arrays

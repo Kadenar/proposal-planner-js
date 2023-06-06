@@ -31,8 +31,8 @@
   },
   {
     "name": "Sub contractor labor",
-    "qty": "1",
-    "cost": "5",
+    "qty": "0",
+    "cost": "0",
     "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146"
   }
 ]

@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
@@ -9,14 +8,13 @@ import SidebarDrawer from "./SidebarDrawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { toggleTheme } from "../../../data-management/store/slices/themeSlice";
 import { StyledSwitch } from "../StyledComponents";
+import { useThemeContext } from "../../../theme/ThemeContextProvider";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const location = useLocation();
-  const dispatch = useDispatch();
-  const { darkMode } = useSelector((state) => state.theme);
+  const { mode, toggleColorMode } = useThemeContext();
 
   const header = useMemo(() => {
     const pathStart = location.pathname.substring(1);
@@ -51,10 +49,14 @@ export default function Navbar() {
           </Typography>
           <FormControlLabel
             control={
-              <StyledSwitch sx={{ m: 1 }} value={darkMode} defaultChecked />
+              <StyledSwitch
+                sx={{ m: 1 }}
+                value={mode === "dark"}
+                defaultChecked
+              />
             }
             label="Theme"
-            onChange={(e) => dispatch(toggleTheme(e.target.checked))}
+            onChange={toggleColorMode}
           />
         </Toolbar>
       </AppBar>

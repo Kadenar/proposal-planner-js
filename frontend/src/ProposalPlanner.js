@@ -1,9 +1,8 @@
 import "./components/landingpages/page-styles.css";
-import { useMemo, useEffect } from "react";
-import { useSelector, batch, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { batch, useDispatch } from "react-redux";
 
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Navbar from "./components/coreui/Sidebar/Navbar";
 import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog";
@@ -34,7 +33,7 @@ import FeeDialog from "./components/coreui/dialogs/backend/FeeDialog.jsx";
 
 const ProposalPlanner = () => {
   const dispatch = useDispatch();
-  const { darkMode } = useSelector((state) => state.theme);
+  // const { darkMode } = useSelector((state) => state.theme);
 
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
@@ -50,17 +49,17 @@ const ProposalPlanner = () => {
     });
   }, [dispatch]);
 
-  const theme = useMemo(() => {
-    return () =>
-      createTheme({
-        palette: {
-          mode: darkMode ? "dark" : "light",
-        },
-      });
-  }, [darkMode]);
+  // const theme = useMemo(() => {
+  //   return () =>
+  //     createTheme({
+  //       palette: {
+  //         mode: darkMode ? "dark" : "light",
+  //       },
+  //     });
+  // }, [darkMode]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CustomSnackbar />
       <NewClientDialog />
       <NewProposalDialog />
@@ -81,7 +80,7 @@ const ProposalPlanner = () => {
           <Route path="/database" exact element={<DatabasePage />} />
         </Routes>
       </Router>
-    </ThemeProvider>
+    </>
   );
 };
 

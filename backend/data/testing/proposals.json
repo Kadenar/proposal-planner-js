@@ -1,211 +1,5 @@
 [
   {
-    "name": "Proposal for Tim",
-    "description": "First proposal option",
-    "dateCreated": "6/2/2023",
-    "dateModified": "6/5/2023",
-    "owner": {
-      "guid": "50eaa137-8883-4eb4-815b-0e2239be204e"
-    },
-    "guid": "6e435c47-dcad-4779-9216-1e3441fcc012",
-    "data": {
-      "models": [
-        {
-          "guid": "c735d723-fc53-4918-b597-7be3f5ef8ed4",
-          "name": "SLP98UH090XV36C Furnace-Gas/90Bt/3T",
-          "catalogNum": "60W25",
-          "unitCost": "2139",
-          "quantity": "1",
-          "totalCost": 2139
-        },
-        {
-          "guid": "8e703cb7-43dc-4eab-9689-7f5d63806570",
-          "name": "XP25-024-230 Heat Pump 2 Ton/230",
-          "catalogNum": "98W16",
-          "unitCost": "4568",
-          "quantity": "1",
-          "totalCost": 4568
-        }
-      ],
-      "unitCostTax": 8.375,
-      "labor": {
-        "twoMenEightHours": {
-          "name": "(2) men (8) hours",
-          "qty": 1,
-          "cost": 680
-        },
-        "twoMenSixteenHours": {
-          "name": "(2) men (16) hours",
-          "qty": 0,
-          "cost": 1360
-        },
-        "twoMenTwentyHours": {
-          "name": "(2) men (20) hours",
-          "qty": 0,
-          "cost": 1700
-        },
-        "threeMenTwentyFourHours": {
-          "name": "(3) men (24) hours",
-          "qty": 0,
-          "cost": 2040
-        },
-        "threeMenThirtyHours": {
-          "name": "(3) men (30) hours",
-          "qty": 0,
-          "cost": 2550
-        },
-        "subcontractors": {
-          "name": "Sub contractor labor",
-          "qty": 0,
-          "cost": 0
-        }
-      },
-      "fees": {
-        "permit": {
-          "name": "Permit fee",
-          "qty": 1,
-          "cost": 300,
-          "type": "add"
-        },
-        "financing": {
-          "name": "Financing fee",
-          "qty": 1,
-          "cost": 0,
-          "type": "add"
-        },
-        "tempTank": {
-          "name": "Temp tank fee",
-          "qty": 1,
-          "cost": 0,
-          "type": "add"
-        },
-        "removal": {
-          "name": "Removal fee",
-          "qty": 1,
-          "cost": 0,
-          "type": "add"
-        },
-        "rebates": {
-          "name": "Rebates",
-          "qty": 1,
-          "cost": 0,
-          "type": "subtract"
-        }
-      },
-      "multiplier": 1.5,
-      "commission": 8
-    }
-  },
-  {
-    "name": "Proposal for Kyle",
-    "description": "First proposal option",
-    "dateCreated": "6/2/2023",
-    "dateModified": "6/5/2023",
-    "owner": {
-      "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7"
-    },
-    "guid": "7787ddae-d602-4c03-9f66-b65efa442b23",
-    "data": {
-      "models": [
-        {
-          "guid": "4df565bb-6424-467a-b42e-99c1a3d1e294",
-          "name": "test 1",
-          "catalogNum": "test 1",
-          "unitCost": "2342",
-          "quantity": "1",
-          "totalCost": 2342,
-          "key": 0
-        },
-        {
-          "guid": "c735d723-fc53-4918-b597-7be3f5ef8ed4",
-          "name": "SLP98UH090XV36C Furnace-Gas/90Bt/3T",
-          "catalogNum": "60W25",
-          "unitCost": "2139",
-          "quantity": "1",
-          "totalCost": 2139
-        },
-        {
-          "guid": "a3cb11db-386d-4b6c-a236-082204ad600a",
-          "name": "fasdfas",
-          "catalogNum": "fdsafsdfasd",
-          "unitCost": "423423",
-          "quantity": "1",
-          "totalCost": 423423
-        }
-      ],
-      "unitCostTax": 8.375,
-      "labor": {
-        "twoMenEightHours": {
-          "name": "(2) men (8) hours",
-          "qty": 1,
-          "cost": 680
-        },
-        "twoMenSixteenHours": {
-          "name": "(2) men (16) hours",
-          "qty": 0,
-          "cost": 1360
-        },
-        "twoMenTwentyHours": {
-          "name": "(2) men (20) hours",
-          "qty": 0,
-          "cost": 1700
-        },
-        "threeMenTwentyFourHours": {
-          "name": "(3) men (24) hours",
-          "qty": 0,
-          "cost": 2040
-        },
-        "threeMenThirtyHours": {
-          "name": "(3) men (30) hours",
-          "qty": 0,
-          "cost": 2550
-        },
-        "subcontractors": {
-          "name": "Sub contractor labor",
-          "qty": 0,
-          "cost": 0
-        }
-      },
-      "fees": {
-        "permit": {
-          "name": "Permit fee",
-          "qty": 1,
-          "cost": 300,
-          "type": "add"
-        },
-        "financing": {
-          "name": "Financing fee",
-          "qty": 1,
-          "cost": 0,
-          "type": "add"
-        },
-        "tempTank": {
-          "name": "Temp tank fee",
-          "qty": 1,
-          "cost": 0,
-          "type": "add"
-        },
-        "removal": {
-          "name": "Removal fee",
-          "qty": 1,
-          "cost": 0,
-          "type": "add"
-        },
-        "rebates": {
-          "name": "Rebates",
-          "qty": 1,
-          "cost": 0,
-          "type": "subtract"
-        }
-      },
-      "multiplier": 1.5,
-      "commission": 8,
-      "specifications": "1. We will file permits with the Town of Southeast Building Department immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval.\n2. We will remove the old Weil McLain 69 series oil-fired boiler that was manufactured in 1994.\n3. Install (1) Energy Kinetics - System 2000 - Model # EK1 - High Efficiency - Oil Fired Boiler\n4. Install (1) Energy Kinetcis/Beckett high speed retention burner\n5. The boiler installation will include",
-      "summary": "This proposal is for the installation of an Energy Kinetics System 2000 high efficiency oil-fired boiler. We will file all necessary permits and specifications with the Town of Southeast Building Department as required by code. All parts and labor are included in this proposal to complete items listed in this proposal to local and state codes as well as manufactures specifications.",
-      "title": "Energy Kinetics - System 2000 - High Efficiency Oil Fired Boiler"
-    }
-  },
-  {
     "guid": "bf722475-60e6-4d8c-a5f1-acf7a5cd2d79",
     "name": "delete me",
     "description": "delete me",
@@ -288,6 +82,100 @@
           "name": "Rebates",
           "qty": 1,
           "cost": 3,
+          "guid": "6e133019-054a-448c-a515-d580d2a1f448",
+          "type": "subtract"
+        }
+      },
+      "multiplier": 1.5,
+      "commission": 8,
+      "title": "",
+      "summary": "",
+      "specifications": ""
+    }
+  },
+  {
+    "guid": "91c5c148-45db-4924-8387-4b055e0b4022",
+    "name": "Test for Kyle",
+    "description": "A sample proposal",
+    "dateCreated": "6/6/2023",
+    "dateModified": "6/6/2023",
+    "owner": {
+      "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7"
+    },
+    "data": {
+      "models": [],
+      "unitCostTax": 8.375,
+      "labor": {
+        "bf03e1a6-0666-436f-9b4f-e4f215efa71f": {
+          "name": "(2) men (8) hours",
+          "qty": "0",
+          "cost": "680",
+          "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f"
+        },
+        "6c07b831-e531-4848-8b6e-45f22ffaf458": {
+          "name": "(2) men (16) hours",
+          "qty": 0,
+          "cost": 1360,
+          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458"
+        },
+        "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7": {
+          "name": "(2) men (20) hours",
+          "qty": 0,
+          "cost": 1700,
+          "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7"
+        },
+        "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb": {
+          "name": "(3) men (24) hours",
+          "qty": 0,
+          "cost": 2040,
+          "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb"
+        },
+        "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7": {
+          "name": "(3) men (30) hours",
+          "qty": 0,
+          "cost": 2550,
+          "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7"
+        },
+        "8f6c6905-0bc5-4084-85ab-4d722677d146": {
+          "name": "Sub contractor labor",
+          "qty": "1",
+          "cost": "5",
+          "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146"
+        }
+      },
+      "fees": {
+        "c9ca67fa-6625-4865-aa9f-1544ef0bfa96": {
+          "name": "Permit fee",
+          "qty": 1,
+          "cost": 300,
+          "guid": "c9ca67fa-6625-4865-aa9f-1544ef0bfa96",
+          "type": "add"
+        },
+        "e8cdc9a1-de5f-4a95-8637-2010c04af0df": {
+          "name": "Financing fee",
+          "qty": 1,
+          "cost": 0,
+          "guid": "e8cdc9a1-de5f-4a95-8637-2010c04af0df",
+          "type": "add"
+        },
+        "40a42c3d-de63-474c-b7b1-53201c5999f3": {
+          "name": "Temp tank fee",
+          "qty": 1,
+          "cost": 0,
+          "guid": "40a42c3d-de63-474c-b7b1-53201c5999f3",
+          "type": "add"
+        },
+        "66d0ac7b-8293-4712-ab52-a43ffb626c47": {
+          "name": "Removal fee",
+          "qty": 1,
+          "cost": 0,
+          "guid": "66d0ac7b-8293-4712-ab52-a43ffb626c47",
+          "type": "add"
+        },
+        "6e133019-054a-448c-a515-d580d2a1f448": {
+          "name": "Rebates",
+          "qty": 1,
+          "cost": 0,
           "guid": "6e133019-054a-448c-a515-d580d2a1f448",
           "type": "subtract"
         }

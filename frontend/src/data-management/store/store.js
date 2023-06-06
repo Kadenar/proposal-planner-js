@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeSlice from "./slices/themeSlice";
 import productTypesSlice from "./slices/productTypesSlice";
 import productsSlice from "./slices/productsSlice";
 import proposalsSlice from "./slices/proposalsSlice";
@@ -12,7 +11,6 @@ import feesSlice from "./slices/feesSlice";
 
 const store = configureStore({
   reducer: {
-    theme: themeSlice,
     filters: productTypesSlice,
     products: productsSlice,
     proposals: proposalsSlice,

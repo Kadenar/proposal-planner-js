@@ -1,8 +1,10 @@
-import React from "react";
+import { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack, CircularProgress, Button } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 import {
   addProposal,
@@ -13,12 +15,16 @@ import { selectProposal } from "../../data-management/store/slices/selectedPropo
 
 import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
 import { newProposalDialog } from "../coreui/dialogs/frontend/NewProposalDialog";
-import { getNewProposalItem } from "../../data-management/backend-helpers/proposalHelpers";
 
 export default function ExistingProposals() {
   const dispatch = useDispatch();
   const { proposals } = useSelector((state) => state.proposals);
   const { clients } = useSelector((state) => state.clients);
+  const [menuItemInfo, setMenuItemInfo] = useState({
+    anchorEl: null,
+    rowData: null,
+  });
+  const open = Boolean(menuItemInfo?.anchorEl);
 
   if (proposals === null) {
     return <CircularProgress />;
@@ -27,16 +33,6 @@ export default function ExistingProposals() {
   return (
     <Stack padding={2} gap={2}>
       <Stack spacing={1} direction="row" justifyContent="flex-end">
-        <Button
-          variant="contained"
-          onClick={async () => {
-            const newItem = await getNewProposalItem();
-            console.log(newItem);
-          }}
-        >
-          Debug
-        </Button>
-
         <Button
           variant="contained"
           onClick={() => {
@@ -58,6 +54,7 @@ export default function ExistingProposals() {
       </Stack>
       <MaterialTable
         title={""}
+        editable={true}
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
@@ -86,49 +83,80 @@ export default function ExistingProposals() {
           pageSizeOptions: [5, 10, 15, 20],
           pageSize: 15,
           actionsColumnIndex: -1,
+          headerStyle: {
+            paddingRight: 15,
+          },
         }}
         actions={[
           {
-            icon: "edit",
-
-            tooltip: "Edit proposal",
+            icon: "pending",
+            tooltip: "Actions",
             onClick: (event, rowData) =>
-              selectProposal(dispatch, { proposalData: rowData }),
-          },
-          {
-            icon: "save",
-            tooltip: "Copy proposal",
-            onClick: (event, rowData) => {
-              newProposalDialog({
-                name: rowData.name,
-                description: rowData.description,
-                owner: rowData.owner.client,
-                clients,
-                isExistingProposal: true,
-                onSubmit: (name, description, client_guid) =>
-                  copyProposal(dispatch, {
-                    name,
-                    description,
-                    client_guid,
-                    existing_proposal: rowData,
-                  }),
-              });
-            },
-          },
-          {
-            icon: "delete",
-            tooltip: "Delete proposal",
-            onClick: (event, rowData) => {
-              confirmDialog({
-                message:
-                  "Do you really want to delete this? This action cannot be undone.",
-                onSubmit: async () =>
-                  deleteProposal(dispatch, { guid: rowData.guid }),
-              });
-            },
+              setMenuItemInfo({
+                anchorEl: event.currentTarget,
+                rowData,
+              }),
           },
         ]}
       />
+      <Menu
+        anchorEl={menuItemInfo?.anchorEl}
+        open={open}
+        onClose={() => setMenuItemInfo(null)}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem
+          onClick={(e) => {
+            selectProposal(dispatch, { proposalData: menuItemInfo.rowData });
+          }}
+        >
+          Edit proposal
+        </MenuItem>
+        <MenuItem
+          onClick={(e) => {
+            setMenuItemInfo(null);
+            console.log("TBD");
+          }}
+        >
+          Mark as sold
+        </MenuItem>
+        <MenuItem
+          onClick={(e) => {
+            setMenuItemInfo(null);
+            newProposalDialog({
+              name: menuItemInfo.rowData.name,
+              description: menuItemInfo.rowData.description,
+              owner: menuItemInfo.rowData.owner.client,
+              clients,
+              isExistingProposal: true,
+              onSubmit: (name, description, client_guid) =>
+                copyProposal(dispatch, {
+                  name,
+                  description,
+                  client_guid,
+                  existing_proposal: menuItemInfo.rowData,
+                }),
+            });
+          }}
+        >
+          Copy proposal
+        </MenuItem>
+        <MenuItem
+          onClick={(e) => {
+            setMenuItemInfo(null);
+            confirmDialog({
+              message:
+                "Do you really want to delete this? This action cannot be undone.",
+              onSubmit: async () =>
+                deleteProposal(dispatch, { guid: menuItemInfo.rowData.guid }),
+            });
+          }}
+        >
+          Delete proposal
+        </MenuItem>
+      </Menu>
     </Stack>
   );
 }
