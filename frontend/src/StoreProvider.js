@@ -7,9 +7,11 @@ import { useThemeContext } from "./theme/ThemeContextProvider.tsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 const StoreProvider = () => {
+  // TODO - Only for debugging
   store.subscribe(() => {
     console.log(store.getState());
   });
+
   const { theme } = useThemeContext();
   return (
     <Provider store={store}>

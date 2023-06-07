@@ -70,5 +70,14 @@
     "state": "MI",
     "city": "test 1",
     "zip": "423"
+  },
+  {
+    "guid": "6c198ffb-b2f4-4dae-b6be-c90023a54feb",
+    "name": "Test client in electron",
+    "address": "36 Brook Trail",
+    "apt": "",
+    "state": "NY",
+    "city": "Carmel",
+    "zip": "10512"
   }
 ]

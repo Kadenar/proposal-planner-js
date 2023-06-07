@@ -2,7 +2,7 @@ import "./components/landingpages/page-styles.css";
 import { useEffect } from "react";
 import { batch, useDispatch } from "react-redux";
 
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/coreui/Sidebar/Navbar";
 import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog";
@@ -38,6 +38,7 @@ const ProposalPlanner = () => {
 
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
+    console.log("*********** Loading Data from BACKEND SERVER! *********** ");
     batch(() => {
       dispatch(initializeProductTypes());
       dispatch(initializeMultipliers());
@@ -64,7 +65,7 @@ const ProposalPlanner = () => {
       <LaborsDialog />
       <FeeDialog />
       <FeesDialog />
-      <Router>
+      <HashRouter>
         <Navbar />
         <Routes classname="routesContent">
           <Route path="/" exact element={<HomePage />} />
@@ -73,7 +74,7 @@ const ProposalPlanner = () => {
           <Route path="/jobs" exact element={<JobsPage />} />
           <Route path="/database" exact element={<DatabasePage />} />
         </Routes>
-      </Router>
+      </HashRouter>
     </>
   );
 };

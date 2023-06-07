@@ -1,9 +1,0 @@
-{
-  "name": "proposal-planner",
-  "version": "1.0.0",
-  "scripts": {
-    "dev:api": "cd backend && node server.js",
-    "dev:client": "cd ../frontend && npm start",
-    "dev": "npm run dev:api && npm run dev:client"
-  }
-}

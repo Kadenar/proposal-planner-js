@@ -8,15 +8,7 @@ import {
   returnOnlyValidLabor,
 } from "../pricing-utils";
 
-import {
-  Paper,
-  TableBody,
-  TableContainer,
-  Table,
-  TableHead,
-} from "@mui/material";
-
-import { BoldedTableCell } from "../../../coreui/StyledComponents";
+import { Paper, TableBody, TableContainer, Table } from "@mui/material";
 
 import { CollapsibleRow } from "./CollapsibleRow";
 
