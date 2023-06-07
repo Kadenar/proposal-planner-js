@@ -7,7 +7,7 @@ const router = express.Router();
 const cache = new NodeCache();
 
 // The starting file path for fetching json files from
-const filePath = path.join(__dirname, "../data/testing");
+const filePath = path.join(__dirname, "/data/testing");
 
 // CLIENTS \\
 router.get("/clients", (req, res) => {
