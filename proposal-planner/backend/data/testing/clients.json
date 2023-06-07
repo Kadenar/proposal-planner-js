@@ -1,0 +1,74 @@
+[
+  {
+    "address": "43A Secor Rd",
+    "apt": "",
+    "state": "KS",
+    "city": "Brookfield",
+    "zip": "06804",
+    "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7",
+    "email": "ksteike1@gmail.com",
+    "name": "Kyle Steike",
+    "phone": "845-519-0575",
+    "accountNum": "111-222"
+  },
+  {
+    "address": "Some address",
+    "apt": "",
+    "state": "NY",
+    "city": "Poughquag",
+    "zip": "2",
+    "guid": "3e188b45-d50c-4ac6-bceb-5fd014bcd757",
+    "name": "Sammy Giuliano",
+    "accountNum": "new account"
+  },
+  {
+    "address": "13 Kelly Ridge Rd",
+    "apt": "",
+    "state": "NY",
+    "city": "Carmel",
+    "zip": "10512",
+    "guid": "50eaa137-8883-4eb4-815b-0e2239be204e",
+    "name": "Tim Fernandez"
+  },
+  {
+    "name": "Katie Steike",
+    "address": "150 Huntington Ave",
+    "apt": "Apt NL7",
+    "state": "MA",
+    "city": "Boston",
+    "zip": "10615",
+    "guid": "4ed95159-f4db-4c10-aeac-abbef57259e3"
+  },
+  {
+    "guid": "de733a36-c1f7-4f28-85fa-833465697a57",
+    "name": "Stephanie Steike",
+    "address": "43A Secor Rd",
+    "apt": "",
+    "state": "CT",
+    "city": "Brookfield",
+    "zip": "06804",
+    "phone": "845-803-1853",
+    "email": "sfern4@gmail.com",
+    "accountNum": "111-333"
+  },
+  {
+    "guid": "deab7298-0aeb-4574-ad86-23c8a3f92f79",
+    "name": "Christine Fernandez",
+    "address": "13 Kelly Ridge Rd",
+    "apt": "",
+    "state": "NY",
+    "city": "Carmel",
+    "zip": "10512",
+    "phone": "845-803-3342",
+    "accountNum": "new customer"
+  },
+  {
+    "guid": "77b2fefb-10d7-4f78-8f7b-3d74ad83de1b",
+    "name": "client name",
+    "address": "test 1",
+    "apt": "",
+    "state": "MI",
+    "city": "test 1",
+    "zip": "423"
+  }
+]
