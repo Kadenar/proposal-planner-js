@@ -1,16 +1,20 @@
-import React from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import { Button, Stack } from "@mui/material";
-import { showSnackbar } from "../../coreui/CustomSnackbar";
+
+import { StyledIconButton } from "../../coreui/StyledComponents";
 import { addProductToProposalDialog } from "../../coreui/dialogs/frontend/AddProductToProposalDialog";
-import PricingTable from "../pricing/Table/PricingTable";
-import {
-  addProductToProposal,
-  removeAllProductsFromProposal,
-} from "../../../data-management/store/slices/selectedProposalSlice";
+import { removeAllProductsFromProposal } from "../../../data-management/store/slices/selectedProposalSlice";
 import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
+import { handleAddProductToProposal } from "./pricing-utils";
+import ProductsForProposal from "./Table/ProductsForProposal";
+import FeesAndLaborForProposal from "./Table/FeesAndLaborForProposal";
+import CostBreakdown from "./Table/CostBreakdown";
 
 /**
  * Component used for displaying the table of selected products as well as inputs for
@@ -22,110 +26,82 @@ export default function ProposalPricingView() {
   const { products } = useSelector((state) => state.products);
   const { selectedProposal } = useSelector((state) => state.selectedProposal);
   const { filters } = useSelector((state) => state.filters);
-
-  const handleOnAdd = (selectedProduct, quantity) => {
-    if (!selectedProduct) {
-      showSnackbar({
-        title: "Please select a product to add!",
-        show: true,
-        status: "error",
-      });
-      return false;
-    }
-
-    if (quantity <= 0) {
-      showSnackbar({
-        title: "Please specify a quantity greater than 0.",
-        show: true,
-        status: "error",
-      });
-      return false;
-    }
-
-    if (
-      selectedProposal.data.models.find(
-        (job) => job.guid === selectedProduct.guid
-      )
-    ) {
-      showSnackbar({
-        title: "Product has already been added to this proposal.",
-        show: true,
-        status: "error",
-      });
-      return false;
-    }
-
-    addProductToProposal(dispatch, {
-      guid: selectedProduct.guid,
-      name: selectedProduct.model,
-      catalogNum: selectedProduct.catalog,
-      unitCost: selectedProduct.cost,
-      quantity,
-      totalCost: selectedProduct.cost * quantity,
-    });
-
-    showSnackbar({
-      title: "Successfully added product",
-      show: true,
-      status: "success",
-    });
-
-    return true;
-  };
+  const [open, setOpen] = useState(true);
 
   return (
     <>
       <Stack gap="20px" direction="row" width="100%">
-        <>
+        <Button
+          variant="contained"
+          sx={{ paddingRight: "5px" }}
+          onClick={() => {
+            addProductToProposalDialog({
+              filters,
+              filter: filters[0],
+              allProducts: products,
+              selectedProduct: undefined,
+              quantity: 1,
+              quote_option: 1,
+              onSubmit: (selectedProduct, quantity, quote_option) =>
+                handleAddProductToProposal(
+                  dispatch,
+                  selectedProposal,
+                  selectedProduct,
+                  quantity,
+                  quote_option
+                ),
+            });
+          }}
+        >
+          Add a product
+        </Button>
+        <Box sx={{ flexGrow: 1 }}>
           <Button
             variant="contained"
-            sx={{ paddingRight: "5px" }}
-            onClick={() => {
-              addProductToProposalDialog({
-                filters,
-                filter: filters[0],
-                allModels: products,
-                selectedProduct: undefined,
-                quantity: "",
-                onSubmit: (selectedProduct, quantity) =>
-                  handleOnAdd(selectedProduct, quantity),
-              });
-            }}
+            onClick={() => removeAllProductsFromProposal(dispatch)}
           >
-            Add a product
+            Remove all products
           </Button>
-          <Box sx={{ flexGrow: 1 }}>
-            <Button
-              variant="contained"
-              onClick={() => removeAllProductsFromProposal(dispatch)}
-            >
-              Remove all products
-            </Button>
-          </Box>
-          <Button
-            variant="contained"
-            onClick={async () =>
-              saveProposal(dispatch, {
-                guid: selectedProposal.guid,
-                commission: selectedProposal.data.commission,
-                fees: selectedProposal.data.fees,
-                labor: selectedProposal.data.labor,
-                models: selectedProposal.data.models,
-                unitCostTax: selectedProposal.data.unitCostTax,
-                multiplier: selectedProposal.data.multiplier,
-                title: selectedProposal.data.title,
-                summary: selectedProposal.data.summary,
-                specifications: selectedProposal.data.specifications,
-              })
-            }
-            align="right"
-          >
-            Save proposal
-          </Button>
-        </>
+        </Box>
+        <Button
+          variant="contained"
+          onClick={async () =>
+            saveProposal(dispatch, {
+              guid: selectedProposal.guid,
+              commission: selectedProposal.data.commission,
+              fees: selectedProposal.data.fees,
+              labor: selectedProposal.data.labor,
+              products: selectedProposal.data.products,
+              unitCostTax: selectedProposal.data.unitCostTax,
+              multiplier: selectedProposal.data.multiplier,
+              title: selectedProposal.data.title,
+              summary: selectedProposal.data.summary,
+              specifications: selectedProposal.data.specifications,
+            })
+          }
+          align="right"
+        >
+          Save proposal
+        </Button>
       </Stack>
+
       <Stack paddingTop="20px" gap="20px">
-        <PricingTable />
+        <ProductsForProposal />
+        <Stack direction="row" justifyContent="space-between">
+          <StyledIconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+            style={{ fontWeight: "bold" }}
+          >
+            {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
+            Pricing data
+          </StyledIconButton>
+        </Stack>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <FeesAndLaborForProposal />
+          <CostBreakdown />
+        </Collapse>
       </Stack>
     </>
   );

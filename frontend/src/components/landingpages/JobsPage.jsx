@@ -1,6 +1,4 @@
-import React from "react";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 
@@ -15,11 +13,12 @@ const Item = styled(Paper)(({ theme }) => ({
 // TODO Placeholder
 export default function JobsPage() {
   return (
-    <Box className="jobs">
+    <Stack className="landing-page">
+      <h1>Jobs</h1>
       <Stack spacing={2} sx={{ width: "100%" }}>
         <Item>In-progress jobs</Item>
         <Item>Completed jobs</Item>
       </Stack>
-    </Box>
+    </Stack>
   );
 }

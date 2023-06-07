@@ -95,14 +95,14 @@ function validateLabor(name: string, qty: number, cost: number) {
     };
   }
 
-  if (!qty || qty < 0) {
+  if (qty < 0) {
     return {
       status: 500,
       data: { message: "Please specify a non-negative quantity." },
     };
   }
 
-  if (!cost || cost < 0) {
+  if (cost < 0) {
     return {
       status: 500,
       data: { message: "Please specify a non-negative cost." },

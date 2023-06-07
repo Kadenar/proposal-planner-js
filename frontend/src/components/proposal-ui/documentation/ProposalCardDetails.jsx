@@ -9,7 +9,7 @@ import Collapse from "@mui/material/Collapse";
 import TextField from "@mui/material/TextField";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import TransferList from "./TransferList";
 
 import {
@@ -68,7 +68,7 @@ const ProposalCardDetails = () => {
           onClick={() => setOpen(!open)}
           style={{ fontWeight: "bold" }}
         >
-          {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+          {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
           Proposal specifications
         </StyledIconButton>
         {open && (
@@ -80,7 +80,7 @@ const ProposalCardDetails = () => {
                 commission: selectedProposal.data.commission,
                 fees: selectedProposal.data.fees,
                 labor: selectedProposal.data.labor,
-                models: selectedProposal.data.models,
+                products: selectedProposal.data.products,
                 unitCostTax: selectedProposal.data.unitCostTax,
                 multiplier: selectedProposal.data.multiplier,
                 title: selectedProposal.data.title,

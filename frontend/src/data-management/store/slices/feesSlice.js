@@ -32,19 +32,19 @@ export const initializeFees = () => async (dispatch) => {
   dispatch(updateFees(labors));
 };
 
-export const addFee = async (dispatch, { name, qty, cost }) =>
+export const addFee = async (dispatch, { name, qty, cost, type }) =>
   updateStore({
     dispatch,
-    dbOperation: async () => add_fee(name, qty, cost),
+    dbOperation: async () => add_fee(name, qty, cost, type),
     methodToDispatch: updateFees,
     dataKey: "fees",
     successMessage: "Successfully added fee!",
   });
 
-export const editFee = async (dispatch, { guid, name, qty, cost }) =>
+export const editFee = async (dispatch, { guid, name, qty, cost, type }) =>
   updateStore({
     dispatch,
-    dbOperation: async () => edit_fee(guid, name, qty, cost),
+    dbOperation: async () => edit_fee(guid, name, qty, cost, type),
     methodToDispatch: updateFees,
     dataKey: "fees",
     successMessage: "Successfully edited fee!",

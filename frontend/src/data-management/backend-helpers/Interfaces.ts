@@ -84,20 +84,22 @@ export interface Labor {
   qty: number;
 }
 
-// Models
+// Products added to a given proposal
 export interface ModelObject {
-  name: string;
-  catalogNum: string;
-  qty: number;
-  unitCost: number;
-  quote_option: string;
+  product: {
+    name: string;
+    catalogNum: string;
+    qty: number;
+    unitCost: number;
+  };
+  quote_option: number;
 }
 export interface Models extends Array<ModelObject> {}
 
 export interface ProposalData {
   fees: ArrayOfFeeObjects;
   labor: ArrayOfLaborObjects;
-  models: Models;
+  products: Models;
   multiplier: number;
   unitCostTax: number;
   commission: number;

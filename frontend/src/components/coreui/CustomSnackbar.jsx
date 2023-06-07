@@ -22,7 +22,7 @@ const CustomSnackbar = () => {
   };
 
   return (
-    <Snackbar open={show} autoHideDuration={2000} onClose={handleCloseSnackbar}>
+    <Snackbar open={show} autoHideDuration={3500} onClose={handleCloseSnackbar}>
       <Alert
         onClose={handleCloseSnackbar}
         severity={status}

@@ -32,87 +32,66 @@ const LaborDialog = () => {
     state.updateCost,
   ]);
 
-  const content = (
-    <div style={{ paddingTop: "5px" }}>
-      <Stack spacing={2}>
-        <TextField
-          label="Name"
-          value={name}
-          onChange={(e) => {
-            updateName(e.target.value);
-          }}
-        />
-        <TextField
-          label="Quantity"
-          value={qty}
-          type="number"
-          onChange={(e) => {
-            updateQty(e.target.value);
-          }}
-        />
-        <TextField
-          label="Cost"
-          value={cost}
-          type="number"
-          onChange={(e) => {
-            updateCost(e.target.value);
-          }}
-        />
-      </Stack>
-    </div>
-  );
-
-  const actions = (
-    <>
-      <Button color="secondary" variant="contained" onClick={close}>
-        Cancel
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={async () => {
-          if (!onSubmit) {
-            close();
-            return;
-          }
-
-          const isValid = await onSubmit(name, qty, cost);
-
-          if (isValid) {
-            close();
-          }
-        }}
-      >
-        Confirm
-      </Button>
-    </>
-  );
-
   return (
     <BaseDialog
       title={header}
-      content={content}
-      actions={actions}
+      content={
+        <div style={{ paddingTop: "5px" }}>
+          <Stack spacing={2}>
+            <TextField
+              label="Name"
+              value={name}
+              onChange={(e) => {
+                updateName(e.target.value);
+              }}
+            />
+            <TextField
+              label="Quantity"
+              value={qty}
+              type="number"
+              onChange={(e) => {
+                updateQty(e.target.value);
+              }}
+            />
+            <TextField
+              label="Cost"
+              value={cost}
+              type="number"
+              onChange={(e) => {
+                updateCost(e.target.value);
+              }}
+            />
+          </Stack>
+        </div>
+      }
+      actions={
+        <>
+          <Button color="secondary" variant="contained" onClick={close}>
+            Cancel
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={async () => {
+              if (!onSubmit) {
+                close();
+                return;
+              }
+
+              const isValid = await onSubmit(name, qty, cost);
+
+              if (isValid) {
+                close();
+              }
+            }}
+          >
+            Confirm
+          </Button>
+        </>
+      }
       show={Boolean(onSubmit)}
       close={close}
     />
-    // <StyledBootstrapDialog
-    //   PaperProps={{
-    //     style: {
-    //       minWidth: "300px",
-    //       maxWidth: "700px",
-    //       width: "50vw",
-    //     },
-    //   }}
-    //   open={Boolean(onSubmit)}
-    //   onClose={close}
-    //   maxWidth="sm"
-    //   fullWidth
-    // >
-    //   <DialogTitle>{header}</DialogTitle>
-    //   <DialogContent>{content}</DialogContent>
-    //   <DialogActions>{actions}</DialogActions>
-    // </StyledBootstrapDialog>
   );
 };
 

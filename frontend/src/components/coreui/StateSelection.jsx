@@ -3,7 +3,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import { US_STATES } from "../../data-management/utils";
+import { US_STATES } from "../proposal-ui/pricing/pricing-utils";
 
 const StateSelection = ({ initialValue, onChangeHandler = () => {} }) => {
   const [state, updateState] = useState(initialValue);

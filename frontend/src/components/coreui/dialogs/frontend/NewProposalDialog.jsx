@@ -1,15 +1,7 @@
-import {
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
-  Stack,
-  Autocomplete,
-} from "@mui/material";
+import { Button, TextField, Stack, Autocomplete } from "@mui/material";
 
 import { create } from "zustand";
-import { StyledBootstrapDialog } from "../../StyledComponents";
+import BaseDialog from "../BaseDialog";
 
 const useProposalDialogStore = create((set) => ({
   name: "",
@@ -46,60 +38,46 @@ const NewProposalDialog = () => {
   ]);
 
   return (
-    <>
-      <StyledBootstrapDialog
-        PaperProps={{
-          style: {
-            minWidth: "300px",
-            maxWidth: "700px",
-            width: "50vw",
-          },
-        }}
-        open={Boolean(onSubmit)}
-        onClose={close}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>
-          {isExistingProposal ? "Copy proposal" : "Create a new proposal"}
-        </DialogTitle>
-        <DialogContent>
-          <div style={{ paddingTop: "5px", minHeight: "50vh" }}>
-            <Stack spacing={2}>
-              <TextField
-                label="Name"
-                value={name}
-                onChange={({ target: { value } }) => {
-                  updateName(value);
-                }}
-                autoFocus
-              />
-              <TextField
-                label="Description"
-                value={description}
-                onChange={({ target: { value } }) => {
-                  updateDescription(value);
-                }}
-              />
-            </Stack>
-            <Autocomplete
-              sx={{ marginTop: 2 }}
-              disablePortal
-              id="filters"
-              options={clients}
-              getOptionLabel={(option) => option.name || ""}
-              isOptionEqualToValue={(option, value) =>
-                !value || value.guid === "" || option.guid === value.guid
-              }
-              value={owner}
-              renderInput={(params) => <TextField {...params} label="Client" />}
-              onChange={(event, value) => {
-                updateOwner(value);
+    <BaseDialog
+      title={isExistingProposal ? "Copy proposal" : "Create a new proposal"}
+      content={
+        <div style={{ paddingTop: "5px", minHeight: "50vh" }}>
+          <Stack spacing={2}>
+            <TextField
+              label="Name"
+              value={name}
+              onChange={({ target: { value } }) => {
+                updateName(value);
+              }}
+              autoFocus
+            />
+            <TextField
+              label="Description"
+              value={description}
+              onChange={({ target: { value } }) => {
+                updateDescription(value);
               }}
             />
-          </div>
-        </DialogContent>
-        <DialogActions>
+          </Stack>
+          <Autocomplete
+            sx={{ marginTop: 2 }}
+            disablePortal
+            id="filters"
+            options={clients}
+            getOptionLabel={(option) => option.name || ""}
+            isOptionEqualToValue={(option, value) =>
+              !value || value.guid === "" || option.guid === value.guid
+            }
+            value={owner}
+            renderInput={(params) => <TextField {...params} label="Client" />}
+            onChange={(event, value) => {
+              updateOwner(value);
+            }}
+          />
+        </div>
+      }
+      actions={
+        <>
           <Button color="secondary" variant="contained" onClick={close}>
             Cancel
           </Button>
@@ -121,9 +99,11 @@ const NewProposalDialog = () => {
           >
             Confirm
           </Button>
-        </DialogActions>
-      </StyledBootstrapDialog>
-    </>
+        </>
+      }
+      show={Boolean(onSubmit)}
+      close={close}
+    />
   );
 };
 

@@ -10,7 +10,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Collapse from "@mui/material/Collapse";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { StyledIconButton } from "../../coreui/StyledComponents";
 import StateSelection from "../../coreui/StateSelection";
@@ -89,7 +89,7 @@ export default function ClientCardDetails({ activeClient }) {
             onClick={() => setOpen(!open)}
             style={{ fontWeight: "bold" }}
           >
-            {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+            {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
             Client details
           </StyledIconButton>
           {clientInfo && <ActionButtons />}

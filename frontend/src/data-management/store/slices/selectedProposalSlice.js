@@ -10,17 +10,17 @@ export const selectedProposalSlice = createSlice({
       state.selectedProposal = value.payload;
     },
     addProductToTable: (state, product) => {
-      state.selectedProposal.data.models =
-        state.selectedProposal.data.models.concat(product.payload);
+      state.selectedProposal.data.products =
+        state.selectedProposal.data.products.concat(product.payload);
     },
     removeProductFromTable: (state, index) => {
-      state.selectedProposal.data.models =
-        state.selectedProposal.data.models.filter(
+      state.selectedProposal.data.products =
+        state.selectedProposal.data.products.filter(
           (_, i) => i !== index.payload
         );
     },
     resetProposal: (state) => {
-      state.selectedProposal.data.models = [];
+      state.selectedProposal.data.products = [];
     },
     updateProposalTitle: (state, value) => {
       state.selectedProposal.data.title = value.payload;
@@ -39,18 +39,6 @@ export const selectedProposalSlice = createSlice({
     },
     updateCommission: (state, value) => {
       state.selectedProposal.data.commission = value.payload;
-    },
-    updateFeeCost: (state, data) => {
-      const { key, numValue } = data.payload;
-      state.selectedProposal.data.fees[key].cost = numValue;
-    },
-    updateLaborCost: (state, data) => {
-      const { key, numValue } = data.payload;
-      state.selectedProposal.data.labor[key].cost = numValue;
-    },
-    updateLaborQuantity: (state, data) => {
-      const { key, numValue } = data.payload;
-      state.selectedProposal.data.labor[key].qty = numValue;
     },
     updateLabors: (state, labors) => {
       state.selectedProposal.data.labor = labors.payload;
@@ -74,9 +62,6 @@ const {
   updateUnitCostTax,
   updateMultiplier,
   updateCommission,
-  updateFeeCost,
-  updateLaborCost,
-  updateLaborQuantity,
   updateLabors,
   updateFees,
 } = selectedProposalSlice.actions;
@@ -113,33 +98,6 @@ export const setProposalMultiplier = (dispatch, { value }) =>
 
 export const setProposalCommission = (dispatch, { value }) =>
   dispatch(updateCommission(value));
-
-export const setProposalFeeCosts = (dispatch, { key, value }) => {
-  if (!key || key === "") {
-    return;
-  }
-
-  const numValue = isNaN(parseInt(value, 10)) ? null : parseInt(value, 10);
-  dispatch(updateFeeCost({ key, numValue }));
-};
-
-export const setProposalLaborCosts = (dispatch, { key, value }) => {
-  if (!key || key === "") {
-    return;
-  }
-
-  const numValue = isNaN(parseInt(value, 10)) ? null : parseInt(value, 10);
-  dispatch(updateLaborCost({ key, numValue }));
-};
-
-export const setProposalLaborQuantity = (dispatch, { key, value }) => {
-  if (!key || key === "") {
-    return;
-  }
-
-  const numValue = isNaN(parseInt(value, 10)) ? null : parseInt(value, 10);
-  dispatch(updateLaborQuantity({ key, numValue }));
-};
 
 export const updateProposalLabors = (dispatch, { newLabors }) => {
   dispatch(updateLabors(newLabors));

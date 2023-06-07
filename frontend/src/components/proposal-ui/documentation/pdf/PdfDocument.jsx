@@ -12,12 +12,12 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { StyledIconButton } from "../../../coreui/StyledComponents";
 import RobisonInvoiceHeader from "../pdf/InvoiceHeader";
 import SubmittedToContent from "../pdf/SubmittedToContent";
-import { calculateTotalCost } from "../../../../data-management/utils";
+import { calculateTotalCost } from "../../pricing/pricing-utils";
 import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";
 
@@ -55,7 +55,7 @@ export const PdfDocument = ({ clientInfo, proposalDetails }) => {
         onClick={() => setOpen(!open)}
         style={{ fontWeight: "bold", marginButton: 10 }}
       >
-        {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+        {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
         PDF Document
       </StyledIconButton>
       <Collapse in={open} timeout="auto" unmountOnExit>

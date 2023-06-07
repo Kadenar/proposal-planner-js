@@ -16,7 +16,7 @@ const EditLaborDialog = () => {
   const content = useCallback(() => {
     return (
       <div style={{ paddingTop: "5px" }}>
-        <Stack spacing={2}></Stack>
+        <Stack spacing={2}>{/* TODO */}</Stack>
       </div>
     );
   }, [labors]);

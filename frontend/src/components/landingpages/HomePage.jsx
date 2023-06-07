@@ -3,7 +3,7 @@ import React from "react";
 // TODO Placeholder
 export default function HomePage() {
   return (
-    <div className="home">
+    <div className="landing-page">
       <h1>Home</h1>
     </div>
   );

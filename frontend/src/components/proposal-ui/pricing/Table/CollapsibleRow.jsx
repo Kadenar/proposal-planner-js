@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { ccyFormat } from "../pricing-utils";
+
 import {
   BoldedTableCell,
   StyledIconButton,
@@ -18,8 +20,6 @@ import {
 export function CollapsibleRow({
   title = "",
   costOfItem = 0,
-  costWithItem = 0,
-  ccyFormat = () => {},
   breakdown = [],
   configure = () => {},
 }) {
@@ -35,27 +35,24 @@ export function CollapsibleRow({
             onClick={() => setOpen(!open)}
             style={{ fontWeight: "bold" }}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
             {title}
           </StyledIconButton>
           <StyledIconButton
             aria-label="expand row"
             size="small"
             onClick={configure}
-            style={{ fontWeight: "bold" }}
           >
             {<SettingsIcon />}
           </StyledIconButton>
         </TableCell>
-        <TableCell />
-        <TableCell align="center">{ccyFormat(costOfItem)}</TableCell>
-        <TableCell align="center">{ccyFormat(costWithItem)}</TableCell>
       </TableRow>
+
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <BoldedTableCell>Name</BoldedTableCell>

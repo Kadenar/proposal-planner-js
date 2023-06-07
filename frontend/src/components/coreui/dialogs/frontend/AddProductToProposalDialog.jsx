@@ -7,6 +7,7 @@ import {
   Stack,
   TextField,
   Autocomplete,
+  MenuItem,
 } from "@mui/material";
 import { create } from "zustand";
 import { StyledBootstrapDialog } from "../../StyledComponents";
@@ -18,21 +19,24 @@ const useProductDialogStore = create((set) => ({
     guid: "",
     label: "",
   },
-  allModels: [],
+  allProducts: [],
   selectedProduct: {
     guid: "",
     label: "",
   },
   quantity: 0,
+  quote_option: 1,
   updateFilter: (filter) => set(() => ({ filter: filter })),
   updateSelectedProduct: (selectedProduct) =>
     set(() => ({ selectedProduct: selectedProduct })),
   updateQuantity: (quantity) => set(() => ({ quantity: quantity })),
+  updateQuoteOption: (quote_option) =>
+    set(() => ({ quote_option: quote_option })),
   close: () => set({ onSubmit: undefined }),
 }));
 
 const AddProductToProposalDialog = () => {
-  const { onSubmit, close, filters, allModels } = useProductDialogStore();
+  const { onSubmit, close, filters, allProducts } = useProductDialogStore();
 
   const [filter, updateFilter] = useProductDialogStore((state) => [
     state.filter,
@@ -48,19 +52,25 @@ const AddProductToProposalDialog = () => {
     state.updateQuantity,
   ]);
 
-  // Get the available models for the selected filter
-  const models = useMemo(() => {
-    return allModels[filter.guid] || [];
-  }, [filter, allModels]);
+  const [quote_option, updateQuoteOption] = useProductDialogStore((state) => [
+    state.quote_option,
+    state.updateQuoteOption,
+  ]);
+
+  // Get the available products for the selected filter
+  const productsForSelectedType = useMemo(() => {
+    return allProducts[filter.guid] || [];
+  }, [filter, allProducts]);
 
   // Calculate how many products are available for each filter type
-  const sizesOfModels = useMemo(() => {
-    const keyedSizes = {};
-    Object.keys(allModels).forEach((model) => {
-      keyedSizes[model] = allModels[model].length;
-    });
-    return keyedSizes;
-  }, [allModels]);
+  const sizesOfEachProductType = useMemo(() => {
+    return Object.keys(allProducts).reduce((result, product) => {
+      return {
+        ...result,
+        [product]: allProducts[product].length,
+      };
+    }, 0);
+  }, [allProducts]);
 
   return (
     <>
@@ -88,7 +98,7 @@ const AddProductToProposalDialog = () => {
                 id="filters"
                 getOptionLabel={(option) =>
                   `${option.label} - (${
-                    sizesOfModels[option.guid] || 0
+                    sizesOfEachProductType[option.guid] || 0
                   } products)` || ""
                 }
                 isOptionEqualToValue={(option, value) =>
@@ -108,8 +118,8 @@ const AddProductToProposalDialog = () => {
               />
               <Autocomplete
                 disablePortal
-                id="models"
-                options={models}
+                id="products"
+                options={productsForSelectedType}
                 getOptionLabel={(option) => option.model || ""}
                 isOptionEqualToValue={(option, value) =>
                   !value || value.guid === "" || option.guid === value.guid
@@ -130,6 +140,22 @@ const AddProductToProposalDialog = () => {
                   updateQuantity(value);
                 }}
               />
+              <TextField
+                id="select"
+                label="Quote option"
+                value={quote_option}
+                onChange={(e) => {
+                  updateQuoteOption(e.target.value);
+                }}
+                select
+              >
+                <MenuItem value={1}>Quote 1</MenuItem>
+                <MenuItem value={2}>Quote 2</MenuItem>
+                <MenuItem value={3}>Quote 3</MenuItem>
+                <MenuItem value={4}>Quote 4</MenuItem>
+                <MenuItem value={5}>Quote 5</MenuItem>
+                <MenuItem value={0}>All</MenuItem>
+              </TextField>
             </Stack>
           </div>
         </DialogContent>
@@ -146,7 +172,11 @@ const AddProductToProposalDialog = () => {
                 return;
               }
 
-              const returnValue = await onSubmit(selectedProduct, quantity);
+              const returnValue = await onSubmit(
+                selectedProduct,
+                quantity,
+                quote_option
+              );
               if (returnValue) {
                 close();
               }
@@ -165,20 +195,22 @@ const AddProductToProposalDialog = () => {
 export const addProductToProposalDialog = ({
   filters = [],
   filter,
-  allModels = [],
+  allProducts = [],
   selectedProduct = {
     guid: "",
     label: "",
   },
   quantity,
+  quote_option = 1,
   onSubmit,
 }) => {
   useProductDialogStore.setState({
     filters,
     filter,
-    allModels,
+    allProducts,
     selectedProduct,
     quantity,
+    quote_option,
     onSubmit,
   });
 };

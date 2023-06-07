@@ -129,6 +129,11 @@ const LaborAndFeeTables = () => {
               field: "cost",
               searchable: false,
             },
+            {
+              title: "Type",
+              field: "type",
+              searchable: false,
+            },
           ]}
           data={fees.map((fee) => {
             return {

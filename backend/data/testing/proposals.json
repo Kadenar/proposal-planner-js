@@ -9,7 +9,7 @@
       "guid": "3e188b45-d50c-4ac6-bceb-5fd014bcd757"
     },
     "data": {
-      "models": [],
+      "products": [],
       "unitCostTax": 8.375,
       "labor": {
         "bf03e1a6-0666-436f-9b4f-e4f215efa71f": {
@@ -103,8 +103,53 @@
       "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7"
     },
     "data": {
-      "models": [],
-      "unitCostTax": 8.375,
+      "products": [
+        {
+          "data": {
+            "guid": "1d0f2946-e5e3-49bc-999c-f44a47d2babc",
+            "name": "SL18XC1-024-230 Condenser/2 Ton/230A01",
+            "catalogNum": "11H80",
+            "unitCost": "2438",
+            "quantity": 1,
+            "totalCost": 2438
+          },
+          "quote_option": 0
+        },
+        {
+          "data": {
+            "guid": "54a5a3b5-2766-44cc-b516-4bd246d886d6",
+            "name": "SL18XC1-030-230 Condenser/2.5 Ton/230A01",
+            "catalogNum": "11H81",
+            "unitCost": "2584",
+            "quantity": 1,
+            "totalCost": 2584
+          },
+          "quote_option": 0
+        },
+        {
+          "data": {
+            "guid": "d526a278-f5cf-4e4d-be61-5d5f632a84fe",
+            "name": "SLP98UH070XV36B Furnace-Gas/70Btuh/3T",
+            "catalogNum": "60W24",
+            "unitCost": "2066",
+            "quantity": 1,
+            "totalCost": 2066
+          },
+          "quote_option": 1
+        },
+        {
+          "data": {
+            "guid": "e5a89fc1-e900-4ead-9e2d-bb7edbb2ae49",
+            "name": "XP25-048-230 Heat Pump 4 Ton/230",
+            "catalogNum": "98W18",
+            "unitCost": "5356",
+            "quantity": 1,
+            "totalCost": 5356
+          },
+          "quote_option": 2
+        }
+      ],
+      "unitCostTax": 9.375,
       "labor": {
         "bf03e1a6-0666-436f-9b4f-e4f215efa71f": {
           "name": "(2) men (8) hours",
@@ -120,8 +165,8 @@
         },
         "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7": {
           "name": "(2) men (20) hours",
-          "qty": 0,
-          "cost": 1700,
+          "qty": 1,
+          "cost": "1700",
           "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7"
         },
         "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb": {
@@ -138,7 +183,7 @@
         },
         "8f6c6905-0bc5-4084-85ab-4d722677d146": {
           "name": "Sub contractor labor",
-          "qty": "1",
+          "qty": 0,
           "cost": "5",
           "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146"
         }
@@ -168,7 +213,7 @@
         "66d0ac7b-8293-4712-ab52-a43ffb626c47": {
           "name": "Removal fee",
           "qty": 1,
-          "cost": 0,
+          "cost": "100",
           "guid": "66d0ac7b-8293-4712-ab52-a43ffb626c47",
           "type": "add"
         },
@@ -180,7 +225,7 @@
           "type": "subtract"
         }
       },
-      "multiplier": 1.5,
+      "multiplier": 1.6,
       "commission": 8,
       "title": "",
       "summary": "",

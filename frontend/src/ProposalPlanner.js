@@ -30,10 +30,11 @@ import { initializeLabors } from "./data-management/store/slices/laborsSlice";
 import { initializeFees } from "./data-management/store/slices/feesSlice";
 import LaborDialog from "./components/coreui/dialogs/backend/LaborDialog.jsx";
 import FeeDialog from "./components/coreui/dialogs/backend/FeeDialog.jsx";
+import LaborsDialog from "./components/coreui/dialogs/frontend/LaborsDialog.jsx";
+import FeesDialog from "./components/coreui/dialogs/frontend/FeesDialog.jsx";
 
 const ProposalPlanner = () => {
   const dispatch = useDispatch();
-  // const { darkMode } = useSelector((state) => state.theme);
 
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
@@ -49,15 +50,6 @@ const ProposalPlanner = () => {
     });
   }, [dispatch]);
 
-  // const theme = useMemo(() => {
-  //   return () =>
-  //     createTheme({
-  //       palette: {
-  //         mode: darkMode ? "dark" : "light",
-  //       },
-  //     });
-  // }, [darkMode]);
-
   return (
     <>
       <CustomSnackbar />
@@ -69,7 +61,9 @@ const ProposalPlanner = () => {
       <AddProductToProposalDialog />
       <AddScalarValueDialog />
       <LaborDialog />
+      <LaborsDialog />
       <FeeDialog />
+      <FeesDialog />
       <Router>
         <Navbar />
         <Routes classname="routesContent">

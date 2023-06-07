@@ -36,79 +36,75 @@ const FeeDialog = () => {
     state.updateType,
   ]);
 
-  const content = (
-    <div style={{ paddingTop: "5px" }}>
-      <Stack spacing={2}>
-        <TextField
-          label="Name"
-          value={name}
-          onChange={(e) => {
-            updateName(e.target.value);
-          }}
-        />
-        <TextField
-          label="Quantity"
-          value={qty}
-          type="number"
-          onChange={(e) => {
-            updateQty(e.target.value);
-          }}
-        />
-        <TextField
-          label="Cost"
-          value={cost}
-          type="number"
-          onChange={(e) => {
-            updateCost(e.target.value);
-          }}
-        />
-        <TextField
-          id="select"
-          label="Type"
-          value={type}
-          onChange={(e) => {
-            updateType(e.target.value);
-          }}
-          select
-        >
-          <MenuItem value="add">Increase cost</MenuItem>
-          <MenuItem value="subtract">Decreases cost</MenuItem>
-        </TextField>
-      </Stack>
-    </div>
-  );
-
-  const actions = (
-    <>
-      <Button color="secondary" variant="contained" onClick={close}>
-        Cancel
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={async () => {
-          if (!onSubmit) {
-            close();
-            return;
-          }
-
-          const isValid = await onSubmit(name, qty, cost, type);
-
-          if (isValid) {
-            close();
-          }
-        }}
-      >
-        Confirm
-      </Button>
-    </>
-  );
-
   return (
     <BaseDialog
       title={header}
-      content={content}
-      actions={actions}
+      content={
+        <div style={{ paddingTop: "5px" }}>
+          <Stack spacing={2}>
+            <TextField
+              label="Name"
+              value={name}
+              onChange={(e) => {
+                updateName(e.target.value);
+              }}
+            />
+            <TextField
+              label="Quantity"
+              value={qty}
+              type="number"
+              onChange={(e) => {
+                updateQty(e.target.value);
+              }}
+            />
+            <TextField
+              label="Cost"
+              value={cost}
+              type="number"
+              onChange={(e) => {
+                updateCost(e.target.value);
+              }}
+            />
+            <TextField
+              id="select"
+              label="Type"
+              value={type}
+              onChange={(e) => {
+                updateType(e.target.value);
+              }}
+              select
+            >
+              <MenuItem value="add">Increase cost</MenuItem>
+              <MenuItem value="subtract">Decreases cost</MenuItem>
+            </TextField>
+          </Stack>
+        </div>
+      }
+      actions={
+        <>
+          <Button color="secondary" variant="contained" onClick={close}>
+            Cancel
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={async () => {
+              if (!onSubmit) {
+                close();
+                return;
+              }
+
+              const isValid = await onSubmit(name, qty, cost, type);
+
+              if (isValid) {
+                close();
+              }
+            }}
+          >
+            Confirm
+          </Button>
+        </>
+      }
       show={Boolean(onSubmit)}
       close={close}
     />
