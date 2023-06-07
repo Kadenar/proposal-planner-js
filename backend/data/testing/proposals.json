@@ -1,0 +1,235 @@
+[
+  {
+    "guid": "bf722475-60e6-4d8c-a5f1-acf7a5cd2d79",
+    "name": "delete me",
+    "description": "delete me",
+    "dateCreated": "6/5/2023",
+    "dateModified": "6/6/2023",
+    "owner": {
+      "guid": "3e188b45-d50c-4ac6-bceb-5fd014bcd757"
+    },
+    "data": {
+      "products": [],
+      "unitCostTax": 8.375,
+      "labor": {
+        "bf03e1a6-0666-436f-9b4f-e4f215efa71f": {
+          "name": "(2) men (8) hours",
+          "qty": "0",
+          "cost": "680",
+          "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f"
+        },
+        "6c07b831-e531-4848-8b6e-45f22ffaf458": {
+          "name": "(2) men (16) hours",
+          "qty": 0,
+          "cost": 1360,
+          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458"
+        },
+        "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7": {
+          "name": "(2) men (20) hours",
+          "qty": 0,
+          "cost": 1700,
+          "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7"
+        },
+        "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb": {
+          "name": "(3) men (24) hours",
+          "qty": 0,
+          "cost": 2040,
+          "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb"
+        },
+        "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7": {
+          "name": "(3) men (30) hours",
+          "qty": 0,
+          "cost": 2550,
+          "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7"
+        },
+        "8f6c6905-0bc5-4084-85ab-4d722677d146": {
+          "name": "Sub contractor labor",
+          "qty": "1",
+          "cost": "5",
+          "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146"
+        }
+      },
+      "fees": {
+        "c9ca67fa-6625-4865-aa9f-1544ef0bfa96": {
+          "name": "Permit fee",
+          "qty": 1,
+          "cost": 3000,
+          "guid": "c9ca67fa-6625-4865-aa9f-1544ef0bfa96",
+          "type": "add"
+        },
+        "e8cdc9a1-de5f-4a95-8637-2010c04af0df": {
+          "name": "Financing fee",
+          "qty": 1,
+          "cost": 5,
+          "guid": "e8cdc9a1-de5f-4a95-8637-2010c04af0df",
+          "type": "add"
+        },
+        "40a42c3d-de63-474c-b7b1-53201c5999f3": {
+          "name": "Temp tank fee",
+          "qty": 1,
+          "cost": 1,
+          "guid": "40a42c3d-de63-474c-b7b1-53201c5999f3",
+          "type": "add"
+        },
+        "66d0ac7b-8293-4712-ab52-a43ffb626c47": {
+          "name": "Removal fee",
+          "qty": 1,
+          "cost": 2,
+          "guid": "66d0ac7b-8293-4712-ab52-a43ffb626c47",
+          "type": "add"
+        },
+        "6e133019-054a-448c-a515-d580d2a1f448": {
+          "name": "Rebates",
+          "qty": 1,
+          "cost": 3,
+          "guid": "6e133019-054a-448c-a515-d580d2a1f448",
+          "type": "subtract"
+        }
+      },
+      "multiplier": 1.5,
+      "commission": 8,
+      "title": "",
+      "summary": "",
+      "specifications": ""
+    }
+  },
+  {
+    "guid": "91c5c148-45db-4924-8387-4b055e0b4022",
+    "name": "Test for Kyle",
+    "description": "A sample proposal",
+    "dateCreated": "6/6/2023",
+    "dateModified": "6/6/2023",
+    "owner": {
+      "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7"
+    },
+    "data": {
+      "products": [
+        {
+          "data": {
+            "guid": "1d0f2946-e5e3-49bc-999c-f44a47d2babc",
+            "name": "SL18XC1-024-230 Condenser/2 Ton/230A01",
+            "catalogNum": "11H80",
+            "unitCost": "2438",
+            "quantity": 1,
+            "totalCost": 2438
+          },
+          "quote_option": 0
+        },
+        {
+          "data": {
+            "guid": "54a5a3b5-2766-44cc-b516-4bd246d886d6",
+            "name": "SL18XC1-030-230 Condenser/2.5 Ton/230A01",
+            "catalogNum": "11H81",
+            "unitCost": "2584",
+            "quantity": 1,
+            "totalCost": 2584
+          },
+          "quote_option": 0
+        },
+        {
+          "data": {
+            "guid": "d526a278-f5cf-4e4d-be61-5d5f632a84fe",
+            "name": "SLP98UH070XV36B Furnace-Gas/70Btuh/3T",
+            "catalogNum": "60W24",
+            "unitCost": "2066",
+            "quantity": 1,
+            "totalCost": 2066
+          },
+          "quote_option": 1
+        },
+        {
+          "data": {
+            "guid": "e5a89fc1-e900-4ead-9e2d-bb7edbb2ae49",
+            "name": "XP25-048-230 Heat Pump 4 Ton/230",
+            "catalogNum": "98W18",
+            "unitCost": "5356",
+            "quantity": 1,
+            "totalCost": 5356
+          },
+          "quote_option": 2
+        }
+      ],
+      "unitCostTax": 9.375,
+      "labor": {
+        "bf03e1a6-0666-436f-9b4f-e4f215efa71f": {
+          "name": "(2) men (8) hours",
+          "qty": "0",
+          "cost": "680",
+          "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f"
+        },
+        "6c07b831-e531-4848-8b6e-45f22ffaf458": {
+          "name": "(2) men (16) hours",
+          "qty": 0,
+          "cost": 1360,
+          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458"
+        },
+        "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7": {
+          "name": "(2) men (20) hours",
+          "qty": 1,
+          "cost": "1700",
+          "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7"
+        },
+        "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb": {
+          "name": "(3) men (24) hours",
+          "qty": 0,
+          "cost": 2040,
+          "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb"
+        },
+        "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7": {
+          "name": "(3) men (30) hours",
+          "qty": 0,
+          "cost": 2550,
+          "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7"
+        },
+        "8f6c6905-0bc5-4084-85ab-4d722677d146": {
+          "name": "Sub contractor labor",
+          "qty": 0,
+          "cost": "5",
+          "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146"
+        }
+      },
+      "fees": {
+        "c9ca67fa-6625-4865-aa9f-1544ef0bfa96": {
+          "name": "Permit fee",
+          "qty": 1,
+          "cost": 300,
+          "guid": "c9ca67fa-6625-4865-aa9f-1544ef0bfa96",
+          "type": "add"
+        },
+        "e8cdc9a1-de5f-4a95-8637-2010c04af0df": {
+          "name": "Financing fee",
+          "qty": 1,
+          "cost": 0,
+          "guid": "e8cdc9a1-de5f-4a95-8637-2010c04af0df",
+          "type": "add"
+        },
+        "40a42c3d-de63-474c-b7b1-53201c5999f3": {
+          "name": "Temp tank fee",
+          "qty": 1,
+          "cost": 0,
+          "guid": "40a42c3d-de63-474c-b7b1-53201c5999f3",
+          "type": "add"
+        },
+        "66d0ac7b-8293-4712-ab52-a43ffb626c47": {
+          "name": "Removal fee",
+          "qty": 1,
+          "cost": "100",
+          "guid": "66d0ac7b-8293-4712-ab52-a43ffb626c47",
+          "type": "add"
+        },
+        "6e133019-054a-448c-a515-d580d2a1f448": {
+          "name": "Rebates",
+          "qty": 1,
+          "cost": 0,
+          "guid": "6e133019-054a-448c-a515-d580d2a1f448",
+          "type": "subtract"
+        }
+      },
+      "multiplier": 1.6,
+      "commission": 8,
+      "title": "",
+      "summary": "",
+      "specifications": ""
+    }
+  }
+]
