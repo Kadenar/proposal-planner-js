@@ -75,6 +75,7 @@ const LaborAndFeesView = () => {
               tooltip: "Edit labor",
               onClick: (event, rowData) => {
                 laborDialog({
+                  header: "Edit labor",
                   name: rowData.name,
                   qty: rowData.qty,
                   cost: rowData.cost,

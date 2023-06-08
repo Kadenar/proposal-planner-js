@@ -24,7 +24,7 @@ export default function AllProductTypesView() {
       <AddNewItem
         onClick={() =>
           productTypeDialog({
-            header: "Add product type?",
+            header: "Add product type",
             productType: "",
             onSubmit: async (value) =>
               addProductType(dispatch, { label: value }),
