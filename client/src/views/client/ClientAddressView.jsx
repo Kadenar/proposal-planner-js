@@ -4,7 +4,7 @@ import { Button, Stack } from "@mui/material";
 import Card from "@mui/material/Card";
 
 import { TextField, Typography } from "@mui/material";
-import StateSelection from "../coreui/StateSelection";
+import StateSelection from "../../components/coreui/StateSelection";
 import {
   saveClient,
   setClientAccountNum,

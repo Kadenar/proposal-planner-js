@@ -1,11 +1,10 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
-import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { productTypeDialog } from "../coreui/dialogs/backend/ProductTypeDialog";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
+import { productTypeDialog } from "../../components/coreui/dialogs/backend/ProductTypeDialog";
 
-import AddNewItem from "../coreui/AddNewItem";
+import AddNewItem from "../../components/coreui/AddNewItem";
 import {
   addProductType,
   deleteProductType,
@@ -16,7 +15,7 @@ import {
  * Component used to display the set of products that have been selected for this particular job
  * @returns
  */
-export default function ProductTypesTable() {
+export default function AllProductTypesView() {
   const dispatch = useDispatch();
   const { filters } = useSelector((state) => state.filters);
 

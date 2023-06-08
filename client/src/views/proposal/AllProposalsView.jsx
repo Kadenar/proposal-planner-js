@@ -13,10 +13,10 @@ import {
 } from "../../data-management/store/slices/proposalsSlice";
 import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
 
-import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { newProposalDialog } from "../coreui/dialogs/frontend/NewProposalDialog";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
+import { newProposalDialog } from "../../components/coreui/dialogs/frontend/NewProposalDialog";
 
-export default function ExistingProposals() {
+export default function AllProposalsView() {
   const dispatch = useDispatch();
   const { proposals } = useSelector((state) => state.proposals);
   const { clients } = useSelector((state) => state.clients);

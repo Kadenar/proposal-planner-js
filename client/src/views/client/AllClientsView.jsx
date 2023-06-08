@@ -12,8 +12,8 @@ import { deleteProposalsForClient } from "../../data-management/store/slices/pro
 
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
-import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
-import { clientDialog } from "../coreui/dialogs/frontend/NewClientDialog";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
+import { clientDialog } from "../../components/coreui/dialogs/frontend/NewClientDialog";
 
 export default function AllClientsView() {
   const dispatch = useDispatch();

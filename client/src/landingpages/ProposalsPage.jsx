@@ -1,7 +1,6 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import AllProposalsView from "../proposal-ui/AllProposalsView";
-import ProposalTabsView from "../proposal-ui/ProposalTabsView";
+import AllProposalsView from "../views/proposal/AllProposalsView";
+import ProposalTabsView from "../views/proposal/AllProposalsView";
 
 export default function ProposalsPage() {
   const { selectedProposal } = useSelector((state) => state.selectedProposal);

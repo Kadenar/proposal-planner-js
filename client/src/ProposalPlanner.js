@@ -1,4 +1,4 @@
-import "./components/landingpages/page-styles.css";
+import "./landingpages/page-styles.css";
 import { useEffect } from "react";
 import { batch, useDispatch } from "react-redux";
 
@@ -14,11 +14,11 @@ import AddScalarValueDialog from "./components/coreui/dialogs/backend/AddScalarV
 import CustomSnackbar from "./components/coreui/CustomSnackbar.jsx";
 
 // PAGES
-import HomePage from "./components/landingpages/HomePage.jsx";
-import JobsPage from "./components/landingpages/JobsPage.jsx";
-import ProposalsPage from "./components/landingpages/ProposalsPage.jsx";
-import ClientsPage from "./components/landingpages/ClientsPage.jsx";
-import DatabasePage from "./components/landingpages/DatabasePage.jsx";
+import HomePage from "./landingpages/HomePage.jsx";
+import JobsPage from "./landingpages/JobsPage.jsx";
+import ProposalsPage from "./landingpages/ProposalsPage.jsx";
+import ClientsPage from "./landingpages/ClientsPage.jsx";
+import DatabasePage from "./landingpages/DatabasePage.jsx";
 import NewClientDialog from "./components/coreui/dialogs/frontend/NewClientDialog.jsx";
 import { initializeProductTypes } from "./data-management/store/slices/productTypesSlice.js";
 import { initializeMultipliers } from "./data-management/store/slices/multipliersSlice.js";
@@ -32,6 +32,7 @@ import LaborDialog from "./components/coreui/dialogs/backend/LaborDialog.jsx";
 import FeeDialog from "./components/coreui/dialogs/backend/FeeDialog.jsx";
 import LaborsDialog from "./components/coreui/dialogs/frontend/LaborsDialog.jsx";
 import FeesDialog from "./components/coreui/dialogs/frontend/FeesDialog.jsx";
+import SchedulePage from "./landingpages/SchedulePage.jsx";
 
 const ProposalPlanner = () => {
   const dispatch = useDispatch();
@@ -73,6 +74,7 @@ const ProposalPlanner = () => {
           <Route path="/proposals" exact element={<ProposalsPage />} />
           <Route path="/jobs" exact element={<JobsPage />} />
           <Route path="/database" exact element={<DatabasePage />} />
+          <Route path="/schedule" exact element={<SchedulePage />} />
         </Routes>
       </HashRouter>
     </>

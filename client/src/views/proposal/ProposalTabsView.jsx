@@ -7,15 +7,15 @@ import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-} from "../coreui/StyledComponents";
+} from "../components/coreui/StyledComponents";
 
 import ProposalPricingView from "./pricing/ProposalPricingView";
-import ClientCardDetails from "./documentation/ClientCardDetails";
-import { PdfDocument } from "./documentation/pdf/PdfDocument";
-import BreadcrumbNavigation from "../coreui/BreadcrumbNavigation";
-import ProposalCardDetails from "./documentation/ProposalCardDetails";
+import ClientCardDetails from "../components/proposal-ui/documentation/ClientCardDetails";
+import { PdfDocument } from "../components/proposal-ui/documentation/pdf/PdfDocument";
+import BreadcrumbNavigation from "../components/coreui/BreadcrumbNavigation";
+import ProposalCardDetails from "../components/proposal-ui/documentation/ProposalCardDetails";
 
-import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
+import { selectProposal } from "../data-management/store/slices/selectedProposalSlice";
 
 export default function ProposalTabsView() {
   const dispatch = useDispatch();

@@ -1,15 +1,14 @@
-import React from "react";
-import ProductsTable from "../database-ui/ProductsTable";
-import ProductTypesTable from "../database-ui/ProductTypesTable";
-import CommissionMultipliers from "../database-ui/CommissionMultipliers";
+import AllProductsView from "../views/database/AllProductsView";
+import AllProductTypesView from "../views/database/AllProductTypesView";
+import CommissionMultipliersView from "../views/database/CommissionMultipliersView";
 
 import Tabs from "@mui/base/Tabs";
 import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-} from "../coreui/StyledComponents";
-import LaborAndFeeTables from "../database-ui/LaborAndFeeTables";
+} from "../components/coreui/StyledComponents";
+import LaborAndFeesView from "../views/database/LaborAndFeesView";
 
 export default function DatabasePage() {
   return (
@@ -22,16 +21,16 @@ export default function DatabasePage() {
           <StyledTab value={3}>Commissions & Multipliers</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
-          <ProductsTable />
+          <AllProductsView />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
-          <ProductTypesTable />
+          <AllProductTypesView />
         </StyledTabPanel>
         <StyledTabPanel value={2}>
-          <LaborAndFeeTables />
+          <LaborAndFeesView />
         </StyledTabPanel>
         <StyledTabPanel value={3}>
-          <CommissionMultipliers />
+          <CommissionMultipliersView />
         </StyledTabPanel>
       </Tabs>
     </div>

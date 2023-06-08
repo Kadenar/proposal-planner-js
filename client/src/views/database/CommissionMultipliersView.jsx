@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Stack, Button, Slider, Typography, Card } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 
 import {
   addCommission,
@@ -15,10 +15,10 @@ import {
   deleteMultiplier,
 } from "../../data-management/store/slices/multipliersSlice";
 
-import AddNewItem from "../coreui/AddNewItem";
-import { addScalarValueDialog } from "../coreui/dialogs/backend/AddScalarValueDialog";
+import AddNewItem from "../../components/coreui/AddNewItem";
+import { addScalarValueDialog } from "../../components/coreui/dialogs/backend/AddScalarValueDialog";
 
-export default function CommissionMultipliers() {
+export default function CommissionMultipliersView() {
   const dispatch = useDispatch();
   const { commissions } = useSelector((state) => state.commissions);
   const { multipliers } = useSelector((state) => state.multipliers);

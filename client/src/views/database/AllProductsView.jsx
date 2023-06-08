@@ -10,15 +10,15 @@ import { flattenProductData } from "../../data-management/middleware/productHelp
 
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
-import { confirmDialog } from "../coreui/dialogs/ConfirmDialog.jsx";
-import { productDialog } from "../coreui/dialogs/backend/ProductDialog.jsx";
-import AddNewItem from "../coreui/AddNewItem.jsx";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog.jsx";
+import { productDialog } from "../../components/coreui/dialogs/backend/ProductDialog.jsx";
+import AddNewItem from "../../components/coreui/AddNewItem.jsx";
 
 /**
  * Component used to display the set of products that have been selected for this particular job
  * @returns
  */
-export default function ProductsTable() {
+export default function AllProductsView() {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
   const { filters } = useSelector((state) => state.filters);

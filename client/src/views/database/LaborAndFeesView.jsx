@@ -2,24 +2,24 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Stack from "@mui/material/Stack";
 
-import AddNewItem from "../coreui/AddNewItem";
+import AddNewItem from "../../components/coreui/AddNewItem";
 import MaterialTable from "@material-table/core";
-import { laborDialog } from "../coreui/dialogs/backend/LaborDialog";
+import { laborDialog } from "../../components/coreui/dialogs/backend/LaborDialog";
 import {
   addLabor,
   deleteLabor,
   editLabor,
 } from "../../data-management/store/slices/laborsSlice";
 
-import { confirmDialog } from "../coreui/dialogs/ConfirmDialog";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 import {
   addFee,
   deleteFee,
   editFee,
 } from "../../data-management/store/slices/feesSlice";
-import { feeDialog } from "../coreui/dialogs/backend/FeeDialog";
+import { feeDialog } from "../../components/coreui/dialogs/backend/FeeDialog";
 
-const LaborAndFeeTables = () => {
+const LaborAndFeesView = () => {
   const dispatch = useDispatch();
   const { labors } = useSelector((state) => state.labors);
   const { fees } = useSelector((state) => state.fees);
@@ -193,4 +193,4 @@ const LaborAndFeeTables = () => {
   );
 };
 
-export default LaborAndFeeTables;
+export default LaborAndFeesView;

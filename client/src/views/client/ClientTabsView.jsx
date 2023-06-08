@@ -6,8 +6,8 @@ import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-} from "../coreui/StyledComponents";
-import BreadcrumbNavigation from "../coreui/BreadcrumbNavigation";
+} from "../../components/coreui/StyledComponents";
+import BreadcrumbNavigation from "../../components/coreui/BreadcrumbNavigation";
 import ClientProposalsView from "./ClientProposalsView";
 import ClientAddressView from "./ClientAddressView";
 import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
