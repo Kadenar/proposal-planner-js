@@ -15,8 +15,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { StyledIconButton } from "../../../coreui/StyledComponents";
-import RobisonInvoiceHeader from "../pdf/InvoiceHeader";
-import SubmittedToContent from "../pdf/SubmittedToContent";
+import RobisonInvoiceHeader from "./InvoiceHeader";
+import SubmittedToContent from "./SubmittedToContent";
 import { calculateTotalCost } from "../../pricing/pricing-utils";
 import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";

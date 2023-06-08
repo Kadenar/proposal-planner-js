@@ -3,7 +3,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import FeedIcon from "@mui/icons-material/Feed";
 import { Stack } from "@mui/material";
-import { StyledBreadcrumb } from "../coreui/StyledComponents";
+import { StyledBreadcrumb } from "./StyledComponents";
 
 const BreadcrumbNavigation = ({
   navigateBackFunc,
