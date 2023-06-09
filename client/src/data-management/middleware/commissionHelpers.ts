@@ -1,3 +1,4 @@
+import { Commission } from "./Interfaces.ts";
 import {
   runGetRequest,
   simpleDeleteFromDatabase,
@@ -8,9 +9,7 @@ import {
  * Fetch all commissions in the database
  * @returns
  */
-export async function fetchCommissions(): Promise<
-  [{ value: number; guid: string }]
-> {
+export async function fetchCommissions(): Promise<Commission[]> {
   return runGetRequest("commissions");
 }
 

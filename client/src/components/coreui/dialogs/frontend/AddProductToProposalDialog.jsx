@@ -24,12 +24,12 @@ const useProductDialogStore = create((set) => ({
     guid: "",
     label: "",
   },
-  quantity: 0,
+  qty: 0,
   quote_option: 1,
   updateFilter: (filter) => set(() => ({ filter: filter })),
   updateSelectedProduct: (selectedProduct) =>
     set(() => ({ selectedProduct: selectedProduct })),
-  updateQuantity: (quantity) => set(() => ({ quantity: quantity })),
+  updateQty: (qty) => set(() => ({ qty: qty })),
   updateQuoteOption: (quote_option) =>
     set(() => ({ quote_option: quote_option })),
   close: () => set({ onSubmit: undefined }),
@@ -47,9 +47,9 @@ const AddProductToProposalDialog = () => {
     (state) => [state.selectedProduct, state.updateSelectedProduct]
   );
 
-  const [quantity, updateQuantity] = useProductDialogStore((state) => [
-    state.quantity,
-    state.updateQuantity,
+  const [qty, updateQty] = useProductDialogStore((state) => [
+    state.qty,
+    state.updateQty,
   ]);
 
   const [quote_option, updateQuoteOption] = useProductDialogStore((state) => [
@@ -135,9 +135,9 @@ const AddProductToProposalDialog = () => {
               <TextField
                 label="Quantity"
                 type="number"
-                value={quantity}
+                value={qty}
                 onChange={({ target: { value } }) => {
-                  updateQuantity(value);
+                  updateQty(value);
                 }}
               />
               <TextField
@@ -174,7 +174,7 @@ const AddProductToProposalDialog = () => {
 
               const returnValue = await onSubmit(
                 selectedProduct,
-                quantity,
+                qty,
                 quote_option
               );
               if (returnValue) {
@@ -200,7 +200,7 @@ export const addProductToProposalDialog = ({
     guid: "",
     label: "",
   },
-  quantity,
+  qty,
   quote_option = 1,
   onSubmit,
 }) => {
@@ -209,7 +209,7 @@ export const addProductToProposalDialog = ({
     filter,
     allProducts,
     selectedProduct,
-    quantity,
+    qty,
     quote_option,
     onSubmit,
   });

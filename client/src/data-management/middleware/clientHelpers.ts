@@ -1,4 +1,4 @@
-import * as Interface from "./Interfaces.ts";
+import { ClientObject } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -10,11 +10,12 @@ import {
  * Fetch all clients in the database
  * @returns
  */
-export async function fetchClients(): Promise<Interface.Clients> {
-  return runGetRequest("clients");
+export async function fetchClients(): Promise<ClientObject[]> {
+  const response = await runGetRequest("clients");
+  return response;
 }
 
-export async function addClient(clientInfo: Interface.ClientObject) {
+export async function addClient(clientInfo: ClientObject) {
   const error = validateClientInfo(
     clientInfo.name,
     clientInfo.address,
@@ -42,7 +43,7 @@ export async function addClient(clientInfo: Interface.ClientObject) {
  * Saves a given client details
  * @returns
  */
-export async function saveClient(clientInfo: Interface.ClientObject) {
+export async function saveClient(clientInfo: ClientObject) {
   const errors = validateClientInfo(
     clientInfo.name,
     clientInfo.address,

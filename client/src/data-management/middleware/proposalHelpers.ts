@@ -1,17 +1,22 @@
 import {
+  PsuedoObjectOfFees,
+  PsuedoObjectOfLabor,
+  PsuedoObjectOfModel,
+  ProposalObject,
+} from "./Interfaces.ts";
+import {
   runGetRequest,
   runPostRequest,
   simpleDeleteFromDatabase,
 } from "./database-actions.ts";
 import { fetchFees } from "./feeHelpers.ts";
-import * as Interface from "./Interfaces.ts";
 import { fetchLabors } from "./laborHelpers.ts";
 
 /**
  * Fetch all proposals in the database
  * @returns
  */
-export async function fetchProposals(): Promise<Interface.Proposals> {
+export async function fetchProposals(): Promise<ProposalObject[]> {
   return runGetRequest("proposals");
 }
 
@@ -23,7 +28,7 @@ export async function addProposal(
   name: string,
   description: string,
   client_guid: string,
-  existingProposal?: Interface.ProposalObject | null
+  existingProposal?: ProposalObject | null
 ) {
   if (name === "") {
     return {
@@ -88,9 +93,9 @@ export async function deleteProposal(guid: string) {
 export async function saveProposal(
   guid: string,
   commission: number,
-  fees: Interface.ArrayOfFeeObjects,
-  labor: Interface.ArrayOfLaborObjects,
-  products: Interface.Models,
+  fees: PsuedoObjectOfFees[],
+  labor: PsuedoObjectOfLabor[],
+  products: PsuedoObjectOfModel[],
   unitCostTax: number,
   multiplier: number,
   title: string,
@@ -140,9 +145,7 @@ export async function saveProposal(
  * Fetch all proposals in the database
  * @returns
  */
-export async function deleteProposalsForClient(
-  client_guid: string
-): Promise<any> {
+export async function deleteProposalsForClient(client_guid: string) {
   const proposals = await fetchProposals();
 
   const filtered_proposals = proposals.filter((proposal) => {
@@ -161,24 +164,24 @@ const getNewProposalItem = async (
   name: string,
   description: string,
   client_guid: string
-): Promise<Interface.ProposalObject> => {
+): Promise<ProposalObject> => {
   const fees = await fetchFees();
 
-  const reducedFees = fees.reduce<Interface.ArrayOfFeeObjects>(
+  const reducedFees = fees.reduce<PsuedoObjectOfFees>(
     (result, fee) => ({
       ...result,
       [fee.guid]: fee,
     }),
-    {} as Interface.ArrayOfFeeObjects
+    {} as PsuedoObjectOfFees
   );
 
   const labors = await fetchLabors();
-  const reducedLabors = labors.reduce<Interface.ArrayOfLaborObjects>(
+  const reducedLabors = labors.reduce<PsuedoObjectOfLabor>(
     (result, labor) => ({
       ...result,
       [labor.guid]: labor,
     }),
-    {} as Interface.ArrayOfLaborObjects
+    {} as PsuedoObjectOfLabor
   );
 
   const date = new Date();

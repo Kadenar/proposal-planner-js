@@ -15,7 +15,7 @@ client/node_modules
 /build
 build
 /dist**/*
-
+/server/dist
 
 #lock files
 package-lock.json

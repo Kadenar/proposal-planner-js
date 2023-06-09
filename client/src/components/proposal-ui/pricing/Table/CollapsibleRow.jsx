@@ -64,7 +64,7 @@ export function CollapsibleRow({
                   {breakdown.map((entry) => (
                     <TableRow key={entry.name}>
                       <TableCell>{entry.name}</TableCell>
-                      <TableCell>{entry.quantity}</TableCell>
+                      <TableCell>{entry.qty}</TableCell>
                       <TableCell>
                         {(entry?.type === "subtract" ? "-" : "") +
                           ccyFormat(entry.amount)}

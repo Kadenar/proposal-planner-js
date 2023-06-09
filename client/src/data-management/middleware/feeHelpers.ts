@@ -4,13 +4,13 @@ import {
   simpleAddObjectToDatabase,
   simpleDeleteFromDatabase,
 } from "./database-actions.ts";
-import * as Interface from "./Interfaces.ts";
+import { Fee } from "./Interfaces.ts";
 
 /**
  * Fetch all fees in the database
  * @returns
  */
-export async function fetchFees(): Promise<Interface.ArrayOfFees> {
+export async function fetchFees(): Promise<Fee[]> {
   return runGetRequest("fees");
 }
 

@@ -46,15 +46,15 @@ export default function ProductsForProposal() {
         <TableBody>
           {products.length > 0 ? (
             products.map((product, index) => {
-              const { name, catalogNum, quantity, unitCost } = product.data;
+              const { name, modelNum, qty, cost } = product;
               return (
-                <TableRow key={product.data.name + index}>
+                <TableRow key={name + index}>
                   <TableCell>{name}</TableCell>
                   <TableCell>{getQuoteName(product.quote_option)}</TableCell>
-                  <TableCell>{catalogNum}</TableCell>
-                  <TableCell>{quantity}</TableCell>
-                  <TableCell>{ccyFormat(unitCost)}</TableCell>
-                  <TableCell>{ccyFormat(quantity * unitCost)}</TableCell>
+                  <TableCell>{modelNum}</TableCell>
+                  <TableCell>{qty}</TableCell>
+                  <TableCell>{ccyFormat(cost)}</TableCell>
+                  <TableCell>{ccyFormat(qty * cost)}</TableCell>
                   <TableCell>
                     <Tooltip title="Remove product">
                       <IconButton

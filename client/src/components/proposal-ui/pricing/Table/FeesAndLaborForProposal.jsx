@@ -1,9 +1,8 @@
 import { useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
+import calculateLabor, {
   calculateFees,
-  calculateLabor,
   returnOnlyValidFees,
   returnOnlyValidLabor,
 } from "../pricing-utils";
@@ -32,7 +31,7 @@ export default function FeesAndLaborForProposal() {
 
   // Fetch the current fees stored in the database. Remove any fees no longer available and rename any others.
   const validFees = useMemo(() => {
-    return returnOnlyValidFees({ proposalFees, availableFees: fees });
+    return returnOnlyValidFees(proposalFees, fees);
   }, [proposalFees, fees]);
 
   // Fetch the current labor stored in the database. Remove any labor no longer available and rename any others.
@@ -58,7 +57,7 @@ export default function FeesAndLaborForProposal() {
     return Object.keys(proposalLabors).map((type) => {
       return {
         name: proposalLabors[type].name,
-        quantity: proposalLabors[type].qty,
+        qty: proposalLabors[type].qty,
         amount: proposalLabors[type].cost,
       };
     });
@@ -69,7 +68,7 @@ export default function FeesAndLaborForProposal() {
     return Object.keys(proposalFees).map((fee) => {
       return {
         name: proposalFees[fee].name,
-        quantity: 1,
+        qty: 1,
         amount: proposalFees[fee].cost,
         type: proposalFees[fee].type,
       };

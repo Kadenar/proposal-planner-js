@@ -18,14 +18,14 @@ const useProductDialogStore = create((set) => ({
   filters: [],
   filter: "",
   modelName: "",
-  catalogNum: "",
-  unitCost: "",
+  modelNum: "",
+  cost: "",
   image: undefined,
   onSubmit: undefined,
   updateFilter: (filter) => set(() => ({ filter: filter })),
   updateModelName: (modelName) => set(() => ({ modelName: modelName })),
-  updateCatalogNum: (catalogNum) => set(() => ({ catalogNum: catalogNum })),
-  updateUnitCost: (unitCost) => set(() => ({ unitCost: unitCost })),
+  updateModelNum: (modelNum) => set(() => ({ modelNum: modelNum })),
+  updateCost: (cost) => set(() => ({ cost: cost })),
   updateImage: (image) => set(() => ({ image: image })),
   close: () => set({ onSubmit: undefined }),
 }));
@@ -43,14 +43,14 @@ const ProductDialog = () => {
     state.updateModelName,
   ]);
 
-  const [catalogNum, updateCatalogNum] = useProductDialogStore((state) => [
-    state.catalogNum,
-    state.updateCatalogNum,
+  const [modelNum, updateModelNum] = useProductDialogStore((state) => [
+    state.modelNum,
+    state.updateModelNum,
   ]);
 
-  const [unitCost, updateUnitCost] = useProductDialogStore((state) => [
-    state.unitCost,
-    state.updateUnitCost,
+  const [cost, updateCost] = useProductDialogStore((state) => [
+    state.cost,
+    state.updateCost,
   ]);
 
   // const [image, updateImage] = useProductDialogStore((state) => [
@@ -89,9 +89,9 @@ const ProductDialog = () => {
           />
           <TextField
             label="Model #"
-            value={catalogNum || ""}
+            value={modelNum || ""}
             onChange={({ target: { value } }) => {
-              updateCatalogNum(value);
+              updateModelNum(value);
             }}
           />
           <FormControl fullWidth sx={{ m: 1 }}>
@@ -101,9 +101,9 @@ const ProductDialog = () => {
               startAdornment={
                 <InputAdornment position="start">$</InputAdornment>
               }
-              value={unitCost || ""}
+              value={cost || ""}
               onChange={({ target: { value } }) => {
-                updateUnitCost(value);
+                updateCost(value);
               }}
             />
           </FormControl>
@@ -127,8 +127,8 @@ const ProductDialog = () => {
               const returnValue = await onSubmit({
                 filter,
                 modelName,
-                catalogNum,
-                unitCost,
+                modelNum,
+                cost,
               });
 
               if (returnValue) {
@@ -152,8 +152,8 @@ export const productDialog = ({
   filters,
   filter,
   modelName,
-  catalogNum,
-  unitCost,
+  modelNum,
+  cost,
   image,
   onSubmit,
 }) => {
@@ -163,8 +163,8 @@ export const productDialog = ({
     filters,
     filter,
     modelName,
-    catalogNum,
-    unitCost,
+    modelNum,
+    cost,
     image,
     onSubmit,
   });

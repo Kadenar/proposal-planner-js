@@ -1,12 +1,14 @@
+import { Dispatch } from "@reduxjs/toolkit";
 import { addProductToProposal } from "../../../data-management/store/slices/selectedProposalSlice";
 import { showSnackbar } from "../../coreui/CustomSnackbar";
+import * as Interfaces from "../../../data-management/middleware/Interfaces";
 
 export const handleAddProductToProposal = (
-  dispatch,
-  selectedProposal,
-  selectedProduct,
-  quantity,
-  quote_option
+  dispatch: Dispatch,
+  selectedProposal: Interfaces.ProposalObject,
+  selectedProduct: Interfaces.ProductObject,
+  qty: number,
+  quote_option: number
 ) => {
   if (!selectedProduct) {
     showSnackbar({
@@ -17,7 +19,7 @@ export const handleAddProductToProposal = (
     return false;
   }
 
-  if (quantity <= 0) {
+  if (qty <= 0) {
     showSnackbar({
       title: "Please specify a quantity greater than 0.",
       show: true,
@@ -27,7 +29,7 @@ export const handleAddProductToProposal = (
   }
 
   const existingProduct = selectedProposal.data.products.find(
-    (product) => product.data.guid === selectedProduct.guid
+    (product) => product.guid === selectedProduct.guid
   );
 
   // Check if product is added to proposal in 1 of existing options
@@ -62,14 +64,11 @@ export const handleAddProductToProposal = (
   }
 
   addProductToProposal(dispatch, {
-    data: {
-      guid: selectedProduct.guid,
-      name: selectedProduct.model,
-      catalogNum: selectedProduct.catalog,
-      unitCost: selectedProduct.cost,
-      quantity,
-      totalCost: selectedProduct.cost * quantity,
-    },
+    guid: selectedProduct.guid,
+    name: selectedProduct.model,
+    modelNum: selectedProduct.modelNum,
+    cost: selectedProduct.cost,
+    qty,
     quote_option,
   });
 
@@ -83,7 +82,7 @@ export const handleAddProductToProposal = (
 };
 
 // Calculate the total cost of labor
-export function calculateLabor(labors) {
+export default function calculateLabor(labors: Interfaces.PsuedoObjectOfLabor) {
   let totalLabor = 0;
   Object.keys(labors).forEach((labor) => {
     totalLabor += labors[labor].qty * labors[labor].cost;
@@ -92,7 +91,7 @@ export function calculateLabor(labors) {
   return totalLabor;
 }
 
-export function calculateFees(fees) {
+export function calculateFees(fees: Interfaces.PsuedoObjectOfFees) {
   let costOfFees = 0;
 
   Object.keys(fees).forEach((fee) => {
@@ -109,7 +108,7 @@ export function calculateFees(fees) {
 }
 
 // Handle formatting input cells with a '$' in front
-export function ccyFormat(num) {
+export function ccyFormat(num: number) {
   if (!num) {
     num = 0;
   }
@@ -117,7 +116,7 @@ export function ccyFormat(num) {
   return `${"$" + Number(num).toFixed(2)}`;
 }
 
-export function getQuoteName(option_num) {
+export function getQuoteName(option_num: number) {
   if (option_num === 0) {
     return "All";
   }
@@ -125,14 +124,20 @@ export function getQuoteName(option_num) {
   return `Quote ${option_num}`;
 }
 
-export function calculateCostForProductsInOption(option) {
+export function calculateCostForProductsInOption(
+  option: Interfaces.ProductOnProposal[]
+) {
   return option
-    .map(({ totalCost }) => totalCost)
+    .map(({ cost, qty }) => cost * qty)
     .reduce((sum, i) => sum + i, 0);
 }
 
-export function calculateCostForOption(proposal, option, costsFromAllOption) {
-  const { unitCostTax, commission, multiplier, labor, fees } = proposal;
+export function calculateCostForOption(
+  proposal: Interfaces.ProposalObject,
+  option: Interfaces.ProductOnProposal[],
+  costsFromAllOption: number
+) {
+  const { unitCostTax, commission, multiplier, labor, fees } = proposal.data;
 
   const TAX_RATE = unitCostTax / 100.0;
 
@@ -175,73 +180,13 @@ export function calculateCostForOption(proposal, option, costsFromAllOption) {
   };
 }
 
-// TODO REMOVE THIS AFTER FIXING PDF
-export function calculateProductCosts(proposal) {
-  /*
-   * To calculate costs, we want to do this for each option present in the proposal
-   * Option 0 = apply to ALL other options present
-   */
-
-  const { products } = proposal;
-  // The total for just the products themselves
-  const itemSubtotal = products
-    .map(({ data }) => data)
-    .map(({ totalCost }) => totalCost)
-    .reduce((sum, i) => sum + i, 0);
-
-  return itemSubtotal;
-}
-
-// TODO REMOVE THIS AFTER FIXING PDF
-export function calculateTotalCost(proposal) {
-  const { unitCostTax, commission, multiplier, labor, fees } = proposal;
-  const TAX_RATE = unitCostTax / 100.0;
-
-  // The total for just the products themselves
-  const itemSubtotal = calculateProductCosts(proposal);
-
-  // Total amount of taxes to be paid
-  const invoiceTaxes = TAX_RATE * itemSubtotal;
-
-  const totalWithTaxes = itemSubtotal + invoiceTaxes;
-
-  // Cost for labor
-  const costOfLabor = calculateLabor(labor);
-  const costWithLabor = totalWithTaxes + costOfLabor;
-
-  // Get the cost after applying the multiplier to the job
-  const costAfterMultiplier = costWithLabor * multiplier;
-
-  // Get the cost that the multiplier has added to the job
-  const multiplierValue = costAfterMultiplier - costWithLabor;
-
-  // Cost of fees
-  const costOfFees = calculateFees(fees);
-  const costAfterFees = costAfterMultiplier + costOfFees;
-
-  // Commission amount expected to be earned
-  const commissionAmount = costAfterFees * (commission / 100.0);
-  const invoiceTotal = costAfterFees + commissionAmount;
-
-  return {
-    itemSubtotal: itemSubtotal,
-    invoiceTaxes: invoiceTaxes,
-    totalWithTaxes: totalWithTaxes,
-    costOfLabor: costOfLabor,
-    costWithLabor: costWithLabor,
-    multiplierValue: multiplierValue,
-    costAfterMultiplier: costAfterMultiplier,
-    costOfFees: costOfFees,
-    costAfterFees: costAfterFees,
-    commissionAmount: commissionAmount,
-    invoiceTotal: invoiceTotal,
-  };
-}
-
 // Takes the fees present on the proposal, and removes any that are not in sync with the system
-export function returnOnlyValidFees({ proposalFees = {}, availableFees = [] }) {
+export function returnOnlyValidFees(
+  proposalFees: Interfaces.PsuedoObjectOfFees,
+  availableFees: Interfaces.Fee[]
+) {
   return availableFees
-    .filter((fee) => proposalFees[fee] === undefined)
+    .filter((_, index) => proposalFees[index] === undefined)
     .reduce(
       (result, fee, index) => ({
         ...result,
@@ -255,12 +200,12 @@ export function returnOnlyValidFees({ proposalFees = {}, availableFees = [] }) {
 }
 
 // Takes any labor present on the proposal, and removes any that are not in sync with the system
-export function returnOnlyValidLabor({
-  proposalLabors = {},
-  availableLabors = [],
-}) {
+export function returnOnlyValidLabor(
+  proposalLabors: Interfaces.PsuedoObjectOfLabor,
+  availableLabors: Interfaces.Labor[]
+) {
   return availableLabors
-    .filter((labor) => proposalLabors[labor] === undefined)
+    .filter((_, index) => proposalLabors[index] === undefined)
     .reduce(
       (result, labor, index) => ({
         ...result,

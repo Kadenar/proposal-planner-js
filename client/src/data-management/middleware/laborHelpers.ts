@@ -1,16 +1,16 @@
+import { Labor } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,
   simpleAddObjectToDatabase,
   simpleDeleteFromDatabase,
 } from "./database-actions.ts";
-import * as Interface from "./Interfaces.ts";
 
 /**
  * Fetch all labors in the database
  * @returns
  */
-export async function fetchLabors(): Promise<Interface.ArrayOfLabors> {
+export async function fetchLabors(): Promise<Labor[]> {
   return runGetRequest("labors");
 }
 

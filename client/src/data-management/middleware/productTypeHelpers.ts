@@ -1,15 +1,15 @@
+import { ProductTypeObject } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,
   simpleDeleteFromDatabase,
 } from "./database-actions.ts";
-import * as Interface from "./Interfaces.ts";
 
 /**
  * Fetch all product types in the database
  * @returns
  */
-export async function fetchProductTypes(): Promise<Interface.ProductTypes> {
+export async function fetchProductTypes(): Promise<ProductTypeObject[]> {
   return runGetRequest("types");
 }
 

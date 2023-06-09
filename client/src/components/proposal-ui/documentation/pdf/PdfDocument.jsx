@@ -17,7 +17,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { StyledIconButton } from "../../../coreui/StyledComponents";
 import RobisonInvoiceHeader from "./InvoiceHeader";
 import SubmittedToContent from "./SubmittedToContent";
-import { calculateTotalCost } from "../../pricing/pricing-utils";
+import { calculateCostForProductsInOption } from "../../pricing/pricing-utils";
 import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";
 
@@ -35,7 +35,9 @@ export const PdfDocument = ({ clientInfo, proposalDetails }) => {
       proposal_title: proposalDetails.data?.title,
       proposal_summary: proposalDetails.data?.summary,
       proposal_specifications: proposalDetails.data?.specifications,
-      invoiceTotal: calculateTotalCost(proposalDetails.data).invoiceTotal,
+      invoiceTotals: 0,
+      // TODO FIX THIS
+      // calculateCostForProductsInOption(proposalDetails).invoiceTotal,
     };
   }, [clientInfo, proposalDetails]);
 

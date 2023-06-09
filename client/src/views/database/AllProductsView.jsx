@@ -37,10 +37,10 @@ export default function AllProductsView() {
             filters,
             filter: filters[0],
             modelName: "",
-            catalogNum: "",
-            unitCost: "",
-            onSubmit: async ({ filter, modelName, catalogNum, unitCost }) =>
-              addProduct(dispatch, { filter, modelName, catalogNum, unitCost }),
+            modelNum: "",
+            cost: 0,
+            onSubmit: async ({ filter, modelName, modelNum, cost }) =>
+              addProduct(dispatch, { filter, modelName, modelNum, cost }),
           })
         }
       />
@@ -52,11 +52,11 @@ export default function AllProductsView() {
           { title: "Model name", field: "model" },
           {
             title: "Model #",
-            field: "catalogNum",
+            field: "modelNum",
           },
           {
             title: "Unit cost",
-            field: "unitCost",
+            field: "cost",
             type: "currency",
             searchable: false,
           },
@@ -67,13 +67,13 @@ export default function AllProductsView() {
 
           return {
             id: model.guid,
-            filter_guid: model.category,
+            filter_guid: model.modelNum,
             filter_label:
               modelNameSanitized.charAt(0).toUpperCase() +
               modelNameSanitized.slice(1),
             model: model.label,
-            catalogNum: model.catalog,
-            unitCost: model.cost,
+            modelNum: model.modelNum,
+            cost: model.cost,
             guid: model.guid,
           };
         })}
@@ -98,20 +98,20 @@ export default function AllProductsView() {
                   guid: rowData.filter_guid,
                 },
                 modelName: rowData.model,
-                catalogNum: rowData.catalogNum,
-                unitCost: rowData.unitCost,
+                modelNum: rowData.modelNum,
+                cost: rowData.cost,
                 onSubmit: async ({
                   modelName: newModelName,
-                  catalogNum: newCatalogNum,
-                  unitCost: newUnitCost,
+                  modelNum: newModelNum,
+                  cost: newCost,
                   image,
                 }) =>
                   editProduct(dispatch, {
                     guid: rowData.guid,
                     filter_guid: rowData.filter_guid,
                     modelName: newModelName,
-                    catalogNum: newCatalogNum,
-                    unitCost: newUnitCost,
+                    modelNum: newModelNum,
+                    cost: newCost,
                     image,
                   }),
               });

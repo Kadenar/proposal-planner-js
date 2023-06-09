@@ -1,7 +1,4 @@
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
-
-import { omit } from "lodash";
 
 import {
   Paper,
@@ -18,64 +15,19 @@ import {
   ConfigureUnitCostTax,
 } from "../PricingInputs";
 import { BoldedTableCell } from "../../../coreui/StyledComponents";
-import {
-  calculateCostForOption,
-  calculateCostForProductsInOption,
-  calculateFees,
-  calculateLabor,
-  ccyFormat,
-  getQuoteName,
-} from "../pricing-utils";
+import { ccyFormat, getQuoteName } from "../pricing-utils";
+import { useProposalData } from "../../../../hooks/useProposalData";
 
 const CostBreakdown = () => {
   const { selectedProposal } = useSelector((state) => state.selectedProposal);
 
-  const products = selectedProposal.data.products;
-
-  // The columns that should be dynamically added to the table to represent each option quoted
-  // TODO move this to be rows
-  const optionsRows = useMemo(() => {
-    return products.reduce((result, currentValue) => {
-      (result[currentValue.quote_option] =
-        result[currentValue.quote_option] || []).push(currentValue.data);
-      return result;
-    }, {});
-  }, [products]);
-
-  // Calculate the cost of products applied to ALL quotes
-  const costForAll = useMemo(() => {
-    return calculateCostForProductsInOption(optionsRows[0] || []);
-  }, [optionsRows]);
-
-  const tableInfo = useMemo(() => {
-    // Omit option 0
-    const remainingOptions = omit(optionsRows, "0");
-
-    // Calculate the cost of the remaining options
-    return Object.keys(remainingOptions).reduce(
-      (result, option) => ({
-        ...result,
-        [option]: calculateCostForOption(
-          selectedProposal.data,
-          optionsRows[option],
-          costForAll
-        ),
-      }),
-      {}
-    );
-  }, [optionsRows, costForAll, selectedProposal]);
-
-  const arrayOfTableInfo = useMemo(() => {
-    return Object.keys(tableInfo);
-  }, [tableInfo]);
-
-  const fees = useMemo(() => {
-    return calculateFees(selectedProposal.data.fees);
-  }, [selectedProposal]);
-
-  const labor = useMemo(() => {
-    return calculateLabor(selectedProposal.data.labor);
-  }, [selectedProposal]);
+  const {
+    productsInOptionsArrays,
+    costAppliedToAllQuotes,
+    arrayOfQuoteNames,
+    labor,
+    fees,
+  } = useProposalData(selectedProposal);
 
   return (
     <TableContainer component={Paper}>
@@ -84,8 +36,8 @@ const CostBreakdown = () => {
           <TableRow>
             <BoldedTableCell>Costs</BoldedTableCell>
             <TableCell>Cost applicable to all options</TableCell>
-            {arrayOfTableInfo.length > 0 ? (
-              arrayOfTableInfo.map((info) => {
+            {arrayOfQuoteNames.length > 0 ? (
+              arrayOfQuoteNames.map((info) => {
                 return <TableCell>{getQuoteName(info)}</TableCell>;
               })
             ) : (
@@ -97,12 +49,12 @@ const CostBreakdown = () => {
         <TableBody>
           <TableRow>
             <BoldedTableCell>Base cost</BoldedTableCell>
-            <TableCell>{ccyFormat(costForAll)}</TableCell>
-            {arrayOfTableInfo.length > 0 ? (
-              arrayOfTableInfo.map((info) => {
+            <TableCell>{ccyFormat(costAppliedToAllQuotes)}</TableCell>
+            {arrayOfQuoteNames.length > 0 ? (
+              arrayOfQuoteNames.map((info) => {
                 return (
                   <TableCell>
-                    {ccyFormat(tableInfo[info].itemSubtotal)}
+                    {ccyFormat(productsInOptionsArrays[info].itemSubtotal)}
                   </TableCell>
                 );
               })
@@ -115,11 +67,11 @@ const CostBreakdown = () => {
             <TableCell>
               <ConfigureUnitCostTax />
             </TableCell>
-            {arrayOfTableInfo.length > 0 ? (
-              arrayOfTableInfo.map((info) => {
+            {arrayOfQuoteNames.length > 0 ? (
+              arrayOfQuoteNames.map((info) => {
                 return (
                   <TableCell>
-                    {ccyFormat(tableInfo[info].totalWithTaxes)}
+                    {ccyFormat(productsInOptionsArrays[info].totalWithTaxes)}
                   </TableCell>
                 );
               })
@@ -131,11 +83,11 @@ const CostBreakdown = () => {
             <BoldedTableCell>Cost with labor</BoldedTableCell>
             <TableCell>{ccyFormat(labor)}</TableCell>
 
-            {arrayOfTableInfo.length > 0 ? (
-              arrayOfTableInfo.map((info) => {
+            {arrayOfQuoteNames.length > 0 ? (
+              arrayOfQuoteNames.map((info) => {
                 return (
                   <TableCell>
-                    {ccyFormat(tableInfo[info].costWithLabor)}
+                    {ccyFormat(productsInOptionsArrays[info].costWithLabor)}
                   </TableCell>
                 );
               })
@@ -148,11 +100,13 @@ const CostBreakdown = () => {
             <TableCell>
               <ConfigureMultiplier />
             </TableCell>
-            {arrayOfTableInfo.length > 0 ? (
-              arrayOfTableInfo.map((info) => {
+            {arrayOfQuoteNames.length > 0 ? (
+              arrayOfQuoteNames.map((info) => {
                 return (
                   <TableCell>
-                    {ccyFormat(tableInfo[info].costAfterMultiplier)}
+                    {ccyFormat(
+                      productsInOptionsArrays[info].costAfterMultiplier
+                    )}
                   </TableCell>
                 );
               })
@@ -163,11 +117,11 @@ const CostBreakdown = () => {
           <TableRow>
             <BoldedTableCell>Cost after fees</BoldedTableCell>
             <TableCell>{ccyFormat(fees)}</TableCell>
-            {arrayOfTableInfo.length > 0 ? (
-              arrayOfTableInfo.map((info) => {
+            {arrayOfQuoteNames.length > 0 ? (
+              arrayOfQuoteNames.map((info) => {
                 return (
                   <TableCell>
-                    {ccyFormat(tableInfo[info].costAfterFees)}
+                    {ccyFormat(productsInOptionsArrays[info].costAfterFees)}
                   </TableCell>
                 );
               })
@@ -180,21 +134,24 @@ const CostBreakdown = () => {
             <TableCell>
               <ConfigureCommission />
             </TableCell>
-            {arrayOfTableInfo.length > 0 ? (
-              arrayOfTableInfo.map((info) => {
-                return (
-                  <TableCell>
-                    {ccyFormat(tableInfo[info].invoiceTotal)}
-                  </TableCell>
-                );
-              })
-            ) : (
-              <TableCell />
-            )}
+            <OptionTableCell
+              arrayOfOptions={productsInOptionsArrays}
+              key={"invoiceTotal"}
+            />
           </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
+  );
+};
+
+const OptionTableCell = ({ arrayOfOptions, key }) => {
+  return arrayOfOptions.length > 0 ? (
+    arrayOfOptions.map((info) => {
+      return <TableCell>{ccyFormat(arrayOfOptions[info][key])}</TableCell>;
+    })
+  ) : (
+    <TableCell />
   );
 };
 

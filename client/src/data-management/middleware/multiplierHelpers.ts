@@ -1,3 +1,4 @@
+import { Multiplier } from "./Interfaces.ts";
 import { runGetRequest } from "./database-actions.ts";
 
 import {
@@ -9,7 +10,7 @@ import {
  * Fetch all multipliers in the database
  * @returns
  */
-export async function fetchMultipliers(): Promise<any> {
+export async function fetchMultipliers(): Promise<Multiplier[]> {
   return runGetRequest("multipliers");
 }
 
@@ -17,7 +18,7 @@ export async function fetchMultipliers(): Promise<any> {
  * Add a new multiplier to the database
  * @returns
  */
-export async function addMultiplier(value: string) {
+export async function addMultiplier(value: number) {
   return simpleAddToDatabase(fetchMultipliers, "multipliers", value);
 }
 
@@ -25,7 +26,7 @@ export async function addMultiplier(value: string) {
  * Edit an existing multiplier to the database
  * @returns
  */
-export async function editMultiplier(guid: string, value: string) {
+export async function editMultiplier(guid: string, value: number) {
   console.error("IMPLEMENT THIS METHOD BEFORE ATTEMPTING TO USE IT!");
   return null;
 }
@@ -34,6 +35,6 @@ export async function editMultiplier(guid: string, value: string) {
  * Delete a given multiplier from the database
  * @returns
  */
-export const deleteMultiplier = async (value: string) => {
+export const deleteMultiplier = async (value: number) => {
   return simpleDeleteFromDatabase(fetchMultipliers, "multipliers", value);
 };

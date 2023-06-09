@@ -39,7 +39,9 @@ const LaborAndFeesView = () => {
         />
 
         <MaterialTable
-          title={"Labor management (controls defaults for all new proposals)"}
+          title={
+            "Labor management - (This controls defaults for new proposals)"
+          }
           columns={[
             { title: "Name", field: "name" },
             {
@@ -66,8 +68,8 @@ const LaborAndFeesView = () => {
             maxColumnSort: "all_columns",
             search: false,
             actionsColumnIndex: -1,
-            pageSizeOptions: [8, 16, 24],
-            pageSize: 8,
+            pageSizeOptions: [5, 10, 15],
+            pageSize: 5,
           }}
           actions={[
             {
@@ -117,7 +119,7 @@ const LaborAndFeesView = () => {
         />
 
         <MaterialTable
-          title={"Fee management (controls defaults for all new proposals)"}
+          title={"Fee management - (This controls defaults for new proposals)"}
           columns={[
             { title: "Name", field: "name" },
             {
@@ -150,8 +152,8 @@ const LaborAndFeesView = () => {
             maxColumnSort: "all_columns",
             search: false,
             actionsColumnIndex: -1,
-            pageSizeOptions: [8, 16, 24],
-            pageSize: 8,
+            pageSizeOptions: [5, 10, 15],
+            pageSize: 5,
           }}
           actions={[
             {

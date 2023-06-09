@@ -10,7 +10,7 @@ import { Button, Stack } from "@mui/material";
 import { StyledIconButton } from "../../components/coreui/StyledComponents";
 import { addProductToProposalDialog } from "../../components/coreui/dialogs/frontend/AddProductToProposalDialog";
 import { removeAllProductsFromProposal } from "../../data-management/store/slices/selectedProposalSlice";
-import { saveProposal } from "../../data-management/middleware/proposalHelpers";
+import { saveProposal } from "../../data-management/store/slices/proposalsSlice";
 import { handleAddProductToProposal } from "../../components/proposal-ui/pricing/pricing-utils";
 import ProductsForProposal from "../../components/proposal-ui/pricing/Table/ProductsForProposal";
 import FeesAndLaborForProposal from "../../components/proposal-ui/pricing/Table/FeesAndLaborForProposal";
@@ -40,14 +40,14 @@ export default function ProposalPricingView() {
               filter: filters[0],
               allProducts: products,
               selectedProduct: undefined,
-              quantity: 1,
+              qty: 1,
               quote_option: 1,
-              onSubmit: (selectedProduct, quantity, quote_option) =>
+              onSubmit: (selectedProduct, qty, quote_option) =>
                 handleAddProductToProposal(
                   dispatch,
                   selectedProposal,
                   selectedProduct,
-                  quantity,
+                  qty,
                   quote_option
                 ),
             });

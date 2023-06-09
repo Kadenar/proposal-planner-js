@@ -31,7 +31,7 @@ export async function runPostRequest(items: object, path: string) {
 export async function simpleAddToDatabase(
   fetchItemsFunc = async (): Promise<any> => {},
   path: string,
-  valueToAdd: string,
+  valueToAdd: string | number,
   conflictChecker = { key: "value", checkForConflicts: true }
 ) {
   const existingItems = await fetchItemsFunc();
@@ -78,7 +78,7 @@ export async function simpleAddObjectToDatabase(
 export async function simpleDeleteFromDatabase(
   fetchItemsFunc = async (): Promise<any> => {},
   path = "",
-  valueToDelete: string,
+  valueToDelete: string | number,
   key = "value"
 ) {
   if (path === "") {

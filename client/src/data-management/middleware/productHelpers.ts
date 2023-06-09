@@ -3,13 +3,17 @@ import {
   runPostRequest,
   simpleDeleteItemInArrayFromDatabase,
 } from "./database-actions.ts";
-import * as Interface from "./Interfaces.ts";
+import {
+  PsuedoObjectOfProducts,
+  ProductObject,
+  FlattenedProductObject,
+} from "./Interfaces.ts";
 
 /**
  * Fetch all products in the database
  * @returns
  */
-export async function fetchProducts(): Promise<Interface.ObjectOfProducts> {
+export async function fetchProducts(): Promise<PsuedoObjectOfProducts> {
   return runGetRequest("products");
 }
 
@@ -20,16 +24,11 @@ export async function fetchProducts(): Promise<Interface.ObjectOfProducts> {
 export async function addProduct(
   filter_guid: string,
   modelName: string,
-  catalogNum: string,
-  unitCost: number,
+  modelNum: string,
+  cost: number,
   image?: any
 ) {
-  const error = validateProductInfo(
-    filter_guid,
-    modelName,
-    catalogNum,
-    unitCost
-  );
+  const error = validateProductInfo(filter_guid, modelName, modelNum, cost);
 
   if (error) {
     return error;
@@ -38,8 +37,8 @@ export async function addProduct(
   const existingProductData = await fetchProducts();
 
   const conflict = existingProductData[filter_guid]?.find(
-    (existing: Interface.ProductObject) => {
-      return existing.model === modelName || existing.catalog === catalogNum;
+    (existing: ProductObject) => {
+      return existing.modelNum === modelNum || existing.modelNum === modelNum;
     }
   );
 
@@ -48,7 +47,7 @@ export async function addProduct(
       status: 500,
       data: {
         message:
-          "Another product with the same name / catalog number already exists.",
+          "Another product with the same name / modelNum number already exists.",
       },
     };
   }
@@ -58,11 +57,11 @@ export async function addProduct(
   if (newProducts[filter_guid] === undefined) {
     newProducts[filter_guid] = [
       {
-        model: modelName,
-        catalog: catalogNum,
-        cost: unitCost,
-        image: image,
         guid: crypto.randomUUID(),
+        model: modelName,
+        modelNum,
+        cost,
+        image,
       },
     ];
   } else {
@@ -71,15 +70,15 @@ export async function addProduct(
       {
         guid: crypto.randomUUID(),
         model: modelName,
-        catalog: catalogNum,
-        cost: unitCost,
-        image: image,
+        modelNum,
+        cost,
+        image,
       },
     ];
   }
 
   // Filter out any categories that have no products associated with them
-  const filteredProducts: Interface.ObjectOfProducts = {};
+  const filteredProducts: PsuedoObjectOfProducts = {};
   Object.keys(newProducts)
     .filter((product) => newProducts[product].length !== 0)
     .forEach((name) => {
@@ -97,16 +96,11 @@ export async function editExistingProduct(
   guid: string,
   filter_guid: string,
   modelName: string,
-  catalogNum: string,
-  unitCost: number,
+  modelNum: string,
+  cost: number,
   image?: any
 ) {
-  const error = validateProductInfo(
-    filter_guid,
-    modelName,
-    catalogNum,
-    unitCost
-  );
+  const error = validateProductInfo(filter_guid, modelName, modelNum, cost);
 
   if (error) {
     return error;
@@ -115,7 +109,7 @@ export async function editExistingProduct(
   const existingProductData = await fetchProducts();
 
   const index = existingProductData[filter_guid].findIndex(
-    (existingProduct: Interface.ProductObject) => {
+    (existingProduct: ProductObject) => {
       return existingProduct.guid === guid;
     }
   );
@@ -133,9 +127,9 @@ export async function editExistingProduct(
   newProductsData[filter_guid][index] = {
     ...newProductsData[filter_guid][index],
     model: modelName,
-    catalog: catalogNum,
-    cost: unitCost,
-    image: image,
+    modelNum,
+    cost,
+    image,
   };
 
   return runPostRequest(newProductsData, "products");
@@ -159,14 +153,14 @@ export async function deleteProduct(guid: string, filter: string) {
  * Given the database product data, flatten all of the keys into a single array
  * @returns
  */
-export const flattenProductData = (productData: Interface.ObjectOfProducts) => {
-  const products: Interface.FlattenedProductObject[] = [];
+export const flattenProductData = (productData: PsuedoObjectOfProducts) => {
+  const products: FlattenedProductObject[] = [];
   Object.keys(productData).map((key) => {
-    return productData[key].forEach((model: Interface.ProductObject) => {
+    return productData[key].forEach((model: ProductObject) => {
       products.push({
         category: key,
         label: model.model,
-        catalog: model.catalog,
+        modelNum: model.modelNum,
         cost: model.cost,
         guid: model.guid,
         image: model.image,
@@ -185,8 +179,8 @@ export const getFlattenedProductData = async () => {
 function validateProductInfo(
   filter_guid: string,
   modelName: string,
-  catalogNum: string,
-  unitCost: number
+  modelNum: string,
+  cost: number
 ) {
   if (filter_guid === "") {
     return {
@@ -202,14 +196,14 @@ function validateProductInfo(
     };
   }
 
-  if (catalogNum === "") {
+  if (modelNum === "") {
     return {
       status: 500,
       data: { message: "Please specify a model #." },
     };
   }
 
-  if (!unitCost || unitCost <= 0) {
+  if (cost <= 0) {
     return {
       status: 500,
       data: { message: "Please specify a non-zero cost." },

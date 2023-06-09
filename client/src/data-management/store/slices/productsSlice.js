@@ -32,12 +32,12 @@ export const initializeProducts = () => async (dispatch) => {
 
 export async function addProduct(
   dispatch,
-  { filter, modelName, catalogNum, unitCost }
+  { filter, modelName, modelNum, cost }
 ) {
   return updateStore({
     dispatch,
     dbOperation: async () =>
-      add_product(filter.guid, modelName, catalogNum, unitCost),
+      add_product(filter.guid, modelName, modelNum, cost),
     methodToDispatch: updateProducts,
     dataKey: "products",
     successMessage: "Successfully added product.",
@@ -46,19 +46,12 @@ export async function addProduct(
 
 export async function editProduct(
   dispatch,
-  { guid, filter_guid, modelName, catalogNum, unitCost, image }
+  { guid, filter_guid, modelName, modelNum, cost, image }
 ) {
   return updateStore({
     dispatch,
     dbOperation: async () =>
-      editExistingProduct(
-        guid,
-        filter_guid,
-        modelName,
-        catalogNum,
-        unitCost,
-        image
-      ),
+      editExistingProduct(guid, filter_guid, modelName, modelNum, cost, image),
     methodToDispatch: updateProducts,
     dataKey: "products",
     successMessage: "Successfully edited product!",
