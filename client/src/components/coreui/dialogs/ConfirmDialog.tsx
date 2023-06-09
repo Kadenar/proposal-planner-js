@@ -11,7 +11,13 @@ import {
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { create } from "zustand";
 
-const useConfirmDialogStore = create((set) => ({
+interface ConfirmDialogType {
+  message: string;
+  onSubmit: (() => boolean) | undefined;
+  close: () => void;
+}
+
+const useConfirmDialogStore = create<ConfirmDialogType>((set) => ({
   message: "",
   onSubmit: undefined,
   close: () => set({ onSubmit: undefined }),
@@ -57,7 +63,13 @@ const ConfirmDialog = () => {
   );
 };
 
-export const confirmDialog = ({ message, onSubmit }) => {
+export const confirmDialog = ({
+  message,
+  onSubmit,
+}: {
+  message: string;
+  onSubmit: () => boolean;
+}) => {
   useConfirmDialogStore.setState({
     message,
     onSubmit,

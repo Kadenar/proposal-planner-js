@@ -2,12 +2,33 @@ import { Button, TextField, Stack, Autocomplete } from "@mui/material";
 
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
+import { ClientObject } from "../../../../data-management/middleware/Interfaces";
 
-const useProposalDialogStore = create((set) => ({
+interface NewProposalDialogStore {
+  name: string;
+  description: string;
+  clients: ClientObject[];
+  owner: ClientObject | null;
+  onSubmit:
+    | ((name: string, description: string, guid: string | undefined) => boolean)
+    | undefined;
+  isExistingProposal: boolean;
+  updateName: (name: string) => void;
+  updateDescription: (description: string) => void;
+  updateOwner: (owner: ClientObject | null) => void;
+  close: () => void;
+}
+
+const useProposalDialogStore = create<NewProposalDialogStore>((set) => ({
   name: "",
   description: "",
   owner: {
     guid: "",
+    name: "",
+    address: "",
+    state: "",
+    city: "",
+    zip: "",
   },
   clients: [],
   onSubmit: undefined,
@@ -90,7 +111,11 @@ const NewProposalDialog = () => {
                 return;
               }
 
-              const returnValue = await onSubmit(name, description, owner.guid);
+              const returnValue = await onSubmit(
+                name,
+                description,
+                owner?.guid
+              );
 
               if (returnValue) {
                 close();
@@ -112,11 +137,16 @@ export const newProposalDialog = ({
   description = "",
   owner = {
     guid: "",
+    name: "",
+    address: "",
+    state: "",
+    city: "",
+    zip: "",
   },
   clients = [],
   isExistingProposal = false,
   onSubmit,
-}) => {
+}: NewProposalDialogStore) => {
   useProposalDialogStore.setState({
     name,
     description,

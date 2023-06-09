@@ -19,7 +19,6 @@ import {
 
 export function CollapsibleRow({
   title = "",
-  costOfItem = 0,
   breakdown = [],
   configure = () => {},
 }) {

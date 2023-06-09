@@ -1,8 +1,21 @@
 import { DialogTitle, DialogContent, DialogActions } from "@mui/material";
 
 import { StyledBootstrapDialog } from "../StyledComponents";
+import { ReactNode } from "react";
 
-const BaseDialog = ({ title, content, actions, show, close = () => {} }) => {
+const BaseDialog = ({
+  title,
+  content,
+  actions,
+  show,
+  close = () => {},
+}: {
+  title: string;
+  content: ReactNode;
+  actions: ReactNode;
+  show: boolean;
+  close: () => void;
+}) => {
   return (
     <StyledBootstrapDialog
       PaperProps={{

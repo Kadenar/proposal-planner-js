@@ -4,12 +4,12 @@ import { batch, useDispatch } from "react-redux";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
 
-import Navbar from "./components/coreui/Sidebar/Navbar.js";
-import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog.jsx";
+import Navbar from "./components/coreui/Sidebar/Navbar.tsx";
+import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog.tsx";
 import ProductDialog from "./components/coreui/dialogs/backend/ProductDialog.jsx";
 import ProductTypeDialog from "./components/coreui/dialogs/backend/ProductTypeDialog.jsx";
 import AddProductToProposalDialog from "./components/coreui/dialogs/frontend/AddProductToProposalDialog.jsx";
-import NewProposalDialog from "./components/coreui/dialogs/frontend/NewProposalDialog.jsx";
+import NewProposalDialog from "./components/coreui/dialogs/frontend/NewProposalDialog.tsx";
 import AddScalarValueDialog from "./components/coreui/dialogs/backend/AddScalarValueDialog.jsx";
 import CustomSnackbar from "./components/coreui/CustomSnackbar.jsx";
 

@@ -1,11 +1,7 @@
 import { useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import calculateLabor, {
-  calculateFees,
-  returnOnlyValidFees,
-  returnOnlyValidLabor,
-} from "../pricing-utils";
+import { returnOnlyValidFees, returnOnlyValidLabor } from "../pricing-utils";
 
 import { Paper, TableBody, TableContainer, Table } from "@mui/material";
 
@@ -75,14 +71,6 @@ export default function FeesAndLaborForProposal() {
     });
   }, [proposalFees]);
 
-  const costOfFeesTotal = useMemo(() => {
-    return calculateFees(proposalFees);
-  }, [proposalFees]);
-
-  const costOfLaborTotal = useMemo(() => {
-    return calculateLabor(proposalLabors);
-  }, [proposalLabors]);
-
   return (
     <>
       {/* Our second table contains cost breakdown */}
@@ -96,7 +84,6 @@ export default function FeesAndLaborForProposal() {
             {/* Labor */}
             <CollapsibleRow
               title={"Labor"}
-              costOfItem={costOfLaborTotal}
               breakdown={laborBreakDown}
               configure={() =>
                 laborsDialog({
@@ -133,7 +120,6 @@ export default function FeesAndLaborForProposal() {
             {/* Fees */}
             <CollapsibleRow
               title={"Fees"}
-              costOfItem={costOfFeesTotal}
               breakdown={feesBreakDown}
               configure={() =>
                 feesDialog({

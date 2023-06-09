@@ -10,9 +10,9 @@ import { flattenProductData } from "../../data-management/middleware/productHelp
 
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog.jsx";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog.tsx";
 import { productDialog } from "../../components/coreui/dialogs/backend/ProductDialog.jsx";
-import AddNewItem from "../../components/coreui/AddNewItem.jsx";
+import AddNewItem from "../../components/coreui/AddNewItem.tsx";
 
 /**
  * Component used to display the set of products that have been selected for this particular job

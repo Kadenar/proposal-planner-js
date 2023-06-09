@@ -35,6 +35,8 @@ export interface ClientObject {
   email?: string;
   accountNum?: string;
 }
+export type Nullable<ClientObject> = ClientObject | null;
+
 export interface Fee {
   guid: string;
   name: string;
@@ -95,3 +97,34 @@ export type ProductOnProposal = {
   qty: number;
   quote_option: number;
 };
+
+export interface ReduxStore {
+  clients: {
+    clients: ClientObject[];
+    selectedClient: ClientObject | null;
+  };
+  commissions: {
+    commissions: Commission[];
+  };
+  fees: {
+    fees: Fee[];
+  };
+  filters: {
+    filters: ProductTypeObject[];
+  };
+  labors: {
+    labors: Labor[];
+  };
+  multipliers: {
+    multipliers: Multiplier[];
+  };
+  products: {
+    products: ProductObject[];
+  };
+  proposals: {
+    proposals: ProposalObject[];
+  };
+  selectedProposal: {
+    selectedProposal: ProposalData | null;
+  };
+}

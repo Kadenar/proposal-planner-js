@@ -16,7 +16,6 @@ export const productsSlice = createSlice({
   reducers: {
     updateProducts: (state, value) => {
       state.products = value.payload;
-      state.isLoading = false;
     },
   },
 });
