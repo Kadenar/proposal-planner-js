@@ -7,8 +7,20 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 
 import BaseDialog from "../BaseDialog";
+import { PsuedoObjectOfLabor } from "../../../../data-management/middleware/Interfaces";
 
-const useLaborStore = create((set) => ({
+interface LaborStoreActions {
+  labor: PsuedoObjectOfLabor | undefined;
+  onSubmit:
+    | ((labor: PsuedoObjectOfLabor) => Promise<boolean | undefined>)
+    | undefined;
+}
+interface LaborStoreType extends LaborStoreActions {
+  setLabor: (labor: PsuedoObjectOfLabor) => void;
+  close: () => void;
+}
+
+const useLaborStore = create<LaborStoreType>((set) => ({
   labor: {},
   onSubmit: undefined,
   setLabor: (labor) => set(() => ({ labor: labor })),
@@ -72,7 +84,7 @@ const LaborsDialog = () => {
                       };
                       newLabor[type] = {
                         ...newLabor[type],
-                        cost: e.target.value,
+                        cost: Number(e.target.value),
                       };
                       setLabor(newLabor);
                     }}
@@ -118,7 +130,7 @@ const LaborsDialog = () => {
   );
 };
 
-export const laborsDialog = ({ labor = [], onSubmit }) => {
+export const laborsDialog = ({ labor, onSubmit }: LaborStoreActions) => {
   useLaborStore.setState({
     labor,
     onSubmit,

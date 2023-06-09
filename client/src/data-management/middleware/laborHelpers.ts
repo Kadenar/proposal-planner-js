@@ -18,12 +18,7 @@ export async function fetchLabors(): Promise<Labor[]> {
  * Add a new labor to the database
  * @returns
  */
-export async function addLabor(
-  name: string,
-  qty: number,
-  cost: number,
-  type: string
-) {
+export async function addLabor(name: string, qty: number, cost: number) {
   const error = validateLabor(name, qty, cost);
 
   if (error) {
@@ -35,7 +30,6 @@ export async function addLabor(
     name,
     qty,
     cost,
-    type: type || "+",
   });
 }
 

@@ -6,7 +6,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/coreui/Sidebar/Navbar.tsx";
 import ConfirmDialog from "./components/coreui/dialogs/ConfirmDialog.tsx";
-import ProductDialog from "./components/coreui/dialogs/backend/ProductDialog.jsx";
+import ProductDialog from "./components/coreui/dialogs/backend/ProductDialog.tsx";
 import ProductTypeDialog from "./components/coreui/dialogs/backend/ProductTypeDialog.jsx";
 import AddProductToProposalDialog from "./components/coreui/dialogs/frontend/AddProductToProposalDialog.jsx";
 import NewProposalDialog from "./components/coreui/dialogs/frontend/NewProposalDialog.tsx";
@@ -23,15 +23,15 @@ import NewClientDialog from "./components/coreui/dialogs/frontend/NewClientDialo
 import { initializeProductTypes } from "./data-management/store/slices/productTypesSlice.js";
 import { initializeMultipliers } from "./data-management/store/slices/multipliersSlice.js";
 import { initializeCommissions } from "./data-management/store/slices/commissionsSlice.js";
-import { initializeProposals } from "./data-management/store/slices/proposalsSlice.js";
-import { initializeProducts } from "./data-management/store/slices/productsSlice.js";
-import { initializeClients } from "./data-management/store/slices/clientsSlice.js";
-import { initializeLabors } from "./data-management/store/slices/laborsSlice.js";
-import { initializeFees } from "./data-management/store/slices/feesSlice.js";
-import LaborDialog from "./components/coreui/dialogs/backend/LaborDialog.jsx";
-import FeeDialog from "./components/coreui/dialogs/backend/FeeDialog.jsx";
-import LaborsDialog from "./components/coreui/dialogs/frontend/LaborsDialog.jsx";
-import FeesDialog from "./components/coreui/dialogs/frontend/FeesDialog.jsx";
+import { initializeProposals } from "./data-management/store/slices/proposalsSlice.ts";
+import { initializeProducts } from "./data-management/store/slices/productsSlice.ts";
+import { initializeClients } from "./data-management/store/slices/clientsSlice.ts";
+import { initializeLabors } from "./data-management/store/slices/laborsSlice.ts";
+import { initializeFees } from "./data-management/store/slices/feesSlice.ts";
+import LaborDialog from "./components/coreui/dialogs/backend/LaborDialog.tsx";
+import FeeDialog from "./components/coreui/dialogs/backend/FeeDialog.tsx";
+import LaborsDialog from "./components/coreui/dialogs/frontend/LaborsDialog.tsx";
+import FeesDialog from "./components/coreui/dialogs/frontend/FeesDialog.tsx";
 import SchedulePage from "./landingpages/SchedulePage.jsx";
 
 const ProposalPlanner = () => {

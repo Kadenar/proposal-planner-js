@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import {
   fetchClients as fetch_clients,
   addClient as add_client,
@@ -6,7 +6,8 @@ import {
   saveClient as save_client,
 } from "../../middleware/clientHelpers.ts";
 
-import { updateStore } from "../Dispatcher.js";
+import { updateStore } from "../Dispatcher.ts";
+import { ClientObject, NewClientObject } from "../../middleware/Interfaces.ts";
 
 // REDUCERS
 
@@ -24,8 +25,10 @@ export const clientsSlice = createSlice({
       state.selectedClient = value.payload;
     },
     updateClientDetails: (state, data) => {
-      const { key, value } = data.payload;
-      state.selectedClient[key] = value;
+      const { key, value }: { key: string; value: string } = data.payload;
+      if (state.selectedClient) {
+        state.selectedClient[key] = value; // TODO come back to why typesript is yelling at me
+      }
     },
   },
 });
@@ -37,17 +40,19 @@ export default clientsSlice.reducer;
 const { updateClients, selectClient, updateClientDetails } =
   clientsSlice.actions;
 
-export const updateActiveClient = (dispatch, { value }) =>
-  dispatch(selectClient(value));
+export const updateActiveClient = (
+  dispatch: Dispatch,
+  { value }: { value: ClientObject }
+) => dispatch(selectClient(value));
 
-export const initializeClients = () => async (dispatch) => {
+export const initializeClients = () => async (dispatch: Dispatch) => {
   let clients = await fetch_clients();
   dispatch(updateClients(clients));
 };
 
 export async function addClient(
-  dispatch,
-  { name, address, apt, state, city, zip }
+  dispatch: Dispatch,
+  { name, address, apt, state, city, zip }: NewClientObject
 ) {
   return updateStore({
     dispatch,
@@ -59,57 +64,86 @@ export async function addClient(
   });
 }
 
-export async function setClientName(dispatch, { value }) {
+export async function setClientName(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "name", value }));
 }
 
-export async function setClientAddress(dispatch, { value }) {
+export async function setClientAddress(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "address", value }));
 }
 
-export async function setClientApt(dispatch, { value }) {
+export async function setClientApt(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "apt", value }));
 }
 
-export async function setClientCity(dispatch, { value }) {
+export async function setClientCity(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "city", value }));
 }
 
-export async function setClientState(dispatch, { value }) {
+export async function setClientState(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "state", value }));
 }
 
-export async function setClientZip(dispatch, { value }) {
+export async function setClientZip(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "zip", value }));
 }
 
-export async function setClientPhone(dispatch, { value }) {
+export async function setClientPhone(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "phone", value }));
 }
 
-export async function setClientEmail(dispatch, { value }) {
+export async function setClientEmail(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "email", value }));
 }
 
-export async function setClientAccountNum(dispatch, { value }) {
+export async function setClientAccountNum(
+  dispatch: Dispatch,
+  { value }: { value: string }
+) {
   dispatch(updateClientDetails({ key: "accountNum", value }));
 }
 
-export async function saveClient(dispatch, { guid, newClientInfo }) {
+export async function saveClient(
+  dispatch: Dispatch,
+  newClientInfo: ClientObject
+) {
   return updateStore({
     dispatch,
-    dbOperation: async () =>
-      save_client({
-        ...newClientInfo,
-        guid,
-      }),
+    dbOperation: async () => save_client(newClientInfo),
     methodToDispatch: updateClients,
     dataKey: "clients",
     successMessage: "Client details were saved successfully.",
   });
 }
 
-export async function deleteClient(dispatch, { guid }) {
+export async function deleteClient(
+  dispatch: Dispatch,
+  { guid }: { guid: string }
+) {
   return updateStore({
     dispatch,
     dbOperation: async () => delete_client(guid),

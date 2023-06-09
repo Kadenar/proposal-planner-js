@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { Button, Stack } from "@mui/material";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 
 import { TextField, Typography } from "@mui/material";
@@ -17,10 +18,15 @@ import {
   setClientState,
   setClientZip,
 } from "../../data-management/store/slices/clientsSlice";
+import { ReduxStore } from "../../data-management/middleware/Interfaces";
 
 const ClientAddressView = () => {
   const dispatch = useDispatch();
-  const { selectedClient } = useSelector((state) => state.clients);
+  const { selectedClient } = useSelector((state: ReduxStore) => state.clients);
+
+  if (!selectedClient) {
+    return <></>;
+  }
 
   return (
     <>
@@ -29,21 +35,9 @@ const ClientAddressView = () => {
           variant="contained"
           onClick={async () => {
             saveClient(dispatch, {
-              guid: selectedClient.guid,
-              newClientInfo: {
-                name: selectedClient.name,
-                address: selectedClient.address,
-                apt: selectedClient.apt,
-                city: selectedClient.city,
-                state: selectedClient.state,
-                zip: selectedClient.zip,
-                phone: selectedClient.phone,
-                email: selectedClient.email,
-                accountNum: selectedClient.accountNum,
-              },
+              ...selectedClient,
             });
           }}
-          align="right"
         >
           Save client
         </Button>

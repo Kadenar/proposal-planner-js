@@ -17,9 +17,12 @@ import {
 import { BoldedTableCell } from "../../../coreui/StyledComponents";
 import { ccyFormat, getQuoteName } from "../pricing-utils";
 import { useProposalData } from "../../../../hooks/useProposalData";
+import { ReduxStore } from "../../../../data-management/middleware/Interfaces";
 
 const CostBreakdown = () => {
-  const { selectedProposal } = useSelector((state) => state.selectedProposal);
+  const { selectedProposal } = useSelector(
+    (state: ReduxStore) => state.selectedProposal
+  );
 
   const {
     productsInOptionsArrays,
@@ -37,8 +40,10 @@ const CostBreakdown = () => {
             <BoldedTableCell>Costs</BoldedTableCell>
             <TableCell>Cost applicable to all options</TableCell>
             {arrayOfQuoteNames.length > 0 ? (
-              arrayOfQuoteNames.map((info) => {
-                return <TableCell>{getQuoteName(info)}</TableCell>;
+              arrayOfQuoteNames.map((quote_name) => {
+                return (
+                  <TableCell>{getQuoteName(Number(quote_name))}</TableCell>
+                );
               })
             ) : (
               <TableCell></TableCell>

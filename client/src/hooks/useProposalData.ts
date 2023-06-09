@@ -5,24 +5,23 @@ import calculateLabor, {
   calculateFees,
 } from "../components/proposal-ui/pricing/pricing-utils";
 import { omit } from "lodash";
+import {
+  ProposalObject,
+  ProductOnProposal,
+} from "../data-management/middleware/Interfaces";
 
-import * as Interfaces from "../data-management/middleware/Interfaces";
-
-export function useProposalData(selectedProposal: Interfaces.ProposalObject) {
-  const products = selectedProposal.data.products;
-  const fees = selectedProposal.data.fees;
-  const labor = selectedProposal.data.labor;
+export function useProposalData(selectedProposal: ProposalObject) {
+  const products = selectedProposal?.data?.products;
+  const fees = selectedProposal?.data?.fees;
+  const labor = selectedProposal?.data?.labor;
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
-    return products.reduce<Interfaces.PsuedoObjectOfModel>(
-      (result, currentValue) => {
-        (result[currentValue.quote_option] =
-          result[currentValue.quote_option] || []).push(currentValue);
-        return result;
-      },
-      {} as Interfaces.PsuedoObjectOfModel
-    );
+    return products.reduce<ProductOnProposal[][]>((result, currentValue) => {
+      (result[currentValue.quote_option] =
+        result[currentValue.quote_option] || []).push(currentValue);
+      return result;
+    }, {} as ProductOnProposal[][]);
   }, [products]);
 
   // Calculate the cost of products applied to ALL quotes
@@ -36,16 +35,16 @@ export function useProposalData(selectedProposal: Interfaces.ProposalObject) {
     const remainingOptions = omit(productsInOptionsArrays, "0");
 
     // Calculate the cost of the remaining options
-    return Object.keys(remainingOptions).reduce<{ [key: string]: number }[]>(
-      (result, option: string) => ({
+    return Object.keys(remainingOptions).reduce<ProductOnProposal[]>(
+      (result, option) => ({
         ...result,
         [option]: calculateCostForOption(
           selectedProposal,
-          productsInOptionsArrays[option],
+          productsInOptionsArrays[option], // TODO Figure out this type issue
           costAppliedToAllQuotes
         ),
       }),
-      {} as { [key: string]: number }[]
+      {} as ProductOnProposal[]
     );
   }, [productsInOptionsArrays, costAppliedToAllQuotes, selectedProposal]);
 

@@ -18,11 +18,12 @@ import {
   editFee,
 } from "../../data-management/store/slices/feesSlice";
 import { feeDialog } from "../../components/coreui/dialogs/backend/FeeDialog";
+import { ReduxStore } from "../../data-management/middleware/Interfaces";
 
 const LaborAndFeesView = () => {
   const dispatch = useDispatch();
-  const { labors } = useSelector((state) => state.labors);
-  const { fees } = useSelector((state) => state.fees);
+  const { labors } = useSelector((state: ReduxStore) => state.labors);
+  const { fees } = useSelector((state: ReduxStore) => state.fees);
 
   return (
     <Stack spacing={2}>
@@ -31,7 +32,9 @@ const LaborAndFeesView = () => {
           onClick={() =>
             laborDialog({
               header: "Add labor",
-              productType: "",
+              name: "",
+              qty: 0,
+              cost: 0,
               onSubmit: async (name, qty, cost) =>
                 addLabor(dispatch, { name, qty, cost }),
             })
@@ -75,7 +78,7 @@ const LaborAndFeesView = () => {
             {
               icon: "edit",
               tooltip: "Edit labor",
-              onClick: (event, rowData) => {
+              onClick: (_, rowData) => {
                 laborDialog({
                   header: "Edit labor",
                   name: rowData.name,
@@ -94,7 +97,7 @@ const LaborAndFeesView = () => {
             {
               icon: "delete",
               tooltip: "Remove labor",
-              onClick: (event, rowData) => {
+              onClick: (_, rowData) => {
                 confirmDialog({
                   message:
                     "Do you really want to delete this? This action cannot be undone.",
@@ -111,9 +114,13 @@ const LaborAndFeesView = () => {
           onClick={() =>
             feeDialog({
               header: "Add fee",
-              productType: "",
-              onSubmit: async (name, qty, cost, type) =>
-                addFee(dispatch, { name, qty, cost, type }),
+              name: "",
+              qty: 0,
+              cost: 0,
+              type: "add",
+              onSubmit: async (name, qty, cost, type) => {
+                return addFee(dispatch, { name, qty, cost, type });
+              },
             })
           }
         />
@@ -159,7 +166,18 @@ const LaborAndFeesView = () => {
             {
               icon: "edit",
               tooltip: "Edit fee",
-              onClick: (event, rowData) => {
+              onClick: (
+                event,
+                rowData: {
+                  id: string;
+                  guid: string;
+                  name: string;
+                  qty: number;
+                  cost: number;
+                  type: string;
+                }
+              ) => {
+                console.log(event);
                 feeDialog({
                   header: "Edit fee",
                   name: rowData.name,
@@ -180,7 +198,7 @@ const LaborAndFeesView = () => {
             {
               icon: "delete",
               tooltip: "Remove fee",
-              onClick: (event, rowData) => {
+              onClick: (_, rowData) => {
                 confirmDialog({
                   message:
                     "Do you really want to delete this? This action cannot be undone.",

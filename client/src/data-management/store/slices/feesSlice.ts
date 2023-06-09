@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { updateStore } from "../Dispatcher.js";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
+import { updateStore } from "../Dispatcher.ts";
 import {
   addFee as add_fee,
   editFee as edit_fee,
@@ -27,12 +27,20 @@ export default feesSlice.reducer;
 
 const { updateFees } = feesSlice.actions;
 
-export const initializeFees = () => async (dispatch) => {
+export const initializeFees = () => async (dispatch: Dispatch) => {
   const labors = await fetchFees();
   dispatch(updateFees(labors));
 };
 
-export const addFee = async (dispatch, { name, qty, cost, type }) =>
+export const addFee = async (
+  dispatch: Dispatch,
+  {
+    name,
+    qty,
+    cost,
+    type,
+  }: { name: string; qty: number; cost: number; type: string }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => add_fee(name, qty, cost, type),
@@ -41,7 +49,16 @@ export const addFee = async (dispatch, { name, qty, cost, type }) =>
     successMessage: "Successfully added fee!",
   });
 
-export const editFee = async (dispatch, { guid, name, qty, cost, type }) =>
+export const editFee = async (
+  dispatch: Dispatch,
+  {
+    guid,
+    name,
+    qty,
+    cost,
+    type,
+  }: { guid: string; name: string; qty: number; cost: number; type: string }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => edit_fee(guid, name, qty, cost, type),
@@ -50,7 +67,10 @@ export const editFee = async (dispatch, { guid, name, qty, cost, type }) =>
     successMessage: "Successfully edited fee!",
   });
 
-export const deleteFee = async (dispatch, { guid }) =>
+export const deleteFee = async (
+  dispatch: Dispatch,
+  { guid }: { guid: string }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => delete_fee(guid),

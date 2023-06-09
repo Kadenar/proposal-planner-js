@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateStore } from "../Dispatcher.js";
+import { updateStore } from "../Dispatcher.ts";
 import {
   addMultiplier as add_multiplier,
   editMultiplier as edit_multiplier,

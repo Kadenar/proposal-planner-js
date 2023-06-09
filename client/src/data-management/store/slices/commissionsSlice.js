@@ -5,8 +5,7 @@ import {
   editCommission as edit_commission,
   fetchCommissions,
 } from "../../middleware/commissionHelpers.ts";
-import { updateStore } from "../Dispatcher.js";
-
+import { updateStore } from "../Dispatcher.ts";
 // REDUCERS
 
 export const commissionsSlice = createSlice({

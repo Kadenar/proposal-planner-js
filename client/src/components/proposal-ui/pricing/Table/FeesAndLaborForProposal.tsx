@@ -14,35 +14,44 @@ import {
 import { feesDialog } from "../../../coreui/dialogs/frontend/FeesDialog";
 import { laborsDialog } from "../../../coreui/dialogs/frontend/LaborsDialog";
 import { showSnackbar } from "../../../coreui/CustomSnackbar";
+import {
+  PsuedoObjectOfLabor,
+  ReduxStore,
+} from "../../../../data-management/middleware/Interfaces";
 
 export default function FeesAndLaborForProposal() {
   const dispatch = useDispatch();
 
-  const { selectedProposal } = useSelector((state) => state.selectedProposal);
-  const { fees } = useSelector((state) => state.fees);
-  const { labors } = useSelector((state) => state.labors);
+  const { selectedProposal } = useSelector(
+    (state: ReduxStore) => state.selectedProposal
+  );
+  const { fees } = useSelector((state: ReduxStore) => state.fees);
+  const { labors } = useSelector((state: ReduxStore) => state.labors);
 
-  const proposalFees = selectedProposal.data.fees;
-  const proposalLabors = selectedProposal.data.labor;
+  const proposalFees = selectedProposal?.data.fees;
+  const proposalLabors = selectedProposal?.data.labor;
 
   // Fetch the current fees stored in the database. Remove any fees no longer available and rename any others.
   const validFees = useMemo(() => {
+    if (!proposalFees) {
+      return {};
+    }
     return returnOnlyValidFees(proposalFees, fees);
   }, [proposalFees, fees]);
 
   // Fetch the current labor stored in the database. Remove any labor no longer available and rename any others.
-
   const validLabor = useMemo(() => {
-    return returnOnlyValidLabor({
-      proposalLabors,
-      availableLabors: labors,
-    });
+    if (!proposalLabors) {
+      return {};
+    }
+
+    return returnOnlyValidLabor(proposalLabors, labors);
   }, [proposalLabors, labors]);
 
   // TODO - is there a better way to do this avoiding the need for a useEffect entirely?
   useEffect(() => {
-    updateProposalFees(dispatch, { newFees: validFees });
-    updateProposalLabors(dispatch, { newLabors: validLabor });
+    updateProposalFees(dispatch, validFees);
+    updateProposalLabors(dispatch, validLabor);
 
     // We only want to run this a SINGLE time
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,6 +59,10 @@ export default function FeesAndLaborForProposal() {
 
   // Used for inner table of labor
   const laborBreakDown = useMemo(() => {
+    if (!proposalLabors) {
+      return [];
+    }
+
     return Object.keys(proposalLabors).map((type) => {
       return {
         name: proposalLabors[type].name,
@@ -61,6 +74,10 @@ export default function FeesAndLaborForProposal() {
 
   // User for inner table of fees
   const feesBreakDown = useMemo(() => {
+    if (!proposalFees) {
+      return [];
+    }
+
     return Object.keys(proposalFees).map((fee) => {
       return {
         name: proposalFees[fee].name,
@@ -88,7 +105,7 @@ export default function FeesAndLaborForProposal() {
               configure={() =>
                 laborsDialog({
                   labor: proposalLabors,
-                  onSubmit: (labors) => {
+                  onSubmit: async (labors: PsuedoObjectOfLabor) => {
                     let error = false;
                     Object.keys(labors).forEach((labor) => {
                       if (labors[labor].cost < 0) {
@@ -106,7 +123,7 @@ export default function FeesAndLaborForProposal() {
                       return false;
                     }
 
-                    updateProposalLabors(dispatch, { newLabors: labors });
+                    updateProposalLabors(dispatch, labors);
                     showSnackbar({
                       title: "Successfully updated labor!",
                       show: true,
@@ -124,7 +141,16 @@ export default function FeesAndLaborForProposal() {
               configure={() =>
                 feesDialog({
                   fees: proposalFees,
-                  onSubmit: (fees) => {
+                  onSubmit: async (fees) => {
+                    if (!fees) {
+                      showSnackbar({
+                        title: "Something went wrong.",
+                        show: true,
+                        status: "error",
+                      });
+                      return false;
+                    }
+
                     let errors = false;
                     Object.keys(fees).forEach((fee) => {
                       if (fees[fee].cost < 0) {
@@ -142,7 +168,7 @@ export default function FeesAndLaborForProposal() {
                       return false;
                     }
 
-                    updateProposalFees(dispatch, { newFees: fees });
+                    updateProposalFees(dispatch, fees);
                     showSnackbar({
                       title: "Successfully updated fees!",
                       show: true,

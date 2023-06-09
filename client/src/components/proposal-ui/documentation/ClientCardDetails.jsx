@@ -57,10 +57,7 @@ export default function ClientCardDetails({ activeClient }) {
         <Tooltip title="Save client details">
           <IconButton
             onClick={async () => {
-              const response = await saveClient(dispatch, {
-                guid: activeClient.guid,
-                newClientInfo: clientInfo,
-              });
+              const response = await saveClient(dispatch, clientInfo);
 
               if (response) {
                 setDisabled((prev) => !prev);

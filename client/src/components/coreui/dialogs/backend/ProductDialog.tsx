@@ -10,16 +10,47 @@ import {
 } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
+import { ProductTypeObject } from "../../../../data-management/middleware/Interfaces";
 // import FileUpload from "../FileUpload";
 
-const useProductDialogStore = create((set) => ({
+interface ProductStoreType {
+  header: string;
+  guid: string;
+  filters: ProductTypeObject[];
+  filter: ProductTypeObject | undefined | null;
+  modelName: string;
+  modelNum: string;
+  cost: number;
+  image: any;
+  onSubmit:
+    | (({
+        filter,
+        modelName,
+        modelNum,
+        cost,
+      }: {
+        filter: ProductTypeObject | undefined | null;
+        modelName: string;
+        modelNum: string;
+        cost: number;
+      }) => Promise<boolean>)
+    | undefined;
+  updateFilter: (filter: ProductTypeObject | null) => void;
+  updateModelName: (modelName: string) => void;
+  updateModelNum: (modelNum: string) => void;
+  updateCost: (cost: number) => void;
+  updateImage: (image: any) => void;
+  close: () => void;
+}
+
+const useProductDialogStore = create<ProductStoreType>((set) => ({
   header: "",
   guid: "",
   filters: [],
-  filter: "",
+  filter: undefined,
   modelName: "",
   modelNum: "",
-  cost: "",
+  cost: 0,
   image: undefined,
   onSubmit: undefined,
   updateFilter: (filter) => set(() => ({ filter: filter })),
@@ -76,7 +107,7 @@ const ProductDialog = () => {
             renderInput={(params) => (
               <TextField {...params} label="Product type" />
             )}
-            onChange={(event, value) => {
+            onChange={(_, value) => {
               updateFilter(value);
             }}
           />
@@ -103,7 +134,7 @@ const ProductDialog = () => {
               }
               value={cost || ""}
               onChange={({ target: { value } }) => {
-                updateCost(value);
+                updateCost(Number(value));
               }}
             />
           </FormControl>
@@ -156,7 +187,7 @@ export const productDialog = ({
   cost,
   image,
   onSubmit,
-}) => {
+}: ProductStoreType) => {
   useProductDialogStore.setState({
     header,
     guid,

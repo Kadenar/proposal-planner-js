@@ -17,11 +17,22 @@ import {
   StyledIconButton,
 } from "../../../coreui/StyledComponents";
 
+interface CollapsibleRowType {
+  title: string;
+  breakdown: {
+    name: string;
+    qty: number;
+    amount: number;
+    type?: string;
+  }[];
+  configure: () => void;
+}
+
 export function CollapsibleRow({
   title = "",
-  breakdown = [],
+  breakdown,
   configure = () => {},
-}) {
+}: CollapsibleRowType) {
   const [open, setOpen] = useState(false);
 
   return (

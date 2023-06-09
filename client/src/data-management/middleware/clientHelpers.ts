@@ -1,4 +1,4 @@
-import { ClientObject } from "./Interfaces.ts";
+import { ClientObject, NewClientObject } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -15,7 +15,7 @@ export async function fetchClients(): Promise<ClientObject[]> {
   return response;
 }
 
-export async function addClient(clientInfo: ClientObject) {
+export async function addClient(clientInfo: NewClientObject) {
   const error = validateClientInfo(
     clientInfo.name,
     clientInfo.address,

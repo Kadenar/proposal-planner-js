@@ -1,4 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
+import {
+  Commission,
+  Multiplier,
+  ProductOnProposal,
+  ProposalData,
+  PsuedoObjectOfFees,
+  PsuedoObjectOfLabor,
+} from "../../middleware/Interfaces";
 
 export const selectedProposalSlice = createSlice({
   name: "selectedProposal",
@@ -11,7 +19,7 @@ export const selectedProposalSlice = createSlice({
     },
     addProductToTable: (state, product) => {
       state.selectedProposal.data.products =
-        state.selectedProposal.data.products.concat(product.payload);
+        state.selectedProposal.data.products.concat(product.payload); // TODO Come back to typescript yelling
     },
     removeProductFromTable: (state, index) => {
       state.selectedProposal.data.products =
@@ -66,43 +74,65 @@ const {
   updateFees,
 } = selectedProposalSlice.actions;
 
-export const selectProposal = (dispatch, { proposalData }) =>
-  dispatch(selectedProposal(proposalData));
+export const selectProposal = (
+  dispatch: Dispatch,
+  { proposalData }: { proposalData: ProposalData }
+) => dispatch(selectedProposal(proposalData));
 
-export const addProductToProposal = (dispatch, data) => {
+export const addProductToProposal = (
+  dispatch: Dispatch,
+  data: ProductOnProposal
+) => {
   dispatch(addProductToTable(data));
 };
 
-export const removeProductFromProposal = (dispatch, { index }) =>
-  dispatch(removeProductFromTable(index));
+export const removeProductFromProposal = (
+  dispatch: Dispatch,
+  { index }: { index: number }
+) => dispatch(removeProductFromTable(index));
 
-export const removeAllProductsFromProposal = (dispatch) =>
+export const removeAllProductsFromProposal = (dispatch: Dispatch) =>
   dispatch(resetProposal());
 
-export const setProposalTitle = (dispatch, { title }) =>
-  dispatch(updateProposalTitle(title));
+export const setProposalTitle = (
+  dispatch: Dispatch,
+  { title }: { title: string }
+) => dispatch(updateProposalTitle(title));
 
-export const setProposalSummary = (dispatch, { summary }) =>
-  dispatch(updateProposalSummary(summary));
+export const setProposalSummary = (
+  dispatch: Dispatch,
+  { summary }: { summary: string }
+) => dispatch(updateProposalSummary(summary));
 
-export const setProposalSpecifications = (dispatch, { specifications }) =>
-  dispatch(updateProposalSpecifications(specifications));
+export const setProposalSpecifications = (
+  dispatch: Dispatch,
+  { specifications }: { specifications: string }
+) => dispatch(updateProposalSpecifications(specifications));
 
-export const setProposalUnitCostTax = (dispatch, { value }) => {
-  const numValue = isNaN(parseFloat(value, 10)) ? null : parseFloat(value, 10);
+export const setProposalUnitCostTax = (
+  dispatch: Dispatch,
+  { value }: { value: string }
+) => {
+  const numValue = isNaN(parseFloat(value)) ? null : parseFloat(value);
   dispatch(updateUnitCostTax(numValue));
 };
 
-export const setProposalMultiplier = (dispatch, { value }) =>
+export const setProposalMultiplier = (dispatch: Dispatch, value: Multiplier) =>
   dispatch(updateMultiplier(value));
 
-export const setProposalCommission = (dispatch, { value }) =>
+export const setProposalCommission = (dispatch: Dispatch, value: Commission) =>
   dispatch(updateCommission(value));
 
-export const updateProposalLabors = (dispatch, { newLabors }) => {
+export const updateProposalLabors = (
+  dispatch: Dispatch,
+  newLabors: PsuedoObjectOfLabor
+) => {
   dispatch(updateLabors(newLabors));
 };
 
-export const updateProposalFees = (dispatch, { newFees }) => {
+export const updateProposalFees = (
+  dispatch: Dispatch,
+  newFees: PsuedoObjectOfFees
+) => {
   dispatch(updateFees(newFees));
 };

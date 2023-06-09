@@ -13,23 +13,29 @@ import {
   addProposal,
   deleteProposal,
 } from "../../data-management/store/slices/proposalsSlice";
+import {
+  ClientObject,
+  ReduxStore,
+} from "../../data-management/middleware/Interfaces";
 
 const ClientProposalsView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { clients, selectedClient } = useSelector((state) => state.clients);
-  const { proposals } = useSelector((state) => state.proposals);
+  const { clients, selectedClient } = useSelector(
+    (state: ReduxStore) => state.clients
+  );
+  const { proposals } = useSelector((state: ReduxStore) => state.proposals);
 
   const proposalsForClient = useMemo(() => {
     return proposals.filter(
-      (proposal) => selectedClient.guid === proposal?.owner?.guid
+      (proposal) => selectedClient?.guid === proposal?.owner?.guid
     );
   }, [proposals, selectedClient]);
 
   return (
     <MaterialTable
-      title={`Proposals for ${selectedClient.name}`}
+      title={`Proposals for ${selectedClient?.name}`}
       columns={[
         { title: "Name", field: "name" },
         { title: "Description", field: "description" },
@@ -57,7 +63,7 @@ const ClientProposalsView = () => {
         {
           icon: "edit",
           tooltip: "View proposal",
-          onClick: (event, rowData) => {
+          onClick: (_, rowData) => {
             updateActiveClient(dispatch, { value: null });
             selectProposal(dispatch, { proposalData: rowData });
             navigate("/proposals");
@@ -66,27 +72,32 @@ const ClientProposalsView = () => {
         {
           icon: "save",
           tooltip: "Copy proposal",
-          onClick: (event, rowData) => {
+          onClick: (_, rowData) => {
+            // TODO Figure out why typescript is yelling at me about this
             newProposalDialog({
               name: rowData.name,
               description: rowData.description,
               owner: rowData.owner,
               clients,
               isExistingProposal: true,
-              onSubmit: async (name, description, client_guid) =>
-                addProposal(dispatch, { name, description, client_guid }),
+              onSubmit: async (
+                // TODO Come back to for typescript complaining
+                name: string,
+                description: string,
+                client_guid: string
+              ) => addProposal(dispatch, { name, description, client_guid }),
             });
           },
         },
         {
           icon: "delete",
           tooltip: "Delete proposal",
-          onClick: (event, rowData) => {
+          onClick: (_, rowData) => {
             confirmDialog({
               message:
                 "Do you really want to delete this? This action cannot be undone.",
               onSubmit: async () => {
-                return deleteProposal(dispatch, { guid: rowData.guid });
+                return deleteProposal(dispatch, { guid: rowData.guid }); // TODO Figure out why typescript is yelling at me about this
               },
             });
           },

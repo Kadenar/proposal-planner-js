@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { updateStore } from "../Dispatcher.js";
-
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
+import { updateStore } from "../Dispatcher.ts";
 import {
   editExistingProduct,
   addProduct as add_product,
   fetchProducts,
   deleteProduct as delete_product,
 } from "../../middleware/productHelpers.ts";
+import { ProductTypeObject } from "../../middleware/Interfaces.ts";
 
 export const productsSlice = createSlice({
   name: "products",
@@ -24,14 +24,24 @@ export default productsSlice.reducer;
 
 const { updateProducts } = productsSlice.actions;
 
-export const initializeProducts = () => async (dispatch) => {
+export const initializeProducts = () => async (dispatch: Dispatch) => {
   const products = await fetchProducts();
   dispatch(updateProducts(products));
 };
 
 export async function addProduct(
-  dispatch,
-  { filter, modelName, modelNum, cost }
+  dispatch: Dispatch,
+  {
+    filter,
+    modelName,
+    modelNum,
+    cost,
+  }: {
+    filter: ProductTypeObject;
+    modelName: string;
+    modelNum: string;
+    cost: number;
+  }
 ) {
   return updateStore({
     dispatch,
@@ -44,8 +54,22 @@ export async function addProduct(
 }
 
 export async function editProduct(
-  dispatch,
-  { guid, filter_guid, modelName, modelNum, cost, image }
+  dispatch: Dispatch,
+  {
+    guid,
+    filter_guid,
+    modelName,
+    modelNum,
+    cost,
+    image,
+  }: {
+    guid: string;
+    filter_guid: string;
+    modelName: string;
+    modelNum: string;
+    cost: number;
+    image: any; // TODO when we do images
+  }
 ) {
   return updateStore({
     dispatch,
@@ -57,10 +81,13 @@ export async function editProduct(
   });
 }
 
-export async function deleteProduct(dispatch, { guid, filter }) {
+export async function deleteProduct(
+  dispatch: Dispatch,
+  { guid, filter_guid }: { guid: string; filter_guid: string }
+) {
   return updateStore({
     dispatch,
-    dbOperation: async () => delete_product(guid, filter),
+    dbOperation: async () => delete_product(guid, filter_guid),
     methodToDispatch: updateProducts,
     dataKey: "products",
     successMessage: "Successfully deleted product",

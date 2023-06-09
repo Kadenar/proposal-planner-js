@@ -4,22 +4,29 @@ import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
 import { ClientObject } from "../../../../data-management/middleware/Interfaces";
 
-interface NewProposalDialogStore {
+interface NewProposalActions {
   name: string;
   description: string;
   clients: ClientObject[];
   owner: ClientObject | null;
   onSubmit:
-    | ((name: string, description: string, guid: string | undefined) => boolean)
+    | ((
+        name: string,
+        description: string,
+        client_guid: string | undefined
+      ) => Promise<boolean | undefined>)
     | undefined;
   isExistingProposal: boolean;
+}
+
+interface NewProposalType extends NewProposalActions {
   updateName: (name: string) => void;
   updateDescription: (description: string) => void;
   updateOwner: (owner: ClientObject | null) => void;
   close: () => void;
 }
 
-const useProposalDialogStore = create<NewProposalDialogStore>((set) => ({
+const useProposalDialogStore = create<NewProposalType>((set) => ({
   name: "",
   description: "",
   owner: {
@@ -91,7 +98,7 @@ const NewProposalDialog = () => {
             }
             value={owner}
             renderInput={(params) => <TextField {...params} label="Client" />}
-            onChange={(event, value) => {
+            onChange={(_, value) => {
               updateOwner(value);
             }}
           />
@@ -146,7 +153,7 @@ export const newProposalDialog = ({
   clients = [],
   isExistingProposal = false,
   onSubmit,
-}: NewProposalDialogStore) => {
+}: NewProposalActions) => {
   useProposalDialogStore.setState({
     name,
     description,

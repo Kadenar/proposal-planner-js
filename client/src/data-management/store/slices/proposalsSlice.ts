@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import {
   addProposal as add_proposal,
   deleteProposal as delete_proposal,
@@ -6,7 +6,15 @@ import {
   deleteProposalsForClient as delete_proposals_for_client,
   saveProposal as save_proposal,
 } from "../../middleware/proposalHelpers.ts";
-import { updateStore } from "../Dispatcher.js";
+import { updateStore } from "../Dispatcher.ts";
+import {
+  Fee,
+  Labor,
+  ProductOnProposal,
+  ProposalObject,
+  PsuedoObjectOfFees,
+  PsuedoObjectOfLabor,
+} from "../../middleware/Interfaces.ts";
 
 // REDUCERS
 
@@ -28,14 +36,18 @@ export default proposalsSlice.reducer;
 
 const { updateProposals } = proposalsSlice.actions;
 
-export const initializeProposals = () => async (dispatch) => {
+export const initializeProposals = () => async (dispatch: Dispatch) => {
   const proposalsData = await fetchProposals();
   dispatch(updateProposals(proposalsData));
 };
 
 export async function addProposal(
-  dispatch,
-  { name, description, client_guid }
+  dispatch: Dispatch,
+  {
+    name,
+    description,
+    client_guid,
+  }: { name: string; description: string; client_guid: string }
 ) {
   return updateStore({
     dispatch,
@@ -47,8 +59,18 @@ export async function addProposal(
 }
 
 export async function copyProposal(
-  dispatch,
-  { name, description, client_guid, existing_proposal }
+  dispatch: Dispatch,
+  {
+    name,
+    description,
+    client_guid,
+    existing_proposal,
+  }: {
+    name: string;
+    description: string;
+    client_guid: string;
+    existing_proposal: ProposalObject | undefined;
+  }
 ) {
   return updateStore({
     dispatch,
@@ -60,7 +82,10 @@ export async function copyProposal(
   });
 }
 
-export async function deleteProposal(dispatch, { guid }) {
+export async function deleteProposal(
+  dispatch: Dispatch,
+  { guid }: { guid: string }
+) {
   return updateStore({
     dispatch,
     dbOperation: async () => delete_proposal(guid),
@@ -71,8 +96,8 @@ export async function deleteProposal(dispatch, { guid }) {
 }
 
 export async function deleteProposalsForClient(
-  dispatch,
-  { clientName, clientGuid }
+  dispatch: Dispatch,
+  { clientName, clientGuid }: { clientName: string; clientGuid: string }
 ) {
   return updateStore({
     dispatch,
@@ -84,7 +109,7 @@ export async function deleteProposalsForClient(
 }
 
 export function saveProposal(
-  dispatch,
+  dispatch: Dispatch,
   {
     guid,
     commission,
@@ -96,6 +121,17 @@ export function saveProposal(
     title,
     summary,
     specifications,
+  }: {
+    guid: string;
+    commission: number;
+    fees: PsuedoObjectOfFees;
+    labor: PsuedoObjectOfLabor;
+    products: ProductOnProposal[];
+    unitCostTax: number;
+    multiplier: number;
+    title: string;
+    summary: string;
+    specifications: string;
   }
 ) {
   return updateStore({

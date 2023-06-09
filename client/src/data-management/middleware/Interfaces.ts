@@ -23,8 +23,7 @@ export interface ProductTypeObject {
   guid: string;
   documentationHelp?: Array<string>;
 }
-export interface ClientObject {
-  guid: string;
+export interface NewClientObject {
   name: string;
   address: string;
   state: string;
@@ -35,6 +34,10 @@ export interface ClientObject {
   email?: string;
   accountNum?: string;
 }
+export interface ClientObject extends NewClientObject {
+  guid: string;
+}
+
 export type Nullable<ClientObject> = ClientObject | null;
 
 export interface Fee {
@@ -50,6 +53,7 @@ export interface Labor {
   cost: number;
   qty: number;
 }
+
 export interface ProposalObject {
   guid: string;
   name: string;
@@ -60,6 +64,18 @@ export interface ProposalObject {
     guid: string;
   };
   data: ProposalData;
+}
+// Information stored within data object for a proposal
+export interface ProposalData {
+  fees: PsuedoObjectOfFees;
+  labor: PsuedoObjectOfLabor;
+  products: ProductOnProposal[];
+  multiplier: number;
+  unitCostTax: number;
+  commission: number;
+  title?: string;
+  summary?: string;
+  specifications?: string;
 }
 
 export interface Commission {
@@ -73,19 +89,6 @@ export interface Multiplier {
 // Objects of a given type
 export type PsuedoObjectOfFees = Record<string, Fee>;
 export type PsuedoObjectOfLabor = Record<string, Labor>;
-
-// Data to represent what a proposal looks like
-export interface ProposalData {
-  fees: PsuedoObjectOfFees;
-  labor: PsuedoObjectOfLabor;
-  products: ProductOnProposal[];
-  multiplier: number;
-  unitCostTax: number;
-  commission: number;
-  title?: string;
-  summary?: string;
-  specifications?: string;
-}
 
 // Products added to a given proposal are mapped different than the products themselves
 export type PsuedoObjectOfModel = Record<string, ProductOnProposal>;
@@ -125,6 +128,6 @@ export interface ReduxStore {
     proposals: ProposalObject[];
   };
   selectedProposal: {
-    selectedProposal: ProposalData | null;
+    selectedProposal: ProposalObject | null;
   };
 }

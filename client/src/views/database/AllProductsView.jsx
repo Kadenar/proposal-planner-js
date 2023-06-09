@@ -5,13 +5,13 @@ import {
   editProduct,
   deleteProduct,
   addProduct,
-} from "../../data-management/store/slices/productsSlice.js";
+} from "../../data-management/store/slices/productsSlice.ts";
 import { flattenProductData } from "../../data-management/middleware/productHelpers.ts";
 
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog.tsx";
-import { productDialog } from "../../components/coreui/dialogs/backend/ProductDialog.jsx";
+import { productDialog } from "../../components/coreui/dialogs/backend/ProductDialog.tsx";
 import AddNewItem from "../../components/coreui/AddNewItem.tsx";
 
 /**
@@ -88,7 +88,7 @@ export default function AllProductsView() {
           {
             icon: "edit",
             tooltip: "Edit product",
-            onClick: (event, rowData) => {
+            onClick: (_, rowData) => {
               productDialog({
                 header: "Edit product",
                 guid: rowData.guid,
@@ -121,14 +121,14 @@ export default function AllProductsView() {
           {
             icon: "delete",
             tooltip: "Remove product",
-            onClick: (event, rowData) => {
+            onClick: (_, rowData) => {
               confirmDialog({
                 message:
                   "Do you really want to delete this? This action cannot be undone.",
                 onSubmit: async () =>
                   deleteProduct(dispatch, {
                     guid: rowData.guid,
-                    filter: rowData.filter_guid,
+                    filter_guid: rowData.filter_guid,
                   }),
               });
             },

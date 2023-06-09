@@ -22,12 +22,24 @@ import {
 } from "../../../coreui/StyledComponents";
 
 import { removeProductFromProposal } from "../../../../data-management/store/slices/selectedProposalSlice";
+import { ReduxStore } from "../../../../data-management/middleware/Interfaces";
 
 export default function ProductsForProposal() {
   const dispatch = useDispatch();
 
-  const { selectedProposal } = useSelector((state) => state.selectedProposal);
-  const products = selectedProposal.data.products;
+  const { selectedProposal } = useSelector(
+    (state: ReduxStore) => state.selectedProposal
+  );
+  const products = selectedProposal?.data?.products;
+
+  if (!products) {
+    return (
+      <>
+        Proposal in database possibly corrupted? Products attribute is not
+        defined!
+      </>
+    );
+  }
 
   return (
     <TableContainer component={Paper}>

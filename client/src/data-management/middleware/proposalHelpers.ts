@@ -3,6 +3,7 @@ import {
   PsuedoObjectOfLabor,
   PsuedoObjectOfModel,
   ProposalObject,
+  ProductOnProposal,
 } from "./Interfaces.ts";
 import {
   runGetRequest,
@@ -93,9 +94,9 @@ export async function deleteProposal(guid: string) {
 export async function saveProposal(
   guid: string,
   commission: number,
-  fees: PsuedoObjectOfFees[],
-  labor: PsuedoObjectOfLabor[],
-  products: PsuedoObjectOfModel[],
+  fees: PsuedoObjectOfFees,
+  labor: PsuedoObjectOfLabor,
+  products: ProductOnProposal[],
   unitCostTax: number,
   multiplier: number,
   title: string,

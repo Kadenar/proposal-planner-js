@@ -1,11 +1,19 @@
+import { Dispatch } from "@reduxjs/toolkit";
 import { showSnackbar } from "../../components/coreui/CustomSnackbar";
+import { AxiosResponse } from "axios";
 
 export async function updateStore({
   dispatch,
-  dbOperation = async () => {},
+  dbOperation,
   methodToDispatch = () => {},
   dataKey,
   successMessage,
+}: {
+  dispatch: Dispatch;
+  dbOperation: (...args: any[]) => Promise<any> | AxiosResponse<any, any>;
+  methodToDispatch: (...args: any[]) => any;
+  dataKey: string;
+  successMessage: string;
 }) {
   const response = await dbOperation();
 

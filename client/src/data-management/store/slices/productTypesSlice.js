@@ -5,7 +5,7 @@ import {
   editProductType as edit_product_type,
   fetchProductTypes,
 } from "../../middleware/productTypeHelpers.ts";
-import { updateStore } from "../Dispatcher.js";
+import { updateStore } from "../Dispatcher.ts";
 
 export const productTypesSlice = createSlice({
   name: "filters",

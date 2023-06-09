@@ -1,35 +1,63 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
 
-const useLaborStore = create((set) => ({
+interface FeeStoreActions {
+  header: string;
+  name: string;
+  qty: number;
+  cost: number;
+  type: string;
+  onSubmit:
+    | ((
+        name: string,
+        qty: number,
+        cost: number,
+        type: string
+      ) => Promise<boolean | undefined>)
+    | undefined;
+}
+
+interface FeeStoreType extends FeeStoreActions {
+  updateName: (name: string) => void;
+  updateQty: (qty: number) => void;
+  updateCost: (cost: number) => void;
+  updateType: (type: string) => void;
+  close: () => void;
+}
+
+const useFeeStore = create<FeeStoreType>((set) => ({
   header: "",
   name: "",
   qty: 0,
   cost: 0,
+  type: "add",
   onSubmit: undefined,
   updateName: (name) => set(() => ({ name: name })),
   updateQty: (qty) => set(() => ({ qty: qty })),
   updateCost: (cost) => set(() => ({ cost: cost })),
+  updateType: (type) => set(() => ({ type: type })),
   close: () => set({ onSubmit: undefined }),
 }));
 
-const LaborDialog = () => {
-  const { header, onSubmit, close } = useLaborStore();
+const FeeDialog = () => {
+  const { header, onSubmit, close } = useFeeStore();
 
-  const [name, updateName] = useLaborStore((state) => [
+  const [name, updateName] = useFeeStore((state) => [
     state.name,
     state.updateName,
   ]);
 
-  const [qty, updateQty] = useLaborStore((state) => [
-    state.qty,
-    state.updateQty,
-  ]);
+  const [qty, updateQty] = useFeeStore((state) => [state.qty, state.updateQty]);
 
-  const [cost, updateCost] = useLaborStore((state) => [
+  const [cost, updateCost] = useFeeStore((state) => [
     state.cost,
     state.updateCost,
+  ]);
+
+  const [type, updateType] = useFeeStore((state) => [
+    state.type,
+    state.updateType,
   ]);
 
   return (
@@ -50,7 +78,7 @@ const LaborDialog = () => {
               value={qty}
               type="number"
               onChange={(e) => {
-                updateQty(e.target.value);
+                updateQty(Number(e.target.value));
               }}
             />
             <TextField
@@ -58,9 +86,21 @@ const LaborDialog = () => {
               value={cost}
               type="number"
               onChange={(e) => {
-                updateCost(e.target.value);
+                updateCost(Number(e.target.value));
               }}
             />
+            <TextField
+              id="select"
+              label="Type"
+              value={type}
+              onChange={(e) => {
+                updateType(e.target.value);
+              }}
+              select
+            >
+              <MenuItem value="add">Increase cost</MenuItem>
+              <MenuItem value="subtract">Decreases cost</MenuItem>
+            </TextField>
           </Stack>
         </div>
       }
@@ -78,7 +118,7 @@ const LaborDialog = () => {
                 return;
               }
 
-              const isValid = await onSubmit(name, qty, cost);
+              const isValid = await onSubmit(name, qty, cost, type);
 
               if (isValid) {
                 close();
@@ -95,14 +135,22 @@ const LaborDialog = () => {
   );
 };
 
-export const laborDialog = ({ header, name, qty, cost, onSubmit }) => {
-  useLaborStore.setState({
+export const feeDialog = ({
+  header,
+  name,
+  qty,
+  cost,
+  type = "add",
+  onSubmit,
+}: FeeStoreActions) => {
+  useFeeStore.setState({
     header,
     name,
     qty,
     cost,
+    type,
     onSubmit,
   });
 };
 
-export default LaborDialog;
+export default FeeDialog;

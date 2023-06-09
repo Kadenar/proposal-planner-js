@@ -11,10 +11,15 @@ import BreadcrumbNavigation from "../../components/coreui/BreadcrumbNavigation";
 import ClientProposalsView from "./ClientProposalsView";
 import ClientAddressView from "./ClientAddressView";
 import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
+import { ReduxStore } from "../../data-management/middleware/Interfaces";
 
 export default function ClientTabsView() {
   const dispatch = useDispatch();
-  const { selectedClient } = useSelector((state) => state.clients);
+  const { selectedClient } = useSelector((state: ReduxStore) => state.clients);
+
+  if (!selectedClient) {
+    return <>A client isn't selected, so you probably shouldn't be here!</>;
+  }
 
   return (
     <div className="proposals">
