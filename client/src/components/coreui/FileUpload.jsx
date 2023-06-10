@@ -36,7 +36,7 @@ export default function FileUpload(imageUrl, setImageUrl = () => {}) {
             onChange={handleFileUpload}
           />
         </Button>
-        {imageUrl && <img src={imageUrl} alt="Uploaded Image" height="300" />}
+        {imageUrl && <img src={imageUrl} alt="Uploaded img" height="300" />}
       </Stack>
     </Container>
   );

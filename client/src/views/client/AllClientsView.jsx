@@ -97,7 +97,7 @@ export default function AllClientsView() {
             icon: "edit",
             tooltip: "View client",
             onClick: (event, rowData) => {
-              updateActiveClient(dispatch, { value: rowData.fullInfo });
+              updateActiveClient(dispatch, rowData.fullInfo);
             },
           },
           {

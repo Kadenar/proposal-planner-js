@@ -1,7 +1,6 @@
-import React from "react";
-
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import { NumericFormat } from "react-number-format";
+import { PdfInvoice } from "../../../../data-management/middleware/Interfaces";
 
 const styles = StyleSheet.create({
   proposal_view: {
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Specifications = ({ invoice }) => (
+const Specifications = ({ invoice }: { invoice: PdfInvoice }) => (
   <>
     <View style={styles.proposal_view}>
       <Text style={{ fontSize: 7 }}>
@@ -68,18 +67,14 @@ const Specifications = ({ invoice }) => (
         Robison will provide material and labor for the above specifications for
         the sum of:
       </Text>
-      <NumberAsCurrency value={invoice.invoiceTotal}>
-        {"$"}
-        {invoice.invoiceTotal}
-      </NumberAsCurrency>
+      <NumberAsCurrency value={invoice.invoiceTotals} />
     </View>
   </>
 );
 
-const NumberAsCurrency = ({ value }) => {
+const NumberAsCurrency = ({ value }: { value: any }) => {
   return (
     <NumericFormat
-      sx={{ fontSize: 10 }}
       value={value}
       displayType={"text"}
       decimalScale={2}

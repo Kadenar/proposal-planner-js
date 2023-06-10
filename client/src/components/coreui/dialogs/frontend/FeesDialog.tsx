@@ -34,7 +34,7 @@ const FeesDialog = () => {
       content={
         <Stack paddingTop={3} spacing={2}>
           {fees &&
-            Object.keys(fees).map((fee, index) => {
+            Object.keys(fees).map((fee) => {
               return (
                 <TextField
                   id={`${fees[fee].name + "-input"}`}

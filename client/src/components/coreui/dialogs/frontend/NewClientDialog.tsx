@@ -5,7 +5,36 @@ import Grid from "@mui/material/Grid";
 import StateSelection from "../../StateSelection";
 import BaseDialog from "../BaseDialog";
 
-const useClientStore = create((set) => ({
+interface ClientActions {
+  name: string;
+  address: string;
+  apt: string;
+  city: string;
+  state: string;
+  zip: string;
+  onSubmit:
+    | ((
+        name: string,
+        address: string,
+        apt: string,
+        city: string,
+        state: string,
+        zip: string
+      ) => Promise<boolean | undefined>)
+    | undefined;
+}
+
+interface ClientType extends ClientActions {
+  setName: (name: string) => void;
+  setAddress: (address: string) => void;
+  setApt: (apt: string) => void;
+  setCity: (city: string) => void;
+  setState: (state: string) => void;
+  setZip: (zip: string) => void;
+  close: () => void;
+}
+
+const useClientStore = create<ClientType>((set) => ({
   name: "",
   address: "",
   apt: "",
@@ -19,7 +48,6 @@ const useClientStore = create((set) => ({
   setCity: (city) => set(() => ({ city: city })),
   setState: (state) => set(() => ({ state: state })),
   setZip: (zip) => set(() => ({ zip: zip })),
-
   close: () => set({ onSubmit: undefined }),
 }));
 
@@ -157,7 +185,7 @@ export const clientDialog = ({
   state,
   zip,
   onSubmit,
-}) => {
+}: ClientActions) => {
   useClientStore.setState({
     name,
     address,

@@ -57,7 +57,7 @@ export interface Labor {
 export interface ProposalObject {
   guid: string;
   name: string;
-  description?: string;
+  description: string | undefined;
   dateCreated: string;
   dateModified: string;
   owner: {
@@ -73,9 +73,9 @@ export interface ProposalData {
   multiplier: number;
   unitCostTax: number;
   commission: number;
-  title?: string;
-  summary?: string;
-  specifications?: string;
+  title: string | undefined;
+  summary: string | undefined;
+  specifications: string | undefined;
 }
 
 export interface Commission {
@@ -101,6 +101,19 @@ export type ProductOnProposal = {
   quote_option: number;
 };
 
+export interface PdfInvoice {
+  submitted_to: string | undefined;
+  address: string | undefined;
+  phone: string | undefined;
+  email: string | undefined;
+  current_date: string | undefined;
+  accountNum: string | undefined;
+  proposal_title: string | undefined;
+  proposal_summary: string | undefined;
+  proposal_specifications: string | undefined;
+  invoiceTotals: number;
+}
+
 export interface ReduxStore {
   clients: {
     clients: ClientObject[];
@@ -122,7 +135,7 @@ export interface ReduxStore {
     multipliers: Multiplier[];
   };
   products: {
-    products: ProductObject[];
+    products: PsuedoObjectOfProducts;
   };
   proposals: {
     proposals: ProposalObject[];

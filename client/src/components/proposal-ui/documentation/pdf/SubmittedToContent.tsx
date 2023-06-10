@@ -1,6 +1,5 @@
-import React from "react";
-
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { PdfInvoice } from "../../../../data-management/middleware/Interfaces";
 
 const styles = StyleSheet.create({
   proposal_view: {
@@ -30,8 +29,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const SubmittedToContent = ({ invoice }) => (
-  <View style={styles.header}>
+const SubmittedToContent = ({ invoice }: { invoice: PdfInvoice }) => (
+  <View>
     <Text style={styles.proposal_bar}>Proposal</Text>
     <View style={styles.basic_font}>
       <View

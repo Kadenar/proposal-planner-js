@@ -11,21 +11,51 @@ import {
 } from "@mui/material";
 import { create } from "zustand";
 import { StyledBootstrapDialog } from "../../StyledComponents";
+import {
+  ProductObject,
+  ProductTypeObject,
+  PsuedoObjectOfProducts,
+} from "../../../../data-management/middleware/Interfaces";
 
-const useProductDialogStore = create((set) => ({
-  onSubmit: undefined,
+interface ProductDialogActions {
+  filters: ProductTypeObject[];
+  filter: ProductTypeObject | null;
+  allProducts: PsuedoObjectOfProducts;
+  selectedProduct: ProductObject | undefined | null;
+  qty: number;
+  quote_option: number;
+  onSubmit:
+    | ((
+        selectedProduct: ProductObject | null,
+        qty: number,
+        quote_option: number
+      ) => Promise<boolean | undefined>)
+    | undefined;
+}
+interface ProductDialogType extends ProductDialogActions {
+  updateFilter: (filter: ProductTypeObject | null) => void;
+  updateSelectedProduct: (selectedProduct: ProductObject | null) => void;
+  updateQty: (qty: number) => void;
+  updateQuoteOption: (quote_option: number) => void;
+  close: () => void;
+}
+
+const useProductDialogStore = create<ProductDialogType>((set) => ({
   filters: [],
   filter: {
     guid: "",
     label: "",
   },
-  allProducts: [],
+  allProducts: {},
   selectedProduct: {
     guid: "",
-    label: "",
+    model: "",
+    modelNum: "",
+    cost: 0,
   },
   qty: 0,
   quote_option: 1,
+  onSubmit: undefined,
   updateFilter: (filter) => set(() => ({ filter: filter })),
   updateSelectedProduct: (selectedProduct) =>
     set(() => ({ selectedProduct: selectedProduct })),
@@ -58,7 +88,7 @@ const AddProductToProposalDialog = () => {
   ]);
 
   // Get the available products for the selected filter
-  const productsForSelectedType = useMemo(() => {
+  const productsForSelectedType = useMemo<ProductObject[]>(() => {
     return allProducts[filter.guid] || [];
   }, [filter, allProducts]);
 
@@ -71,6 +101,8 @@ const AddProductToProposalDialog = () => {
       };
     }, 0);
   }, [allProducts]);
+
+  // TODO -> Figure out what should be done here instead of spreading the previous result
 
   return (
     <>
@@ -98,7 +130,7 @@ const AddProductToProposalDialog = () => {
                 id="filters"
                 getOptionLabel={(option) =>
                   `${option.label} - (${
-                    sizesOfEachProductType[option.guid] || 0
+                    sizesOfEachProductType[option.guid] || 0 // TODO figure out
                   } products)` || ""
                 }
                 isOptionEqualToValue={(option, value) =>
@@ -111,7 +143,7 @@ const AddProductToProposalDialog = () => {
                     <TextField {...params} label="Product type" />
                   </div>
                 )}
-                onChange={(event, value) => {
+                onChange={(_, value) => {
                   updateFilter(value);
                   updateSelectedProduct(null);
                 }}
@@ -128,7 +160,7 @@ const AddProductToProposalDialog = () => {
                 renderInput={(params) => (
                   <TextField {...params} label="Model name" />
                 )}
-                onChange={(event, value) => {
+                onChange={(_, value) => {
                   updateSelectedProduct(value);
                 }}
               />
@@ -137,7 +169,7 @@ const AddProductToProposalDialog = () => {
                 type="number"
                 value={qty}
                 onChange={({ target: { value } }) => {
-                  updateQty(value);
+                  updateQty(Number(value));
                 }}
               />
               <TextField
@@ -145,7 +177,7 @@ const AddProductToProposalDialog = () => {
                 label="Quote option"
                 value={quote_option}
                 onChange={(e) => {
-                  updateQuoteOption(e.target.value);
+                  updateQuoteOption(Number(e.target.value));
                 }}
                 select
               >
@@ -195,15 +227,17 @@ const AddProductToProposalDialog = () => {
 export const addProductToProposalDialog = ({
   filters = [],
   filter,
-  allProducts = [],
+  allProducts = {},
   selectedProduct = {
     guid: "",
-    label: "",
+    model: "",
+    modelNum: "",
+    cost: 0,
   },
-  qty,
+  qty = 0,
   quote_option = 1,
   onSubmit,
-}) => {
+}: ProductDialogActions) => {
   useProductDialogStore.setState({
     filters,
     filter,

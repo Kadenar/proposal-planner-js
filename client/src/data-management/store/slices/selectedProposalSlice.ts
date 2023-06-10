@@ -1,9 +1,7 @@
 import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import {
-  Commission,
-  Multiplier,
   ProductOnProposal,
-  ProposalData,
+  ProposalObject,
   PsuedoObjectOfFees,
   PsuedoObjectOfLabor,
 } from "../../middleware/Interfaces";
@@ -76,8 +74,8 @@ const {
 
 export const selectProposal = (
   dispatch: Dispatch,
-  { proposalData }: { proposalData: ProposalData }
-) => dispatch(selectedProposal(proposalData));
+  proposal: ProposalObject | null
+) => dispatch(selectedProposal(proposal));
 
 export const addProductToProposal = (
   dispatch: Dispatch,
@@ -109,18 +107,15 @@ export const setProposalSpecifications = (
   { specifications }: { specifications: string }
 ) => dispatch(updateProposalSpecifications(specifications));
 
-export const setProposalUnitCostTax = (
-  dispatch: Dispatch,
-  { value }: { value: string }
-) => {
+export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {
   const numValue = isNaN(parseFloat(value)) ? null : parseFloat(value);
   dispatch(updateUnitCostTax(numValue));
 };
 
-export const setProposalMultiplier = (dispatch: Dispatch, value: Multiplier) =>
+export const setProposalMultiplier = (dispatch: Dispatch, value: number) =>
   dispatch(updateMultiplier(value));
 
-export const setProposalCommission = (dispatch: Dispatch, value: Commission) =>
+export const setProposalCommission = (dispatch: Dispatch, value: number) =>
   dispatch(updateCommission(value));
 
 export const updateProposalLabors = (

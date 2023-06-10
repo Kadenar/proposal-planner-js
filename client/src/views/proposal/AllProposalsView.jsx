@@ -109,7 +109,7 @@ export default function AllProposalsView() {
       >
         <MenuItem
           onClick={(e) => {
-            selectProposal(dispatch, { proposalData: menuItemInfo.rowData });
+            selectProposal(dispatch, menuItemInfo.rowData);
           }}
         >
           Edit proposal

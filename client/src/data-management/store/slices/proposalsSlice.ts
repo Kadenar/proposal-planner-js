@@ -8,8 +8,6 @@ import {
 } from "../../middleware/proposalHelpers.ts";
 import { updateStore } from "../Dispatcher.ts";
 import {
-  Fee,
-  Labor,
   ProductOnProposal,
   ProposalObject,
   PsuedoObjectOfFees,
@@ -47,11 +45,11 @@ export async function addProposal(
     name,
     description,
     client_guid,
-  }: { name: string; description: string; client_guid: string }
+  }: { name: string; description: string; client_guid: string | undefined }
 ) {
   return updateStore({
     dispatch,
-    dbOperation: async () => add_proposal(name, description, client_guid, null), // TODO handle images at some point
+    dbOperation: async () => add_proposal(name, description, client_guid, null),
     methodToDispatch: updateProposals,
     dataKey: "proposals",
     successMessage: "Successfully added new proposal!",
@@ -129,9 +127,9 @@ export function saveProposal(
     products: ProductOnProposal[];
     unitCostTax: number;
     multiplier: number;
-    title: string;
-    summary: string;
-    specifications: string;
+    title: string | undefined;
+    summary: string | undefined;
+    specifications: string | undefined;
   }
 ) {
   return updateStore({

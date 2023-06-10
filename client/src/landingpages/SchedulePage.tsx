@@ -5,9 +5,10 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import { Card, Stack } from "@mui/material";
+import { EventApi } from "@fullcalendar/core";
 
 const SchedulePage = () => {
-  const [currentEvents, setCurrentEvents] = useState([]);
+  const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");

@@ -1,7 +1,6 @@
 import {
   PsuedoObjectOfFees,
   PsuedoObjectOfLabor,
-  PsuedoObjectOfModel,
   ProposalObject,
   ProductOnProposal,
 } from "./Interfaces.ts";
@@ -28,7 +27,7 @@ export async function fetchProposals(): Promise<ProposalObject[]> {
 export async function addProposal(
   name: string,
   description: string,
-  client_guid: string,
+  client_guid: string | undefined,
   existingProposal?: ProposalObject | null
 ) {
   if (name === "") {
@@ -40,7 +39,7 @@ export async function addProposal(
     };
   }
 
-  if (client_guid === "") {
+  if (!client_guid || client_guid === "") {
     return {
       status: 500,
       data: {
@@ -99,9 +98,9 @@ export async function saveProposal(
   products: ProductOnProposal[],
   unitCostTax: number,
   multiplier: number,
-  title: string,
-  summary: string,
-  specifications: string
+  title: string | undefined,
+  summary: string | undefined,
+  specifications: string | undefined
 ) {
   const existingProposals = await fetchProposals();
   const date = new Date();

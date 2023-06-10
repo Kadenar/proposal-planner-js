@@ -2,7 +2,17 @@ import { Button, Stack, TextField } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
 
-const useProductTypeStore = create((set) => ({
+interface ProductStoreActions {
+  header: string;
+  productType: string;
+  onSubmit: ((productType: string) => Promise<boolean | undefined>) | undefined;
+}
+interface ProductTypeStoreType extends ProductStoreActions {
+  updateProductType: (productType: string) => void;
+  close: () => void;
+}
+
+const useProductTypeStore = create<ProductTypeStoreType>((set) => ({
   header: "",
   productType: "",
   onSubmit: undefined,
@@ -66,7 +76,11 @@ const ProductTypeDialog = () => {
   );
 };
 
-export const productTypeDialog = ({ header, productType, onSubmit }) => {
+export const productTypeDialog = ({
+  header,
+  productType,
+  onSubmit,
+}: ProductStoreActions) => {
   useProductTypeStore.setState({
     header,
     productType,

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import {
   addProductType as add_product_type,
   deleteProductType as delete_product_type,
@@ -23,12 +23,15 @@ export default productTypesSlice.reducer;
 
 const { updateProductTypes } = productTypesSlice.actions;
 
-export const initializeProductTypes = () => async (dispatch) => {
+export const initializeProductTypes = () => async (dispatch: Dispatch) => {
   const filterData = await fetchProductTypes();
   dispatch(updateProductTypes(filterData));
 };
 
-export const addProductType = async (dispatch, { label }) =>
+export const addProductType = async (
+  dispatch: Dispatch,
+  { label }: { label: string }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => add_product_type(label),
@@ -37,7 +40,10 @@ export const addProductType = async (dispatch, { label }) =>
     successMessage: "Successfully added new product type!",
   });
 
-export const editProductType = async (dispatch, { guid, value }) =>
+export const editProductType = async (
+  dispatch: Dispatch,
+  { guid, value }: { guid: string; value: string }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => edit_product_type(value, guid),
@@ -46,7 +52,10 @@ export const editProductType = async (dispatch, { guid, value }) =>
     successMessage: "Successfully edited product type",
   });
 
-export const deleteProductType = async (dispatch, { guid }) =>
+export const deleteProductType = async (
+  dispatch: Dispatch,
+  { guid }: { guid: string }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => delete_product_type(guid),

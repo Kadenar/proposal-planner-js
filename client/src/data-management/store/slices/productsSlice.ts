@@ -37,7 +37,7 @@ export async function addProduct(
     modelNum,
     cost,
   }: {
-    filter: ProductTypeObject;
+    filter: ProductTypeObject | undefined;
     modelName: string;
     modelNum: string;
     cost: number;
@@ -46,7 +46,7 @@ export async function addProduct(
   return updateStore({
     dispatch,
     dbOperation: async () =>
-      add_product(filter.guid, modelName, modelNum, cost),
+      add_product(filter?.guid, modelName, modelNum, cost),
     methodToDispatch: updateProducts,
     dataKey: "products",
     successMessage: "Successfully added product.",

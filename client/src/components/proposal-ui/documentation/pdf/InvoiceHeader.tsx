@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../../../../resources/robison_oil.png";
 
 import { Text, View, StyleSheet, Image } from "@react-pdf/renderer";

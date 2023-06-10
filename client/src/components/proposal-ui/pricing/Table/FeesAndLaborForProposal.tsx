@@ -105,7 +105,17 @@ export default function FeesAndLaborForProposal() {
               configure={() =>
                 laborsDialog({
                   labor: proposalLabors,
-                  onSubmit: async (labors: PsuedoObjectOfLabor) => {
+                  onSubmit: async (labors: PsuedoObjectOfLabor | undefined) => {
+                    if (!labors) {
+                      showSnackbar({
+                        title:
+                          "There were not available labors? - Something went wrong.",
+                        show: true,
+                        status: "error",
+                      });
+                      return false;
+                    }
+
                     let error = false;
                     Object.keys(labors).forEach((labor) => {
                       if (labors[labor].cost < 0) {

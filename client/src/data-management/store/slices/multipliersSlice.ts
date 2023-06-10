@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
+
 import { updateStore } from "../Dispatcher.ts";
 import {
   addMultiplier as add_multiplier,
@@ -27,12 +28,15 @@ export default multipliersSlice.reducer;
 
 const { updateMultipliers } = multipliersSlice.actions;
 
-export const initializeMultipliers = () => async (dispatch) => {
+export const initializeMultipliers = () => async (dispatch: Dispatch) => {
   const multipliers = await fetchMultipliers();
   dispatch(updateMultipliers(multipliers));
 };
 
-export const addMultiplier = async (dispatch, { value }) =>
+export const addMultiplier = async (
+  dispatch: Dispatch,
+  { value }: { value: number }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => add_multiplier(value),
@@ -41,7 +45,10 @@ export const addMultiplier = async (dispatch, { value }) =>
     successMessage: "Successfully added multiplier!",
   });
 
-export const updateMultiplier = async (dispatch, { guid, value }) =>
+export const updateMultiplier = async (
+  dispatch: Dispatch,
+  { guid, value }: { guid: string; value: number }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => edit_multiplier(guid, value),
@@ -50,7 +57,10 @@ export const updateMultiplier = async (dispatch, { guid, value }) =>
     successMessage: "Successfully edited multiplier!",
   });
 
-export const deleteMultiplier = async (dispatch, { value }) =>
+export const deleteMultiplier = async (
+  dispatch: Dispatch,
+  { value }: { value: number }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => delete_multiplier(value),

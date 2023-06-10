@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "lodash";
 
@@ -22,13 +22,16 @@ import {
   setProposalTitle,
 } from "../../../data-management/store/slices/selectedProposalSlice";
 import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
+import { ReduxStore } from "../../../data-management/middleware/Interfaces";
 
 const ProposalCardDetails = () => {
   const dispatch = useDispatch();
-  const { selectedProposal } = useSelector((state) => state.selectedProposal);
-  const titleRef = useRef();
-  const briefSummaryRef = useRef();
-  const specificationRef = useRef();
+  const { selectedProposal } = useSelector(
+    (state: ReduxStore) => state.selectedProposal
+  );
+  const titleRef = useRef<HTMLInputElement>(null);
+  const briefSummaryRef = useRef<HTMLTextAreaElement>(null);
+  const specificationRef = useRef<HTMLTextAreaElement>(null);
 
   const debouncedSearch = useRef(
     debounce(async (functionToRun) => functionToRun(), 300)
@@ -42,21 +45,8 @@ const ProposalCardDetails = () => {
     };
   }, [debouncedSearch]);
 
-  function handleTitleChange(value) {
-    titleRef.current.value = value;
-    debouncedSearch(() => setProposalTitle(dispatch, { title: value }));
-  }
-
-  function handleSummaryChange(value) {
-    briefSummaryRef.current.value = value;
-    debouncedSearch(() => setProposalSummary(dispatch, { summary: value }));
-  }
-
-  function handleSpecificationChange(value) {
-    specificationRef.current.value = value;
-    debouncedSearch(() =>
-      setProposalSpecifications(dispatch, { specifications: value })
-    );
+  if (!selectedProposal) {
+    return <>No selected proposal. Cannot show details.</>;
   }
 
   return (
@@ -99,14 +89,28 @@ const ProposalCardDetails = () => {
             ref={titleRef}
             sx={{ marginLeft: 2, flexGrow: 1 }}
             label={"Proposal title"}
-            onChange={({ target: { value } }) => handleTitleChange(value)}
+            onChange={({ target: { value } }) => {
+              if (titleRef.current !== null) {
+                titleRef.current.value = value;
+                debouncedSearch(() =>
+                  setProposalTitle(dispatch, { title: value })
+                );
+              }
+            }}
             defaultValue={selectedProposal.data?.title || ""}
           />
           <Stack flexDirection="row" margin={2} gap={2}>
             <StyledTextarea
               placeholder={"Brief summary"}
               ref={briefSummaryRef}
-              onChange={({ target: { value } }) => handleSummaryChange(value)}
+              onChange={({ target: { value } }) => {
+                if (briefSummaryRef.current !== null) {
+                  briefSummaryRef.current.value = value;
+                  debouncedSearch(() =>
+                    setProposalSummary(dispatch, { summary: value })
+                  );
+                }
+              }}
               sx={{ flexGrow: 1 }}
               minRows={8}
               maxRows={8}
@@ -116,9 +120,16 @@ const ProposalCardDetails = () => {
               placeholder={"Installation details"}
               ref={specificationRef}
               sx={{ flexGrow: 1 }}
-              onChange={({ target: { value } }) =>
-                handleSpecificationChange(value)
-              }
+              onChange={({ target: { value } }) => {
+                if (specificationRef.current !== null) {
+                  specificationRef.current.value = value;
+                  debouncedSearch(() =>
+                    setProposalSpecifications(dispatch, {
+                      specifications: value,
+                    })
+                  );
+                }
+              }}
               minRows={8}
               maxRows={8}
               defaultValue={selectedProposal.data?.specifications || ""}

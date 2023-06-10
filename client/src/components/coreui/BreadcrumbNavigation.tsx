@@ -9,6 +9,10 @@ const BreadcrumbNavigation = ({
   navigateBackFunc,
   initialBreadCrumbTitle,
   breadcrumbName,
+}: {
+  navigateBackFunc: () => void;
+  initialBreadCrumbTitle: string;
+  breadcrumbName: string;
 }) => {
   return (
     <Stack direction="row" width="100%">
@@ -23,7 +27,7 @@ const BreadcrumbNavigation = ({
         sx={{}}
       >
         <StyledBreadcrumb
-          component="a"
+          component="a" // TODO remove the 'a'?
           label={initialBreadCrumbTitle}
           icon={<FeedIcon fontSize="small" />}
           sx={{ cursor: "pointer" }}

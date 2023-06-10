@@ -1,6 +1,5 @@
-import React from "react";
-
 import { Text, View, StyleSheet, Page } from "@react-pdf/renderer";
+import { PdfInvoice } from "../../../../data-management/middleware/Interfaces";
 
 const styles = StyleSheet.create({
   body: {
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PaymentOptions = ({ invoice }) => (
+const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
   <Page style={styles.body}>
     <View style={styles.proposal_view}>
       <Text style={styles.small_text}>

@@ -9,6 +9,12 @@ import selectedProposalSlice from "./slices/selectedProposalSlice";
 import laborsSlice from "./slices/laborsSlice";
 import feesSlice from "./slices/feesSlice";
 
+import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
+
+export const useMultiplierDispatch: () => AppDispatch = useDispatch;
+export const useMultiplierSelector: TypedUseSelectorHook<RootState> =
+  useSelector;
+
 const store = configureStore({
   reducer: {
     filters: productTypesSlice,
@@ -22,5 +28,10 @@ const store = configureStore({
     fees: feesSlice,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default store;

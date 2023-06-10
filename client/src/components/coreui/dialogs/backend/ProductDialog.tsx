@@ -13,15 +13,15 @@ import BaseDialog from "../BaseDialog";
 import { ProductTypeObject } from "../../../../data-management/middleware/Interfaces";
 // import FileUpload from "../FileUpload";
 
-interface ProductStoreType {
+interface ProductStoreActions {
   header: string;
   guid: string;
   filters: ProductTypeObject[];
-  filter: ProductTypeObject | undefined | null;
+  filter: ProductTypeObject | undefined;
   modelName: string;
   modelNum: string;
   cost: number;
-  image: any;
+  image?: any;
   onSubmit:
     | (({
         filter,
@@ -29,13 +29,16 @@ interface ProductStoreType {
         modelNum,
         cost,
       }: {
-        filter: ProductTypeObject | undefined | null;
+        filter: ProductTypeObject | undefined;
         modelName: string;
         modelNum: string;
         cost: number;
-      }) => Promise<boolean>)
+      }) => Promise<boolean | undefined>)
     | undefined;
-  updateFilter: (filter: ProductTypeObject | null) => void;
+}
+
+interface ProductStoreType extends ProductStoreActions {
+  updateFilter: (filter: ProductTypeObject | undefined) => void;
   updateModelName: (modelName: string) => void;
   updateModelNum: (modelNum: string) => void;
   updateCost: (cost: number) => void;
@@ -187,7 +190,7 @@ export const productDialog = ({
   cost,
   image,
   onSubmit,
-}: ProductStoreType) => {
+}: ProductStoreActions) => {
   useProductDialogStore.setState({
     header,
     guid,

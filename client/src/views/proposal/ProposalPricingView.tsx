@@ -15,6 +15,7 @@ import { handleAddProductToProposal } from "../../components/proposal-ui/pricing
 import ProductsForProposal from "../../components/proposal-ui/pricing/Table/ProductsForProposal";
 import FeesAndLaborForProposal from "../../components/proposal-ui/pricing/Table/FeesAndLaborForProposal";
 import CostBreakdown from "../../components/proposal-ui/pricing/Table/CostBreakdown";
+import { ReduxStore } from "../../data-management/middleware/Interfaces";
 
 /**
  * Component used for displaying the table of selected products as well as inputs for
@@ -23,10 +24,16 @@ import CostBreakdown from "../../components/proposal-ui/pricing/Table/CostBreakd
  */
 export default function ProposalPricingView() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
-  const { selectedProposal } = useSelector((state) => state.selectedProposal);
-  const { filters } = useSelector((state) => state.filters);
+  const { products } = useSelector((state: ReduxStore) => state.products);
+  const { selectedProposal } = useSelector(
+    (state: ReduxStore) => state.selectedProposal
+  );
+  const { filters } = useSelector((state: ReduxStore) => state.filters);
   const [open, setOpen] = useState(true);
+
+  if (!selectedProposal) {
+    return <>You don't have a proposal selected. No pricing can be shown!</>;
+  }
 
   return (
     <>
@@ -42,14 +49,15 @@ export default function ProposalPricingView() {
               selectedProduct: undefined,
               qty: 1,
               quote_option: 1,
-              onSubmit: (selectedProduct, qty, quote_option) =>
-                handleAddProductToProposal(
+              onSubmit: async (selectedProduct, qty, quote_option) => {
+                return handleAddProductToProposal(
                   dispatch,
                   selectedProposal,
                   selectedProduct,
                   qty,
                   quote_option
-                ),
+                );
+              },
             });
           }}
         >
@@ -79,7 +87,6 @@ export default function ProposalPricingView() {
               specifications: selectedProposal.data.specifications,
             })
           }
-          align="right"
         >
           Save proposal
         </Button>

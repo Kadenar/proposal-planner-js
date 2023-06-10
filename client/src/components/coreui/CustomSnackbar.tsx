@@ -2,7 +2,16 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { create } from "zustand";
 
-const useSnackbarStore = create((set) => ({
+interface SnackbarActions {
+  title: string;
+  show: boolean;
+  status: string | undefined;
+}
+
+interface SnackbarType extends SnackbarActions {
+  close: () => void;
+}
+const useSnackbarStore = create<SnackbarType>((set) => ({
   title: "",
   show: false,
   status: undefined,
@@ -13,7 +22,10 @@ const CustomSnackbar = () => {
   const { title, show, status, close } = useSnackbarStore();
 
   // Handle closing the snackbar
-  const handleCloseSnackbar = (event, reason) => {
+  const handleCloseSnackbar = (
+    _: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
     if (reason === "clickaway") {
       return;
     }
@@ -25,7 +37,7 @@ const CustomSnackbar = () => {
     <Snackbar open={show} autoHideDuration={3500} onClose={handleCloseSnackbar}>
       <Alert
         onClose={handleCloseSnackbar}
-        severity={status}
+        severity={status} // MUI controls this
         sx={{ width: "100%" }}
       >
         {title}
@@ -34,7 +46,7 @@ const CustomSnackbar = () => {
   );
 };
 
-export const showSnackbar = ({ title, show, status }) => {
+export const showSnackbar = ({ title, show, status }: SnackbarActions) => {
   useSnackbarStore.setState({
     title,
     show,

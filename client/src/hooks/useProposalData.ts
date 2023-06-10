@@ -11,17 +11,20 @@ import {
 } from "../data-management/middleware/Interfaces";
 
 export function useProposalData(selectedProposal: ProposalObject) {
-  const products = selectedProposal?.data?.products;
-  const fees = selectedProposal?.data?.fees;
-  const labor = selectedProposal?.data?.labor;
+  const products = selectedProposal.data.products;
+  const fees = selectedProposal.data.fees;
+  const labor = selectedProposal.data.labor;
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
-    return products.reduce<ProductOnProposal[][]>((result, currentValue) => {
-      (result[currentValue.quote_option] =
-        result[currentValue.quote_option] || []).push(currentValue);
-      return result;
-    }, {} as ProductOnProposal[][]);
+    return products.reduce<Record<number, ProductOnProposal[]>>(
+      (result, currentValue) => {
+        (result[currentValue.quote_option] =
+          result[currentValue.quote_option] || []).push(currentValue);
+        return result;
+      },
+      {} as Record<number, ProductOnProposal[]>
+    );
   }, [products]);
 
   // Calculate the cost of products applied to ALL quotes
@@ -35,22 +38,20 @@ export function useProposalData(selectedProposal: ProposalObject) {
     const remainingOptions = omit(productsInOptionsArrays, "0");
 
     // Calculate the cost of the remaining options
-    return Object.keys(remainingOptions).reduce<ProductOnProposal[]>(
+    return Object.keys(remainingOptions).reduce<
+      Record<number, Record<string, number>>
+    >(
       (result, option) => ({
         ...result,
         [option]: calculateCostForOption(
           selectedProposal,
-          productsInOptionsArrays[option], // TODO Figure out this type issue
+          productsInOptionsArrays[Number(option)], // TODO Figure out this type issue
           costAppliedToAllQuotes
         ),
       }),
-      {} as ProductOnProposal[]
+      {} as Record<number, Record<string, number>>
     );
   }, [productsInOptionsArrays, costAppliedToAllQuotes, selectedProposal]);
-
-  const arrayOfQuoteNames = useMemo(() => {
-    return Object.keys(pricingForQuotesData);
-  }, [pricingForQuotesData]);
 
   const _fees = useMemo(() => {
     return calculateFees(fees);
@@ -60,12 +61,14 @@ export function useProposalData(selectedProposal: ProposalObject) {
     return calculateLabor(labor);
   }, [labor]);
 
-  return {
+  const returnVal = {
     productsInOptionsArrays,
     costAppliedToAllQuotes,
     pricingForQuotesData,
-    arrayOfQuoteNames,
     fees: _fees,
     labor: _labor,
   };
+
+  console.log(returnVal);
+  return returnVal;
 }

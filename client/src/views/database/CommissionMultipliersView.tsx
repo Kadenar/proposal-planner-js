@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Box, Stack, Button, Slider, Typography, Card } from "@mui/material";
@@ -17,11 +16,16 @@ import {
 
 import AddNewItem from "../../components/coreui/AddNewItem";
 import { addScalarValueDialog } from "../../components/coreui/dialogs/backend/AddScalarValueDialog";
+import {
+  Commission,
+  Multiplier,
+  ReduxStore,
+} from "../../data-management/middleware/Interfaces";
 
 export default function CommissionMultipliersView() {
   const dispatch = useDispatch();
-  const { commissions } = useSelector((state) => state.commissions);
-  const { multipliers } = useSelector((state) => state.multipliers);
+  const { commissions } = useSelector((state: ReduxStore) => state.commissions);
+  const { multipliers } = useSelector((state: ReduxStore) => state.multipliers);
 
   return (
     <Box>
@@ -35,8 +39,8 @@ export default function CommissionMultipliersView() {
         addNewFunc: () => {
           addScalarValueDialog({
             header: "Add commission",
-            value: "",
-            onSubmit: async (value) => addCommission({ value }),
+            value: undefined,
+            onSubmit: async (value) => addCommission(dispatch, { value }),
           });
         },
         deleteFunc: async (value) => deleteCommission(dispatch, { value }),
@@ -51,7 +55,7 @@ export default function CommissionMultipliersView() {
         addNewFunc: () => {
           addScalarValueDialog({
             header: "Add multiplier",
-            value: "",
+            value: undefined,
             onSubmit: async (value) => addMultiplier(dispatch, { value }),
           });
         },
@@ -68,8 +72,17 @@ function constructCard({
   min = 0,
   max = 10,
   step = 1,
-  addNewFunc = () => {},
-  deleteFunc = () => {},
+  addNewFunc,
+  deleteFunc,
+}: {
+  heading: string;
+  source: Commission[] | Multiplier[];
+  marks: { value: number; label: string }[];
+  min: number;
+  max: number;
+  step: number;
+  addNewFunc: () => void;
+  deleteFunc: (value: number) => Promise<boolean | undefined>;
 }) {
   return (
     <Card sx={{ marginTop: 1, marginBottom: 2 }}>

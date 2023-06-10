@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Stack, Card, TextField, Typography } from "@mui/material";
 
@@ -15,8 +15,13 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { StyledIconButton } from "../../coreui/StyledComponents";
 import StateSelection from "../../coreui/StateSelection";
 import { saveClient } from "../../../data-management/store/slices/clientsSlice";
+import { ClientObject } from "../../../data-management/middleware/Interfaces";
 
-export default function ClientCardDetails({ activeClient }) {
+export default function ClientCardDetails({
+  activeClient,
+}: {
+  activeClient: ClientObject;
+}) {
   const dispatch = useDispatch();
   const [isDisabled, setDisabled] = useState(true);
   const [clientInfo, setClientInfo] = useState(activeClient);
@@ -31,7 +36,6 @@ export default function ClientCardDetails({ activeClient }) {
       return (
         <Tooltip title="Edit client details">
           <IconButton
-            tooltip="Edit client details"
             onClick={() => {
               setDisabled((prev) => !prev);
             }}
@@ -57,6 +61,10 @@ export default function ClientCardDetails({ activeClient }) {
         <Tooltip title="Save client details">
           <IconButton
             onClick={async () => {
+              if (!clientInfo) {
+                return;
+              }
+
               const response = await saveClient(dispatch, clientInfo);
 
               if (response) {
@@ -70,6 +78,10 @@ export default function ClientCardDetails({ activeClient }) {
       </Stack>
     );
   };
+
+  if (!activeClient) {
+    return <>There is no active client selected! No details to show</>;
+  }
 
   return (
     <>

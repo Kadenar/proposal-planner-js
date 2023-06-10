@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import {
   addCommission as add_commission,
   deleteCommission as delete_commission,
@@ -6,6 +6,7 @@ import {
   fetchCommissions,
 } from "../../middleware/commissionHelpers.ts";
 import { updateStore } from "../Dispatcher.ts";
+
 // REDUCERS
 
 export const commissionsSlice = createSlice({
@@ -26,12 +27,15 @@ export default commissionsSlice.reducer;
 
 const { updateCommissions } = commissionsSlice.actions;
 
-export const initializeCommissions = () => async (dispatch) => {
+export const initializeCommissions = () => async (dispatch: Dispatch) => {
   let commissions = await fetchCommissions();
   dispatch(updateCommissions(commissions));
 };
 
-export const addCommission = async (dispatch, { value }) =>
+export const addCommission = async (
+  dispatch: Dispatch,
+  { value }: { value: number }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => add_commission(value),
@@ -40,7 +44,10 @@ export const addCommission = async (dispatch, { value }) =>
     successMessage: "Successfully added commission!",
   });
 
-export const editCommission = async (dispatch, { guid, value }) =>
+export const editCommission = async (
+  dispatch: Dispatch,
+  { guid, value }: { guid: string; value: number }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => edit_commission(guid, value),
@@ -49,7 +56,10 @@ export const editCommission = async (dispatch, { guid, value }) =>
     successMessage: "Successfully edited commission!",
   });
 
-export const deleteCommission = async (dispatch, { guid }) =>
+export const deleteCommission = async (
+  dispatch: Dispatch,
+  { guid }: { guid: string }
+) =>
   updateStore({
     dispatch,
     dbOperation: async () => delete_commission(guid),

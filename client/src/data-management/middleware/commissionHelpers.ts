@@ -17,11 +17,11 @@ export async function fetchCommissions(): Promise<Commission[]> {
  * Add a new commission to the database
  * @returns
  */
-export async function addCommission(value: string) {
+export async function addCommission(value: number) {
   return simpleAddToDatabase(fetchCommissions, "commissions", value);
 }
 
-export async function editCommission(guid: string, value: string) {
+export async function editCommission(guid: string, value: number) {
   console.error("IMPLEMENT THIS METHOD BEFORE ATTEMPTING TO USE IT!");
   return null;
 }
@@ -30,6 +30,6 @@ export async function editCommission(guid: string, value: string) {
  * Delete a given commission from the database
  * @returns
  */
-export async function deleteCommission(value: string) {
+export async function deleteCommission(value: number) {
   return simpleDeleteFromDatabase(fetchCommissions, "commissions", value);
 }

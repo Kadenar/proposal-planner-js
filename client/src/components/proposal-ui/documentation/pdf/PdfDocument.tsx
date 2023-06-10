@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Text,
   Document,
@@ -20,11 +20,22 @@ import SubmittedToContent from "./SubmittedToContent";
 import { calculateCostForProductsInOption } from "../../pricing/pricing-utils";
 import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";
+import {
+  ClientObject,
+  PdfInvoice,
+  ProposalObject,
+} from "../../../../data-management/middleware/Interfaces";
 
-export const PdfDocument = ({ clientInfo, proposalDetails }) => {
+export const PdfDocument = ({
+  clientInfo,
+  proposalDetails,
+}: {
+  clientInfo: ClientObject | undefined;
+  proposalDetails: ProposalObject;
+}) => {
   const [open, setOpen] = useState(true);
   // Prepare invoice data for PDF
-  const invoice_data = useMemo(() => {
+  const invoice_data = useMemo<PdfInvoice>(() => {
     return {
       submitted_to: clientInfo?.name,
       address: `${clientInfo?.address} ${clientInfo?.apt} ${clientInfo?.city} ${clientInfo?.state} ${clientInfo?.zip}`,
@@ -44,7 +55,7 @@ export const PdfDocument = ({ clientInfo, proposalDetails }) => {
   if (!clientInfo || !proposalDetails) {
     return (
       <>
-        Client or proposal detials necessary to create the PDF could not be
+        Client or proposal details necessary to create the PDF could not be
         found. This might be an orphaned proposal?
       </>
     );
@@ -55,7 +66,7 @@ export const PdfDocument = ({ clientInfo, proposalDetails }) => {
         aria-label="expand row"
         size="small"
         onClick={() => setOpen(!open)}
-        style={{ fontWeight: "bold", marginButton: 10 }}
+        style={{ fontWeight: "bold", marginBottom: 10 }}
       >
         {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
         PDF Document
@@ -68,7 +79,7 @@ export const PdfDocument = ({ clientInfo, proposalDetails }) => {
             minHeight: "75vh",
           }}
         >
-          <PDFViewer fullWidth style={{ minWidth: "100%" }}>
+          <PDFViewer style={{ minWidth: "100%" }}>
             <Document>
               <Page style={styles.body}>
                 <RobisonInvoiceHeader />
@@ -82,7 +93,7 @@ export const PdfDocument = ({ clientInfo, proposalDetails }) => {
                   fixed
                 />
               </Page>
-              <PaymentOptions />
+              <PaymentOptions invoice={invoice_data} />
             </Document>
           </PDFViewer>
         </Stack>

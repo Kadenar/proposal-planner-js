@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Tabs from "@mui/base/Tabs";
@@ -24,7 +23,7 @@ export default function ClientTabsView() {
   return (
     <div className="proposals">
       <BreadcrumbNavigation
-        navigateBackFunc={() => updateActiveClient(dispatch, { value: null })}
+        navigateBackFunc={() => updateActiveClient(dispatch, null)}
         initialBreadCrumbTitle={"All clients"}
         breadcrumbName={selectedClient.name}
       />

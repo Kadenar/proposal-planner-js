@@ -22,7 +22,7 @@ export async function fetchProducts(): Promise<PsuedoObjectOfProducts> {
  * @returns
  */
 export async function addProduct(
-  filter_guid: string,
+  filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
   cost: number,
@@ -177,12 +177,12 @@ export const getFlattenedProductData = async () => {
 };
 
 function validateProductInfo(
-  filter_guid: string,
+  filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
   cost: number
 ) {
-  if (filter_guid === "") {
+  if (!filter_guid || filter_guid === "") {
     return {
       status: 500,
       data: { message: "Please specify a valid filter." },

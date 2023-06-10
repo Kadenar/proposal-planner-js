@@ -2,9 +2,21 @@ import { Button, Stack, TextField } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
 
-const useScalarValueStore = create((set) => ({
+interface ScalarValueActions {
+  header: string;
+  value: number | undefined;
+  onSubmit:
+    | ((value: number | undefined) => Promise<boolean | undefined>)
+    | undefined;
+}
+interface ScalarValueType extends ScalarValueActions {
+  updateValue: (value: number | undefined) => void;
+  close: () => void;
+}
+
+const useScalarValueStore = create<ScalarValueType>((set) => ({
   header: "",
-  value: "",
+  value: undefined,
   onSubmit: undefined,
   updateValue: (value) => set(() => ({ value: value })),
   close: () => set({ onSubmit: undefined }),
@@ -46,6 +58,7 @@ const AddScalarValueDialog = () => {
             onClick={async () => {
               if (!onSubmit) {
                 close();
+                return;
               }
 
               const returnValue = await onSubmit(value);
@@ -64,7 +77,11 @@ const AddScalarValueDialog = () => {
   );
 };
 
-export const addScalarValueDialog = ({ header, value, onSubmit }) => {
+export const addScalarValueDialog = ({
+  header,
+  value,
+  onSubmit,
+}: ScalarValueActions) => {
   useScalarValueStore.setState({
     header,
     value,

@@ -12,7 +12,7 @@ import { PsuedoObjectOfLabor } from "../../../../data-management/middleware/Inte
 interface LaborStoreActions {
   labor: PsuedoObjectOfLabor | undefined;
   onSubmit:
-    | ((labor: PsuedoObjectOfLabor) => Promise<boolean | undefined>)
+    | ((labor: PsuedoObjectOfLabor | undefined) => Promise<boolean | undefined>)
     | undefined;
 }
 interface LaborStoreType extends LaborStoreActions {
@@ -40,63 +40,64 @@ const LaborsDialog = () => {
       title="Configure labor"
       content={
         <Stack paddingTop={3} spacing={2}>
-          {Object.keys(labor).map((type) => {
-            return (
-              <Stack direction="row" gap="20px">
-                <TextField
-                  id="labor-cost-id"
-                  label="Quantity"
-                  variant="outlined"
-                  value={labor[type].qty}
-                  inputProps={{
-                    min: 0,
-                    inputMode: "numeric",
-                    pattern: "[0-9]*",
-                  }}
-                  onChange={(e) => {
-                    const newLabor = {
-                      ...labor,
-                    };
-                    newLabor[type] = {
-                      ...newLabor[type],
-                      qty: Number(e.target.value),
-                    };
-                    setLabor(newLabor);
-                  }}
-                  type="number"
-                />
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="labor-cost-input-label">
-                    {labor[type].name}
-                  </InputLabel>
-                  <OutlinedInput
+          {labor &&
+            Object.keys(labor).map((type) => {
+              return (
+                <Stack direction="row" gap="20px">
+                  <TextField
+                    id="labor-cost-id"
+                    label="Quantity"
+                    variant="outlined"
+                    value={labor[type].qty}
                     inputProps={{
                       min: 0,
                       inputMode: "numeric",
                       pattern: "[0-9]*",
                     }}
-                    id="labor-cost-input-label"
-                    value={labor[type].cost}
-                    type="number"
                     onChange={(e) => {
                       const newLabor = {
                         ...labor,
                       };
                       newLabor[type] = {
                         ...newLabor[type],
-                        cost: Number(e.target.value),
+                        qty: Number(e.target.value),
                       };
                       setLabor(newLabor);
                     }}
-                    startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
-                    }
-                    label={labor[type].name}
+                    type="number"
                   />
-                </FormControl>
-              </Stack>
-            );
-          })}
+                  <FormControl fullWidth>
+                    <InputLabel htmlFor="labor-cost-input-label">
+                      {labor[type].name}
+                    </InputLabel>
+                    <OutlinedInput
+                      inputProps={{
+                        min: 0,
+                        inputMode: "numeric",
+                        pattern: "[0-9]*",
+                      }}
+                      id="labor-cost-input-label"
+                      value={labor[type].cost}
+                      type="number"
+                      onChange={(e) => {
+                        const newLabor = {
+                          ...labor,
+                        };
+                        newLabor[type] = {
+                          ...newLabor[type],
+                          cost: Number(e.target.value),
+                        };
+                        setLabor(newLabor);
+                      }}
+                      startAdornment={
+                        <InputAdornment position="start">$</InputAdornment>
+                      }
+                      label={labor[type].name}
+                    />
+                  </FormControl>
+                </Stack>
+              );
+            })}
         </Stack>
       }
       actions={

@@ -5,11 +5,20 @@ import * as Interfaces from "../../../data-management/middleware/Interfaces";
 
 export const handleAddProductToProposal = (
   dispatch: Dispatch,
-  selectedProposal: Interfaces.ProposalObject,
-  selectedProduct: Interfaces.ProductObject,
+  selectedProposal: Interfaces.ProposalObject | null,
+  selectedProduct: Interfaces.ProductObject | null,
   qty: number,
   quote_option: number
 ) => {
+  if (!selectedProposal) {
+    showSnackbar({
+      title: "You can't add a product to a non-selected proposal!",
+      show: true,
+      status: "error",
+    });
+    return false;
+  }
+
   if (!selectedProduct) {
     showSnackbar({
       title: "Please select a product to add!",
@@ -112,8 +121,11 @@ export function ccyFormat(num: number) {
   if (!num) {
     num = 0;
   }
-
-  return `${"$" + Number(num).toFixed(2)}`;
+  const formatted = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(num);
+  return formatted;
 }
 
 export function getQuoteName(option_num: number) {

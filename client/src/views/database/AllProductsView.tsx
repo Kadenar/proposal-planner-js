@@ -13,6 +13,7 @@ import { Stack } from "@mui/material";
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog.tsx";
 import { productDialog } from "../../components/coreui/dialogs/backend/ProductDialog.tsx";
 import AddNewItem from "../../components/coreui/AddNewItem.tsx";
+import { ReduxStore } from "../../data-management/middleware/Interfaces.ts";
 
 /**
  * Component used to display the set of products that have been selected for this particular job
@@ -20,8 +21,8 @@ import AddNewItem from "../../components/coreui/AddNewItem.tsx";
  */
 export default function AllProductsView() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
-  const { filters } = useSelector((state) => state.filters);
+  const { products } = useSelector((state: ReduxStore) => state.products);
+  const { filters } = useSelector((state: ReduxStore) => state.filters);
 
   const flattenedProductData = useMemo(() => {
     return flattenProductData(products);
@@ -94,7 +95,7 @@ export default function AllProductsView() {
                 guid: rowData.guid,
                 filters,
                 filter: {
-                  label: rowData.filter_label,
+                  label: rowData.filter_label, // TODO Figure out why typescript is mad
                   guid: rowData.filter_guid,
                 },
                 modelName: rowData.model,

@@ -81,7 +81,7 @@ const LaborAndFeesView = () => {
               onClick: (_, rowData) => {
                 laborDialog({
                   header: "Edit labor",
-                  name: rowData.name,
+                  name: rowData.name, // TODO figure out why typescript isnt happy
                   qty: rowData.qty,
                   cost: rowData.cost,
                   onSubmit: async (name, qty, cost) =>
@@ -167,6 +167,7 @@ const LaborAndFeesView = () => {
               icon: "edit",
               tooltip: "Edit fee",
               onClick: (
+                // TODO figure out why typescript isn't happy
                 event,
                 rowData: {
                   id: string;

@@ -27,7 +27,7 @@ export const clientsSlice = createSlice({
     updateClientDetails: (state, data) => {
       const { key, value }: { key: string; value: string } = data.payload;
       if (state.selectedClient) {
-        state.selectedClient[key] = value; // TODO come back to why typesript is yelling at me
+        state.selectedClient[key] = value; // TODO come back to why typescript is yelling at me
       }
     },
   },
@@ -42,8 +42,8 @@ const { updateClients, selectClient, updateClientDetails } =
 
 export const updateActiveClient = (
   dispatch: Dispatch,
-  { value }: { value: ClientObject }
-) => dispatch(selectClient(value));
+  client: ClientObject | null
+) => dispatch(selectClient(client));
 
 export const initializeClients = () => async (dispatch: Dispatch) => {
   let clients = await fetch_clients();
