@@ -79,10 +79,6 @@ export default function ClientCardDetails({
     );
   };
 
-  if (!activeClient) {
-    return <>There is no active client selected! No details to show</>;
-  }
-
   return (
     <>
       <Card sx={{ marginBottom: 2 }}>
@@ -103,6 +99,7 @@ export default function ClientCardDetails({
           </StyledIconButton>
           {clientInfo && <ActionButtons />}
         </Stack>
+
         <Collapse in={open || !clientInfo} timeout="auto" unmountOnExit>
           {!clientInfo ? (
             <Typography sx={{ margin: 2 }}>

@@ -104,7 +104,7 @@ export const setProposalSummary = (
 
 export const setProposalSpecifications = (
   dispatch: Dispatch,
-  { specifications }: { specifications: string }
+  specifications: { originalText: string; modifiedText: string }[] | undefined
 ) => dispatch(updateProposalSpecifications(specifications));
 
 export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {

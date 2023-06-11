@@ -3,6 +3,7 @@ import {
   PsuedoObjectOfLabor,
   ProposalObject,
   ProductOnProposal,
+  ProposalSpec,
 } from "./Interfaces.ts";
 import {
   runGetRequest,
@@ -100,7 +101,7 @@ export async function saveProposal(
   multiplier: number,
   title: string | undefined,
   summary: string | undefined,
-  specifications: string | undefined
+  specifications: ProposalSpec[] | undefined
 ) {
   const existingProposals = await fetchProposals();
   const date = new Date();
@@ -207,7 +208,7 @@ const getNewProposalItem = async (
       commission: 8,
       title: "",
       summary: "",
-      specifications: "",
+      specifications: [],
     },
   };
 };

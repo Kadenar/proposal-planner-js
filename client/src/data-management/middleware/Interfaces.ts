@@ -21,8 +21,9 @@ export interface FlattenedProductObject {
 export interface ProductTypeObject {
   label: string;
   guid: string;
-  documentationHelp?: Array<string>;
+  specifications?: string[];
 }
+
 export interface NewClientObject {
   name: string;
   address: string;
@@ -75,7 +76,11 @@ export interface ProposalData {
   commission: number;
   title: string | undefined;
   summary: string | undefined;
-  specifications: string | undefined;
+  specifications: ProposalSpec[] | undefined;
+}
+export interface ProposalSpec {
+  originalText: string;
+  modifiedText: string;
 }
 
 export interface Commission {

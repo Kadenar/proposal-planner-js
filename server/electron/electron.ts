@@ -41,13 +41,12 @@ export default class Main {
     const startUrl =
       process.env.ELECTRON_START_URL ||
       `file://${path.join(__dirname, "../client/index.html")}`;
+
+    // console.log(`electron start url - ${process.env.ELECTRON_START_URL}`);
+    // console.log(`actual url ${startUrl}`);
     Main.mainWindow.loadURL(startUrl);
 
-    Main.mainWindow.removeMenu();
-    // development
-    // if (isDev) {
-    //   Main.mainWindow.webContents.openDevTools();
-    // }
+    // Main.mainWindow.removeMenu();
 
     Main.mainWindow.on("closed", Main.onClose);
   }

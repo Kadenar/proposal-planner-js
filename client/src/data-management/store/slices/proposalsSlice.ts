@@ -10,6 +10,7 @@ import { updateStore } from "../Dispatcher.ts";
 import {
   ProductOnProposal,
   ProposalObject,
+  ProposalSpec,
   PsuedoObjectOfFees,
   PsuedoObjectOfLabor,
 } from "../../middleware/Interfaces.ts";
@@ -129,7 +130,7 @@ export function saveProposal(
     multiplier: number;
     title: string | undefined;
     summary: string | undefined;
-    specifications: string | undefined;
+    specifications: ProposalSpec[] | undefined;
   }
 ) {
   return updateStore({

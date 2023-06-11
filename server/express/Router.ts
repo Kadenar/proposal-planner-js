@@ -13,7 +13,10 @@ class Router {
   constructor() {
     this.router = express.Router();
     this.cache = new NodeCache();
-    this.filePath = path.join(__dirname, "/data/testing");
+    this.filePath = path.join(
+      __dirname.replace("app.asar\\dist\\", ""),
+      "../extraResources"
+    );
     this.routes();
   }
 
@@ -21,7 +24,7 @@ class Router {
   private routes(): void {
     // CLIENTS \\
     this.router.get("/clients", (req, res) => {
-      console.log(`${this.filePath}`);
+      console.log(this.filePath);
       this.readFileFunc(
         `${this.filePath}/clients.json`,
         res,

@@ -63,12 +63,15 @@
     "accountNum": "new customer"
   },
   {
-    "guid": "77b2fefb-10d7-4f78-8f7b-3d74ad83de1b",
-    "name": "client name",
-    "address": "test 1",
+    "guid": "aff747ef-ab32-4a7c-b40a-e2005ce64ac3",
+    "name": "Client namt 1",
+    "address": "add",
     "apt": "",
     "state": "MI",
-    "city": "test 1",
-    "zip": "423"
+    "city": "city",
+    "zip": "12345",
+    "phone": "phone",
+    "email": "email",
+    "accountNum": "4324"
   }
 ]

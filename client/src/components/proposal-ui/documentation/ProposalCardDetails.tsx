@@ -10,19 +10,18 @@ import TextField from "@mui/material/TextField";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import TransferList from "./TransferList";
 
 import {
   StyledTextarea,
   StyledIconButton,
 } from "../../coreui/StyledComponents";
 import {
-  setProposalSpecifications,
   setProposalSummary,
   setProposalTitle,
 } from "../../../data-management/store/slices/selectedProposalSlice";
 import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
 import { ReduxStore } from "../../../data-management/middleware/Interfaces";
+import { ManageProposalSpecifications } from "./specifications/ManageProposalSpecifications";
 
 const ProposalCardDetails = () => {
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ const ProposalCardDetails = () => {
   );
   const titleRef = useRef<HTMLInputElement>(null);
   const briefSummaryRef = useRef<HTMLTextAreaElement>(null);
-  const specificationRef = useRef<HTMLTextAreaElement>(null);
 
   const debouncedSearch = useRef(
     debounce(async (functionToRun) => functionToRun(), 300)
@@ -112,30 +110,12 @@ const ProposalCardDetails = () => {
                 }
               }}
               sx={{ flexGrow: 1 }}
-              minRows={8}
-              maxRows={8}
+              minRows={4}
+              maxRows={4}
               defaultValue={selectedProposal.data?.summary || ""}
             />
-            <StyledTextarea
-              placeholder={"Installation details"}
-              ref={specificationRef}
-              sx={{ flexGrow: 1 }}
-              onChange={({ target: { value } }) => {
-                if (specificationRef.current !== null) {
-                  specificationRef.current.value = value;
-                  debouncedSearch(() =>
-                    setProposalSpecifications(dispatch, {
-                      specifications: value,
-                    })
-                  );
-                }
-              }}
-              minRows={8}
-              maxRows={8}
-              defaultValue={selectedProposal.data?.specifications || ""}
-            />
           </Stack>
-          <TransferList />
+          <ManageProposalSpecifications />
         </Stack>
       </Collapse>
     </Card>

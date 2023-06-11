@@ -96,13 +96,11 @@ const AddProductToProposalDialog = () => {
   const sizesOfEachProductType = useMemo(() => {
     return Object.keys(allProducts).reduce((result, product) => {
       return {
-        ...result,
+        ...result, // TODO -> Figure out what should be done here instead of spreading the previous result
         [product]: allProducts[product].length,
       };
     }, 0);
   }, [allProducts]);
-
-  // TODO -> Figure out what should be done here instead of spreading the previous result
 
   return (
     <>

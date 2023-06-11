@@ -1,4 +1,4 @@
-import { ProductTypeObject } from "./Interfaces.ts";
+import { ProductTypeObject, ProductTypeSpecifications } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -19,7 +19,7 @@ export async function fetchProductTypes(): Promise<ProductTypeObject[]> {
  */
 export async function addProductType(
   label: string,
-  documentationHelp?: Array<string>
+  specifications?: ProductTypeSpecifications
 ) {
   if (label === "") {
     return {
@@ -42,11 +42,13 @@ export async function addProductType(
     };
   }
 
+  // TODO - Probably want to filter out any specifications that were left blank
+
   return runPostRequest(
     existingTypes.concat({
       label,
       guid,
-      documentationHelp,
+      specifications,
     }),
     "types"
   );
@@ -59,7 +61,7 @@ export async function addProductType(
 export const editProductType = async (
   newLabel: string,
   guid: string,
-  documentationHelp?: Array<string>
+  specifications?: ProductTypeSpecifications
 ) => {
   const existingTypes = await fetchProductTypes();
 
@@ -95,8 +97,10 @@ export const editProductType = async (
   newProductTypes[index] = {
     label: newLabel,
     guid: guid, // ? keep guid and only change label - otherwise replace with new_guid,
-    documentationHelp,
+    specifications,
   };
+
+  // TODO Probably want to filter out specifications
 
   return runPostRequest(newProductTypes, "types");
 };

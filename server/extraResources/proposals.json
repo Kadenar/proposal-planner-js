@@ -98,7 +98,7 @@
     "name": "Test for Kyle",
     "description": "A sample proposal",
     "dateCreated": "6/6/2023",
-    "dateModified": "6/8/2023",
+    "dateModified": "6/11/2023",
     "owner": {
       "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7"
     },
@@ -211,17 +211,22 @@
           "cost": 0,
           "guid": "6e133019-054a-448c-a515-d580d2a1f448",
           "type": "subtract"
-        },
-        "3b4cb0fe-45c0-4902-9348-91a14493aa49": {
-          "name": "test",
-          "cost": "1000"
         }
       },
       "multiplier": 1.6,
       "commission": 8,
       "title": "",
       "summary": "",
-      "specifications": ""
+      "specifications": [
+        {
+          "originalText": "We will file permits with the town immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval.",
+          "modifiedText": "We will file permits with the town immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval."
+        },
+        {
+          "originalText": "All old equipment and debris will be removed from the property.",
+          "modifiedText": "All old equipment and debris will be removed from the property."
+        }
+      ]
     }
   },
   {
@@ -229,7 +234,7 @@
     "name": "test",
     "description": "test",
     "dateCreated": "6/8/2023",
-    "dateModified": "6/8/2023",
+    "dateModified": "6/9/2023",
     "owner": {
       "guid": "b2ebe472-3681-4be3-a5dd-b2a31657fdd7"
     },
@@ -239,7 +244,7 @@
       "labor": {
         "bf03e1a6-0666-436f-9b4f-e4f215efa71f": {
           "name": "(2) men (8) hours",
-          "qty": "0",
+          "qty": 1,
           "cost": "680",
           "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f"
         },

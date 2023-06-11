@@ -44,7 +44,10 @@
     "@fullcalendar/react": "^6.1.8",
     "@fullcalendar/timegrid": "^6.1.8",
     "@types/axios": "^0.14.0",
-    "axios": "^1.4.0"
+    "axios": "^1.4.0",
+    "immutability-helper": "^3.1.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1"
   },
   "scripts": {
     "react-start": "react-scripts start",
