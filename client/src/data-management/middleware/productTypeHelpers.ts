@@ -1,4 +1,4 @@
-import { ProductTypeObject, ProductTypeSpecifications } from "./Interfaces.ts";
+import { ProductTypeObject } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,

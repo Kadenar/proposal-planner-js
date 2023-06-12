@@ -48,7 +48,7 @@ export default function ClientTabsView() {
           <StyledTab value={2}>Jobs</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
-          <ClientAddressView />
+          <ClientAddressView selectedClient={selectedClient} />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
           <ClientProposalsView />

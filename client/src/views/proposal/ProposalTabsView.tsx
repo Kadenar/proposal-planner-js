@@ -20,6 +20,8 @@ import {
   useAppSelector,
 } from "../../data-management/store/store";
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
+import { saveProposal } from "../../data-management/store/slices/proposalsSlice";
+import { useKey } from "../../hooks/useKey";
 
 export default function ProposalTabsView() {
   const dispatch = useAppDispatch();
@@ -27,6 +29,22 @@ export default function ProposalTabsView() {
   const { activeProposal, is_dirty } = useAppSelector(
     (state) => state.activeProposal
   );
+
+  useKey("ctrls", () => {
+    if (!activeProposal) {
+      return;
+    }
+    saveProposal(dispatch, {
+      guid: activeProposal.guid,
+      commission: activeProposal.data.commission,
+      fees: activeProposal.data.fees,
+      labor: activeProposal.data.labor,
+      products: activeProposal.data.products,
+      unitCostTax: activeProposal.data.unitCostTax,
+      multiplier: activeProposal.data.multiplier,
+      quoteOptions: activeProposal.data.quote_options,
+    });
+  });
 
   // Fetch client information
   const clientInfo = useMemo(() => {

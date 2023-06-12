@@ -14,7 +14,6 @@ import { selectProposal } from "../../data-management/store/slices/activeProposa
 
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 import { newProposalDialog } from "../../components/coreui/dialogs/frontend/NewProposalDialog";
-import { ReduxStore } from "../../data-management/middleware/Interfaces";
 import {
   useAppDispatch,
   useAppSelector,

@@ -18,6 +18,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../data-management/store/store";
+import { useKey } from "../../hooks/useKey";
 
 /**
  * Component used for displaying the table of selected products as well as inputs for
@@ -30,6 +31,22 @@ export default function ProposalPricingView() {
   const { activeProposal } = useAppSelector((state) => state.activeProposal);
   const { filters } = useAppSelector((state) => state.filters);
   const [open, setOpen] = useState(true);
+
+  useKey("ctrls", () => {
+    if (!activeProposal) {
+      return;
+    }
+    saveProposal(dispatch, {
+      guid: activeProposal.guid,
+      commission: activeProposal.data.commission,
+      fees: activeProposal.data.fees,
+      labor: activeProposal.data.labor,
+      products: activeProposal.data.products,
+      unitCostTax: activeProposal.data.unitCostTax,
+      multiplier: activeProposal.data.multiplier,
+      quoteOptions: activeProposal.data.quote_options,
+    });
+  });
 
   if (!activeProposal) {
     return <>You don't have a proposal selected. No pricing can be shown!</>;

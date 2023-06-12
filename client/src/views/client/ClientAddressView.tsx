@@ -16,18 +16,22 @@ import {
   setClientState,
   setClientZip,
 } from "../../data-management/store/slices/clientsSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
+import { useAppDispatch } from "../../data-management/store/store";
+import { ClientObject } from "../../data-management/middleware/Interfaces";
+import { useKey } from "../../hooks/useKey";
 
-const ClientAddressView = () => {
+const ClientAddressView = ({
+  selectedClient,
+}: {
+  selectedClient: ClientObject;
+}) => {
   const dispatch = useAppDispatch();
-  const { selectedClient } = useAppSelector((state) => state.clients);
 
-  if (!selectedClient) {
-    return <></>;
-  }
+  useKey("ctrls", () =>
+    saveClient(dispatch, {
+      ...selectedClient,
+    })
+  );
 
   return (
     <>
