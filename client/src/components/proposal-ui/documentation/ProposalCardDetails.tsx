@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -22,26 +23,21 @@ import {
 import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
 import { ReduxStore } from "../../../data-management/middleware/Interfaces";
 import { ManageProposalSpecifications } from "./specifications/ManageProposalSpecifications";
+import { Typography } from "@mui/material";
 
 const ProposalCardDetails = () => {
   const dispatch = useDispatch();
   const { selectedProposal } = useSelector(
     (state: ReduxStore) => state.selectedProposal
   );
-  const titleRef = useRef<HTMLInputElement>(null);
-  const briefSummaryRef = useRef<HTMLTextAreaElement>(null);
 
-  const debouncedSearch = useRef(
-    debounce(async (functionToRun) => functionToRun(), 300)
-  ).current;
+  const quoteOptions = selectedProposal?.data.quote_options;
 
   const [open, setOpen] = useState(true);
-
-  useEffect(() => {
-    return () => {
-      debouncedSearch.cancel();
-    };
-  }, [debouncedSearch]);
+  const [quote_option, setQuoteOption] = useState(0);
+  const title = selectedProposal?.data.quote_options[quote_option]?.title || "";
+  const summary =
+    selectedProposal?.data.quote_options[quote_option]?.summary || "";
 
   if (!selectedProposal) {
     return <>No selected proposal. Cannot show details.</>;
@@ -49,7 +45,12 @@ const ProposalCardDetails = () => {
 
   return (
     <Card sx={{ marginBottom: 2 }}>
-      <Stack flexDirection="row" margin={1} justifyContent="space-between">
+      <Stack
+        flexDirection="row"
+        padding={1}
+        margin={1}
+        justifyContent="space-between"
+      >
         <StyledIconButton
           aria-label="expand row"
           size="small"
@@ -71,9 +72,7 @@ const ProposalCardDetails = () => {
                 products: selectedProposal.data.products,
                 unitCostTax: selectedProposal.data.unitCostTax,
                 multiplier: selectedProposal.data.multiplier,
-                title: selectedProposal.data.title,
-                summary: selectedProposal.data.summary,
-                specifications: selectedProposal.data.specifications,
+                quoteOptions: selectedProposal.data.quote_options,
               })
             }
           >
@@ -82,41 +81,58 @@ const ProposalCardDetails = () => {
         )}
       </Stack>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <Stack margin={1} gap={2}>
-          <TextField
-            ref={titleRef}
-            sx={{ marginLeft: 2, flexGrow: 1 }}
-            label={"Proposal title"}
-            onChange={({ target: { value } }) => {
-              if (titleRef.current !== null) {
-                titleRef.current.value = value;
-                debouncedSearch(() =>
-                  setProposalTitle(dispatch, { title: value })
-                );
-              }
-            }}
-            defaultValue={selectedProposal.data?.title || ""}
-          />
-          <Stack flexDirection="row" margin={2} gap={2}>
+        {quoteOptions && quoteOptions.length > 0 ? (
+          <Stack gap={2} marginLeft={2} marginRight={2}>
+            <TextField
+              id="select"
+              label="Quote option"
+              value={quote_option}
+              onChange={({ target: { value } }) => {
+                const newQuoteOption = Number(value);
+                setQuoteOption(newQuoteOption);
+              }}
+              select
+            >
+              {quoteOptions.map((_, index) => {
+                return <MenuItem value={index}>Quote {index + 1}</MenuItem>;
+              })}
+            </TextField>
+            <TextField
+              sx={{ flexGrow: 1 }}
+              label={"Proposal title"}
+              value={title}
+              onChange={({ target: { value } }) => {
+                setProposalTitle(dispatch, value, quote_option);
+              }}
+            />
             <StyledTextarea
               placeholder={"Brief summary"}
-              ref={briefSummaryRef}
+              title={summary}
               onChange={({ target: { value } }) => {
-                if (briefSummaryRef.current !== null) {
-                  briefSummaryRef.current.value = value;
-                  debouncedSearch(() =>
-                    setProposalSummary(dispatch, { summary: value })
-                  );
-                }
+                setProposalSummary(dispatch, value, quote_option);
               }}
               sx={{ flexGrow: 1 }}
               minRows={4}
               maxRows={4}
-              defaultValue={selectedProposal.data?.summary || ""}
+              value={summary}
+            />
+            <ManageProposalSpecifications
+              quoteOption={Number(quote_option)}
+              selectedProposal={selectedProposal}
             />
           </Stack>
-          <ManageProposalSpecifications />
-        </Stack>
+        ) : (
+          <Stack
+            justifyContent={"center"}
+            alignItems={"center"}
+            alignContent={"center"}
+            margin={5}
+          >
+            <Typography>
+              Please add some products to the proposal first
+            </Typography>
+          </Stack>
+        )}
       </Collapse>
     </Card>
   );

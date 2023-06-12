@@ -10,9 +10,9 @@ import { updateStore } from "../Dispatcher.ts";
 import {
   ProductOnProposal,
   ProposalObject,
-  ProposalSpec,
   PsuedoObjectOfFees,
   PsuedoObjectOfLabor,
+  QuoteOption,
 } from "../../middleware/Interfaces.ts";
 
 // REDUCERS
@@ -117,10 +117,11 @@ export function saveProposal(
     products,
     unitCostTax,
     multiplier,
-    title,
-    summary,
-    specifications,
-  }: {
+    quoteOptions,
+  }: // title,
+  // summary,
+  // specifications,
+  {
     guid: string;
     commission: number;
     fees: PsuedoObjectOfFees;
@@ -128,9 +129,10 @@ export function saveProposal(
     products: ProductOnProposal[];
     unitCostTax: number;
     multiplier: number;
-    title: string | undefined;
-    summary: string | undefined;
-    specifications: ProposalSpec[] | undefined;
+    quoteOptions: QuoteOption[];
+    // title: string | undefined;
+    // summary: string | undefined;
+    // specifications: ProposalSpec[] | undefined;
   }
 ) {
   return updateStore({
@@ -144,9 +146,10 @@ export function saveProposal(
         products,
         unitCostTax,
         multiplier,
-        title,
-        summary,
-        specifications
+        quoteOptions
+        // title,
+        // summary,
+        // specifications
       ),
     methodToDispatch: updateProposals,
     dataKey: "proposals",

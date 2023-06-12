@@ -24,7 +24,6 @@ class Router {
   private routes(): void {
     // CLIENTS \\
     this.router.get("/clients", (req, res) => {
-      console.log(this.filePath);
       this.readFileFunc(
         `${this.filePath}/clients.json`,
         res,

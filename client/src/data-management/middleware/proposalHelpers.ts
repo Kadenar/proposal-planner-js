@@ -4,6 +4,7 @@ import {
   ProposalObject,
   ProductOnProposal,
   ProposalSpec,
+  QuoteOption,
 } from "./Interfaces.ts";
 import {
   runGetRequest,
@@ -68,9 +69,10 @@ export async function addProposal(
         multiplier: existingProposal.data.multiplier,
         unitCostTax: existingProposal.data.unitCostTax,
         commission: existingProposal.data.commission,
-        title: existingProposal.data.title,
-        summary: existingProposal.data.summary,
-        specifications: existingProposal.data.specifications,
+        quote_options: existingProposal.data.quote_options,
+        // title: existingProposal.data.title,
+        // summary: existingProposal.data.summary,
+        // specifications: existingProposal.data.specifications,
       },
     };
     return runPostRequest(existingProposals.concat(newProposal), "proposals");
@@ -99,9 +101,10 @@ export async function saveProposal(
   products: ProductOnProposal[],
   unitCostTax: number,
   multiplier: number,
-  title: string | undefined,
-  summary: string | undefined,
-  specifications: ProposalSpec[] | undefined
+  quoteOptions: QuoteOption[]
+  // title: string | undefined,
+  // summary: string | undefined,
+  // specifications: ProposalSpec[] | undefined
 ) {
   const existingProposals = await fetchProposals();
   const date = new Date();
@@ -133,9 +136,10 @@ export async function saveProposal(
       labor,
       fees,
       products,
-      title,
-      summary,
-      specifications,
+      quote_options: quoteOptions,
+      // title,
+      // summary,
+      // specifications,
     },
   };
 
@@ -206,9 +210,10 @@ const getNewProposalItem = async (
       fees: reducedFees,
       multiplier: 1.5,
       commission: 8,
-      title: "",
-      summary: "",
-      specifications: [],
+      quote_options: [],
+      // title: "",
+      // summary: "",
+      // specifications: [],
     },
   };
 };

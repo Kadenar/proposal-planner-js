@@ -16,6 +16,7 @@ import { AddedSpecificationCard } from "./AddedSpecificationCard";
 import { AvailableSpecificationCard } from "./AvailableSpecificationCards";
 import {
   ProductTypeObject,
+  ProposalObject,
   ReduxStore,
 } from "../../../../data-management/middleware/Interfaces";
 import { setProposalSpecifications } from "../../../../data-management/store/slices/selectedProposalSlice";
@@ -32,7 +33,13 @@ interface AddedSpecification {
 }
 
 // This represents the combined view of left (available) & right (added) specifications
-export const ManageProposalSpecifications = () => {
+export const ManageProposalSpecifications = ({
+  selectedProposal,
+  quoteOption,
+}: {
+  selectedProposal: ProposalObject;
+  quoteOption: number;
+}) => {
   const dispatch = useAppDispatch();
 
   const [left, setLeft] = useState<AvailableSpecification[] | undefined>([]);
@@ -41,18 +48,16 @@ export const ManageProposalSpecifications = () => {
 
   const [selectedProductType, setSelectedProductType] = useState<
     ProductTypeObject | null | undefined
-  >(filters[0]);
-
-  const { selectedProposal } = useSelector(
-    (state: ReduxStore) => state.selectedProposal
-  );
+  >(undefined);
 
   const allLeft = selectedProductType?.specifications?.map((spec) => {
     return { text: spec, checked: false };
   });
 
-  const right = selectedProposal?.data.specifications;
+  const right =
+    selectedProposal?.data.quote_options[quoteOption].specifications;
 
+  // Run on initial load to default the selected product type due to useSelector and useEffect issues (really just a workaround)
   useEffect(() => {
     setSelectedProductType(filters[0]);
 
@@ -62,7 +67,8 @@ export const ManageProposalSpecifications = () => {
 
     const intersectedLeft = intersection(initialLeft || [], right || []);
     setLeft(intersectedLeft);
-  }, [filters, right, setLeft]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quoteOption]); // Only want to trigger this when the quote option changes / on initial load of the page
 
   const moveCard = useCallback(
     (dragIndex: number, hoverIndex: number) => {
@@ -77,9 +83,9 @@ export const ManageProposalSpecifications = () => {
         ],
       });
 
-      setProposalSpecifications(dispatch, newRight);
+      setProposalSpecifications(dispatch, newRight, quoteOption);
     },
-    [dispatch, right]
+    [dispatch, right, quoteOption]
   );
 
   const renderAddedSpecification = useCallback(
@@ -97,7 +103,7 @@ export const ManageProposalSpecifications = () => {
 
             const newRight = [...right];
             newRight[index].modifiedText = value;
-            setProposalSpecifications(dispatch, newRight);
+            setProposalSpecifications(dispatch, newRight, quoteOption);
           }}
           deleteCard={(idx) => {
             if (!right) {
@@ -106,7 +112,7 @@ export const ManageProposalSpecifications = () => {
 
             const newRight = [...right];
             const elementRemoved = newRight.splice(idx, 1);
-            setProposalSpecifications(dispatch, newRight);
+            setProposalSpecifications(dispatch, newRight, quoteOption);
 
             // Only update the left side if we are still on the same product type
             if (
@@ -120,7 +126,7 @@ export const ManageProposalSpecifications = () => {
         />
       );
     },
-    [dispatch, allLeft, right, moveCard]
+    [dispatch, allLeft, right, moveCard, quoteOption]
   );
 
   const renderAvailableSpecification = useCallback(
@@ -147,14 +153,13 @@ export const ManageProposalSpecifications = () => {
 
   return (
     <>
-      <Typography variant="h5">Specifications</Typography>
-
       <Stack
         maxHeight="50vh"
         minHeight="50vh"
         minWidth="90vw"
         direction="row"
-        margin={2}
+        marginRight={2}
+        marginBottom={2}
         spacing={2}
       >
         <Card
@@ -215,7 +220,8 @@ export const ManageProposalSpecifications = () => {
                 // Add what was selected to the right
                 setProposalSpecifications(
                   dispatch,
-                  (right || []).concat(specsAdded)
+                  (right || []).concat(specsAdded),
+                  quoteOption
                 );
 
                 // Remove what was added from the left

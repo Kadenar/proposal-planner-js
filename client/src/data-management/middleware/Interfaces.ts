@@ -39,8 +39,6 @@ export interface ClientObject extends NewClientObject {
   guid: string;
 }
 
-export type Nullable<ClientObject> = ClientObject | null;
-
 export interface Fee {
   guid: string;
   name: string;
@@ -74,6 +72,9 @@ export interface ProposalData {
   multiplier: number;
   unitCostTax: number;
   commission: number;
+  quote_options: QuoteOption[]; // this array is 0 indexed, so index 0 = quote 1, etc
+}
+export interface QuoteOption {
   title: string | undefined;
   summary: string | undefined;
   specifications: ProposalSpec[] | undefined;
@@ -103,7 +104,7 @@ export type ProductOnProposal = {
   modelNum: string;
   cost: number;
   qty: number;
-  quote_option: number;
+  quote_option: number; // 0 = All, 1-5 = specific quote
 };
 
 export interface PdfInvoice {
@@ -113,10 +114,8 @@ export interface PdfInvoice {
   email: string | undefined;
   current_date: string | undefined;
   accountNum: string | undefined;
-  proposal_title: string | undefined;
-  proposal_summary: string | undefined;
-  proposal_specifications: string | undefined;
-  invoiceTotals: number;
+  quoteOptions: QuoteOption[] | undefined;
+  invoiceTotals: Record<number, Record<string, number>>;
 }
 
 export interface ReduxStore {

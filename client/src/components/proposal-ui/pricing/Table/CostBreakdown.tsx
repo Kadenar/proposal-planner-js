@@ -24,17 +24,11 @@ const CostBreakdown = () => {
     (state: ReduxStore) => state.selectedProposal
   );
 
-  const {
-    productsInOptionsArrays,
-    costAppliedToAllQuotes,
-    pricingForQuotesData,
-    labor,
-    fees,
-  } = useProposalData(selectedProposal);
+  const { costAppliedToAllQuotes, pricingForQuotesData, labor, fees } =
+    useProposalData(selectedProposal);
 
   const arrayOfQuoteNames = Object.keys(pricingForQuotesData);
 
-  console.log(pricingForQuotesData);
   return (
     <TableContainer component={Paper}>
       <Table stickyHeader={true} aria-label="cost breakdown table">

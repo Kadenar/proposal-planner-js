@@ -5,8 +5,9 @@
   "main": "./dist/electron/electron.js",
   "scripts": {
     "start": "cd express && node test-server.js",
-    "electron-dev": "yarn run build && cross-env ELECTRON_START_URL=http://localhost:3000 electron --inspect ./dist/electron/electron.js",
+    "electron-dev": "yarn run build-dev && cross-env ELECTRON_START_URL=http://localhost:3000 electron --inspect ./dist/electron/electron.js",
     "build": "tsc -p tsconfig-build.json",
+    "build-dev": "tsc -p tsconfig-build.json && cp -r extraResources dist",
     "remove-package-folder": "rm -rf dist/packages",
     "move-packages": "cp -r dist/packages/.[0-z]* dist/packages/* ../dist && rm -rf dist/packages/*",
     "move-build": "yarn run remove-package-folder && cp -r dist/* ../build && rm -rf dist/* dist/.[0-z]* && rm -rf dist",

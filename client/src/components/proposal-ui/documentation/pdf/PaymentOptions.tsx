@@ -39,16 +39,15 @@ const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
   <Page style={styles.body}>
     <View style={styles.proposal_view}>
       <Text style={styles.small_text}>
-        <Text style={styles.text_bolded}>Payment can be made as follows:</Text>
+        <Text style={styles.text_bolded}>Payment can be made as follows: </Text>
         <Text style={styles.text_italics}>
           (with customer credit check approval)
         </Text>
       </Text>
-
-      <View style={{ gap: 20 }}>
-        <Text style={{ fontFamily: "Times-Italic", fontSize: 10 }}>
-          Please initial the payment plan option you would like to proceed with.
-        </Text>
+      <Text style={{ fontFamily: "Times-Italic", fontSize: 10 }}>
+        Please initial the payment plan option you would like to proceed with.
+      </Text>
+      <View style={{ marginTop: 10, gap: 10 }}>
         <Text style={styles.small_text}>
           <Text style={styles.text_bold_underlined}>Option # 1</Text> - No Money
           Down - 0 Interest for 18 months ______ Initial
@@ -87,31 +86,43 @@ const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
       </View>
     </View>
 
-    <View style={{ fontSize: 10, marginTop: 10, flexDirection: "row" }}>
-      <Text style={{ fontSize: 6, flexGrow: 1, marginBottom: 10 }}>
-        All material is warranted to be as specified. All work to be completed
-        in a workmanlike manner. Any alteration or deviation from above
-        specifications involving extra costs found during or after installation
-        will become an extra charge over and above the estimate. These may
-        include extra code requirements, asbestos abatement, fire rated
-        sheetrock, & fresh air ducts, etc. Robison is not responsible for any
-        faulty piping, water or steam leak, oil lines, poor draft, or electrical
-        wiring, etc. which may hinder the proper performance of the equipment
-        being installed. Robison is not responsible for delays beyond its
-        control. Homeowner to carry homeowner's insurance (fire, etc). All
-        workmen will have workmen's' comp and public liability insurance.
-      </Text>
-      <View style={{ flexGrow: 1 }}>
+    <View
+      style={{
+        fontSize: 10,
+        marginTop: 10,
+        flexDirection: "row",
+        gap: 15,
+      }}
+    >
+      <View style={{ width: "50%" }}>
+        <Text style={{ fontSize: 6, marginBottom: 10 }}>
+          All material is warranted to be as specified. All work to be completed
+          in a workmanlike manner. Any alteration or deviation from above
+          specifications involving extra costs found during or after
+          installation will become an extra charge over and above the estimate.
+          These may include extra code requirements, asbestos abatement, fire
+          rated sheetrock, & fresh air ducts, etc. Robison is not responsible
+          for any faulty piping, water or steam leak, oil lines, poor draft, or
+          electrical wiring, etc. which may hinder the proper performance of the
+          equipment being installed. Robison is not responsible for delays
+          beyond its control. Homeowner to carry homeowner's insurance (fire,
+          etc). All workmen will have workmen's' comp and public liability
+          insurance.
+        </Text>
+      </View>
+      <View style={{ width: "50%", gap: 10 }}>
         <Text>Authorized Signature: ________________________ </Text>
-        <Text>
+        <Text style={{ fontSize: 8 }}>
           Note: This proposal may be withdrawn by Robison if not accepted within
           30 days and is contingent upon managers approval.
         </Text>
-        <Text>Approved: ______________</Text>
-        <Text>Date: ______________</Text>
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <Text>Approved: ______________</Text>
+          <Text>Date: ______________</Text>
+        </View>
       </View>
     </View>
-    <View style={{ fontSize: 11 }}>
+    <Text style={{ fontSize: 10 }}>
       <Text style={styles.text_bolded}>Acceptance of Proposal: </Text>
       <Text>
         The above prices, specifications and conditions are satisfactory and are
@@ -124,7 +135,7 @@ const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
         authorization to commence, choose alternate equipment or full
         cancellation option.
       </Text>
-    </View>
+    </Text>
     <View
       style={{
         flexDirection: "row",

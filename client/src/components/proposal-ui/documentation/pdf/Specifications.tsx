@@ -1,6 +1,9 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import { NumericFormat } from "react-number-format";
-import { PdfInvoice } from "../../../../data-management/middleware/Interfaces";
+import {
+  PdfInvoice,
+  QuoteOption,
+} from "../../../../data-management/middleware/Interfaces";
 
 const styles = StyleSheet.create({
   proposal_view: {
@@ -35,23 +38,38 @@ const styles = StyleSheet.create({
   },
   specifications: {
     fontSize: 12,
+    gap: 5,
   },
 });
 
-const Specifications = ({ invoice }: { invoice: PdfInvoice }) => (
+const Specifications = ({
+  invoice,
+  quote,
+  index,
+}: {
+  invoice: PdfInvoice;
+  quote: QuoteOption;
+  index: number;
+}) => (
   <>
     <View style={styles.proposal_view}>
       <Text style={{ fontSize: 7 }}>
         We hereby submit specifications and estimate for:
       </Text>
-      <Text style={styles.title}>{invoice.proposal_title}</Text>
-      <Text style={styles.summary}>{invoice.proposal_summary}</Text>
+      <Text style={styles.title}>{quote.title}</Text>
+      <Text style={styles.summary}>{quote.summary}</Text>
       <Text style={styles.specification_title}>
         Installation with include the following:
       </Text>
-      <Text style={styles.specifications}>
-        {invoice.proposal_specifications}
-      </Text>
+      <View style={styles.specifications}>
+        {quote.specifications?.map((spec, index) => {
+          return (
+            <>
+              <Text>{`${index + 1}. ${spec.modifiedText}`}</Text>
+            </>
+          );
+        })}
+      </View>
     </View>
 
     <View
@@ -63,11 +81,13 @@ const Specifications = ({ invoice }: { invoice: PdfInvoice }) => (
         fontFamily: "Times-Bold",
       }}
     >
-      <Text style={{}}>
+      <Text>
         Robison will provide material and labor for the above specifications for
         the sum of:
       </Text>
-      <NumberAsCurrency value={invoice.invoiceTotals} />
+      return (
+      <NumberAsCurrency value={invoice.invoiceTotals[index].invoiceTotal} />
+      );
     </View>
   </>
 );

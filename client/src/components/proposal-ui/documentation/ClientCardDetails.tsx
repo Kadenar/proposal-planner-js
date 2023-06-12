@@ -20,7 +20,7 @@ import { ClientObject } from "../../../data-management/middleware/Interfaces";
 export default function ClientCardDetails({
   activeClient,
 }: {
-  activeClient: ClientObject;
+  activeClient: ClientObject | undefined;
 }) {
   const dispatch = useDispatch();
   const [isDisabled, setDisabled] = useState(true);

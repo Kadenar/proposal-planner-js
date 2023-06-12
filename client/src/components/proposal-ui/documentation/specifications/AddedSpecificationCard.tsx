@@ -12,9 +12,10 @@ const style = {
   padding: "0.5rem 1rem",
   marginBottom: ".5rem",
   cursor: "move",
+  transform: "translate3d(0, 0, 0)", // This is a workaround to Chrome bug issue = https://github.com/react-dnd/react-dnd/issues/832
 };
 
-export interface CardProps {
+export interface SpecificationProps {
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   deleteCard: (idx: number) => void;
@@ -32,30 +33,30 @@ interface DragItem {
 }
 
 const ItemTypes = {
-  CARD: "card",
+  SPECIFICATIONS: "specifications",
 };
 
-export const AddedSpecificationCard: FC<CardProps> = ({
+export const AddedSpecificationCard: FC<SpecificationProps> = ({
   index,
   moveCard,
   modifyText,
   deleteCard,
   specification,
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
     void,
     { handlerId: Identifier | null }
   >({
-    accept: ItemTypes.CARD,
+    accept: ItemTypes.SPECIFICATIONS,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
     hover(item: DragItem, monitor) {
-      if (!ref.current) {
+      if (!dragRef.current) {
         return;
       }
       const dragIndex = item.index;
@@ -67,7 +68,7 @@ export const AddedSpecificationCard: FC<CardProps> = ({
       }
 
       // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect = dragRef.current?.getBoundingClientRect();
 
       // Get vertical middle
       const hoverMiddleY =
@@ -105,7 +106,7 @@ export const AddedSpecificationCard: FC<CardProps> = ({
   });
 
   const [{ isDragging }, drag] = useDrag({
-    type: ItemTypes.CARD,
+    type: ItemTypes.SPECIFICATIONS,
     item: () => {
       return { specification, index };
     },
@@ -115,13 +116,13 @@ export const AddedSpecificationCard: FC<CardProps> = ({
   });
 
   const opacity = isDragging ? 0 : 1;
-  drag(drop(ref));
+  drag(drop(dragRef));
 
   return (
     <Stack
       direction={"row"}
       alignItems={"center"}
-      ref={ref}
+      ref={dragRef}
       style={{ ...style, opacity }}
       data-handler-id={handlerId}
     >

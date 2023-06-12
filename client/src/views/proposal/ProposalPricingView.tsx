@@ -82,9 +82,10 @@ export default function ProposalPricingView() {
               products: selectedProposal.data.products,
               unitCostTax: selectedProposal.data.unitCostTax,
               multiplier: selectedProposal.data.multiplier,
-              title: selectedProposal.data.title,
-              summary: selectedProposal.data.summary,
-              specifications: selectedProposal.data.specifications,
+              quoteOptions: selectedProposal.data.quote_options,
+              // title: selectedProposal.data.title,
+              // summary: selectedProposal.data.summary,
+              // specifications: selectedProposal.data.specifications,
             })
           }
         >

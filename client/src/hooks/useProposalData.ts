@@ -53,6 +53,8 @@ export function useProposalData(selectedProposal: ProposalObject) {
     );
   }, [productsInOptionsArrays, costAppliedToAllQuotes, selectedProposal]);
 
+  const quoteNamesArray = Object.keys(pricingForQuotesData);
+
   const _fees = useMemo(() => {
     return calculateFees(fees);
   }, [fees]);
@@ -61,14 +63,12 @@ export function useProposalData(selectedProposal: ProposalObject) {
     return calculateLabor(labor);
   }, [labor]);
 
-  const returnVal = {
+  return {
     productsInOptionsArrays,
     costAppliedToAllQuotes,
     pricingForQuotesData,
+    quoteNamesArray,
     fees: _fees,
     labor: _labor,
   };
-
-  console.log(returnVal);
-  return returnVal;
 }

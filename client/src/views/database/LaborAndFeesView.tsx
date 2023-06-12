@@ -178,7 +178,6 @@ const LaborAndFeesView = () => {
                   type: string;
                 }
               ) => {
-                console.log(event);
                 feeDialog({
                   header: "Edit fee",
                   name: rowData.name,

@@ -14,7 +14,6 @@ const filePath = path.join(
 
 // CLIENTS \\
 router.get("/clients", (req, res) => {
-  console.log(filePath);
   readFileFunc(
     `${filePath}/clients.json`,
     res,

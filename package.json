@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Generate an Electron app with a React Front end and an Express BackEnd embedded.",
   "scripts": {
-    "start-dev": "concurrently \"cd client && npm start\" \"wait-on http://127.0.0.1:3000 && cd server && yarn run electron-dev \"",
+    "start-dev": "yarn run remove-create-dir && concurrently \"cd client && npm start\" \"wait-on http://127.0.0.1:3000 && cd server && yarn run electron-dev \"",
     "install-all": "yarn install && cd server && yarn install && cd ../client && yarn install",
     "remove-create-dir": "rm -rf dist && rm -rf build && rm -rf server/dist && mkdir dist && mkdir build && cd server && mkdir dist && cd ..",
     "build-all": "yarn run remove-create-dir && cd client && yarn react-build && cd ../server && yarn run build && yarn run electron-build-all",

@@ -25,6 +25,7 @@ import {
   PdfInvoice,
   ProposalObject,
 } from "../../../../data-management/middleware/Interfaces";
+import { useProposalData } from "../../../../hooks/useProposalData";
 
 export const PdfDocument = ({
   clientInfo,
@@ -34,7 +35,8 @@ export const PdfDocument = ({
   proposalDetails: ProposalObject;
 }) => {
   const [open, setOpen] = useState(true);
-  // Prepare invoice data for PDF
+  const { pricingForQuotesData } = useProposalData(proposalDetails);
+
   const invoice_data = useMemo<PdfInvoice>(() => {
     return {
       submitted_to: clientInfo?.name,
@@ -43,14 +45,10 @@ export const PdfDocument = ({
       email: clientInfo?.email,
       current_date: proposalDetails?.dateModified,
       accountNum: clientInfo?.accountNum,
-      proposal_title: proposalDetails.data?.title,
-      proposal_summary: proposalDetails.data?.summary,
-      proposal_specifications: proposalDetails.data?.specifications,
-      invoiceTotals: 0,
-      // TODO FIX THIS
-      // calculateCostForProductsInOption(proposalDetails).invoiceTotal,
+      quoteOptions: proposalDetails.data.quote_options,
+      invoiceTotals: pricingForQuotesData,
     };
-  }, [clientInfo, proposalDetails]);
+  }, [clientInfo, proposalDetails, pricingForQuotesData]);
 
   if (!clientInfo || !proposalDetails) {
     return (
@@ -81,18 +79,26 @@ export const PdfDocument = ({
         >
           <PDFViewer style={{ minWidth: "100%" }}>
             <Document>
-              <Page style={styles.body}>
-                <RobisonInvoiceHeader />
-                <SubmittedToContent invoice={invoice_data} />
-                <Specifications invoice={invoice_data} />
-                <Text
-                  style={styles.pageNumber}
-                  render={({ pageNumber, totalPages }) =>
-                    `${pageNumber} / ${totalPages}`
-                  }
-                  fixed
-                />
-              </Page>
+              {invoice_data.quoteOptions?.map((quote, index) => {
+                return (
+                  <Page style={styles.body}>
+                    <RobisonInvoiceHeader />
+                    <SubmittedToContent invoice={invoice_data} />
+                    <Specifications
+                      invoice={invoice_data}
+                      quote={quote}
+                      index={index + 1}
+                    />
+                    <Text
+                      style={styles.pageNumber}
+                      render={({ pageNumber, totalPages }) =>
+                        `${pageNumber} / ${totalPages}`
+                      }
+                      fixed
+                    />
+                  </Page>
+                );
+              })}
               <PaymentOptions invoice={invoice_data} />
             </Document>
           </PDFViewer>
