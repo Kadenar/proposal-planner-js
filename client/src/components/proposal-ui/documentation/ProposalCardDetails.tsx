@@ -40,8 +40,8 @@ const ProposalCardDetails = () => {
     return <>No active proposal. Cannot show details.</>;
   }
   const quote_options = proposalDetails.quote_options;
-  const title = quote_options[quote_option]?.title || "";
-  const summary = quote_options[quote_option]?.summary || "";
+  const title = quote_options ? quote_options[quote_option].title : "";
+  const summary = quote_options ? quote_options[quote_option].summary : "";
 
   return (
     <Card sx={{ marginBottom: 2 }}>
@@ -81,7 +81,7 @@ const ProposalCardDetails = () => {
         )}
       </Stack>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        {quote_options.length > 0 ? (
+        {quote_options && quote_options.length > 0 ? (
           <Stack gap={2} marginLeft={2} marginRight={2}>
             <TextField
               id="select"

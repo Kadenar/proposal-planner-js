@@ -60,14 +60,8 @@ export const ManageProposalSpecifications = ({
       return [];
     }
 
-    const specifications =
-      activeProposal.data.quote_options[quoteOption].specifications; // TODO There's a bug here due to being read-only?
-
-    if (!specifications) {
-      return [];
-    }
-
-    return specifications.map((spec) => spec);
+    // TODO There's a bug here due to being read-only?
+    return activeProposal.data.quote_options[quoteOption].specifications || [];
   }, [activeProposal, quoteOption]);
 
   // Run on initial load to default the selected product type due to useSelector and useEffect issues (really just a workaround)
@@ -137,7 +131,10 @@ export const ManageProposalSpecifications = ({
             }
 
             const newRight = [...right];
-            newRight[index].modifiedText = value;
+            newRight[index] = {
+              ...newRight[index],
+              modifiedText: value,
+            };
             setProposalSpecifications(dispatch, newRight, quoteOption);
           }}
           deleteCard={(idx) => {

@@ -63,7 +63,7 @@ export const activeProposalSlice = createSlice({
         filteredProducts.length === 1 &&
         filteredProducts[0].quote_option !== 0
       ) {
-        state.activeProposal.data.quote_options.splice(
+        state.activeProposal.data.quote_options?.splice(
           filteredProducts[0].quote_option - 1,
           1
         );
