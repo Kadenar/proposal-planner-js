@@ -35,10 +35,4 @@ export const SidebarData = [
     icon: <StorageIcon />,
     cName: "nav-text",
   },
-  {
-    title: "Schedule",
-    path: "/schedule",
-    icon: <StorageIcon />,
-    cName: "nav-text",
-  },
 ];

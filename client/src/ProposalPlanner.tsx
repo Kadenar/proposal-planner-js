@@ -19,7 +19,6 @@ import JobsPage from "./landingpages/JobsPage.tsx";
 import ProposalsPage from "./landingpages/ProposalsPage.tsx";
 import ClientsPage from "./landingpages/ClientsPage.tsx";
 import DatabasePage from "./landingpages/DatabasePage.tsx";
-import SchedulePage from "./landingpages/SchedulePage.tsx";
 
 // Dialogs
 import NewClientDialog from "./components/coreui/dialogs/frontend/NewClientDialog.tsx";
@@ -80,7 +79,6 @@ const ProposalPlanner = () => {
           <Route path="/proposals" element={<ProposalsPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/database" element={<DatabasePage />} />
-          <Route path="/schedule" element={<SchedulePage />} />
         </Routes>
       </HashRouter>
     </>
