@@ -40,8 +40,11 @@ const ProposalCardDetails = () => {
     return <>No active proposal. Cannot show details.</>;
   }
   const quote_options = proposalDetails.quote_options;
-  const title = quote_options ? quote_options[quote_option].title : "";
-  const summary = quote_options ? quote_options[quote_option].summary : "";
+  const selectedQuoteOption = quote_options
+    ? quote_options[quote_option]
+    : undefined;
+  const title = selectedQuoteOption ? selectedQuoteOption.title : "";
+  const summary = selectedQuoteOption ? selectedQuoteOption.summary : "";
 
   return (
     <Card sx={{ marginBottom: 2 }}>

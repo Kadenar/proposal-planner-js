@@ -200,13 +200,7 @@ const getNewProposalItem = async (
       fees: reducedFees,
       multiplier: 1.5,
       commission: 8,
-      quote_options: [
-        { title: "", summary: "", specifications: [] },
-        { title: "", summary: "", specifications: [] },
-        { title: "", summary: "", specifications: [] },
-        { title: "", summary: "", specifications: [] },
-        { title: "", summary: "", specifications: [] },
-      ],
+      quote_options: [],
     },
   };
 };
