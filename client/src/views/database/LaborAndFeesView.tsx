@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import Stack from "@mui/material/Stack";
 
 import AddNewItem from "../../components/coreui/AddNewItem";
@@ -18,12 +16,15 @@ import {
   editFee,
 } from "../../data-management/store/slices/feesSlice";
 import { feeDialog } from "../../components/coreui/dialogs/backend/FeeDialog";
-import { ReduxStore } from "../../data-management/middleware/Interfaces";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 const LaborAndFeesView = () => {
-  const dispatch = useDispatch();
-  const { labors } = useSelector((state: ReduxStore) => state.labors);
-  const { fees } = useSelector((state: ReduxStore) => state.fees);
+  const dispatch = useAppDispatch();
+  const { labors } = useAppSelector((state) => state.labors);
+  const { fees } = useAppSelector((state) => state.fees);
 
   return (
     <Stack spacing={2}>

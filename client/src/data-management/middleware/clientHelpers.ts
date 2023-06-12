@@ -143,5 +143,5 @@ function validateClientInfo(
     };
   }
 
-  return null;
+  return undefined;
 }

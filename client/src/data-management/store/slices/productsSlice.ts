@@ -6,13 +6,18 @@ import {
   fetchProducts,
   deleteProduct as delete_product,
 } from "../../middleware/productHelpers.ts";
-import { ProductTypeObject } from "../../middleware/Interfaces.ts";
+import {
+  ProductTypeObject,
+  PsuedoObjectOfProducts,
+} from "../../middleware/Interfaces.ts";
+
+const initialState: { products: PsuedoObjectOfProducts } = {
+  products: {},
+};
 
 export const productsSlice = createSlice({
   name: "products",
-  initialState: {
-    products: [],
-  },
+  initialState,
   reducers: {
     updateProducts: (state, value) => {
       state.products = value.payload;

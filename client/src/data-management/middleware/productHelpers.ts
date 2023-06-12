@@ -210,5 +210,5 @@ function validateProductInfo(
     };
   }
 
-  return null;
+  return undefined;
 }

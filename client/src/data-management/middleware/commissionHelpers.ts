@@ -23,13 +23,18 @@ export async function addCommission(value: number) {
 
 export async function editCommission(guid: string, value: number) {
   console.error("IMPLEMENT THIS METHOD BEFORE ATTEMPTING TO USE IT!");
-  return null;
+  return undefined;
 }
 
 /**
  * Delete a given commission from the database
  * @returns
  */
-export async function deleteCommission(value: number) {
-  return simpleDeleteFromDatabase(fetchCommissions, "commissions", value);
+export async function deleteCommission(guid: string) {
+  return simpleDeleteFromDatabase(
+    fetchCommissions,
+    "commissions",
+    guid,
+    "guid"
+  );
 }

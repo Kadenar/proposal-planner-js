@@ -7,14 +7,17 @@ import {
   deleteMultiplier as delete_multiplier,
   fetchMultipliers,
 } from "../../middleware/multiplierHelpers.ts";
+import { Multiplier } from "../../middleware/Interfaces.ts";
 
 // REDUCERS
 
+const initialState: { multipliers: Multiplier[] } = {
+  multipliers: [],
+};
+
 export const multipliersSlice = createSlice({
   name: "multipliers",
-  initialState: {
-    multipliers: [],
-  },
+  initialState,
   reducers: {
     updateMultipliers: (state, value) => {
       state.multipliers = value.payload;
@@ -59,11 +62,11 @@ export const updateMultiplier = async (
 
 export const deleteMultiplier = async (
   dispatch: Dispatch,
-  { value }: { value: number }
+  { guid }: { guid: string }
 ) =>
   updateStore({
     dispatch,
-    dbOperation: async () => delete_multiplier(value),
+    dbOperation: async () => delete_multiplier(guid),
     methodToDispatch: updateMultipliers,
     dataKey: "multipliers",
     successMessage: "Successfully removed multiplier!",

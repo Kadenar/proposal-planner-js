@@ -1,35 +1,31 @@
 import { useMemo, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 import { returnOnlyValidFees, returnOnlyValidLabor } from "../pricing-utils";
-
 import { Paper, TableBody, TableContainer, Table } from "@mui/material";
-
 import { CollapsibleRow } from "./CollapsibleRow";
 
 import {
   updateProposalFees,
   updateProposalLabors,
-} from "../../../../data-management/store/slices/selectedProposalSlice";
+} from "../../../../data-management/store/slices/activeProposalSlice";
 import { feesDialog } from "../../../coreui/dialogs/frontend/FeesDialog";
 import { laborsDialog } from "../../../coreui/dialogs/frontend/LaborsDialog";
 import { showSnackbar } from "../../../coreui/CustomSnackbar";
+import { PsuedoObjectOfLabor } from "../../../../data-management/middleware/Interfaces";
 import {
-  PsuedoObjectOfLabor,
-  ReduxStore,
-} from "../../../../data-management/middleware/Interfaces";
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../data-management/store/store";
 
 export default function FeesAndLaborForProposal() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { selectedProposal } = useSelector(
-    (state: ReduxStore) => state.selectedProposal
-  );
-  const { fees } = useSelector((state: ReduxStore) => state.fees);
-  const { labors } = useSelector((state: ReduxStore) => state.labors);
+  const { activeProposal } = useAppSelector((state) => state.activeProposal);
+  const { fees } = useAppSelector((state) => state.fees);
+  const { labors } = useAppSelector((state) => state.labors);
 
-  const proposalFees = selectedProposal?.data.fees;
-  const proposalLabors = selectedProposal?.data.labor;
+  const proposalFees = activeProposal?.data.fees;
+  const proposalLabors = activeProposal?.data.labor;
 
   // Fetch the current fees stored in the database. Remove any fees no longer available and rename any others.
   const validFees = useMemo(() => {

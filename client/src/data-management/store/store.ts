@@ -5,7 +5,7 @@ import proposalsSlice from "./slices/proposalsSlice";
 import clientsSlice from "./slices/clientsSlice";
 import commissionsSlice from "./slices/commissionsSlice";
 import multipliersSlice from "./slices/multipliersSlice";
-import selectedProposalSlice from "./slices/selectedProposalSlice";
+import activeProposalSlice from "./slices/activeProposalSlice";
 import laborsSlice from "./slices/laborsSlice";
 import feesSlice from "./slices/feesSlice";
 
@@ -23,7 +23,7 @@ const store = configureStore({
     clients: clientsSlice,
     commissions: commissionsSlice,
     multipliers: multipliersSlice,
-    selectedProposal: selectedProposalSlice,
+    activeProposal: activeProposalSlice,
     labors: laborsSlice,
     fees: feesSlice,
   },

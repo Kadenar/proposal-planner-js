@@ -17,11 +17,13 @@ import {
 
 // REDUCERS
 
+const initialState: { proposals: ProposalObject[] } = {
+  proposals: [],
+};
+
 export const proposalsSlice = createSlice({
   name: "proposals",
-  initialState: {
-    proposals: [],
-  },
+  initialState,
   reducers: {
     updateProposals: (state, value) => {
       state.proposals = value.payload;
@@ -67,7 +69,7 @@ export async function copyProposal(
   }: {
     name: string;
     description: string;
-    client_guid: string;
+    client_guid: string | undefined;
     existing_proposal: ProposalObject | undefined;
   }
 ) {

@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { useSelector } from "react-redux";
 import update from "immutability-helper";
 
 import Stack from "@mui/material/Stack";
@@ -18,10 +17,12 @@ import {
   ProductTypeObject,
   ProposalObject,
   ProposalSpec,
-  ReduxStore,
 } from "../../../../data-management/middleware/Interfaces";
-import { setProposalSpecifications } from "../../../../data-management/store/slices/selectedProposalSlice";
-import { useAppDispatch } from "../../../../data-management/store/store";
+import { setProposalSpecifications } from "../../../../data-management/store/slices/activeProposalSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../data-management/store/store";
 
 interface AvailableSpecification {
   text: string;
@@ -35,17 +36,16 @@ interface AddedSpecification {
 
 // This represents the combined view of left (available) & right (added) specifications
 export const ManageProposalSpecifications = ({
-  selectedProposal,
+  activeProposal,
   quoteOption,
 }: {
-  selectedProposal: ProposalObject;
+  activeProposal: ProposalObject;
   quoteOption: number;
 }) => {
   const dispatch = useAppDispatch();
 
   const [left, setLeft] = useState<AvailableSpecification[] | undefined>([]);
-
-  const { filters } = useSelector((state: ReduxStore) => state.filters);
+  const { filters } = useAppSelector((state) => state.filters);
 
   const [selectedProductType, setSelectedProductType] = useState<
     ProductTypeObject | null | undefined
@@ -56,19 +56,19 @@ export const ManageProposalSpecifications = ({
   });
 
   const right = useMemo<ProposalSpec[]>(() => {
-    if (!selectedProposal) {
+    if (!activeProposal) {
       return [];
     }
 
     const specifications =
-      selectedProposal.data.quote_options[quoteOption].specifications; // TODO There's a bug here due to being read-only?
+      activeProposal.data.quote_options[quoteOption].specifications; // TODO There's a bug here due to being read-only?
 
     if (!specifications) {
       return [];
     }
 
     return specifications.map((spec) => spec);
-  }, [selectedProposal, quoteOption]);
+  }, [activeProposal, quoteOption]);
 
   // Run on initial load to default the selected product type due to useSelector and useEffect issues (really just a workaround)
   useEffect(() => {

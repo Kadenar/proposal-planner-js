@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import MaterialTable from "@material-table/core";
@@ -8,24 +7,26 @@ import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 import { newProposalDialog } from "../../components/coreui/dialogs/frontend/NewProposalDialog";
 
 import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
-import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
+import { selectProposal } from "../../data-management/store/slices/activeProposalSlice";
 import {
   addProposal,
   deleteProposal,
 } from "../../data-management/store/slices/proposalsSlice";
-import { ReduxStore } from "../../data-management/middleware/Interfaces";
+import { ProposalObject } from "../../data-management/middleware/Interfaces";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 const ClientProposalsView = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { clients, selectedClient } = useSelector(
-    (state: ReduxStore) => state.clients
-  );
-  const { proposals } = useSelector((state: ReduxStore) => state.proposals);
+  const { clients, selectedClient } = useAppSelector((state) => state.clients);
+  const { proposals } = useAppSelector((state) => state.proposals);
 
   const proposalsForClient = useMemo(() => {
     return proposals.filter(
@@ -86,8 +87,8 @@ const ClientProposalsView = () => {
           {
             icon: "edit",
             tooltip: "View proposal",
-            onClick: (_, rowData) => {
-              updateActiveClient(dispatch, null);
+            onClick: (_, rowData: RowData<ProposalObject>) => {
+              updateActiveClient(dispatch, undefined);
               selectProposal(dispatch, rowData);
               navigate("/proposals");
             },

@@ -4,19 +4,17 @@ import BaseDialog from "../BaseDialog";
 
 interface ScalarValueActions {
   header: string;
-  value: number | undefined;
-  onSubmit:
-    | ((value: number | undefined) => Promise<boolean | undefined>)
-    | undefined;
+  value: number;
+  onSubmit: ((value: number) => Promise<boolean | undefined>) | undefined;
 }
 interface ScalarValueType extends ScalarValueActions {
-  updateValue: (value: number | undefined) => void;
+  updateValue: (value: number) => void;
   close: () => void;
 }
 
 const useScalarValueStore = create<ScalarValueType>((set) => ({
   header: "",
-  value: undefined,
+  value: 0,
   onSubmit: undefined,
   updateValue: (value) => set(() => ({ value: value })),
   close: () => set({ onSubmit: undefined }),
@@ -37,10 +35,10 @@ const AddScalarValueDialog = () => {
         <div style={{ paddingTop: "5px" }}>
           <Stack spacing={2}>
             <TextField
-              label="Product type"
+              label="Value"
               value={value}
               onChange={({ target: { value } }) => {
-                updateValue(value);
+                updateValue(Number(value));
               }}
               autoFocus
             />

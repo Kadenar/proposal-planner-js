@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 import Tabs from "@mui/base/Tabs";
 
@@ -15,30 +14,31 @@ import { PdfDocument } from "../../components/proposal-ui/documentation/pdf/PdfD
 import BreadcrumbNavigation from "../../components/coreui/BreadcrumbNavigation";
 import ProposalCardDetails from "../../components/proposal-ui/documentation/ProposalCardDetails";
 
-import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
-import { ReduxStore } from "../../data-management/middleware/Interfaces";
+import { selectProposal } from "../../data-management/store/slices/activeProposalSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 export default function ProposalTabsView() {
-  const dispatch = useDispatch();
-  const { clients } = useSelector((state: ReduxStore) => state.clients);
-  const { selectedProposal } = useSelector(
-    (state: ReduxStore) => state.selectedProposal
-  );
+  const dispatch = useAppDispatch();
+  const { clients } = useAppSelector((state) => state.clients);
+  const { activeProposal } = useAppSelector((state) => state.activeProposal);
 
   // Fetch client information
   const clientInfo = useMemo(() => {
     return clients.find((client) => {
-      return client.guid === selectedProposal?.owner?.guid;
+      return client.guid === activeProposal?.owner?.guid;
     });
-  }, [selectedProposal, clients]);
+  }, [activeProposal, clients]);
 
   return (
-    selectedProposal && (
+    activeProposal && (
       <div className="proposals">
         <BreadcrumbNavigation
           initialBreadCrumbTitle={"All proposals"}
-          navigateBackFunc={() => selectProposal(dispatch, null)}
-          breadcrumbName={selectedProposal.name}
+          navigateBackFunc={() => selectProposal(dispatch, undefined)}
+          breadcrumbName={activeProposal.name}
         />
         <Tabs defaultValue={0}>
           <StyledTabsList>
@@ -56,7 +56,7 @@ export default function ProposalTabsView() {
           <StyledTabPanel value={2}>
             <PdfDocument
               clientInfo={clientInfo}
-              proposalDetails={selectedProposal}
+              proposalDetails={activeProposal}
             />
           </StyledTabPanel>
         </Tabs>

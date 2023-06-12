@@ -6,14 +6,16 @@ import {
   deleteLabor as delete_labor,
   fetchLabors,
 } from "../../middleware/laborHelpers.ts";
+import { Labor } from "../../middleware/Interfaces.ts";
 
 // REDUCERS
+const initialState: { labors: Labor[] } = {
+  labors: [],
+};
 
 export const laborsSlice = createSlice({
   name: "labors",
-  initialState: {
-    labors: [],
-  },
+  initialState,
   reducers: {
     updateLabors: (state, value) => {
       state.labors = value.payload;

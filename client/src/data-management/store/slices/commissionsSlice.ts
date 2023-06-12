@@ -6,14 +6,16 @@ import {
   fetchCommissions,
 } from "../../middleware/commissionHelpers.ts";
 import { updateStore } from "../Dispatcher.ts";
+import { Commission } from "../../middleware/Interfaces.ts";
 
 // REDUCERS
 
+const initialState: { commissions: Commission[] } = {
+  commissions: [],
+};
 export const commissionsSlice = createSlice({
   name: "commissions",
-  initialState: {
-    commissions: [],
-  },
+  initialState,
   reducers: {
     updateCommissions: (state, value) => {
       state.commissions = value.payload;

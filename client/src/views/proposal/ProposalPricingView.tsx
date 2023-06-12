@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -9,13 +8,16 @@ import { Button, Stack } from "@mui/material";
 
 import { StyledIconButton } from "../../components/coreui/StyledComponents";
 import { addProductToProposalDialog } from "../../components/coreui/dialogs/frontend/AddProductToProposalDialog";
-import { removeAllProductsFromProposal } from "../../data-management/store/slices/selectedProposalSlice";
+import { removeAllProductsFromProposal } from "../../data-management/store/slices/activeProposalSlice";
 import { saveProposal } from "../../data-management/store/slices/proposalsSlice";
 import { handleAddProductToProposal } from "../../components/proposal-ui/pricing/pricing-utils";
 import ProductsForProposal from "../../components/proposal-ui/pricing/Table/ProductsForProposal";
 import FeesAndLaborForProposal from "../../components/proposal-ui/pricing/Table/FeesAndLaborForProposal";
 import CostBreakdown from "../../components/proposal-ui/pricing/Table/CostBreakdown";
-import { ReduxStore } from "../../data-management/middleware/Interfaces";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 /**
  * Component used for displaying the table of selected products as well as inputs for
@@ -23,15 +25,13 @@ import { ReduxStore } from "../../data-management/middleware/Interfaces";
  * @returns
  */
 export default function ProposalPricingView() {
-  const dispatch = useDispatch();
-  const { products } = useSelector((state: ReduxStore) => state.products);
-  const { selectedProposal } = useSelector(
-    (state: ReduxStore) => state.selectedProposal
-  );
-  const { filters } = useSelector((state: ReduxStore) => state.filters);
+  const dispatch = useAppDispatch();
+  const { products } = useAppSelector((state) => state.products);
+  const { activeProposal } = useAppSelector((state) => state.activeProposal);
+  const { filters } = useAppSelector((state) => state.filters);
   const [open, setOpen] = useState(true);
 
-  if (!selectedProposal) {
+  if (!activeProposal) {
     return <>You don't have a proposal selected. No pricing can be shown!</>;
   }
 
@@ -52,7 +52,7 @@ export default function ProposalPricingView() {
               onSubmit: async (selectedProduct, qty, quote_option) => {
                 return handleAddProductToProposal(
                   dispatch,
-                  selectedProposal,
+                  activeProposal,
                   selectedProduct,
                   qty,
                   quote_option
@@ -75,17 +75,14 @@ export default function ProposalPricingView() {
           variant="contained"
           onClick={async () =>
             saveProposal(dispatch, {
-              guid: selectedProposal.guid,
-              commission: selectedProposal.data.commission,
-              fees: selectedProposal.data.fees,
-              labor: selectedProposal.data.labor,
-              products: selectedProposal.data.products,
-              unitCostTax: selectedProposal.data.unitCostTax,
-              multiplier: selectedProposal.data.multiplier,
-              quoteOptions: selectedProposal.data.quote_options,
-              // title: selectedProposal.data.title,
-              // summary: selectedProposal.data.summary,
-              // specifications: selectedProposal.data.specifications,
+              guid: activeProposal.guid,
+              commission: activeProposal.data.commission,
+              fees: activeProposal.data.fees,
+              labor: activeProposal.data.labor,
+              products: activeProposal.data.products,
+              unitCostTax: activeProposal.data.unitCostTax,
+              multiplier: activeProposal.data.multiplier,
+              quoteOptions: activeProposal.data.quote_options,
             })
           }
         >

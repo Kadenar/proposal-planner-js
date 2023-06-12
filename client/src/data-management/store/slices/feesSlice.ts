@@ -6,14 +6,17 @@ import {
   deleteFee as delete_fee,
   fetchFees,
 } from "../../middleware/feeHelpers.ts";
+import { Fee } from "../../middleware/Interfaces.ts";
 
 // REDUCERS
 
+const initialState: { fees: Fee[] } = {
+  fees: [],
+};
+
 export const feesSlice = createSlice({
   name: "fees",
-  initialState: {
-    fees: [],
-  },
+  initialState,
   reducers: {
     updateFees: (state, value) => {
       state.fees = value.payload;

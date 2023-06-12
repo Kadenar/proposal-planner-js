@@ -69,6 +69,13 @@ export async function editFee(
     };
   }
 
+  if (type !== "add" && type !== "subtract") {
+    return {
+      status: 500,
+      data: { message: "Fee can only have type of add or subtract." },
+    };
+  }
+
   const newFees = [...existingFees];
   newFees[index] = {
     ...newFees[index],
@@ -111,5 +118,5 @@ function validateFee(name: string, qty: number, cost: number) {
     };
   }
 
-  return null;
+  return undefined;
 }

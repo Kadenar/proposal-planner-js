@@ -1,18 +1,18 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { addProductToProposal } from "../../../data-management/store/slices/selectedProposalSlice";
+import { addProductToProposal } from "../../../data-management/store/slices/activeProposalSlice";
 import { showSnackbar } from "../../coreui/CustomSnackbar";
 import * as Interfaces from "../../../data-management/middleware/Interfaces";
 
 export const handleAddProductToProposal = (
   dispatch: Dispatch,
-  selectedProposal: Interfaces.ProposalObject | null,
+  activeProposal: Interfaces.ProposalObject | undefined,
   selectedProduct: Interfaces.ProductObject | null,
   qty: number,
   quote_option: number
 ) => {
-  if (!selectedProposal) {
+  if (!activeProposal) {
     showSnackbar({
-      title: "You can't add a product to a non-selected proposal!",
+      title: "You can't add a product to a non-active proposal!",
       show: true,
       status: "error",
     });
@@ -37,7 +37,7 @@ export const handleAddProductToProposal = (
     return false;
   }
 
-  const existingProduct = selectedProposal.data.products.find(
+  const existingProduct = activeProposal.data.products.find(
     (product) => product.guid === selectedProduct.guid
   );
 

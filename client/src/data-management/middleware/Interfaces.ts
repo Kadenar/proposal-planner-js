@@ -90,6 +90,7 @@ export interface Commission {
 }
 export interface Multiplier {
   value: number;
+  guid: string;
 }
 
 // Objects of a given type
@@ -121,7 +122,7 @@ export interface PdfInvoice {
 export interface ReduxStore {
   clients: {
     clients: ClientObject[];
-    selectedClient: ClientObject | null;
+    selectedClient: ClientObject | undefined;
   };
   commissions: {
     commissions: Commission[];
@@ -144,7 +145,7 @@ export interface ReduxStore {
   proposals: {
     proposals: ProposalObject[];
   };
-  selectedProposal: {
-    selectedProposal: ProposalObject | null;
+  activeProposal: {
+    activeProposal: ProposalObject | undefined;
   };
 }

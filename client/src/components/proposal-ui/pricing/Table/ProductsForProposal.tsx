@@ -1,5 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-
 import { ccyFormat, getQuoteName } from "../pricing-utils";
 
 import {
@@ -21,16 +19,17 @@ import {
   ActionsTableCell,
 } from "../../../coreui/StyledComponents";
 
-import { removeProductFromProposal } from "../../../../data-management/store/slices/selectedProposalSlice";
-import { ReduxStore } from "../../../../data-management/middleware/Interfaces";
+import { removeProductFromProposal } from "../../../../data-management/store/slices/activeProposalSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../data-management/store/store";
 
 export default function ProductsForProposal() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { selectedProposal } = useSelector(
-    (state: ReduxStore) => state.selectedProposal
-  );
-  const products = selectedProposal?.data?.products;
+  const { activeProposal } = useAppSelector((state) => state.activeProposal);
+  const products = activeProposal?.data?.products;
 
   if (!products) {
     return (

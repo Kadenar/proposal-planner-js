@@ -1,4 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
@@ -10,14 +9,18 @@ import {
   deleteProductType,
   editProductType,
 } from "../../data-management/store/slices/productTypesSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 /**
  * Component used to display the set of products that have been selected for this particular job
  * @returns
  */
 export default function AllProductTypesView() {
-  const dispatch = useDispatch();
-  const { filters } = useSelector((state) => state.filters);
+  const dispatch = useAppDispatch();
+  const { filters } = useAppSelector((state) => state.filters);
 
   return (
     <Stack gap={2}>
@@ -26,8 +29,9 @@ export default function AllProductTypesView() {
           productTypeDialog({
             header: "Add product type",
             productType: "",
-            onSubmit: async (value) =>
-              addProductType(dispatch, { label: value }),
+            specifications: [],
+            onSubmit: async (value, specifications) =>
+              addProductType(dispatch, { label: value, specifications }),
           })
         }
       />
@@ -43,6 +47,7 @@ export default function AllProductTypesView() {
             id: filter.guid,
             label: filter.label,
             guid: filter.guid,
+            specifications: filter.specifications,
           };
         })}
         options={{
@@ -56,12 +61,17 @@ export default function AllProductTypesView() {
           {
             icon: "edit",
             tooltip: "Edit type",
-            onClick: (event, rowData) => {
+            onClick: (_, rowData) => {
               productTypeDialog({
                 header: "Edit product type",
                 productType: rowData.label,
-                onSubmit: async (value) =>
-                  editProductType(dispatch, { guid: rowData.guid, value }),
+                specifications: rowData.specifications,
+                onSubmit: async (value, specifications) =>
+                  editProductType(dispatch, {
+                    guid: rowData.guid,
+                    value,
+                    specifications,
+                  }),
               });
             },
           },

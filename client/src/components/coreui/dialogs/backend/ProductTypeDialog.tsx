@@ -1,22 +1,36 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { StyledTextarea } from "../../StyledComponents";
 
 interface ProductStoreActions {
   header: string;
   productType: string;
-  onSubmit: ((productType: string) => Promise<boolean | undefined>) | undefined;
+  specifications: string[];
+  onSubmit:
+    | ((
+        productType: string,
+        specifications: string[]
+      ) => Promise<boolean | undefined>)
+    | undefined;
 }
 interface ProductTypeStoreType extends ProductStoreActions {
   updateProductType: (productType: string) => void;
+  updateSpecifications: (specifications: string[]) => void;
   close: () => void;
 }
 
 const useProductTypeStore = create<ProductTypeStoreType>((set) => ({
   header: "",
   productType: "",
+  specifications: [],
   onSubmit: undefined,
   updateProductType: (productType) => set(() => ({ productType: productType })),
+  updateSpecifications: (specifications) =>
+    set(() => ({ specifications: specifications })),
   close: () => set({ onSubmit: undefined }),
 }));
 
@@ -28,22 +42,69 @@ const ProductTypeDialog = () => {
     state.updateProductType,
   ]);
 
+  const [specifications, updateSpecifications] = useProductTypeStore(
+    (state) => [state.specifications, state.updateSpecifications]
+  );
+
   return (
     <BaseDialog
       title={header}
       content={
-        <div style={{ paddingTop: "5px" }}>
-          <Stack spacing={2}>
-            <TextField
-              label="Product type"
-              value={productType}
-              onChange={({ target: { value } }) => {
-                updateProductType(value);
-              }}
-              autoFocus
-            />
-          </Stack>
-        </div>
+        <Stack
+          spacing={2}
+          paddingTop={"5px"}
+          sx={{ maxHeight: "50vh", overflowY: "auto" }}
+        >
+          <TextField
+            label="Product type"
+            value={productType}
+            onChange={({ target: { value } }) => {
+              updateProductType(value);
+            }}
+            autoFocus
+          />
+          <Typography variant="h6">Specifications</Typography>
+          {specifications.length === 0 ? (
+            <Stack alignItems={"center"}>No specifications added yet.</Stack>
+          ) : (
+            specifications.map((spec, index) => {
+              return (
+                <Stack direction="row">
+                  <StyledTextarea
+                    minRows={3}
+                    maxRows={3}
+                    value={spec}
+                    onChange={({ target: { value } }) => {
+                      const newSpecs = [...specifications];
+                      newSpecs[index] = value;
+                      updateSpecifications(newSpecs);
+                    }}
+                    sx={{ flexGrow: 1 }}
+                  />
+                  <Tooltip title="Remove specification">
+                    <IconButton
+                      onClick={() => {
+                        const newSpecs = [...specifications];
+                        newSpecs.splice(index, 1);
+                        updateSpecifications(newSpecs);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Stack>
+              );
+            })
+          )}
+          <Button
+            onClick={() => {
+              const newSpecs = [...specifications];
+              updateSpecifications(newSpecs.concat(""));
+            }}
+          >
+            Add specification
+          </Button>
+        </Stack>
       }
       actions={
         <>
@@ -59,7 +120,7 @@ const ProductTypeDialog = () => {
                 return;
               }
 
-              const isValid = await onSubmit(productType);
+              const isValid = await onSubmit(productType, specifications);
 
               if (isValid) {
                 close();
@@ -79,11 +140,13 @@ const ProductTypeDialog = () => {
 export const productTypeDialog = ({
   header,
   productType,
+  specifications,
   onSubmit,
 }: ProductStoreActions) => {
   useProductTypeStore.setState({
     header,
     productType,
+    specifications,
     onSubmit,
   });
 };

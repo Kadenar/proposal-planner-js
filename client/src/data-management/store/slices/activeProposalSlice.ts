@@ -7,44 +7,48 @@ import {
   PsuedoObjectOfLabor,
 } from "../../middleware/Interfaces";
 
-export const selectedProposalSlice = createSlice({
-  name: "selectedProposal",
-  initialState: {
-    selectedProposal: null,
-  },
+const initialState: {
+  activeProposal: ProposalObject | undefined;
+} = {
+  activeProposal: undefined,
+};
+
+export const activeProposalSlice = createSlice({
+  name: "activeProposal",
+  initialState,
   reducers: {
-    selectedProposal: (state, value) => {
-      state.selectedProposal = value.payload;
+    activeProposal: (state, value) => {
+      state.activeProposal = value.payload;
     },
     addProductToTable: (state, product) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
 
-      state.selectedProposal.data.products =
-        state.selectedProposal.data.products.concat(product.payload); // TODO Come back to typescript yelling
+      state.activeProposal.data.products =
+        state.activeProposal.data.products.concat(product.payload); // TODO Come back to typescript yelling
 
       // If we don't have a quote option available yet, then add it
       if (
-        state.selectedProposal.data.quote_options.length <
+        state.activeProposal.data.quote_options.length <
         product.payload.quote_option
       ) {
-        state.selectedProposal.data.quote_options =
-          state.selectedProposal.data.quote_options.concat([
+        state.activeProposal.data.quote_options =
+          state.activeProposal.data.quote_options.concat([
             { title: "", summary: "", specifications: [] },
           ]);
       }
     },
     removeProductFromTable: (state, index) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
 
       const productBeingRemoved =
-        state.selectedProposal.data.products[index.payload];
+        state.activeProposal.data.products[index.payload];
 
       // Get the products on the proposal
-      const filteredProducts = state.selectedProposal.data.products.filter(
+      const filteredProducts = state.activeProposal.data.products.filter(
         (product: ProductOnProposal) => {
           return product.quote_option === productBeingRemoved.quote_option;
         }
@@ -54,87 +58,87 @@ export const selectedProposalSlice = createSlice({
         filteredProducts.length === 1 &&
         filteredProducts[0].quote_option !== 0
       ) {
-        state.selectedProposal.data.quote_options.splice(
+        state.activeProposal.data.quote_options.splice(
           filteredProducts[0].quote_option - 1,
           1
         );
       }
 
-      state.selectedProposal.data.products =
-        state.selectedProposal.data.products.filter(
+      state.activeProposal.data.products =
+        state.activeProposal.data.products.filter(
           (_, i) => i !== index.payload
         );
     },
     resetProposal: (state) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
-      state.selectedProposal.data.products = [];
-      state.selectedProposal.data.quote_option = [];
+      state.activeProposal.data.products = [];
+      state.activeProposal.data.quote_options = [];
     },
     updateProposalTitle: (state, value) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
 
       const { index, title } = value.payload;
 
-      state.selectedProposal.data.quote_options[index].title = title;
+      state.activeProposal.data.quote_options[index].title = title;
     },
     updateProposalSummary: (state, value) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
       const { index, summary } = value.payload;
 
-      state.selectedProposal.data.quote_options[index].summary = summary;
+      state.activeProposal.data.quote_options[index].summary = summary;
     },
     updateProposalSpecifications: (state, value) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
 
       const { index, specifications } = value.payload;
-      state.selectedProposal.data.quote_options[index].specifications =
+      state.activeProposal.data.quote_options[index].specifications =
         specifications;
     },
     updateUnitCostTax: (state, value) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
-      state.selectedProposal.data.unitCostTax = value.payload;
+      state.activeProposal.data.unitCostTax = value.payload;
     },
     updateMultiplier: (state, value) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
-      state.selectedProposal.data.multiplier = value.payload;
+      state.activeProposal.data.multiplier = value.payload;
     },
     updateCommission: (state, value) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
-      state.selectedProposal.data.commission = value.payload;
+      state.activeProposal.data.commission = value.payload;
     },
     updateLabors: (state, labors) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
-      state.selectedProposal.data.labor = labors.payload;
+      state.activeProposal.data.labor = labors.payload;
     },
     updateFees: (state, fees) => {
-      if (!state.selectedProposal) {
+      if (!state.activeProposal) {
         return;
       }
-      state.selectedProposal.data.fees = fees.payload;
+      state.activeProposal.data.fees = fees.payload;
     },
   },
 });
 
-export default selectedProposalSlice.reducer;
+export default activeProposalSlice.reducer;
 
 const {
-  selectedProposal,
+  activeProposal,
   addProductToTable,
   removeProductFromTable,
   resetProposal,
@@ -146,12 +150,12 @@ const {
   updateCommission,
   updateLabors,
   updateFees,
-} = selectedProposalSlice.actions;
+} = activeProposalSlice.actions;
 
 export const selectProposal = (
   dispatch: Dispatch,
-  proposal: ProposalObject | null
-) => dispatch(selectedProposal(proposal));
+  proposal: ProposalObject | undefined
+) => dispatch(activeProposal(proposal));
 
 export const addProductToProposal = (
   dispatch: Dispatch,
@@ -193,7 +197,7 @@ export const setProposalSpecifications = (
   );
 
 export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {
-  const numValue = isNaN(parseFloat(value)) ? null : parseFloat(value);
+  const numValue = isNaN(parseFloat(value)) ? 0 : parseFloat(value);
   dispatch(updateUnitCostTax(numValue));
 };
 

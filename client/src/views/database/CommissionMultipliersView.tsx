@@ -1,5 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-
 import { Box, Stack, Button, Slider, Typography, Card } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,13 +17,16 @@ import { addScalarValueDialog } from "../../components/coreui/dialogs/backend/Ad
 import {
   Commission,
   Multiplier,
-  ReduxStore,
 } from "../../data-management/middleware/Interfaces";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 export default function CommissionMultipliersView() {
-  const dispatch = useDispatch();
-  const { commissions } = useSelector((state: ReduxStore) => state.commissions);
-  const { multipliers } = useSelector((state: ReduxStore) => state.multipliers);
+  const dispatch = useAppDispatch();
+  const { commissions } = useAppSelector((state) => state.commissions);
+  const { multipliers } = useAppSelector((state) => state.multipliers);
 
   return (
     <Box>
@@ -39,11 +40,11 @@ export default function CommissionMultipliersView() {
         addNewFunc: () => {
           addScalarValueDialog({
             header: "Add commission",
-            value: undefined,
+            value: 0,
             onSubmit: async (value) => addCommission(dispatch, { value }),
           });
         },
-        deleteFunc: async (value) => deleteCommission(dispatch, { value }),
+        deleteFunc: async (guid) => deleteCommission(dispatch, { guid }),
       })}
       {constructCard({
         heading: "Multipliers",
@@ -55,11 +56,11 @@ export default function CommissionMultipliersView() {
         addNewFunc: () => {
           addScalarValueDialog({
             header: "Add multiplier",
-            value: undefined,
+            value: 0,
             onSubmit: async (value) => addMultiplier(dispatch, { value }),
           });
         },
-        deleteFunc: async (value) => deleteMultiplier(dispatch, { value }),
+        deleteFunc: async (guid) => deleteMultiplier(dispatch, { guid }),
       })}
     </Box>
   );
@@ -82,7 +83,7 @@ function constructCard({
   max: number;
   step: number;
   addNewFunc: () => void;
-  deleteFunc: (value: number) => Promise<boolean | undefined>;
+  deleteFunc: (guid: string) => Promise<boolean | undefined>;
 }) {
   return (
     <Card sx={{ marginTop: 1, marginBottom: 2 }}>
@@ -123,7 +124,7 @@ function constructCard({
                     confirmDialog({
                       message:
                         "Do you really want to delete this? This action cannot be undone.",
-                      onSubmit: () => deleteFunc(entry.value),
+                      onSubmit: () => deleteFunc(entry.guid),
                     });
                   }}
                 >

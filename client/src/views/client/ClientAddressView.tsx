@@ -1,5 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
@@ -18,11 +16,14 @@ import {
   setClientState,
   setClientZip,
 } from "../../data-management/store/slices/clientsSlice";
-import { ReduxStore } from "../../data-management/middleware/Interfaces";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 const ClientAddressView = () => {
-  const dispatch = useDispatch();
-  const { selectedClient } = useSelector((state: ReduxStore) => state.clients);
+  const dispatch = useAppDispatch();
+  const { selectedClient } = useAppSelector((state) => state.clients);
 
   if (!selectedClient) {
     return <></>;

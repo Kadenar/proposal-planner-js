@@ -3,7 +3,6 @@ import {
   PsuedoObjectOfLabor,
   ProposalObject,
   ProductOnProposal,
-  ProposalSpec,
   QuoteOption,
 } from "./Interfaces.ts";
 import {
@@ -70,9 +69,6 @@ export async function addProposal(
         unitCostTax: existingProposal.data.unitCostTax,
         commission: existingProposal.data.commission,
         quote_options: existingProposal.data.quote_options,
-        // title: existingProposal.data.title,
-        // summary: existingProposal.data.summary,
-        // specifications: existingProposal.data.specifications,
       },
     };
     return runPostRequest(existingProposals.concat(newProposal), "proposals");
@@ -102,9 +98,6 @@ export async function saveProposal(
   unitCostTax: number,
   multiplier: number,
   quoteOptions: QuoteOption[]
-  // title: string | undefined,
-  // summary: string | undefined,
-  // specifications: ProposalSpec[] | undefined
 ) {
   const existingProposals = await fetchProposals();
   const date = new Date();
@@ -137,9 +130,6 @@ export async function saveProposal(
       fees,
       products,
       quote_options: quoteOptions,
-      // title,
-      // summary,
-      // specifications,
     },
   };
 

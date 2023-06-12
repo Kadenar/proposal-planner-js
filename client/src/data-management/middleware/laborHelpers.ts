@@ -103,5 +103,5 @@ function validateLabor(name: string, qty: number, cost: number) {
     };
   }
 
-  return null;
+  return undefined;
 }

@@ -1,6 +1,4 @@
-import { useRef, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { debounce } from "lodash";
+import { useState } from "react";
 
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
@@ -19,29 +17,31 @@ import {
 import {
   setProposalSummary,
   setProposalTitle,
-} from "../../../data-management/store/slices/selectedProposalSlice";
+} from "../../../data-management/store/slices/activeProposalSlice";
 import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
-import { ReduxStore } from "../../../data-management/middleware/Interfaces";
 import { ManageProposalSpecifications } from "./specifications/ManageProposalSpecifications";
 import { Typography } from "@mui/material";
+import { useProposalDetails } from "../../../hooks/useProposalData";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../data-management/store/store";
 
 const ProposalCardDetails = () => {
-  const dispatch = useDispatch();
-  const { selectedProposal } = useSelector(
-    (state: ReduxStore) => state.selectedProposal
-  );
-
-  const quoteOptions = selectedProposal?.data.quote_options;
-
   const [open, setOpen] = useState(true);
   const [quote_option, setQuoteOption] = useState(0);
-  const title = selectedProposal?.data.quote_options[quote_option]?.title || "";
-  const summary =
-    selectedProposal?.data.quote_options[quote_option]?.summary || "";
 
-  if (!selectedProposal) {
-    return <>No selected proposal. Cannot show details.</>;
+  const dispatch = useAppDispatch();
+  const { activeProposal } = useAppSelector((state) => state.activeProposal);
+
+  const proposalDetails = useProposalDetails(activeProposal);
+
+  if (!activeProposal || !proposalDetails) {
+    return <>No active proposal. Cannot show details.</>;
   }
+  const quote_options = proposalDetails.quote_options;
+  const title = quote_options[quote_option]?.title || "";
+  const summary = quote_options[quote_option]?.summary || "";
 
   return (
     <Card sx={{ marginBottom: 2 }}>
@@ -65,14 +65,14 @@ const ProposalCardDetails = () => {
             variant="contained"
             onClick={async () =>
               saveProposal(dispatch, {
-                guid: selectedProposal.guid,
-                commission: selectedProposal.data.commission,
-                fees: selectedProposal.data.fees,
-                labor: selectedProposal.data.labor,
-                products: selectedProposal.data.products,
-                unitCostTax: selectedProposal.data.unitCostTax,
-                multiplier: selectedProposal.data.multiplier,
-                quoteOptions: selectedProposal.data.quote_options,
+                guid: proposalDetails.guid,
+                commission: proposalDetails.commission,
+                fees: proposalDetails.fees,
+                labor: proposalDetails.labor,
+                products: proposalDetails.products,
+                unitCostTax: proposalDetails.unitCostTax,
+                multiplier: proposalDetails.multiplier,
+                quoteOptions: proposalDetails.quote_options,
               })
             }
           >
@@ -81,7 +81,7 @@ const ProposalCardDetails = () => {
         )}
       </Stack>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        {quoteOptions && quoteOptions.length > 0 ? (
+        {quote_options.length > 0 ? (
           <Stack gap={2} marginLeft={2} marginRight={2}>
             <TextField
               id="select"
@@ -93,7 +93,7 @@ const ProposalCardDetails = () => {
               }}
               select
             >
-              {quoteOptions.map((_, index) => {
+              {quote_options.map((_, index) => {
                 return <MenuItem value={index}>Quote {index + 1}</MenuItem>;
               })}
             </TextField>
@@ -118,7 +118,7 @@ const ProposalCardDetails = () => {
             />
             <ManageProposalSpecifications
               quoteOption={Number(quote_option)}
-              selectedProposal={selectedProposal}
+              activeProposal={activeProposal}
             />
           </Stack>
         ) : (

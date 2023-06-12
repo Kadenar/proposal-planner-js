@@ -28,13 +28,18 @@ export async function addMultiplier(value: number) {
  */
 export async function editMultiplier(guid: string, value: number) {
   console.error("IMPLEMENT THIS METHOD BEFORE ATTEMPTING TO USE IT!");
-  return null;
+  return undefined;
 }
 
 /**
  * Delete a given multiplier from the database
  * @returns
  */
-export const deleteMultiplier = async (value: number) => {
-  return simpleDeleteFromDatabase(fetchMultipliers, "multipliers", value);
+export const deleteMultiplier = async (guid: string) => {
+  return simpleDeleteFromDatabase(
+    fetchMultipliers,
+    "multipliers",
+    guid,
+    "guid"
+  );
 };

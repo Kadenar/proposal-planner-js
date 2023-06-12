@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 import {
   editProduct,
@@ -13,16 +12,19 @@ import { Stack } from "@mui/material";
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog.tsx";
 import { productDialog } from "../../components/coreui/dialogs/backend/ProductDialog.tsx";
 import AddNewItem from "../../components/coreui/AddNewItem.tsx";
-import { ReduxStore } from "../../data-management/middleware/Interfaces.ts";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store.ts";
 
 /**
  * Component used to display the set of products that have been selected for this particular job
  * @returns
  */
 export default function AllProductsView() {
-  const dispatch = useDispatch();
-  const { products } = useSelector((state: ReduxStore) => state.products);
-  const { filters } = useSelector((state: ReduxStore) => state.filters);
+  const dispatch = useAppDispatch();
+  const { products } = useAppSelector((state) => state.products);
+  const { filters } = useAppSelector((state) => state.filters);
 
   const flattenedProductData = useMemo(() => {
     return flattenProductData(products);

@@ -6,12 +6,15 @@ import {
   fetchProductTypes,
 } from "../../middleware/productTypeHelpers.ts";
 import { updateStore } from "../Dispatcher.ts";
+import { ProductTypeObject } from "../../middleware/Interfaces.ts";
+
+const initialState: { filters: ProductTypeObject[] } = {
+  filters: [],
+};
 
 export const productTypesSlice = createSlice({
   name: "filters",
-  initialState: {
-    filters: [],
-  },
+  initialState,
   reducers: {
     updateProductTypes: (state, value) => {
       state.filters = value.payload;
@@ -30,11 +33,11 @@ export const initializeProductTypes = () => async (dispatch: Dispatch) => {
 
 export const addProductType = async (
   dispatch: Dispatch,
-  { label }: { label: string }
+  { label, specifications }: { label: string; specifications: string[] }
 ) =>
   updateStore({
     dispatch,
-    dbOperation: async () => add_product_type(label),
+    dbOperation: async () => add_product_type(label, specifications),
     methodToDispatch: updateProductTypes,
     dataKey: "types",
     successMessage: "Successfully added new product type!",
@@ -42,11 +45,15 @@ export const addProductType = async (
 
 export const editProductType = async (
   dispatch: Dispatch,
-  { guid, value }: { guid: string; value: string }
+  {
+    guid,
+    value,
+    specifications,
+  }: { guid: string; value: string; specifications: string[] }
 ) =>
   updateStore({
     dispatch,
-    dbOperation: async () => edit_product_type(value, guid),
+    dbOperation: async () => edit_product_type(guid, value, specifications),
     methodToDispatch: updateProductTypes,
     dataKey: "types",
     successMessage: "Successfully edited product type",

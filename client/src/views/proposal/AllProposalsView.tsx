@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "@material-table/core";
-import { Stack, CircularProgress, Button } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -11,24 +10,27 @@ import {
   copyProposal,
   deleteProposal,
 } from "../../data-management/store/slices/proposalsSlice";
-import { selectProposal } from "../../data-management/store/slices/selectedProposalSlice";
+import { selectProposal } from "../../data-management/store/slices/activeProposalSlice";
 
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 import { newProposalDialog } from "../../components/coreui/dialogs/frontend/NewProposalDialog";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
 
 export default function AllProposalsView() {
-  const dispatch = useDispatch();
-  const { proposals } = useSelector((state) => state.proposals);
-  const { clients } = useSelector((state) => state.clients);
-  const [menuItemInfo, setMenuItemInfo] = useState({
-    anchorEl: null,
-    rowData: null,
+  const dispatch = useAppDispatch();
+  const { proposals } = useAppSelector((state) => state.proposals);
+  const { clients } = useAppSelector((state) => state.clients);
+  const [menuItemInfo, setMenuItemInfo] = useState<{
+    anchorEl: HTMLAnchorElement | undefined;
+    rowData: any;
+  }>({
+    anchorEl: undefined,
+    rowData: undefined,
   });
-  const open = Boolean(menuItemInfo?.anchorEl);
-
-  if (proposals === null) {
-    return <CircularProgress />;
-  }
+  const open = Boolean(menuItemInfo.anchorEl);
 
   return (
     <Stack padding={2} gap={2}>
@@ -41,6 +43,11 @@ export default function AllProposalsView() {
               description: "",
               owner: {
                 guid: "",
+                name: "",
+                address: "",
+                state: "",
+                city: "",
+                zip: "",
               },
               clients,
               isExistingProposal: false,
@@ -54,7 +61,6 @@ export default function AllProposalsView() {
       </Stack>
       <MaterialTable
         title={""}
-        editable={true}
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
@@ -102,7 +108,12 @@ export default function AllProposalsView() {
       <Menu
         anchorEl={menuItemInfo?.anchorEl}
         open={open}
-        onClose={() => setMenuItemInfo(null)}
+        onClose={() =>
+          setMenuItemInfo({
+            anchorEl: undefined,
+            rowData: undefined,
+          })
+        }
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -116,7 +127,10 @@ export default function AllProposalsView() {
         </MenuItem>
         <MenuItem
           onClick={(e) => {
-            setMenuItemInfo(null);
+            setMenuItemInfo({
+              anchorEl: undefined,
+              rowData: undefined,
+            });
             console.log("TBD");
           }}
         >
@@ -124,10 +138,18 @@ export default function AllProposalsView() {
         </MenuItem>
         <MenuItem
           onClick={(e) => {
-            setMenuItemInfo(null);
+            setMenuItemInfo({
+              ...menuItemInfo,
+              anchorEl: undefined,
+            });
+
+            if (!menuItemInfo.rowData) {
+              return;
+            }
+
             newProposalDialog({
               name: menuItemInfo.rowData.name,
-              description: menuItemInfo.rowData.description,
+              description: `${menuItemInfo.rowData.description} copy`,
               owner: menuItemInfo.rowData.owner.client,
               clients,
               isExistingProposal: true,
@@ -145,7 +167,11 @@ export default function AllProposalsView() {
         </MenuItem>
         <MenuItem
           onClick={(e) => {
-            setMenuItemInfo(null);
+            setMenuItemInfo({
+              ...menuItemInfo,
+              anchorEl: undefined,
+            });
+
             confirmDialog({
               message:
                 "Do you really want to delete this? This action cannot be undone.",

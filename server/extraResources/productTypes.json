@@ -12,7 +12,10 @@
   {
     "label": "Air handlers",
     "guid": "air_handlers",
-    "specifications": ["We will remove..", "Install.."]
+    "specifications": [
+      "We will remove..",
+      "Install.."
+    ]
   },
   {
     "label": "Boilers",

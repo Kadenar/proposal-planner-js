@@ -17,10 +17,7 @@ export async function fetchProductTypes(): Promise<ProductTypeObject[]> {
  * Add a new product type to the database
  * @returns
  */
-export async function addProductType(
-  label: string,
-  specifications?: ProductTypeSpecifications
-) {
+export async function addProductType(label: string, specifications?: string[]) {
   if (label === "") {
     return {
       status: 500,
@@ -42,13 +39,11 @@ export async function addProductType(
     };
   }
 
-  // TODO - Probably want to filter out any specifications that were left blank
-
   return runPostRequest(
     existingTypes.concat({
       label,
       guid,
-      specifications,
+      specifications: specifications?.filter((spec) => spec.trim() !== ""),
     }),
     "types"
   );
@@ -59,26 +54,11 @@ export async function addProductType(
  * @returns
  */
 export const editProductType = async (
-  newLabel: string,
   guid: string,
-  specifications?: ProductTypeSpecifications
+  newLabel: string,
+  specifications?: string[]
 ) => {
   const existingTypes = await fetchProductTypes();
-
-  // A product type with the same guid already exists
-  // const new_guid = newLabel.toLowerCase().replaceAll(" ", "_");
-  // const conflict = existingTypes.find((existing) => {
-  //   return existing.guid === new_guid;
-  // });
-
-  // if (conflict) {
-  //   return {
-  //     status: 500,
-  //     data: {
-  //       message: "Product type already exists. Specify a different name.",
-  //     },
-  //   };
-  // }
 
   const index = existingTypes.findIndex((existing) => {
     return existing.guid === guid;
@@ -97,10 +77,8 @@ export const editProductType = async (
   newProductTypes[index] = {
     label: newLabel,
     guid: guid, // ? keep guid and only change label - otherwise replace with new_guid,
-    specifications,
+    specifications: specifications?.filter((spec) => spec.trim() !== ""),
   };
-
-  // TODO Probably want to filter out specifications
 
   return runPostRequest(newProductTypes, "types");
 };

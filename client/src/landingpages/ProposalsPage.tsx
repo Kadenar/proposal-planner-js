@@ -1,12 +1,9 @@
-import { useSelector } from "react-redux";
 import AllProposalsView from "../views/proposal/AllProposalsView";
 import ProposalTabsView from "../views/proposal/ProposalTabsView";
-import { ReduxStore } from "../data-management/middleware/Interfaces";
+import { useAppSelector } from "../data-management/store/store";
 
 export default function ProposalsPage() {
-  const { selectedProposal } = useSelector(
-    (state: ReduxStore) => state.selectedProposal
-  );
+  const { activeProposal } = useAppSelector((state) => state.activeProposal);
 
-  return <>{!selectedProposal ? <AllProposalsView /> : <ProposalTabsView />}</>;
+  return <>{!activeProposal ? <AllProposalsView /> : <ProposalTabsView />}</>;
 }

@@ -1,7 +1,7 @@
 [
-  { "value": 1.5 },
-  { "value": 1.55 },
-  { "value": 1.6 },
-  { "value": 1.65 },
-  { "value": 1.7 }
+  { "value": 1.5, "guid": "0a16222a-7f9f-4f8a-932c-9eaa520f6748" },
+  { "value": 1.55, "guid": "91280e8c-1a5e-4bbe-a057-bef25037bbf3" },
+  { "value": 1.6, "guid": "65a51e96-2e24-4c4b-b0b4-6cb0d5b6d1e0" },
+  { "value": 1.65, "guid": "a474d761-0d9f-45d4-b7f1-99085dd32a7c" },
+  { "value": 1.7, "guid": "1ec58489-9aa7-455d-a5a4-74bf1a8baf18" }
 ]

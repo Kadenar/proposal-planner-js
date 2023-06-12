@@ -10,13 +10,17 @@ import { updateStore } from "../Dispatcher.ts";
 import { ClientObject, NewClientObject } from "../../middleware/Interfaces.ts";
 
 // REDUCERS
+const initialState: {
+  clients: ClientObject[];
+  selectedClient: ClientObject | undefined;
+} = {
+  clients: [],
+  selectedClient: undefined,
+};
 
 export const clientsSlice = createSlice({
   name: "clients",
-  initialState: {
-    clients: [],
-    selectedClient: null,
-  },
+  initialState,
   reducers: {
     updateClients: (state, value) => {
       state.clients = value.payload;
@@ -42,7 +46,7 @@ const { updateClients, selectClient, updateClientDetails } =
 
 export const updateActiveClient = (
   dispatch: Dispatch,
-  client: ClientObject | null
+  client: ClientObject | undefined
 ) => dispatch(selectClient(client));
 
 export const initializeClients = () => async (dispatch: Dispatch) => {

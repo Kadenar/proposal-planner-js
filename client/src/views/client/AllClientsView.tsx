@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useMemo } from "react";
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 
@@ -10,18 +9,22 @@ import {
 } from "../../data-management/store/slices/clientsSlice";
 import { deleteProposalsForClient } from "../../data-management/store/slices/proposalsSlice";
 
-import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 import { clientDialog } from "../../components/coreui/dialogs/frontend/NewClientDialog";
 
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../data-management/store/store";
+
 export default function AllClientsView() {
-  const dispatch = useDispatch();
-  const { clients } = useSelector((state) => state.clients);
-  const { proposals } = useSelector((state) => state.proposals);
+  const dispatch = useAppDispatch();
+  const { clients } = useAppSelector((state) => state.clients);
+  const { proposals } = useAppSelector((state) => state.proposals);
 
   const clientsWithProposalInfo = useMemo(() => {
-    if (proposals == null || clients == null) {
+    if (!proposals || !clients) {
       return 0;
     }
 
@@ -33,10 +36,6 @@ export default function AllClientsView() {
       return { ...client, client_proposals };
     });
   }, [proposals, clients]);
-
-  if (clients === null) {
-    return <CircularProgress />;
-  }
 
   return (
     <Stack padding={2} gap={2}>
