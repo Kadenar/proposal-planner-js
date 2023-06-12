@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
 import update from "immutability-helper";
 
@@ -17,6 +17,7 @@ import { AvailableSpecificationCard } from "./AvailableSpecificationCards";
 import {
   ProductTypeObject,
   ProposalObject,
+  ProposalSpec,
   ReduxStore,
 } from "../../../../data-management/middleware/Interfaces";
 import { setProposalSpecifications } from "../../../../data-management/store/slices/selectedProposalSlice";
@@ -54,8 +55,20 @@ export const ManageProposalSpecifications = ({
     return { text: spec, checked: false };
   });
 
-  const right =
-    selectedProposal?.data.quote_options[quoteOption].specifications;
+  const right = useMemo<ProposalSpec[]>(() => {
+    if (!selectedProposal) {
+      return [];
+    }
+
+    const specifications =
+      selectedProposal.data.quote_options[quoteOption].specifications; // TODO There's a bug here due to being read-only?
+
+    if (!specifications) {
+      return [];
+    }
+
+    return specifications.map((spec) => spec);
+  }, [selectedProposal, quoteOption]);
 
   // Run on initial load to default the selected product type due to useSelector and useEffect issues (really just a workaround)
   useEffect(() => {
@@ -86,6 +99,28 @@ export const ManageProposalSpecifications = ({
       setProposalSpecifications(dispatch, newRight, quoteOption);
     },
     [dispatch, right, quoteOption]
+  );
+
+  const renderAvailableSpecification = useCallback(
+    (index: number, spec: AvailableSpecification) => {
+      return (
+        <AvailableSpecificationCard
+          index={index}
+          text={spec.text}
+          isChecked={spec.checked}
+          handleSelect={(mark_checked) => {
+            if (!left) {
+              return;
+            }
+
+            const newLeft = [...left];
+            newLeft[index].checked = mark_checked;
+            setLeft(newLeft);
+          }}
+        />
+      );
+    },
+    [left]
   );
 
   const renderAddedSpecification = useCallback(
@@ -127,28 +162,6 @@ export const ManageProposalSpecifications = ({
       );
     },
     [dispatch, allLeft, right, moveCard, quoteOption]
-  );
-
-  const renderAvailableSpecification = useCallback(
-    (index: number, spec: AvailableSpecification) => {
-      return (
-        <AvailableSpecificationCard
-          index={index}
-          text={spec.text}
-          isChecked={spec.checked}
-          handleSelect={(mark_checked) => {
-            if (!left) {
-              return;
-            }
-
-            const newLeft = [...left];
-            newLeft[index].checked = mark_checked;
-            setLeft(newLeft);
-          }}
-        />
-      );
-    },
-    [left]
   );
 
   return (
