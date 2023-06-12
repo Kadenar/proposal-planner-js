@@ -19,11 +19,14 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../data-management/store/store";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 
 export default function ProposalTabsView() {
   const dispatch = useAppDispatch();
   const { clients } = useAppSelector((state) => state.clients);
-  const { activeProposal } = useAppSelector((state) => state.activeProposal);
+  const { activeProposal, is_dirty } = useAppSelector(
+    (state) => state.activeProposal
+  );
 
   // Fetch client information
   const clientInfo = useMemo(() => {
@@ -37,7 +40,19 @@ export default function ProposalTabsView() {
       <div className="proposals">
         <BreadcrumbNavigation
           initialBreadCrumbTitle={"All proposals"}
-          navigateBackFunc={() => selectProposal(dispatch, undefined)}
+          navigateBackFunc={() => {
+            if (is_dirty) {
+              confirmDialog({
+                message: "You have unsaved changes",
+                onSubmit: async () => {
+                  selectProposal(dispatch, undefined);
+                  return true;
+                },
+              });
+            } else {
+              selectProposal(dispatch, undefined);
+            }
+          }}
           breadcrumbName={activeProposal.name}
         />
         <Tabs defaultValue={0}>

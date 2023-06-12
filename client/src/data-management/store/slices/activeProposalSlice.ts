@@ -9,8 +9,10 @@ import {
 
 const initialState: {
   activeProposal: ProposalObject | undefined;
+  is_dirty: boolean;
 } = {
   activeProposal: undefined,
+  is_dirty: false,
 };
 
 export const activeProposalSlice = createSlice({
@@ -19,6 +21,7 @@ export const activeProposalSlice = createSlice({
   reducers: {
     activeProposal: (state, value) => {
       state.activeProposal = value.payload;
+      state.is_dirty = false;
     },
     addProductToTable: (state, product) => {
       if (!state.activeProposal) {
@@ -38,6 +41,8 @@ export const activeProposalSlice = createSlice({
             { title: "", summary: "", specifications: [] },
           ]);
       }
+
+      state.is_dirty = true;
     },
     removeProductFromTable: (state, index) => {
       if (!state.activeProposal) {
@@ -68,6 +73,8 @@ export const activeProposalSlice = createSlice({
         state.activeProposal.data.products.filter(
           (_, i) => i !== index.payload
         );
+
+      state.is_dirty = true;
     },
     resetProposal: (state) => {
       if (!state.activeProposal) {
@@ -75,6 +82,7 @@ export const activeProposalSlice = createSlice({
       }
       state.activeProposal.data.products = [];
       state.activeProposal.data.quote_options = [];
+      state.is_dirty = true;
     },
     updateProposalTitle: (state, value) => {
       if (!state.activeProposal) {
@@ -84,6 +92,7 @@ export const activeProposalSlice = createSlice({
       const { index, title } = value.payload;
 
       state.activeProposal.data.quote_options[index].title = title;
+      state.is_dirty = true;
     },
     updateProposalSummary: (state, value) => {
       if (!state.activeProposal) {
@@ -92,6 +101,7 @@ export const activeProposalSlice = createSlice({
       const { index, summary } = value.payload;
 
       state.activeProposal.data.quote_options[index].summary = summary;
+      state.is_dirty = true;
     },
     updateProposalSpecifications: (state, value) => {
       if (!state.activeProposal) {
@@ -101,24 +111,28 @@ export const activeProposalSlice = createSlice({
       const { index, specifications } = value.payload;
       state.activeProposal.data.quote_options[index].specifications =
         specifications;
+      state.is_dirty = true;
     },
     updateUnitCostTax: (state, value) => {
       if (!state.activeProposal) {
         return;
       }
       state.activeProposal.data.unitCostTax = value.payload;
+      state.is_dirty = true;
     },
     updateMultiplier: (state, value) => {
       if (!state.activeProposal) {
         return;
       }
       state.activeProposal.data.multiplier = value.payload;
+      state.is_dirty = true;
     },
     updateCommission: (state, value) => {
       if (!state.activeProposal) {
         return;
       }
       state.activeProposal.data.commission = value.payload;
+      state.is_dirty = true;
     },
     updateLabors: (state, labors) => {
       if (!state.activeProposal) {
@@ -131,6 +145,9 @@ export const activeProposalSlice = createSlice({
         return;
       }
       state.activeProposal.data.fees = fees.payload;
+    },
+    updateDirtyFlag: (state, value) => {
+      state.is_dirty = value.payload;
     },
   },
 });
@@ -150,12 +167,17 @@ const {
   updateCommission,
   updateLabors,
   updateFees,
+  updateDirtyFlag,
 } = activeProposalSlice.actions;
 
 export const selectProposal = (
   dispatch: Dispatch,
   proposal: ProposalObject | undefined
 ) => dispatch(activeProposal(proposal));
+
+export const markProposalAsDirty = (dispatch: Dispatch, value: boolean) => {
+  dispatch(updateDirtyFlag(value));
+};
 
 export const addProductToProposal = (
   dispatch: Dispatch,
@@ -167,56 +189,74 @@ export const addProductToProposal = (
 export const removeProductFromProposal = (
   dispatch: Dispatch,
   { index }: { index: number }
-) => dispatch(removeProductFromTable(index));
+) => {
+  dispatch(removeProductFromTable(index));
+};
 
-export const removeAllProductsFromProposal = (dispatch: Dispatch) =>
+export const removeAllProductsFromProposal = (dispatch: Dispatch) => {
   dispatch(resetProposal());
+};
 
 export const setProposalTitle = (
   dispatch: Dispatch,
   title: string,
   quote_option: number
-) => dispatch(updateProposalTitle({ index: quote_option, title: title }));
+) => {
+  dispatch(updateProposalTitle({ index: quote_option, title: title }));
+};
 
 export const setProposalSummary = (
   dispatch: Dispatch,
   summary: string,
   quote_option: number
-) => dispatch(updateProposalSummary({ index: quote_option, summary: summary }));
+) => {
+  dispatch(updateProposalSummary({ index: quote_option, summary: summary }));
+};
 
 export const setProposalSpecifications = (
   dispatch: Dispatch,
   specifications: ProposalSpec[],
   quote_option: number
-) =>
+) => {
   dispatch(
     updateProposalSpecifications({
       index: quote_option,
       specifications: specifications,
     })
   );
+};
 
 export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {
   const numValue = isNaN(parseFloat(value)) ? 0 : parseFloat(value);
   dispatch(updateUnitCostTax(numValue));
 };
 
-export const setProposalMultiplier = (dispatch: Dispatch, value: number) =>
+export const setProposalMultiplier = (dispatch: Dispatch, value: number) => {
   dispatch(updateMultiplier(value));
+};
 
-export const setProposalCommission = (dispatch: Dispatch, value: number) =>
+export const setProposalCommission = (dispatch: Dispatch, value: number) => {
   dispatch(updateCommission(value));
+};
 
 export const updateProposalLabors = (
   dispatch: Dispatch,
-  newLabors: PsuedoObjectOfLabor
+  newLabors: PsuedoObjectOfLabor,
+  flag_dirty: boolean
 ) => {
   dispatch(updateLabors(newLabors));
+  if (flag_dirty) {
+    dispatch(updateDirtyFlag(true));
+  }
 };
 
 export const updateProposalFees = (
   dispatch: Dispatch,
-  newFees: PsuedoObjectOfFees
+  newFees: PsuedoObjectOfFees,
+  flag_dirty: boolean
 ) => {
   dispatch(updateFees(newFees));
+  if (flag_dirty) {
+    dispatch(updateDirtyFlag(true));
+  }
 };

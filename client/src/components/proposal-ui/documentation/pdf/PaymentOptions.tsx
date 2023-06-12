@@ -149,7 +149,7 @@ const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
     </View>
     <Text
       style={styles.pageNumber}
-      render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
+      render={({ pageNumber, totalPages }) => `${2} / ${2}`}
       fixed
     />
   </Page>

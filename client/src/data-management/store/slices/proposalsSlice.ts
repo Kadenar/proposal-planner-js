@@ -14,6 +14,7 @@ import {
   PsuedoObjectOfLabor,
   QuoteOption,
 } from "../../middleware/Interfaces.ts";
+import { markProposalAsDirty } from "./activeProposalSlice.ts";
 
 // REDUCERS
 
@@ -109,7 +110,7 @@ export async function deleteProposalsForClient(
   });
 }
 
-export function saveProposal(
+export async function saveProposal(
   dispatch: Dispatch,
   {
     guid,
@@ -120,10 +121,7 @@ export function saveProposal(
     unitCostTax,
     multiplier,
     quoteOptions,
-  }: // title,
-  // summary,
-  // specifications,
-  {
+  }: {
     guid: string;
     commission: number;
     fees: PsuedoObjectOfFees;
@@ -132,12 +130,9 @@ export function saveProposal(
     unitCostTax: number;
     multiplier: number;
     quoteOptions: QuoteOption[];
-    // title: string | undefined;
-    // summary: string | undefined;
-    // specifications: ProposalSpec[] | undefined;
   }
 ) {
-  return updateStore({
+  const response = await updateStore({
     dispatch,
     dbOperation: async () =>
       save_proposal(
@@ -149,12 +144,13 @@ export function saveProposal(
         unitCostTax,
         multiplier,
         quoteOptions
-        // title,
-        // summary,
-        // specifications
       ),
     methodToDispatch: updateProposals,
     dataKey: "proposals",
     successMessage: "Your proposal has been successfully saved.",
   });
+
+  if (response) {
+    markProposalAsDirty(dispatch, false);
+  }
 }

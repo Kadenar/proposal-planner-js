@@ -17,7 +17,6 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { StyledIconButton } from "../../../coreui/StyledComponents";
 import RobisonInvoiceHeader from "./InvoiceHeader";
 import SubmittedToContent from "./SubmittedToContent";
-import { calculateCostForProductsInOption } from "../../pricing/pricing-utils";
 import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";
 import {
@@ -91,9 +90,7 @@ export const PdfDocument = ({
                     />
                     <Text
                       style={styles.pageNumber}
-                      render={({ pageNumber, totalPages }) =>
-                        `${pageNumber} / ${totalPages}`
-                      }
+                      render={({ pageNumber, totalPages }) => `${1} / ${2}`}
                       fixed
                     />
                   </Page>

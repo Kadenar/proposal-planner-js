@@ -12,10 +12,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../data-management/store/store";
+import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
 
 export default function ClientTabsView() {
   const dispatch = useAppDispatch();
-  const { selectedClient } = useAppSelector((state) => state.clients);
+  const { selectedClient, is_dirty } = useAppSelector((state) => state.clients);
 
   if (!selectedClient) {
     return <>A client isn't selected, so you probably shouldn't be here!</>;
@@ -24,7 +25,19 @@ export default function ClientTabsView() {
   return (
     <div className="proposals">
       <BreadcrumbNavigation
-        navigateBackFunc={() => updateActiveClient(dispatch, undefined)}
+        navigateBackFunc={() => {
+          if (is_dirty) {
+            confirmDialog({
+              message: "You have unsaved changes",
+              onSubmit: async () => {
+                updateActiveClient(dispatch, undefined);
+                return true;
+              },
+            });
+          } else {
+            updateActiveClient(dispatch, undefined);
+          }
+        }}
         initialBreadCrumbTitle={"All clients"}
         breadcrumbName={selectedClient.name}
       />

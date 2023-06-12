@@ -61,17 +61,5 @@
     "zip": "10512",
     "phone": "845-803-3342",
     "accountNum": "new customer"
-  },
-  {
-    "guid": "aff747ef-ab32-4a7c-b40a-e2005ce64ac3",
-    "name": "Client namt 1",
-    "address": "add",
-    "apt": "",
-    "state": "MI",
-    "city": "city",
-    "zip": "12345",
-    "phone": "phone",
-    "email": "email",
-    "accountNum": "4324"
   }
 ]

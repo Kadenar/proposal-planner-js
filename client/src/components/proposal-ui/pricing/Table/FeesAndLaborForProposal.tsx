@@ -46,8 +46,8 @@ export default function FeesAndLaborForProposal() {
 
   // TODO - is there a better way to do this avoiding the need for a useEffect entirely?
   useEffect(() => {
-    updateProposalFees(dispatch, validFees);
-    updateProposalLabors(dispatch, validLabor);
+    updateProposalFees(dispatch, validFees, false);
+    updateProposalLabors(dispatch, validLabor, false);
 
     // We only want to run this a SINGLE time
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -129,7 +129,7 @@ export default function FeesAndLaborForProposal() {
                       return false;
                     }
 
-                    updateProposalLabors(dispatch, labors);
+                    updateProposalLabors(dispatch, labors, true);
                     showSnackbar({
                       title: "Successfully updated labor!",
                       show: true,
@@ -174,7 +174,7 @@ export default function FeesAndLaborForProposal() {
                       return false;
                     }
 
-                    updateProposalFees(dispatch, fees);
+                    updateProposalFees(dispatch, fees, true);
                     showSnackbar({
                       title: "Successfully updated fees!",
                       show: true,
