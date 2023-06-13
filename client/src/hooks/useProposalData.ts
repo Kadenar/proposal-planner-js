@@ -3,18 +3,11 @@ import calculateLabor, {
   calculateCostForOption,
   calculateCostForProductsInOption,
   calculateFees,
-} from "../components/proposal-ui/pricing/pricing-utils";
+} from "../lib/pricing-utils";
 import { omit } from "lodash";
-import {
-  ProposalObject,
-  ProductOnProposal,
-} from "../data-management/middleware/Interfaces";
+import { ProposalObject, ProductOnProposal } from "../middleware/Interfaces";
 
-export function useProposalDetails(activeProposal: ProposalObject | undefined) {
-  if (!activeProposal) {
-    return undefined;
-  }
-
+export function useProposalDetails(activeProposal: ProposalObject) {
   const {
     fees,
     labor,
@@ -37,14 +30,14 @@ export function useProposalDetails(activeProposal: ProposalObject | undefined) {
   };
 }
 
-export function useProposalData(activeProposal: ProposalObject | undefined) {
-  const products = activeProposal?.data.products;
-  const fees = activeProposal?.data.fees;
-  const labor = activeProposal?.data.labor;
+export function useProposalData(activeProposal: ProposalObject) {
+  const products = activeProposal.data.products;
+  const fees = activeProposal.data.fees;
+  const labor = activeProposal.data.labor;
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
-    return products?.reduce<Record<number, ProductOnProposal[]>>(
+    return products.reduce<Record<number, ProductOnProposal[]>>(
       (result, currentValue) => {
         (result[currentValue.quote_option] =
           result[currentValue.quote_option] || []).push(currentValue);
@@ -56,18 +49,11 @@ export function useProposalData(activeProposal: ProposalObject | undefined) {
 
   // Calculate the cost of products applied to ALL quotes
   const costAppliedToAllQuotes = useMemo(() => {
-    if (!productsInOptionsArrays) {
-      return 0;
-    }
-
     return calculateCostForProductsInOption(productsInOptionsArrays[0] || []);
   }, [productsInOptionsArrays]);
 
   // Construct table information for each quote
   const pricingForQuotesData = useMemo(() => {
-    if (!activeProposal || !productsInOptionsArrays) {
-      return undefined;
-    }
     // Omit option 0
     const remainingOptions = omit(productsInOptionsArrays, "0");
 
@@ -87,22 +73,13 @@ export function useProposalData(activeProposal: ProposalObject | undefined) {
     );
   }, [productsInOptionsArrays, costAppliedToAllQuotes, activeProposal]);
 
-  const quoteNamesArray = pricingForQuotesData
-    ? Object.keys(pricingForQuotesData)
-    : [];
+  const quoteNamesArray = Object.keys(pricingForQuotesData);
 
   const _fees = useMemo(() => {
-    if (!fees) {
-      return 0;
-    }
     return calculateFees(fees);
   }, [fees]);
 
   const _labor = useMemo(() => {
-    if (!labor) {
-      return 0;
-    }
-
     return calculateLabor(labor);
   }, [labor]);
 

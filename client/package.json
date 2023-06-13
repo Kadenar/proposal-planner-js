@@ -6,7 +6,6 @@
   "author": "Kyle Steike",
   "private": true,
   "proxy": "http://127.0.0.1:4000",
-  "main": "backend/electron.js",
   "homepage": "./",
   "devDependencies": {
     "@emotion/react": "^11.11.0",
@@ -74,10 +73,10 @@
       "build/**/*",
       "node_modules/**/*",
       "package.json",
-      "backend/**/*"
+      "server/**/*"
     ],
     "extraFiles": [
-      "backend/**/*"
+      "server/**/*"
     ]
   }
 }

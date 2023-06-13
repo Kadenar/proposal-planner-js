@@ -2,7 +2,7 @@ import { Button, TextField, Stack, Autocomplete } from "@mui/material";
 
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
-import { ClientObject } from "../../../../data-management/middleware/Interfaces";
+import { ClientObject } from "../../../middleware/Interfaces";
 
 interface NewProposalActions {
   name: string;

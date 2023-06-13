@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 
 import { TextField, Typography } from "@mui/material";
-import StateSelection from "../../components/coreui/StateSelection";
+import StateSelection from "../../components/StateSelection";
 import {
   saveClient,
   setClientAccountNum,
@@ -15,9 +15,9 @@ import {
   setClientPhone,
   setClientState,
   setClientZip,
-} from "../../data-management/store/slices/clientsSlice";
-import { useAppDispatch } from "../../data-management/store/store";
-import { ClientObject } from "../../data-management/middleware/Interfaces";
+} from "../../services/slices/clientsSlice";
+import { useAppDispatch } from "../../services/store";
+import { ClientObject } from "../../middleware/Interfaces";
 import { useKey } from "../../hooks/useKey";
 
 const ClientAddressView = ({

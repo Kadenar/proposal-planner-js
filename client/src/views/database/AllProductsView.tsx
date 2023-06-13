@@ -1,21 +1,18 @@
 import { useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "../../services/store.ts";
 
 import {
   editProduct,
   deleteProduct,
   addProduct,
-} from "../../data-management/store/slices/productsSlice.ts";
-import { flattenProductData } from "../../data-management/middleware/productHelpers.ts";
+} from "../../services/slices/productsSlice.ts";
+import { flattenProductData } from "../../middleware/productHelpers.ts";
 
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog.tsx";
-import { productDialog } from "../../components/coreui/dialogs/backend/ProductDialog.tsx";
-import AddNewItem from "../../components/coreui/AddNewItem.tsx";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store.ts";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog.tsx";
+import { productDialog } from "../../components/dialogs/backend/ProductDialog.tsx";
+import AddNewItem from "../../components/AddNewItem.tsx";
 
 /**
  * Component used to display the set of products that have been selected for this particular job

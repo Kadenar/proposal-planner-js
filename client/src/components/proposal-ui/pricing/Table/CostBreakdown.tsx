@@ -8,24 +8,24 @@ import {
   TableRow,
 } from "@mui/material";
 import { useProposalData } from "../../../../hooks/useProposalData";
-import { BoldedTableCell } from "../../../coreui/StyledComponents";
+import { BoldedTableCell } from "../../../StyledComponents";
 import {
   ConfigureCommission,
   ConfigureMultiplier,
   ConfigureUnitCostTax,
 } from "../PricingInputs";
-import { ccyFormat, getQuoteName } from "../pricing-utils";
-import { useAppSelector } from "../../../../data-management/store/store";
+import { ccyFormat, getQuoteName } from "../../../../lib/pricing-utils";
+import { ProposalObject } from "../../../../middleware/Interfaces";
 
-const CostBreakdown = () => {
-  const { activeProposal } = useAppSelector((state) => state.activeProposal);
-
+const CostBreakdown = ({
+  activeProposal,
+}: {
+  activeProposal: ProposalObject;
+}) => {
   const { costAppliedToAllQuotes, pricingForQuotesData, labor, fees } =
     useProposalData(activeProposal);
 
-  const arrayOfQuoteNames = pricingForQuotesData
-    ? Object.keys(pricingForQuotesData)
-    : [];
+  const arrayOfQuoteNames = Object.keys(pricingForQuotesData);
 
   return (
     <TableContainer component={Paper}>
@@ -126,23 +126,19 @@ const TableCellTest = ({
   valueToSubtract,
 }: {
   arrayOfQuoteNames: string[];
-  pricingForQuotesData: Record<number, Record<string, number>> | undefined;
+  pricingForQuotesData: Record<number, Record<string, number>>;
   valueToFetch: string;
   valueToSubtract: string | undefined;
 }) => {
   const dataToShow = (quote_name: string) =>
-    pricingForQuotesData
-      ? ccyFormat(pricingForQuotesData[Number(quote_name)][valueToFetch])
-      : 0;
+    ccyFormat(pricingForQuotesData[Number(quote_name)][valueToFetch]);
 
   const dataToIncrementBy = (quote_name: string) => {
-    return pricingForQuotesData
-      ? valueToSubtract
-        ? `(+${ccyFormat(
-            pricingForQuotesData[Number(quote_name)][valueToFetch] -
-              pricingForQuotesData[Number(quote_name)][valueToSubtract]
-          )})`
-        : 0
+    return valueToSubtract
+      ? `(+${ccyFormat(
+          pricingForQuotesData[Number(quote_name)][valueToFetch] -
+            pricingForQuotesData[Number(quote_name)][valueToSubtract]
+        )})`
       : undefined;
   };
 

@@ -12,10 +12,10 @@ import Collapse from "@mui/material/Collapse";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-import { StyledIconButton } from "../../coreui/StyledComponents";
-import StateSelection from "../../coreui/StateSelection";
-import { saveClient } from "../../../data-management/store/slices/clientsSlice";
-import { ClientObject } from "../../../data-management/middleware/Interfaces";
+import { StyledIconButton } from "../../StyledComponents";
+import StateSelection from "../../StateSelection";
+import { saveClient } from "../../../services/slices/clientsSlice";
+import { ClientObject } from "../../../middleware/Interfaces";
 
 export default function ClientCardDetails({
   activeClient,
@@ -26,6 +26,14 @@ export default function ClientCardDetails({
   const [isDisabled, setDisabled] = useState(true);
   const [clientInfo, setClientInfo] = useState(activeClient);
   const [open, setOpen] = useState(false);
+
+  if (!activeClient) {
+    return (
+      <>
+        Client details could not be found. This might be an orphaned proposal?
+      </>
+    );
+  }
 
   const ActionButtons = () => {
     if (!open) {

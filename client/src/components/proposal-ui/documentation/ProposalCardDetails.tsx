@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAppDispatch } from "../../../services/store";
 
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
@@ -10,35 +11,29 @@ import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-import {
-  StyledTextarea,
-  StyledIconButton,
-} from "../../coreui/StyledComponents";
+import { StyledTextarea, StyledIconButton } from "../../StyledComponents";
 import {
   setProposalSummary,
   setProposalTitle,
-} from "../../../data-management/store/slices/activeProposalSlice";
-import { saveProposal } from "../../../data-management/store/slices/proposalsSlice";
+} from "../../../services/slices/activeProposalSlice";
+import { saveProposal } from "../../../services/slices/proposalsSlice";
 import { ManageProposalSpecifications } from "./specifications/ManageProposalSpecifications";
 import { Typography } from "@mui/material";
 import { useProposalDetails } from "../../../hooks/useProposalData";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../data-management/store/store";
+import { ProposalObject } from "../../../middleware/Interfaces";
 
-const ProposalCardDetails = () => {
+const ProposalCardDetails = ({
+  activeProposal,
+}: {
+  activeProposal: ProposalObject;
+}) => {
   const [open, setOpen] = useState(true);
   const [quote_option, setQuoteOption] = useState(0);
 
   const dispatch = useAppDispatch();
-  const { activeProposal } = useAppSelector((state) => state.activeProposal);
 
   const proposalDetails = useProposalDetails(activeProposal);
 
-  if (!activeProposal || !proposalDetails) {
-    return <>No active proposal. Cannot show details.</>;
-  }
   const quote_options = proposalDetails.quote_options;
   const selectedQuoteOption = quote_options
     ? quote_options[quote_option]

@@ -1,18 +1,16 @@
-import MaterialTable from "@material-table/core";
-import { Stack } from "@mui/material";
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
-import { productTypeDialog } from "../../components/coreui/dialogs/backend/ProductTypeDialog";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
-import AddNewItem from "../../components/coreui/AddNewItem";
+import MaterialTable from "@material-table/core";
+import Stack from "@mui/material/Stack";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import { productTypeDialog } from "../../components/dialogs/backend/ProductTypeDialog";
+
+import AddNewItem from "../../components/AddNewItem";
 import {
   addProductType,
   deleteProductType,
   editProductType,
-} from "../../data-management/store/slices/productTypesSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
+} from "../../services/slices/productTypesSlice";
 
 /**
  * Component used to display the set of products that have been selected for this particular job

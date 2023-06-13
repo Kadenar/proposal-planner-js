@@ -1,25 +1,19 @@
+import { useAppDispatch, useAppSelector } from "../../services/store";
+
 import Stack from "@mui/material/Stack";
 
-import AddNewItem from "../../components/coreui/AddNewItem";
+import AddNewItem from "../../components/AddNewItem";
 import MaterialTable from "@material-table/core";
-import { laborDialog } from "../../components/coreui/dialogs/backend/LaborDialog";
+import { laborDialog } from "../../components/dialogs/backend/LaborDialog";
 import {
   addLabor,
   deleteLabor,
   editLabor,
-} from "../../data-management/store/slices/laborsSlice";
+} from "../../services/slices/laborsSlice";
 
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
-import {
-  addFee,
-  deleteFee,
-  editFee,
-} from "../../data-management/store/slices/feesSlice";
-import { feeDialog } from "../../components/coreui/dialogs/backend/FeeDialog";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import { addFee, deleteFee, editFee } from "../../services/slices/feesSlice";
+import { feeDialog } from "../../components/dialogs/backend/FeeDialog";
 
 const LaborAndFeesView = () => {
   const dispatch = useAppDispatch();

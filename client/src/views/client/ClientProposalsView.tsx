@@ -1,31 +1,32 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
 import MaterialTable from "@material-table/core";
 
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
-import { newProposalDialog } from "../../components/coreui/dialogs/frontend/NewProposalDialog";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import { newProposalDialog } from "../../components/dialogs/frontend/NewProposalDialog";
 
-import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
-import { selectProposal } from "../../data-management/store/slices/activeProposalSlice";
+import { updateActiveClient } from "../../services/slices/clientsSlice";
+import { selectProposal } from "../../services/slices/activeProposalSlice";
 import {
   addProposal,
   deleteProposal,
-} from "../../data-management/store/slices/proposalsSlice";
-import { ProposalObject } from "../../data-management/middleware/Interfaces";
+} from "../../services/slices/proposalsSlice";
+import { ClientObject } from "../../middleware/Interfaces";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
 
-const ClientProposalsView = () => {
+const ClientProposalsView = ({
+  selectedClient,
+}: {
+  selectedClient: ClientObject;
+}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { clients, selectedClient } = useAppSelector((state) => state.clients);
+  const { clients } = useAppSelector((state) => state.clients);
   const { proposals } = useAppSelector((state) => state.proposals);
 
   const proposalsForClient = useMemo(() => {
@@ -36,7 +37,7 @@ const ClientProposalsView = () => {
 
   return (
     <Stack gap={2}>
-      {selectedClient && (
+      {
         <Stack direction="row" justifyContent="flex-end">
           <Button
             variant="contained"
@@ -57,7 +58,7 @@ const ClientProposalsView = () => {
             Create a proposal
           </Button>
         </Stack>
-      )}
+      }
       <MaterialTable
         title={`Proposals for ${selectedClient?.name}`}
         columns={[
@@ -87,7 +88,7 @@ const ClientProposalsView = () => {
           {
             icon: "edit",
             tooltip: "View proposal",
-            onClick: (_, rowData: RowData<ProposalObject>) => {
+            onClick: (_, rowData) => {
               updateActiveClient(dispatch, undefined);
               selectProposal(dispatch, rowData);
               navigate("/proposals");

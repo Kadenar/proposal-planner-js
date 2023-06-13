@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { addProductToProposal } from "../../../data-management/store/slices/activeProposalSlice";
-import { showSnackbar } from "../../coreui/CustomSnackbar";
-import * as Interfaces from "../../../data-management/middleware/Interfaces";
+import { addProductToProposal } from "../services/slices/activeProposalSlice";
+import { showSnackbar } from "../components/CustomSnackbar";
+import * as Interfaces from "../middleware/Interfaces";
 
 export const handleAddProductToProposal = (
   dispatch: Dispatch,

@@ -10,12 +10,9 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { ccyFormat } from "../pricing-utils";
+import { ccyFormat } from "../../../../lib/pricing-utils";
 
-import {
-  BoldedTableCell,
-  StyledIconButton,
-} from "../../../coreui/StyledComponents";
+import { BoldedTableCell, StyledIconButton } from "../../../StyledComponents";
 
 interface CollapsibleRowType {
   title: string;

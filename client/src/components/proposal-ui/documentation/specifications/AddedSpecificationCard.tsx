@@ -2,7 +2,7 @@ import type { Identifier, XYCoord } from "dnd-core";
 import type { FC } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { StyledTextarea } from "../../../coreui/StyledComponents";
+import { StyledTextarea } from "../../../StyledComponents";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Stack } from "@mui/material";

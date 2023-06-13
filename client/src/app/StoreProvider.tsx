@@ -1,9 +1,9 @@
 import { Provider } from "react-redux";
 
-import store from "./data-management/store/store.ts";
+import store from "../services/store.ts";
 
 import ProposalPlanner from "./ProposalPlanner.tsx";
-import { useThemeContext } from "./theme/ThemeContextProvider.tsx";
+import { useThemeContext } from "../theme/ThemeContextProvider.tsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 const StoreProvider = () => {

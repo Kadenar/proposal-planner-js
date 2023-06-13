@@ -1,5 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { showSnackbar } from "../../components/coreui/CustomSnackbar";
+import { showSnackbar } from "../components/CustomSnackbar";
 import { AxiosResponse } from "axios";
 
 export async function updateStore({

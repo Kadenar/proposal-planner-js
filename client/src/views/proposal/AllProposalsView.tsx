@@ -9,15 +9,12 @@ import {
   addProposal,
   copyProposal,
   deleteProposal,
-} from "../../data-management/store/slices/proposalsSlice";
-import { selectProposal } from "../../data-management/store/slices/activeProposalSlice";
+} from "../../services/slices/proposalsSlice";
+import { selectProposal } from "../../services/slices/activeProposalSlice";
 
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
-import { newProposalDialog } from "../../components/coreui/dialogs/frontend/NewProposalDialog";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import { newProposalDialog } from "../../components/dialogs/frontend/NewProposalDialog";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
 export default function AllProposalsView() {
   const dispatch = useAppDispatch();

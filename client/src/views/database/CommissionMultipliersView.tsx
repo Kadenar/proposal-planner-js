@@ -1,27 +1,28 @@
-import { Box, Stack, Button, Slider, Typography, Card } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../services/store";
+
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Slider from "@mui/material/Slider";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+
 import Grid from "@mui/material/Unstable_Grid2";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
 
 import {
   addCommission,
   deleteCommission,
-} from "../../data-management/store/slices/commissionsSlice";
+} from "../../services/slices/commissionsSlice";
 import {
   addMultiplier,
   deleteMultiplier,
-} from "../../data-management/store/slices/multipliersSlice";
+} from "../../services/slices/multipliersSlice";
 
-import AddNewItem from "../../components/coreui/AddNewItem";
-import { addScalarValueDialog } from "../../components/coreui/dialogs/backend/AddScalarValueDialog";
-import {
-  Commission,
-  Multiplier,
-} from "../../data-management/middleware/Interfaces";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
+import AddNewItem from "../../components/AddNewItem";
+import { addScalarValueDialog } from "../../components/dialogs/backend/AddScalarValueDialog";
+import { Commission, Multiplier } from "../../middleware/Interfaces";
 
 export default function CommissionMultipliersView() {
   const dispatch = useAppDispatch();

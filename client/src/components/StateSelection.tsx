@@ -3,7 +3,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import { US_STATES } from "../proposal-ui/pricing/pricing-utils";
+import { US_STATES } from "../lib/pricing-utils";
 
 const StateSelection = ({
   initialValue,

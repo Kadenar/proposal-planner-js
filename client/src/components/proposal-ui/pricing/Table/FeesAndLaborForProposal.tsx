@@ -1,21 +1,21 @@
 import { useMemo, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../services/store";
 
-import { returnOnlyValidFees, returnOnlyValidLabor } from "../pricing-utils";
+import {
+  returnOnlyValidFees,
+  returnOnlyValidLabor,
+} from "../../../../lib/pricing-utils";
 import { Paper, TableBody, TableContainer, Table } from "@mui/material";
 import { CollapsibleRow } from "./CollapsibleRow";
 
 import {
   updateProposalFees,
   updateProposalLabors,
-} from "../../../../data-management/store/slices/activeProposalSlice";
-import { feesDialog } from "../../../coreui/dialogs/frontend/FeesDialog";
-import { laborsDialog } from "../../../coreui/dialogs/frontend/LaborsDialog";
-import { showSnackbar } from "../../../coreui/CustomSnackbar";
-import { PsuedoObjectOfLabor } from "../../../../data-management/middleware/Interfaces";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../data-management/store/store";
+} from "../../../../services/slices/activeProposalSlice";
+import { feesDialog } from "../../../dialogs/frontend/FeesDialog";
+import { laborsDialog } from "../../../dialogs/frontend/LaborsDialog";
+import { showSnackbar } from "../../../CustomSnackbar";
+import { PsuedoObjectOfLabor } from "../../../../middleware/Interfaces";
 
 export default function FeesAndLaborForProposal() {
   const dispatch = useAppDispatch();

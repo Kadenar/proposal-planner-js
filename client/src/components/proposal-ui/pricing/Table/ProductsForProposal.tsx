@@ -1,4 +1,6 @@
-import { ccyFormat, getQuoteName } from "../pricing-utils";
+import { useAppDispatch, useAppSelector } from "../../../../services/store";
+
+import { ccyFormat, getQuoteName } from "../../../../lib/pricing-utils";
 
 import {
   Paper,
@@ -17,13 +19,9 @@ import {
   BoldedItalicsTableCell,
   BoldedTableCell,
   ActionsTableCell,
-} from "../../../coreui/StyledComponents";
+} from "../../../StyledComponents";
 
-import { removeProductFromProposal } from "../../../../data-management/store/slices/activeProposalSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../data-management/store/store";
+import { removeProductFromProposal } from "../../../../services/slices/activeProposalSlice";
 
 export default function ProductsForProposal() {
   const dispatch = useAppDispatch();

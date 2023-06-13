@@ -1,8 +1,8 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import "./index.css";
-import StoreProvider from "./StoreProvider.tsx";
+import "./styles/index.css";
+import StoreProvider from "./app/StoreProvider.tsx";
 import { ThemeContextProvider } from "./theme/ThemeContextProvider.tsx";
 
 // Root is always present in index.html

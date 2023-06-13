@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../services/store";
+
 import update from "immutability-helper";
 
 import Stack from "@mui/material/Stack";
@@ -17,12 +19,8 @@ import {
   ProductTypeObject,
   ProposalObject,
   ProposalSpec,
-} from "../../../../data-management/middleware/Interfaces";
-import { setProposalSpecifications } from "../../../../data-management/store/slices/activeProposalSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../data-management/store/store";
+} from "../../../../middleware/Interfaces";
+import { setProposalSpecifications } from "../../../../services/slices/activeProposalSlice";
 
 interface AvailableSpecification {
   text: string;

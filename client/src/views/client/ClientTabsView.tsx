@@ -1,26 +1,25 @@
+import { useAppDispatch, useAppSelector } from "../../services/store";
+
 import Tabs from "@mui/base/Tabs";
 import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-} from "../../components/coreui/StyledComponents";
-import BreadcrumbNavigation from "../../components/coreui/BreadcrumbNavigation";
+} from "../../components/StyledComponents";
+import BreadcrumbNavigation from "../../components/BreadcrumbNavigation";
 import ClientProposalsView from "./ClientProposalsView";
 import ClientAddressView from "./ClientAddressView";
-import { updateActiveClient } from "../../data-management/store/slices/clientsSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
+import { updateActiveClient } from "../../services/slices/clientsSlice";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import { ClientObject } from "../../middleware/Interfaces";
 
-export default function ClientTabsView() {
+export default function ClientTabsView({
+  selectedClient,
+}: {
+  selectedClient: ClientObject;
+}) {
   const dispatch = useAppDispatch();
-  const { selectedClient, is_dirty } = useAppSelector((state) => state.clients);
-
-  if (!selectedClient) {
-    return <>A client isn't selected, so you probably shouldn't be here!</>;
-  }
+  const { is_dirty } = useAppSelector((state) => state.clients);
 
   return (
     <div className="proposals">
@@ -51,7 +50,7 @@ export default function ClientTabsView() {
           <ClientAddressView selectedClient={selectedClient} />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
-          <ClientProposalsView />
+          <ClientProposalsView selectedClient={selectedClient} />
         </StyledTabPanel>
         <StyledTabPanel value={2}>
           <>Jobs will go here</>

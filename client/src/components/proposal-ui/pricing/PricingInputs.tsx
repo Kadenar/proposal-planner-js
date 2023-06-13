@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from "../../../services/store";
+
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,11 +9,7 @@ import {
   setProposalCommission,
   setProposalMultiplier,
   setProposalUnitCostTax,
-} from "../../../data-management/store/slices/activeProposalSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../data-management/store/store";
+} from "../../../services/slices/activeProposalSlice";
 
 // This class is responsible for allowing configuring all of the editable fields for a given proposal such as:
 // Commissions, unit cost tax and multiplier

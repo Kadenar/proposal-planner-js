@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
 import BaseDialog from "../BaseDialog";
-import { PsuedoObjectOfFees } from "../../../../data-management/middleware/Interfaces";
+import { PsuedoObjectOfFees } from "../../../middleware/Interfaces";
 
 interface FeesStoreActions {
   fees: PsuedoObjectOfFees | undefined;

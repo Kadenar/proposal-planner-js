@@ -14,7 +14,7 @@ import Stack from "@mui/material/Stack";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-import { StyledIconButton } from "../../../coreui/StyledComponents";
+import { StyledIconButton } from "../../../StyledComponents";
 import RobisonInvoiceHeader from "./InvoiceHeader";
 import SubmittedToContent from "./SubmittedToContent";
 import PaymentOptions from "./PaymentOptions";
@@ -23,7 +23,7 @@ import {
   ClientObject,
   PdfInvoice,
   ProposalObject,
-} from "../../../../data-management/middleware/Interfaces";
+} from "../../../../middleware/Interfaces";
 import { useProposalData } from "../../../../hooks/useProposalData";
 
 export const PdfDocument = ({
@@ -49,11 +49,11 @@ export const PdfDocument = ({
     };
   }, [clientInfo, proposalDetails, pricingForQuotesData]);
 
-  if (!clientInfo || !proposalDetails) {
+  if (!clientInfo) {
     return (
       <>
-        Client or proposal details necessary to create the PDF could not be
-        found. This might be an orphaned proposal?
+        Client details necessary to create the PDF could not be found. This
+        might be an orphaned proposal?
       </>
     );
   }

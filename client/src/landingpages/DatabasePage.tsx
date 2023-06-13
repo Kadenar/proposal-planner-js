@@ -7,7 +7,7 @@ import {
   StyledTabsList,
   StyledTab,
   StyledTabPanel,
-} from "../components/coreui/StyledComponents";
+} from "../components/StyledComponents";
 import LaborAndFeesView from "../views/database/LaborAndFeesView";
 
 export default function DatabasePage() {

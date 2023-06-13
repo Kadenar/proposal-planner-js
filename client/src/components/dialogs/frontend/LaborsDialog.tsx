@@ -7,7 +7,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 
 import BaseDialog from "../BaseDialog";
-import { PsuedoObjectOfLabor } from "../../../../data-management/middleware/Interfaces";
+import { PsuedoObjectOfLabor } from "../../../middleware/Interfaces";
 
 interface LaborStoreActions {
   labor: PsuedoObjectOfLabor | undefined;

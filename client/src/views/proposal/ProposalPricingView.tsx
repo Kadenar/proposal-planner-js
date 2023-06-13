@@ -6,18 +6,15 @@ import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import { Button, Stack } from "@mui/material";
 
-import { StyledIconButton } from "../../components/coreui/StyledComponents";
-import { addProductToProposalDialog } from "../../components/coreui/dialogs/frontend/AddProductToProposalDialog";
-import { removeAllProductsFromProposal } from "../../data-management/store/slices/activeProposalSlice";
-import { saveProposal } from "../../data-management/store/slices/proposalsSlice";
-import { handleAddProductToProposal } from "../../components/proposal-ui/pricing/pricing-utils";
+import { StyledIconButton } from "../../components/StyledComponents";
+import { addProductToProposalDialog } from "../../components/dialogs/frontend/AddProductToProposalDialog";
+import { removeAllProductsFromProposal } from "../../services/slices/activeProposalSlice";
+import { saveProposal } from "../../services/slices/proposalsSlice";
+import { handleAddProductToProposal } from "../../lib/pricing-utils";
 import ProductsForProposal from "../../components/proposal-ui/pricing/Table/ProductsForProposal";
 import FeesAndLaborForProposal from "../../components/proposal-ui/pricing/Table/FeesAndLaborForProposal";
 import CostBreakdown from "../../components/proposal-ui/pricing/Table/CostBreakdown";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useKey } from "../../hooks/useKey";
 
 /**

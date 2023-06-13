@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
-import { ProductTypeObject } from "../../../../data-management/middleware/Interfaces";
+import { ProductTypeObject } from "../../../data-management/middleware/Interfaces";
 // import FileUpload from "../FileUpload";
 
 interface ProductStoreActions {

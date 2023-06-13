@@ -1,22 +1,19 @@
 import { useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "../../services/store";
+
 import MaterialTable from "@material-table/core";
-import { Stack } from "@mui/material";
+import Stack from "@mui/material/Stack";
 
 import {
   addClient,
   deleteClient,
   updateActiveClient,
-} from "../../data-management/store/slices/clientsSlice";
-import { deleteProposalsForClient } from "../../data-management/store/slices/proposalsSlice";
+} from "../../services/slices/clientsSlice";
+import { deleteProposalsForClient } from "../../services/slices/proposalsSlice";
 
 import Button from "@mui/material/Button";
-import { confirmDialog } from "../../components/coreui/dialogs/ConfirmDialog";
-import { clientDialog } from "../../components/coreui/dialogs/frontend/NewClientDialog";
-
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../data-management/store/store";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import { clientDialog } from "../../components/dialogs/frontend/NewClientDialog";
 
 export default function AllClientsView() {
   const dispatch = useAppDispatch();
@@ -24,10 +21,6 @@ export default function AllClientsView() {
   const { proposals } = useAppSelector((state) => state.proposals);
 
   const clientsWithProposalInfo = useMemo(() => {
-    if (!proposals || !clients) {
-      return 0;
-    }
-
     return clients.map((client) => {
       const client_proposals = proposals.filter(
         (proposal) => client.guid === proposal?.owner?.guid

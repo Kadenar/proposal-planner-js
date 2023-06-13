@@ -9,7 +9,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { StyledSwitch } from "../StyledComponents";
-import { useThemeContext } from "../../../theme/ThemeContextProvider";
+import { useThemeContext } from "../../theme/ThemeContextProvider";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
