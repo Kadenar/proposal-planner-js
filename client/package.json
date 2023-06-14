@@ -6,7 +6,7 @@
   "author": "Kyle Steike",
   "private": true,
   "proxy": "http://127.0.0.1:4000",
-  "homepage": "./",
+  "homepage": "http://./",
   "devDependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -17,7 +17,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@types/jest": "^27.5.2",
     "@types/lodash": "^4.14.195",
-    "@types/node": "^16.18.34",
+    "@types/node": "^16.18.36",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",
     "axios": "^1.4.0",
@@ -25,6 +25,7 @@
     "cross-env": "^7.0.3",
     "date-fns": "^2.30.0",
     "lodash": "^4.17.21",
+    "prisma": "^4.15.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
@@ -32,6 +33,7 @@
     "react-number-format": "^5.2.2",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
     "zustand": "^4.3.8"
   },
@@ -78,5 +80,8 @@
     "extraFiles": [
       "server/**/*"
     ]
-  }
+  },
+  "main": "index.js",
+  "keywords": [],
+  "license": "ISC"
 }

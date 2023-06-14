@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String?
+  email      String?  @unique
+  address    String
+  state      String
+  city       String
+  zip        String
+  phone      String?
+  accountNum String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Proposal {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  owner       String    @db.ObjectId
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  unitCostTax Int
+  commission  Int
+  multiplier  Int
+  products    Product[]
+  labor       Labor[]
+  fees        Fee[]
+}
+
+model ProductType {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  label          String
+  specifications String[]
+  Product        Product[]
+}
+
+model Product {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  modelNum      String
+  cost          Int
+  qty           Int
+  productType   ProductType @relation(fields: [productTypeId], references: [id])
+  productTypeId String      @db.ObjectId
+  proposal      Proposal    @relation(fields: [proposalId], references: [id])
+  proposalId    String      @db.ObjectId
+}
+
+model Commission {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  value Int
+}
+
+model Multiplier {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  value Int
+}
+
+model Fee {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  qty        Int       @default(0)
+  cost       Int
+  type       String    @default("add")
+  Proposal   Proposal? @relation(fields: [proposalId], references: [id])
+  proposalId String?   @db.ObjectId
+}
+
+model Labor {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  qty        Int
+  cost       Int
+  Proposal   Proposal? @relation(fields: [proposalId], references: [id])
+  proposalId String?   @db.ObjectId
+}
