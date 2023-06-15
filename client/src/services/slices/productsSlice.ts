@@ -10,11 +10,6 @@ import {
   ProductTypeObject,
   PsuedoObjectOfProducts,
 } from "../../middleware/Interfaces.ts";
-import {
-  fetchProposals,
-  saveProposal,
-} from "../../middleware/proposalHelpers.ts";
-import { initializeProposals } from "./proposalsSlice.ts";
 
 const initialState: { products: PsuedoObjectOfProducts } = {
   products: {},
