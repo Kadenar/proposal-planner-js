@@ -18,7 +18,7 @@ import { fetchLabors } from "./laborHelpers.ts";
  * @returns
  */
 export async function fetchProposals(): Promise<ProposalObject[]> {
-  return runGetRequest("proposals");
+  return await runGetRequest("proposals");
 }
 
 /**
@@ -82,7 +82,12 @@ export async function addProposal(
  * @returns
  */
 export async function deleteProposal(guid: string) {
-  return simpleDeleteFromDatabase(fetchProposals, "proposals", guid, "guid");
+  return await simpleDeleteFromDatabase(
+    fetchProposals,
+    "proposals",
+    guid,
+    "guid"
+  );
 }
 
 /**
@@ -133,7 +138,7 @@ export async function saveProposal(
     },
   };
 
-  return runPostRequest(newProposals, "proposals");
+  return await runPostRequest(newProposals, "proposals");
 }
 
 /**
@@ -148,7 +153,7 @@ export async function deleteProposalsForClient(client_guid: string) {
   });
 
   // Run a post request with our original proposals
-  return runPostRequest(filtered_proposals, "proposals");
+  return await runPostRequest(filtered_proposals, "proposals");
 }
 
 /**

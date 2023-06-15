@@ -29,7 +29,7 @@ export const activeProposalSlice = createSlice({
       }
 
       state.activeProposal.data.products =
-        state.activeProposal.data.products.concat(product.payload); // TODO Come back to typescript yelling
+        state.activeProposal.data.products.concat(product.payload);
 
       // If we don't have a quote option available yet, then add it
       if (

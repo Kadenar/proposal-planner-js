@@ -10,7 +10,11 @@ import {
   ProductTypeObject,
   PsuedoObjectOfProducts,
 } from "../../middleware/Interfaces.ts";
-import { fetchProposals } from "../../middleware/proposalHelpers.ts";
+import {
+  fetchProposals,
+  saveProposal,
+} from "../../middleware/proposalHelpers.ts";
+import { initializeProposals } from "./proposalsSlice.ts";
 
 const initialState: { products: PsuedoObjectOfProducts } = {
   products: {},
@@ -86,27 +90,61 @@ export async function editProduct(
     successMessage: "Successfully edited product!",
   });
 
-  if (result) {
-    const proposals = await fetchProposals();
-    // TODO
-    proposals.forEach((proposal) => {
-      updateStore({
-        dispatch,
-        dbOperation: async () =>
-          editExistingProduct(
-            guid,
-            filter_guid,
-            modelName,
-            modelNum,
-            cost,
-            image
-          ),
-        methodToDispatch: updateProducts,
-        dataKey: "products",
-        successMessage: "Successfully edited product!",
-      });
-    });
-  }
+  // TODO WIP - Handle saving proposals
+  // await updateStore({
+  //   dispatch,
+  //   dbOperation: async () => {
+  //     const allProposals = [...(await fetchProposals())];
+
+  //     let finalProposalsResult = allProposals;
+  //     allProposals.forEach(async (proposal) => {
+  //       let newProducts = [...proposal.data.products];
+  //       let updatedProducts = false;
+  //       newProducts = newProducts.map((product) => {
+  //         // For each proposal, if it contains the product we just edited, then update the info
+  //         if (product.guid === guid) {
+  //           updatedProducts = true;
+  //           return {
+  //             ...product,
+  //             model: modelName,
+  //             modelNum,
+  //             cost,
+  //           };
+  //         }
+
+  //         return product;
+  //       });
+
+  //       // Only update proposals that need to be resaved
+  //       if (updatedProducts) {
+  //         const newProposal = {
+  //           ...proposal,
+  //           data: {
+  //             ...proposal.data,
+  //             products: newProducts,
+  //           },
+  //         };
+
+  //         finalProposalsResult = await saveProposal(
+  //           newProposal.guid,
+  //           newProposal.data.commission,
+  //           newProposal.data.fees,
+  //           newProposal.data.labor,
+  //           newProposal.data.products,
+  //           newProposal.data.unitCostTax,
+  //           newProposal.data.multiplier,
+  //           newProposal.data.quote_options
+  //         );
+  //       }
+
+  //       console.log(finalProposalsResult);
+  //       return finalProposalsResult;
+  //     });
+  //   },
+  //   methodToDispatch: initializeProposals,
+  //   dataKey: "proposals",
+  //   successMessage: "Successfully updated all proposals!",
+  // });
 
   return result;
 }

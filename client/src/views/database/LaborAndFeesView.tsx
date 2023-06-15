@@ -81,7 +81,7 @@ const LaborAndFeesView = () => {
 
                 laborDialog({
                   header: "Edit labor",
-                  name: rowData.name, // TODO figure out why typescript isnt happy
+                  name: rowData.name,
                   qty: rowData.qty,
                   cost: rowData.cost,
                   onSubmit: async (name, qty, cost) =>

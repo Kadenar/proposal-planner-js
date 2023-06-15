@@ -58,7 +58,6 @@ export const ManageProposalSpecifications = ({
       return [];
     }
 
-    // TODO There's a bug here due to being read-only?
     return activeProposal.data.quote_options[quoteOption].specifications || [];
   }, [activeProposal, quoteOption]);
 
