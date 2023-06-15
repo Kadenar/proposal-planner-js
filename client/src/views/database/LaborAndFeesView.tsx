@@ -74,6 +74,11 @@ const LaborAndFeesView = () => {
               icon: "edit",
               tooltip: "Edit labor",
               onClick: (_, rowData) => {
+                // Keeping typescript happy
+                if (!rowData || rowData instanceof Array) {
+                  return;
+                }
+
                 laborDialog({
                   header: "Edit labor",
                   name: rowData.name, // TODO figure out why typescript isnt happy
@@ -96,8 +101,14 @@ const LaborAndFeesView = () => {
                 confirmDialog({
                   message:
                     "Do you really want to delete this? This action cannot be undone.",
-                  onSubmit: async () =>
-                    deleteLabor(dispatch, { guid: rowData.guid }),
+                  onSubmit: async () => {
+                    // Keeping typescript happy
+                    if (!rowData || rowData instanceof Array) {
+                      return false;
+                    }
+
+                    return deleteLabor(dispatch, { guid: rowData.guid });
+                  },
                 });
               },
             },
@@ -161,18 +172,12 @@ const LaborAndFeesView = () => {
             {
               icon: "edit",
               tooltip: "Edit fee",
-              onClick: (
-                // TODO figure out why typescript isn't happy
-                event,
-                rowData: {
-                  id: string;
-                  guid: string;
-                  name: string;
-                  qty: number;
-                  cost: number;
-                  type: string;
+              onClick: (_, rowData) => {
+                // Keeping typescript happy
+                if (!rowData || rowData instanceof Array) {
+                  return false;
                 }
-              ) => {
+
                 feeDialog({
                   header: "Edit fee",
                   name: rowData.name,
@@ -197,8 +202,14 @@ const LaborAndFeesView = () => {
                 confirmDialog({
                   message:
                     "Do you really want to delete this? This action cannot be undone.",
-                  onSubmit: async () =>
-                    deleteFee(dispatch, { guid: rowData.guid }),
+                  onSubmit: async () => {
+                    // Keeping typescript happy
+                    if (!rowData || rowData instanceof Array) {
+                      return false;
+                    }
+
+                    return deleteFee(dispatch, { guid: rowData.guid });
+                  },
                 });
               },
             },

@@ -96,7 +96,7 @@ export const PdfDocument = ({
                   </Page>
                 );
               })}
-              <PaymentOptions invoice={invoice_data} />
+              <PaymentOptions />
             </Document>
           </PDFViewer>
         </Stack>

@@ -116,7 +116,7 @@ export default function ProposalPricingView({
           </StyledIconButton>
         </Stack>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <FeesAndLaborForProposal />
+          <FeesAndLaborForProposal activeProposal={activeProposal} />
           <CostBreakdown activeProposal={activeProposal} />
         </Collapse>
       </Stack>

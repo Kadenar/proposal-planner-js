@@ -95,7 +95,7 @@ export async function addProduct(
  */
 export async function editExistingProduct(
   guid: string,
-  filter_guid: string,
+  filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
   cost: number,

@@ -9,11 +9,11 @@ import { StyledTextarea } from "../../StyledComponents";
 interface ProductStoreActions {
   header: string;
   productType: string;
-  specifications: string[];
+  specifications?: string[];
   onSubmit:
     | ((
         productType: string,
-        specifications: string[]
+        specifications?: string[]
       ) => Promise<boolean | undefined>)
     | undefined;
 }
@@ -64,7 +64,7 @@ const ProductTypeDialog = () => {
             autoFocus
           />
           <Typography variant="h6">Specifications</Typography>
-          {specifications.length === 0 ? (
+          {!specifications || specifications.length === 0 ? (
             <Stack alignItems={"center"}>No specifications added yet.</Stack>
           ) : (
             specifications.map((spec, index) => {
@@ -98,7 +98,7 @@ const ProductTypeDialog = () => {
           )}
           <Button
             onClick={() => {
-              const newSpecs = [...specifications];
+              const newSpecs = specifications ? [...specifications] : [];
               updateSpecifications(newSpecs.concat(""));
             }}
           >

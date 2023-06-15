@@ -27,7 +27,6 @@ const BreadcrumbNavigation = ({
         sx={{}}
       >
         <StyledBreadcrumb
-          component="a" // TODO remove the 'a'?
           label={initialBreadCrumbTitle}
           icon={<FeedIcon fontSize="small" />}
           sx={{ cursor: "pointer" }}
@@ -36,7 +35,7 @@ const BreadcrumbNavigation = ({
             navigateBackFunc();
           }}
         />
-        <StyledBreadcrumb component="a" label={breadcrumbName} />
+        <StyledBreadcrumb label={breadcrumbName} />
       </Breadcrumbs>
     </Stack>
   );

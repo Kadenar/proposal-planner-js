@@ -89,6 +89,11 @@ const ClientProposalsView = ({
             icon: "edit",
             tooltip: "View proposal",
             onClick: (_, rowData) => {
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return;
+              }
+
               updateActiveClient(dispatch, undefined);
               selectProposal(dispatch, rowData);
               navigate("/proposals");
@@ -98,15 +103,25 @@ const ClientProposalsView = ({
             icon: "save",
             tooltip: "Copy proposal",
             onClick: (_, rowData) => {
-              // TODO Figure out why typescript is yelling at me about this
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return;
+              }
+
               newProposalDialog({
                 name: rowData.name,
                 description: rowData.description,
-                owner: rowData.owner,
+                owner: {
+                  ...rowData.owner,
+                  name: "",
+                  address: "",
+                  state: "",
+                  city: "",
+                  zip: "",
+                },
                 clients,
                 isExistingProposal: true,
                 onSubmit: async (
-                  // TODO Come back to for typescript complaining
                   name: string,
                   description: string,
                   client_guid: string | undefined
@@ -118,11 +133,16 @@ const ClientProposalsView = ({
             icon: "delete",
             tooltip: "Delete proposal",
             onClick: (_, rowData) => {
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return;
+              }
+
               confirmDialog({
                 message:
                   "Do you really want to delete this? This action cannot be undone.",
                 onSubmit: async () => {
-                  return deleteProposal(dispatch, { guid: rowData.guid }); // TODO Figure out why typescript is yelling at me about this
+                  return deleteProposal(dispatch, { guid: rowData.guid });
                 },
               });
             },

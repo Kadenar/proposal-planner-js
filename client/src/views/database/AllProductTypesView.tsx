@@ -60,6 +60,11 @@ export default function AllProductTypesView() {
             icon: "edit",
             tooltip: "Edit type",
             onClick: (_, rowData) => {
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return false;
+              }
+
               productTypeDialog({
                 header: "Edit product type",
                 productType: rowData.label,
@@ -80,8 +85,14 @@ export default function AllProductTypesView() {
               confirmDialog({
                 message:
                   "Do you really want to delete this? This action cannot be undone.",
-                onSubmit: async () =>
-                  deleteProductType(dispatch, { guid: rowData.guid }),
+                onSubmit: async () => {
+                  // Keeping typescript happy
+                  if (!rowData || rowData instanceof Array) {
+                    return false;
+                  }
+
+                  return deleteProductType(dispatch, { guid: rowData.guid });
+                },
               });
             },
           },

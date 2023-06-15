@@ -120,11 +120,9 @@ export default function ClientCardDetails({
                 disabled={isDisabled}
                 value={clientInfo.name}
                 onChange={({ target: { value } }) => {
-                  setClientInfo((prev) => {
-                    return {
-                      ...prev,
-                      name: value,
-                    };
+                  setClientInfo({
+                    ...clientInfo,
+                    name: value,
                   });
                 }}
               >
@@ -142,11 +140,9 @@ export default function ClientCardDetails({
                     label="Address"
                     value={clientInfo.address}
                     onChange={({ target: { value } }) => {
-                      setClientInfo((prev) => {
-                        return {
-                          ...prev,
-                          address: value,
-                        };
+                      setClientInfo({
+                        ...clientInfo,
+                        address: value,
                       });
                     }}
                   />
@@ -154,11 +150,9 @@ export default function ClientCardDetails({
                     label="Apt, Suite, etc (optional)"
                     value={clientInfo.apt}
                     onChange={({ target: { value } }) => {
-                      setClientInfo((prev) => {
-                        return {
-                          ...prev,
-                          apt: value,
-                        };
+                      setClientInfo({
+                        ...clientInfo,
+                        apt: value,
                       });
                     }}
                   />
@@ -166,22 +160,18 @@ export default function ClientCardDetails({
                     label="City"
                     value={clientInfo.city}
                     onChange={({ target: { value } }) => {
-                      setClientInfo((prev) => {
-                        return {
-                          ...prev,
-                          city: value,
-                        };
+                      setClientInfo({
+                        ...clientInfo,
+                        city: value,
                       });
                     }}
                   />
                   <StateSelection
                     initialValue={clientInfo.state}
                     onChangeHandler={(value) => {
-                      setClientInfo((prev) => {
-                        return {
-                          ...prev,
-                          state: value,
-                        };
+                      setClientInfo({
+                        ...clientInfo,
+                        state: value,
                       });
                     }}
                   />
@@ -189,11 +179,9 @@ export default function ClientCardDetails({
                     label="Zip code"
                     value={clientInfo.zip}
                     onChange={({ target: { value } }) => {
-                      setClientInfo((prev) => {
-                        return {
-                          ...prev,
-                          zip: value,
-                        };
+                      setClientInfo({
+                        ...clientInfo,
+                        zip: value,
                       });
                     }}
                   />
@@ -204,11 +192,9 @@ export default function ClientCardDetails({
                 disabled={isDisabled}
                 value={clientInfo.phone}
                 onChange={({ target: { value } }) => {
-                  setClientInfo((prev) => {
-                    return {
-                      ...prev,
-                      state: value,
-                    };
+                  setClientInfo({
+                    ...clientInfo,
+                    state: value,
                   });
                 }}
               />
@@ -217,11 +203,9 @@ export default function ClientCardDetails({
                 disabled={isDisabled}
                 value={clientInfo.email}
                 onChange={({ target: { value } }) => {
-                  setClientInfo((prev) => {
-                    return {
-                      ...prev,
-                      email: value,
-                    };
+                  setClientInfo({
+                    ...clientInfo,
+                    email: value,
                   });
                 }}
               >
@@ -232,11 +216,9 @@ export default function ClientCardDetails({
                 disabled={isDisabled}
                 value={clientInfo.accountNum}
                 onChange={({ target: { value } }) => {
-                  setClientInfo((prev) => {
-                    return {
-                      ...prev,
-                      state: value,
-                    };
+                  setClientInfo({
+                    ...clientInfo,
+                    state: value,
                   });
                 }}
               >

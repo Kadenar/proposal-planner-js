@@ -1,11 +1,11 @@
 import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import Alert, { AlertColor } from "@mui/material/Alert";
 import { create } from "zustand";
 
 interface SnackbarActions {
   title: string;
   show: boolean;
-  status: string | undefined;
+  status: AlertColor | undefined;
 }
 
 interface SnackbarType extends SnackbarActions {
@@ -37,7 +37,7 @@ const CustomSnackbar = () => {
     <Snackbar open={show} autoHideDuration={3500} onClose={handleCloseSnackbar}>
       <Alert
         onClose={handleCloseSnackbar}
-        severity={status} // MUI controls this
+        severity={status}
         sx={{ width: "100%" }}
       >
         {title}

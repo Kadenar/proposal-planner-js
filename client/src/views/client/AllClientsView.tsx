@@ -88,14 +88,24 @@ export default function AllClientsView() {
           {
             icon: "edit",
             tooltip: "View client",
-            onClick: (event, rowData) => {
+            onClick: (_, rowData) => {
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return;
+              }
+
               updateActiveClient(dispatch, rowData.fullInfo);
             },
           },
           {
             icon: "delete",
             tooltip: "Delete client",
-            onClick: (event, rowData) => {
+            onClick: (_, rowData) => {
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return;
+              }
+
               confirmDialog({
                 message:
                   "Are you sure? This action cannot be undone. Upon deleting a client, ALL proposals belonging to that client will also be deleted.",

@@ -20,30 +20,30 @@ export function ConfigureCommission() {
   const { commissions } = useAppSelector((state) => state.commissions);
   const { activeProposal } = useAppSelector((state) => state.activeProposal);
 
-  return (
-    activeProposal && (
-      <FormControl>
-        <InputLabel id="commission-simple-select-label">Commission</InputLabel>
-        <Select
-          sx={{ minWidth: 100, maxHeight: 35 }}
-          labelId="commission-select-label"
-          id="commission-simple-select"
-          value={activeProposal.data.commission}
-          label="Commission"
-          onChange={(e) =>
-            setProposalCommission(dispatch, Number(e.target?.value) || 0)
-          }
-        >
-          {commissions.map((commission, index) => {
-            return (
-              <MenuItem key={index} value={commission.value}>
-                {commission.value}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    )
+  return activeProposal ? (
+    <FormControl>
+      <InputLabel id="commission-simple-select-label">Commission</InputLabel>
+      <Select
+        sx={{ minWidth: 100, maxHeight: 35 }}
+        labelId="commission-select-label"
+        id="commission-simple-select"
+        value={activeProposal.data.commission}
+        label="Commission"
+        onChange={(e) =>
+          setProposalCommission(dispatch, Number(e.target?.value) || 0)
+        }
+      >
+        {commissions.map((commission, index) => {
+          return (
+            <MenuItem key={index} value={commission.value}>
+              {commission.value}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
+  ) : (
+    <></>
   );
 }
 
@@ -52,18 +52,18 @@ export function ConfigureUnitCostTax() {
 
   const { activeProposal } = useAppSelector((state) => state.activeProposal);
 
-  return (
-    activeProposal && (
-      <TextField
-        id="unit-cost-id"
-        label="Unit cost tax"
-        variant="outlined"
-        value={activeProposal.data.unitCostTax}
-        onChange={(e) => setProposalUnitCostTax(dispatch, e.target?.value)}
-        type="number"
-        style={{ maxWidth: "100px" }}
-      />
-    )
+  return activeProposal ? (
+    <TextField
+      id="unit-cost-id"
+      label="Unit cost tax"
+      variant="outlined"
+      value={activeProposal.data.unitCostTax}
+      onChange={(e) => setProposalUnitCostTax(dispatch, e.target?.value)}
+      type="number"
+      style={{ maxWidth: "100px" }}
+    />
+  ) : (
+    <></>
   );
 }
 
@@ -77,29 +77,29 @@ export function ConfigureMultiplier() {
   const { activeProposal } = useAppSelector((state) => state.activeProposal);
   const { multipliers } = useAppSelector((state) => state.multipliers);
 
-  return (
-    activeProposal && (
-      <FormControl>
-        <InputLabel id="multiplier-simple-select-label">Multiplier</InputLabel>
-        <Select
-          sx={{ minWidth: 100, maxHeight: 35 }}
-          labelId="multiplier-simple-select-label"
-          id="multiplier-simple-select"
-          value={activeProposal.data.multiplier}
-          label="Multiplier"
-          onChange={(e) =>
-            setProposalMultiplier(dispatch, Number(e.target?.value))
-          }
-        >
-          {multipliers.map((multiplier, index) => {
-            return (
-              <MenuItem key={index} value={multiplier.value}>
-                {multiplier.value}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    )
+  return activeProposal ? (
+    <FormControl>
+      <InputLabel id="multiplier-simple-select-label">Multiplier</InputLabel>
+      <Select
+        sx={{ minWidth: 100, maxHeight: 35 }}
+        labelId="multiplier-simple-select-label"
+        id="multiplier-simple-select"
+        value={activeProposal.data.multiplier}
+        label="Multiplier"
+        onChange={(e) =>
+          setProposalMultiplier(dispatch, Number(e.target?.value))
+        }
+      >
+        {multipliers.map((multiplier, index) => {
+          return (
+            <MenuItem key={index} value={multiplier.value}>
+              {multiplier.value}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
+  ) : (
+    <></>
   );
 }

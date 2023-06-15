@@ -20,21 +20,13 @@ interface ProductStoreActions {
   modelName: string;
   modelNum: string;
   cost: number;
-  image?: any;
   onSubmit:
-    | (({
-        filter,
-        modelName,
-        modelNum,
-        cost,
-        image,
-      }: {
-        filter: ProductTypeObject | null;
-        modelName: string;
-        modelNum: string;
-        cost: number;
-        image?: any;
-      }) => Promise<boolean | undefined>)
+    | ((
+        filter: ProductTypeObject | null,
+        modelName: string,
+        modelNum: string,
+        cost: number
+      ) => Promise<boolean | undefined>)
     | undefined;
 }
 
@@ -43,7 +35,6 @@ interface ProductStoreType extends ProductStoreActions {
   updateModelName: (modelName: string) => void;
   updateModelNum: (modelNum: string) => void;
   updateCost: (cost: number) => void;
-  updateImage: (image: any) => void;
   close: () => void;
 }
 
@@ -55,13 +46,11 @@ const useProductDialogStore = create<ProductStoreType>((set) => ({
   modelName: "",
   modelNum: "",
   cost: 0,
-  image: undefined,
   onSubmit: undefined,
   updateFilter: (filter) => set(() => ({ filter: filter })),
   updateModelName: (modelName) => set(() => ({ modelName: modelName })),
   updateModelNum: (modelNum) => set(() => ({ modelNum: modelNum })),
   updateCost: (cost) => set(() => ({ cost: cost })),
-  updateImage: (image) => set(() => ({ image: image })),
   close: () => set({ onSubmit: undefined }),
 }));
 
@@ -153,12 +142,12 @@ const ProductDialog = () => {
                 return;
               }
 
-              const returnValue = await onSubmit({
+              const returnValue = await onSubmit(
                 filter,
                 modelName,
                 modelNum,
-                cost,
-              });
+                cost
+              );
 
               if (returnValue) {
                 close();
@@ -183,7 +172,6 @@ export const productDialog = ({
   modelName,
   modelNum,
   cost,
-  image,
   onSubmit,
 }: ProductStoreActions) => {
   useProductDialogStore.setState({
@@ -194,7 +182,6 @@ export const productDialog = ({
     modelName,
     modelNum,
     cost,
-    image,
     onSubmit,
   });
 };

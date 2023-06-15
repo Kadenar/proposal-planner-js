@@ -33,7 +33,7 @@ export const initializeProductTypes = () => async (dispatch: Dispatch) => {
 
 export const addProductType = async (
   dispatch: Dispatch,
-  { label, specifications }: { label: string; specifications: string[] }
+  { label, specifications }: { label: string; specifications?: string[] }
 ) =>
   updateStore({
     dispatch,
@@ -49,7 +49,7 @@ export const editProductType = async (
     guid,
     value,
     specifications,
-  }: { guid: string; value: string; specifications: string[] }
+  }: { guid: string; value: string; specifications?: string[] }
 ) =>
   updateStore({
     dispatch,

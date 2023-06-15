@@ -10,6 +10,7 @@ import {
   ProductTypeObject,
   PsuedoObjectOfProducts,
 } from "../../middleware/Interfaces.ts";
+import { fetchProposals } from "../../middleware/proposalHelpers.ts";
 
 const initialState: { products: PsuedoObjectOfProducts } = {
   products: {},
@@ -69,14 +70,14 @@ export async function editProduct(
     image,
   }: {
     guid: string;
-    filter_guid: string;
+    filter_guid: string | undefined;
     modelName: string;
     modelNum: string;
     cost: number;
     image: any; // TODO when we do images
   }
 ) {
-  return updateStore({
+  const result = await updateStore({
     dispatch,
     dbOperation: async () =>
       editExistingProduct(guid, filter_guid, modelName, modelNum, cost, image),
@@ -84,6 +85,30 @@ export async function editProduct(
     dataKey: "products",
     successMessage: "Successfully edited product!",
   });
+
+  if (result) {
+    const proposals = await fetchProposals();
+    // TODO
+    proposals.forEach((proposal) => {
+      updateStore({
+        dispatch,
+        dbOperation: async () =>
+          editExistingProduct(
+            guid,
+            filter_guid,
+            modelName,
+            modelNum,
+            cost,
+            image
+          ),
+        methodToDispatch: updateProducts,
+        dataKey: "products",
+        successMessage: "Successfully edited product!",
+      });
+    });
+  }
+
+  return result;
 }
 
 export async function deleteProduct(

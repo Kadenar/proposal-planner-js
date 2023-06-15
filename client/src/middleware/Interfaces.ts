@@ -55,7 +55,7 @@ export interface Labor {
 export interface ProposalObject {
   guid: string;
   name: string;
-  description: string | undefined;
+  description: string;
   dateCreated: string;
   dateModified: string;
   owner: {
@@ -76,7 +76,7 @@ export interface ProposalData {
 export interface QuoteOption {
   title: string | undefined;
   summary: string | undefined;
-  specifications: ProposalSpec[] | undefined;
+  specifications: ProposalSpec[];
 }
 export interface ProposalSpec {
   originalText: string;
@@ -95,9 +95,6 @@ export interface Multiplier {
 // Objects of a given type
 export type FeesOnProposal = Record<string, Fee>;
 export type LaborOnProposal = Record<string, Labor>;
-
-export type FeeOnProposal2 = Record<string, { cost: number }>;
-export type LaborOnProposal2 = Record<string, { qty: number }>;
 
 export interface PdfInvoice {
   submitted_to: string | undefined;

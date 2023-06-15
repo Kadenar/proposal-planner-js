@@ -49,7 +49,11 @@ export async function addProposal(
     name,
     description,
     client_guid,
-  }: { name: string; description: string; client_guid: string | undefined }
+  }: {
+    name: string;
+    description: string;
+    client_guid: string | undefined;
+  }
 ) {
   return updateStore({
     dispatch,

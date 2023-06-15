@@ -15,32 +15,31 @@ import {
 import { feesDialog } from "../../../dialogs/frontend/FeesDialog";
 import { laborsDialog } from "../../../dialogs/frontend/LaborsDialog";
 import { showSnackbar } from "../../../CustomSnackbar";
-import { LaborOnProposal } from "../../../../middleware/Interfaces";
+import {
+  LaborOnProposal,
+  ProposalObject,
+} from "../../../../middleware/Interfaces";
 
-export default function FeesAndLaborForProposal() {
+export default function FeesAndLaborForProposal({
+  activeProposal,
+}: {
+  activeProposal: ProposalObject;
+}) {
   const dispatch = useAppDispatch();
 
-  const { activeProposal } = useAppSelector((state) => state.activeProposal);
   const { fees } = useAppSelector((state) => state.fees);
   const { labors } = useAppSelector((state) => state.labors);
 
-  const proposalFees = activeProposal?.data.fees;
-  const proposalLabors = activeProposal?.data.labor;
+  const proposalFees = activeProposal.data.fees;
+  const proposalLabors = activeProposal.data.labor;
 
   // Fetch the current fees stored in the database. Remove any fees no longer available and rename any others.
   const validFees = useMemo(() => {
-    if (!proposalFees) {
-      return {};
-    }
     return returnOnlyValidFees(proposalFees, fees);
   }, [proposalFees, fees]);
 
   // Fetch the current labor stored in the database. Remove any labor no longer available and rename any others.
   const validLabor = useMemo(() => {
-    if (!proposalLabors) {
-      return {};
-    }
-
     return returnOnlyValidLabor(proposalLabors, labors);
   }, [proposalLabors, labors]);
 

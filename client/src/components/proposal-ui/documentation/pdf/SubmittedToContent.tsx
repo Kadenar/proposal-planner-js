@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-import { PdfInvoice } from "../../../../data-management/middleware/Interfaces";
+import { PdfInvoice } from "../../../../middleware/Interfaces";
 
 const styles = StyleSheet.create({
   proposal_view: {

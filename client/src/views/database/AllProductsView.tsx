@@ -39,7 +39,7 @@ export default function AllProductsView() {
             modelName: "",
             modelNum: "",
             cost: 0,
-            onSubmit: async ({ filter, modelName, modelNum, cost }) =>
+            onSubmit: async (filter, modelName, modelNum, cost) =>
               addProduct(dispatch, { filter, modelName, modelNum, cost }),
           })
         }
@@ -48,7 +48,7 @@ export default function AllProductsView() {
       <MaterialTable
         title={"Products management"}
         columns={[
-          { title: "Type", field: "filter_label" },
+          { title: "Type", field: "productLabel" },
           { title: "Model name", field: "model" },
           {
             title: "Model #",
@@ -67,8 +67,8 @@ export default function AllProductsView() {
 
           return {
             id: model.guid,
-            filter_guid: model.modelNum,
-            filter_label:
+            productCategory: model.category,
+            productLabel:
               modelNameSanitized.charAt(0).toUpperCase() +
               modelNameSanitized.slice(1),
             model: model.model,
@@ -89,30 +89,30 @@ export default function AllProductsView() {
             icon: "edit",
             tooltip: "Edit product",
             onClick: (_, rowData) => {
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return;
+              }
+
               productDialog({
                 header: "Edit product",
                 guid: rowData.guid,
                 filters,
                 filter: {
-                  label: rowData.filter_label, // TODO Figure out why typescript is mad
-                  guid: rowData.filter_guid,
+                  label: rowData.productLabel,
+                  guid: rowData.productCategory,
                 },
                 modelName: rowData.model,
                 modelNum: rowData.modelNum,
                 cost: rowData.cost,
-                onSubmit: async ({
-                  modelName: newModelName,
-                  modelNum: newModelNum,
-                  cost: newCost,
-                  image,
-                }) =>
+                onSubmit: async (selectedFilter, modelName, modelNum, cost) =>
                   editProduct(dispatch, {
                     guid: rowData.guid,
-                    filter_guid: rowData.filter_guid,
-                    modelName: newModelName,
-                    modelNum: newModelNum,
-                    cost: newCost,
-                    image,
+                    filter_guid: selectedFilter?.guid,
+                    modelName,
+                    modelNum,
+                    cost,
+                    image: undefined,
                   }),
               });
             },
@@ -122,13 +122,18 @@ export default function AllProductsView() {
             icon: "delete",
             tooltip: "Remove product",
             onClick: (_, rowData) => {
+              // Keeping typescript happy
+              if (!rowData || rowData instanceof Array) {
+                return;
+              }
+
               confirmDialog({
                 message:
                   "Do you really want to delete this? This action cannot be undone.",
                 onSubmit: async () =>
                   deleteProduct(dispatch, {
                     guid: rowData.guid,
-                    filter_guid: rowData.filter_guid,
+                    filter_guid: rowData.productCategory,
                   }),
               });
             },

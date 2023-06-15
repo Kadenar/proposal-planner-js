@@ -9,11 +9,11 @@ import Navbar from "../components/Sidebar/Navbar.tsx";
 import CustomSnackbar from "../components/CustomSnackbar.tsx";
 
 // PAGES
-import HomePage from "../landingpages/HomePage.tsx";
-import JobsPage from "../landingpages/JobsPage.tsx";
-import ProposalsPage from "../landingpages/ProposalsPage.tsx";
-import ClientsPage from "../landingpages/ClientsPage.tsx";
-import DatabasePage from "../landingpages/DatabasePage.tsx";
+import HomePage from "../pages/HomePage.tsx";
+import JobsPage from "../pages/JobsPage.tsx";
+import ProposalsPage from "../pages/ProposalsPage.tsx";
+import ClientsPage from "../pages/ClientsPage.tsx";
+import DatabasePage from "../pages/DatabasePage.tsx";
 
 // Dialogs
 import NewClientDialog from "../components/dialogs/frontend/NewClientDialog.tsx";

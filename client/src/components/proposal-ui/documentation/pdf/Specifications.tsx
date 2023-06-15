@@ -1,9 +1,6 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import { NumericFormat } from "react-number-format";
-import {
-  PdfInvoice,
-  QuoteOption,
-} from "../../../../data-management/middleware/Interfaces";
+import { PdfInvoice, QuoteOption } from "../../../../middleware/Interfaces";
 
 const styles = StyleSheet.create({
   proposal_view: {

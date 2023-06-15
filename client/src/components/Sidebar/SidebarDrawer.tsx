@@ -8,10 +8,13 @@ import { SidebarData } from "./SidebarItems";
 import { StyledListItem } from "../StyledComponents";
 
 export default function SidebarDrawer({
-  showDrawer = false,
-  setShowDrawer = () => {},
+  showDrawer,
+  setShowDrawer,
+}: {
+  showDrawer: boolean;
+  setShowDrawer: (open: boolean) => void;
 }) {
-  const toggleDrawer = (open) => (event) => {
+  const toggleDrawer = (open: boolean) => (event: KeyboardEvent) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -34,7 +37,6 @@ export default function SidebarDrawer({
             minWidth: 300,
             flexGrow: 1,
           }}
-          role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
@@ -49,7 +51,7 @@ export default function SidebarDrawer({
           >
             {SidebarData.map((item, index) => (
               <Link key={index} to={item.path}>
-                <StyledListItem button key={index}>
+                <StyledListItem key={index}>
                   <ListItemIcon sx={{ paddingLeft: "5px", marginLeft: "5px" }}>
                     {item.icon}
                   </ListItemIcon>
