@@ -42,7 +42,7 @@ export async function addProduct(
     modelNum,
     cost,
   }: {
-    filter: ProductTypeObject | undefined;
+    filter: ProductTypeObject | null;
     modelName: string;
     modelNum: string;
     cost: number;

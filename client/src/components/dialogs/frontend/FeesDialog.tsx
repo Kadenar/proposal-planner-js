@@ -3,17 +3,17 @@ import { Button, TextField } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
 import BaseDialog from "../BaseDialog";
-import { PsuedoObjectOfFees } from "../../../middleware/Interfaces";
+import { FeesOnProposal } from "../../../middleware/Interfaces";
 
 interface FeesStoreActions {
-  fees: PsuedoObjectOfFees | undefined;
+  fees: FeesOnProposal | undefined;
   onSubmit:
-    | ((fees: PsuedoObjectOfFees | undefined) => Promise<boolean | undefined>)
+    | ((fees: FeesOnProposal | undefined) => Promise<boolean | undefined>)
     | undefined;
 }
 
 interface FeesStoreType extends FeesStoreActions {
-  setFees: (fees: PsuedoObjectOfFees) => void;
+  setFees: (fees: FeesOnProposal) => void;
   close: () => void;
 }
 const useFeesStore = create<FeesStoreType>((set) => ({

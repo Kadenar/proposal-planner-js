@@ -15,13 +15,13 @@ import {
   ProductObject,
   ProductTypeObject,
   PsuedoObjectOfProducts,
-} from "../../../../data-management/middleware/Interfaces";
+} from "../../../middleware/Interfaces";
 
 interface ProductDialogActions {
   filters: ProductTypeObject[];
   filter: ProductTypeObject | null;
   allProducts: PsuedoObjectOfProducts;
-  selectedProduct: ProductObject | undefined | null;
+  selectedProduct: ProductObject | null;
   qty: number;
   quote_option: number;
   onSubmit:
@@ -89,17 +89,21 @@ const AddProductToProposalDialog = () => {
 
   // Get the available products for the selected filter
   const productsForSelectedType = useMemo<ProductObject[]>(() => {
+    if (!filter) {
+      return [];
+    }
+
     return allProducts[filter.guid] || [];
   }, [filter, allProducts]);
 
   // Calculate how many products are available for each filter type
-  const sizesOfEachProductType = useMemo(() => {
+  const sizesOfEachProductType = useMemo<Record<string, number>>(() => {
     return Object.keys(allProducts).reduce((result, product) => {
       return {
-        ...result, // TODO -> Figure out what should be done here instead of spreading the previous result
+        ...result,
         [product]: allProducts[product].length,
       };
-    }, 0);
+    }, {} as Record<string, number>);
   }, [allProducts]);
 
   return (
@@ -128,7 +132,7 @@ const AddProductToProposalDialog = () => {
                 id="filters"
                 getOptionLabel={(option) =>
                   `${option.label} - (${
-                    sizesOfEachProductType[option.guid] || 0 // TODO figure out
+                    sizesOfEachProductType[option.guid] || 0
                   } products)` || ""
                 }
                 isOptionEqualToValue={(option, value) =>
@@ -207,6 +211,7 @@ const AddProductToProposalDialog = () => {
                 qty,
                 quote_option
               );
+
               if (returnValue) {
                 close();
               }

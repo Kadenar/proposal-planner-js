@@ -2,21 +2,20 @@
 export interface ProductObject {
   guid: string;
   model: string;
-  cost: number;
   modelNum: string;
+  cost: number;
   image?: any;
-  quote_option?: number;
+}
+// Products added to a given proposal are mapped different than the products themselves
+export interface ProductOnProposal extends ProductObject {
+  quote_option: number; // 0 = All, 1-5 = specific quote
+  qty: number;
 }
 
 // -> Products are stored keyed under a category
 export type PsuedoObjectOfProducts = Record<string, ProductObject[]>;
-export interface FlattenedProductObject {
+export interface FlattenedProductObject extends ProductObject {
   category: string;
-  label: string;
-  modelNum: string;
-  cost: number;
-  guid: string;
-  image?: any;
 }
 export interface ProductTypeObject {
   label: string;
@@ -66,8 +65,8 @@ export interface ProposalObject {
 }
 // Information stored within data object for a proposal
 export interface ProposalData {
-  fees: PsuedoObjectOfFees;
-  labor: PsuedoObjectOfLabor;
+  fees: FeesOnProposal;
+  labor: LaborOnProposal;
   products: ProductOnProposal[];
   multiplier: number;
   unitCostTax: number;
@@ -94,19 +93,11 @@ export interface Multiplier {
 }
 
 // Objects of a given type
-export type PsuedoObjectOfFees = Record<string, Fee>;
-export type PsuedoObjectOfLabor = Record<string, Labor>;
+export type FeesOnProposal = Record<string, Fee>;
+export type LaborOnProposal = Record<string, Labor>;
 
-// Products added to a given proposal are mapped different than the products themselves
-export type PsuedoObjectOfModel = Record<string, ProductOnProposal>;
-export type ProductOnProposal = {
-  guid: string;
-  name: string;
-  modelNum: string;
-  cost: number;
-  qty: number;
-  quote_option: number; // 0 = All, 1-5 = specific quote
-};
+export type FeeOnProposal2 = Record<string, { cost: number }>;
+export type LaborOnProposal2 = Record<string, { qty: number }>;
 
 export interface PdfInvoice {
   submitted_to: string | undefined;
@@ -117,35 +108,4 @@ export interface PdfInvoice {
   accountNum: string | undefined;
   quoteOptions: QuoteOption[] | undefined;
   invoiceTotals: Record<number, Record<string, number>>;
-}
-
-export interface ReduxStore {
-  clients: {
-    clients: ClientObject[];
-    selectedClient: ClientObject | undefined;
-  };
-  commissions: {
-    commissions: Commission[];
-  };
-  fees: {
-    fees: Fee[];
-  };
-  filters: {
-    filters: ProductTypeObject[];
-  };
-  labors: {
-    labors: Labor[];
-  };
-  multipliers: {
-    multipliers: Multiplier[];
-  };
-  products: {
-    products: PsuedoObjectOfProducts;
-  };
-  proposals: {
-    proposals: ProposalObject[];
-  };
-  activeProposal: {
-    activeProposal: ProposalObject | undefined;
-  };
 }

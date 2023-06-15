@@ -10,8 +10,8 @@ import { updateStore } from "../Dispatcher.ts";
 import {
   ProductOnProposal,
   ProposalObject,
-  PsuedoObjectOfFees,
-  PsuedoObjectOfLabor,
+  FeesOnProposal,
+  LaborOnProposal,
   QuoteOption,
 } from "../../middleware/Interfaces.ts";
 import { markProposalAsDirty } from "./activeProposalSlice.ts";
@@ -124,8 +124,8 @@ export async function saveProposal(
   }: {
     guid: string;
     commission: number;
-    fees: PsuedoObjectOfFees;
-    labor: PsuedoObjectOfLabor;
+    fees: FeesOnProposal;
+    labor: LaborOnProposal;
     products: ProductOnProposal[];
     unitCostTax: number;
     multiplier: number;

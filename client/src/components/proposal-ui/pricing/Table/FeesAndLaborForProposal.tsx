@@ -15,7 +15,7 @@ import {
 import { feesDialog } from "../../../dialogs/frontend/FeesDialog";
 import { laborsDialog } from "../../../dialogs/frontend/LaborsDialog";
 import { showSnackbar } from "../../../CustomSnackbar";
-import { PsuedoObjectOfLabor } from "../../../../middleware/Interfaces";
+import { LaborOnProposal } from "../../../../middleware/Interfaces";
 
 export default function FeesAndLaborForProposal() {
   const dispatch = useAppDispatch();
@@ -101,7 +101,7 @@ export default function FeesAndLaborForProposal() {
               configure={() =>
                 laborsDialog({
                   labor: proposalLabors,
-                  onSubmit: async (labors: PsuedoObjectOfLabor | undefined) => {
+                  onSubmit: async (labors: LaborOnProposal | undefined) => {
                     if (!labors) {
                       showSnackbar({
                         title:

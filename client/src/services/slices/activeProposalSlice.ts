@@ -3,8 +3,8 @@ import {
   ProductOnProposal,
   ProposalObject,
   ProposalSpec,
-  PsuedoObjectOfFees,
-  PsuedoObjectOfLabor,
+  FeesOnProposal,
+  LaborOnProposal,
 } from "../../middleware/Interfaces";
 
 const initialState: {
@@ -241,7 +241,7 @@ export const setProposalCommission = (dispatch: Dispatch, value: number) => {
 
 export const updateProposalLabors = (
   dispatch: Dispatch,
-  newLabors: PsuedoObjectOfLabor,
+  newLabors: LaborOnProposal,
   flag_dirty: boolean
 ) => {
   dispatch(updateLabors(newLabors));
@@ -252,7 +252,7 @@ export const updateProposalLabors = (
 
 export const updateProposalFees = (
   dispatch: Dispatch,
-  newFees: PsuedoObjectOfFees,
+  newFees: FeesOnProposal,
   flag_dirty: boolean
 ) => {
   dispatch(updateFees(newFees));

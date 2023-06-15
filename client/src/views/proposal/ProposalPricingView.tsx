@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../services/store";
+import { useKey } from "../../hooks/useKey";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -14,25 +16,25 @@ import { handleAddProductToProposal } from "../../lib/pricing-utils";
 import ProductsForProposal from "../../components/proposal-ui/pricing/Table/ProductsForProposal";
 import FeesAndLaborForProposal from "../../components/proposal-ui/pricing/Table/FeesAndLaborForProposal";
 import CostBreakdown from "../../components/proposal-ui/pricing/Table/CostBreakdown";
-import { useAppDispatch, useAppSelector } from "../../services/store";
-import { useKey } from "../../hooks/useKey";
+
+import { ProposalObject } from "../../middleware/Interfaces";
 
 /**
  * Component used for displaying the table of selected products as well as inputs for
  * selecting a product to append to the table
  * @returns
  */
-export default function ProposalPricingView() {
+export default function ProposalPricingView({
+  activeProposal,
+}: {
+  activeProposal: ProposalObject;
+}) {
   const dispatch = useAppDispatch();
   const { products } = useAppSelector((state) => state.products);
-  const { activeProposal } = useAppSelector((state) => state.activeProposal);
   const { filters } = useAppSelector((state) => state.filters);
   const [open, setOpen] = useState(true);
 
   useKey("ctrls", () => {
-    if (!activeProposal) {
-      return;
-    }
     saveProposal(dispatch, {
       guid: activeProposal.guid,
       commission: activeProposal.data.commission,
@@ -45,10 +47,6 @@ export default function ProposalPricingView() {
     });
   });
 
-  if (!activeProposal) {
-    return <>You don't have a proposal selected. No pricing can be shown!</>;
-  }
-
   return (
     <>
       <Stack gap="20px" direction="row" width="100%">
@@ -60,7 +58,7 @@ export default function ProposalPricingView() {
               filters,
               filter: filters[0],
               allProducts: products,
-              selectedProduct: undefined,
+              selectedProduct: null,
               qty: 1,
               quote_option: 1,
               onSubmit: async (selectedProduct, qty, quote_option) => {

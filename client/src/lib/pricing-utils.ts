@@ -74,7 +74,7 @@ export const handleAddProductToProposal = (
 
   addProductToProposal(dispatch, {
     guid: selectedProduct.guid,
-    name: selectedProduct.model,
+    model: selectedProduct.model,
     modelNum: selectedProduct.modelNum,
     cost: selectedProduct.cost,
     qty,
@@ -91,7 +91,7 @@ export const handleAddProductToProposal = (
 };
 
 // Calculate the total cost of labor
-export default function calculateLabor(labors: Interfaces.PsuedoObjectOfLabor) {
+export default function calculateLabor(labors: Interfaces.LaborOnProposal) {
   let totalLabor = 0;
   Object.keys(labors).forEach((labor) => {
     totalLabor += labors[labor].qty * labors[labor].cost;
@@ -100,7 +100,7 @@ export default function calculateLabor(labors: Interfaces.PsuedoObjectOfLabor) {
   return totalLabor;
 }
 
-export function calculateFees(fees: Interfaces.PsuedoObjectOfFees) {
+export function calculateFees(fees: Interfaces.FeesOnProposal) {
   let costOfFees = 0;
 
   Object.keys(fees).forEach((fee) => {
@@ -194,7 +194,7 @@ export function calculateCostForOption(
 
 // Takes the fees present on the proposal, and removes any that are not in sync with the system
 export function returnOnlyValidFees(
-  proposalFees: Interfaces.PsuedoObjectOfFees,
+  proposalFees: Interfaces.FeesOnProposal,
   availableFees: Interfaces.Fee[]
 ) {
   return availableFees
@@ -213,7 +213,7 @@ export function returnOnlyValidFees(
 
 // Takes any labor present on the proposal, and removes any that are not in sync with the system
 export function returnOnlyValidLabor(
-  proposalLabors: Interfaces.PsuedoObjectOfLabor,
+  proposalLabors: Interfaces.LaborOnProposal,
   availableLabors: Interfaces.Labor[]
 ) {
   return availableLabors

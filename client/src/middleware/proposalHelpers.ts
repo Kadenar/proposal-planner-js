@@ -1,6 +1,6 @@
 import {
-  PsuedoObjectOfFees,
-  PsuedoObjectOfLabor,
+  FeesOnProposal,
+  LaborOnProposal,
   ProposalObject,
   ProductOnProposal,
   QuoteOption,
@@ -92,8 +92,8 @@ export async function deleteProposal(guid: string) {
 export async function saveProposal(
   guid: string,
   commission: number,
-  fees: PsuedoObjectOfFees,
-  labor: PsuedoObjectOfLabor,
+  fees: FeesOnProposal,
+  labor: LaborOnProposal,
   products: ProductOnProposal[],
   unitCostTax: number,
   multiplier: number,
@@ -162,21 +162,21 @@ const getNewProposalItem = async (
 ): Promise<ProposalObject> => {
   const fees = await fetchFees();
 
-  const reducedFees = fees.reduce<PsuedoObjectOfFees>(
+  const reducedFees = fees.reduce<FeesOnProposal>(
     (result, fee) => ({
       ...result,
       [fee.guid]: fee,
     }),
-    {} as PsuedoObjectOfFees
+    {} as FeesOnProposal
   );
 
   const labors = await fetchLabors();
-  const reducedLabors = labors.reduce<PsuedoObjectOfLabor>(
+  const reducedLabors = labors.reduce<LaborOnProposal>(
     (result, labor) => ({
       ...result,
       [labor.guid]: labor,
     }),
-    {} as PsuedoObjectOfLabor
+    {} as LaborOnProposal
   );
 
   const date = new Date();

@@ -28,26 +28,27 @@ export async function addProduct(
   cost: number,
   image?: any
 ) {
-  const error = validateProductInfo(filter_guid, modelName, modelNum, cost);
-
-  if (error) {
-    return error;
+  try {
+    validateProductInfo(filter_guid, modelName, modelNum, cost);
+  } catch (e) {
+    return {
+      status: 500,
+      data: { message: e },
+    };
   }
 
   const existingProductData = await fetchProducts();
 
-  const conflict = existingProductData[filter_guid]?.find(
-    (existing: ProductObject) => {
+  if (
+    existingProductData[filter_guid]?.find((existing: ProductObject) => {
       return existing.modelNum === modelNum || existing.modelNum === modelNum;
-    }
-  );
-
-  if (conflict) {
+    })
+  ) {
     return {
       status: 500,
       data: {
         message:
-          "Another product with the same name / modelNum number already exists.",
+          "Another product with the same name / model number already exists.",
       },
     };
   }
@@ -100,10 +101,13 @@ export async function editExistingProduct(
   cost: number,
   image?: any
 ) {
-  const error = validateProductInfo(filter_guid, modelName, modelNum, cost);
-
-  if (error) {
-    return error;
+  try {
+    validateProductInfo(filter_guid, modelName, modelNum, cost);
+  } catch (e) {
+    return {
+      status: 500,
+      data: { message: e },
+    };
   }
 
   const existingProductData = await fetchProducts();
@@ -155,11 +159,11 @@ export async function deleteProduct(guid: string, filter: string) {
  */
 export const flattenProductData = (productData: PsuedoObjectOfProducts) => {
   const products: FlattenedProductObject[] = [];
-  Object.keys(productData).map((key) => {
-    return productData[key].forEach((model: ProductObject) => {
+  Object.keys(productData).map((category) => {
+    return productData[category].forEach((model: ProductObject) => {
       products.push({
-        category: key,
-        label: model.model,
+        category,
+        model: model.model,
         modelNum: model.modelNum,
         cost: model.cost,
         guid: model.guid,
@@ -171,44 +175,25 @@ export const flattenProductData = (productData: PsuedoObjectOfProducts) => {
   return products;
 };
 
-export const getFlattenedProductData = async () => {
-  const productData = await fetchProducts();
-  return flattenProductData(productData);
-};
-
 function validateProductInfo(
   filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
   cost: number
-) {
+): asserts filter_guid is NonNullable<string> {
   if (!filter_guid || filter_guid === "") {
-    return {
-      status: 500,
-      data: { message: "Please specify a valid filter." },
-    };
+    throw Error("Please specify a valid filter.");
   }
 
   if (modelName === "") {
-    return {
-      status: 500,
-      data: { message: "Please specify a valid model name." },
-    };
+    throw Error("Please specify a valid model name.");
   }
 
   if (modelNum === "") {
-    return {
-      status: 500,
-      data: { message: "Please specify a model #." },
-    };
+    throw Error("Please specify a model #.");
   }
 
   if (cost <= 0) {
-    return {
-      status: 500,
-      data: { message: "Please specify a non-zero cost." },
-    };
+    throw Error("Please specify a non-zero cost.");
   }
-
-  return undefined;
 }

@@ -10,14 +10,13 @@ import {
 } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
-import { ProductTypeObject } from "../../../data-management/middleware/Interfaces";
-// import FileUpload from "../FileUpload";
+import { ProductTypeObject } from "../../../middleware/Interfaces";
 
 interface ProductStoreActions {
   header: string;
   guid: string;
   filters: ProductTypeObject[];
-  filter: ProductTypeObject | undefined;
+  filter: ProductTypeObject | null;
   modelName: string;
   modelNum: string;
   cost: number;
@@ -28,17 +27,19 @@ interface ProductStoreActions {
         modelName,
         modelNum,
         cost,
+        image,
       }: {
-        filter: ProductTypeObject | undefined;
+        filter: ProductTypeObject | null;
         modelName: string;
         modelNum: string;
         cost: number;
+        image?: any;
       }) => Promise<boolean | undefined>)
     | undefined;
 }
 
 interface ProductStoreType extends ProductStoreActions {
-  updateFilter: (filter: ProductTypeObject | undefined) => void;
+  updateFilter: (filter: ProductTypeObject | null) => void;
   updateModelName: (modelName: string) => void;
   updateModelNum: (modelNum: string) => void;
   updateCost: (cost: number) => void;
@@ -50,7 +51,7 @@ const useProductDialogStore = create<ProductStoreType>((set) => ({
   header: "",
   guid: "",
   filters: [],
-  filter: undefined,
+  filter: null,
   modelName: "",
   modelNum: "",
   cost: 0,
@@ -86,11 +87,6 @@ const ProductDialog = () => {
     state.cost,
     state.updateCost,
   ]);
-
-  // const [image, updateImage] = useProductDialogStore((state) => [
-  //   state.image,
-  //   state.updateImage,
-  // ]);
 
   return (
     <BaseDialog
@@ -141,7 +137,6 @@ const ProductDialog = () => {
               }}
             />
           </FormControl>
-          {/* <FileUpload imageUrl={image} setImageUrl={updateImage} /> */}
         </Stack>
       }
       actions={

@@ -7,16 +7,16 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 
 import BaseDialog from "../BaseDialog";
-import { PsuedoObjectOfLabor } from "../../../middleware/Interfaces";
+import { LaborOnProposal } from "../../../middleware/Interfaces";
 
 interface LaborStoreActions {
-  labor: PsuedoObjectOfLabor | undefined;
+  labor: LaborOnProposal | undefined;
   onSubmit:
-    | ((labor: PsuedoObjectOfLabor | undefined) => Promise<boolean | undefined>)
+    | ((labor: LaborOnProposal | undefined) => Promise<boolean | undefined>)
     | undefined;
 }
 interface LaborStoreType extends LaborStoreActions {
-  setLabor: (labor: PsuedoObjectOfLabor) => void;
+  setLabor: (labor: LaborOnProposal) => void;
   close: () => void;
 }
 

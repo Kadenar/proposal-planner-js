@@ -12,7 +12,7 @@
       "products": [
         {
           "guid": "1d0f2946-e5e3-49bc-999c-f44a47d2babc",
-          "name": "SL18XC1-024-230 Condenser/2 Ton/230A01",
+          "model": "SL18XC1-024-230 Condenser/2 Ton/230A01",
           "modelNum": "11H80",
           "cost": "2438",
           "qty": 1,
@@ -20,7 +20,7 @@
         },
         {
           "guid": "d526a278-f5cf-4e4d-be61-5d5f632a84fe",
-          "name": "SLP98UH070XV36B Furnace-Gas/70Btuh/3T",
+          "model": "SLP98UH070XV36B Furnace-Gas/70Btuh/3T",
           "modelNum": "60W24",
           "cost": "2066",
           "qty": 1,
@@ -28,7 +28,7 @@
         },
         {
           "guid": "54a5a3b5-2766-44cc-b516-4bd246d886d6",
-          "name": "SL18XC1-030-230 Condenser/2.5 Ton/230A01",
+          "model": "SL18XC1-030-230 Condenser/2.5 Ton/230A01",
           "modelNum": "11H81",
           "cost": "2584",
           "qty": 1,
@@ -157,6 +157,12 @@
     "data": {
       "products": [],
       "unitCostTax": 8.375,
+      "laborTest": [
+        {
+          "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
+          "qty": "0"
+        }
+      ],
       "labor": {
         "bf03e1a6-0666-436f-9b4f-e4f215efa71f": {
           "name": "(2) men (8) hours",

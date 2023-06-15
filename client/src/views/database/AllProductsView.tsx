@@ -71,7 +71,7 @@ export default function AllProductsView() {
             filter_label:
               modelNameSanitized.charAt(0).toUpperCase() +
               modelNameSanitized.slice(1),
-            model: model.label,
+            model: model.model,
             modelNum: model.modelNum,
             cost: model.cost,
             guid: model.guid,

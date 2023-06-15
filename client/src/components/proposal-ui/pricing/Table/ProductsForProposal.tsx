@@ -27,16 +27,12 @@ export default function ProductsForProposal() {
   const dispatch = useAppDispatch();
 
   const { activeProposal } = useAppSelector((state) => state.activeProposal);
-  const products = activeProposal?.data?.products;
 
-  if (!products) {
-    return (
-      <>
-        Proposal in database possibly corrupted? Products attribute is not
-        defined!
-      </>
-    );
+  if (!activeProposal) {
+    return <>Cannot view products when no proposal is selected!</>;
   }
+
+  const proposalProducts = activeProposal.data.products;
 
   return (
     <TableContainer component={Paper}>
@@ -53,12 +49,12 @@ export default function ProductsForProposal() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.length > 0 ? (
-            products.map((product, index) => {
-              const { name, modelNum, qty, cost } = product;
+          {proposalProducts.length > 0 ? (
+            proposalProducts.map((product, index) => {
+              const { model, modelNum, qty, cost } = product;
               return (
-                <TableRow key={name + index}>
-                  <TableCell>{name}</TableCell>
+                <TableRow key={model + index}>
+                  <TableCell>{model}</TableCell>
                   <TableCell>{getQuoteName(product.quote_option)}</TableCell>
                   <TableCell>{modelNum}</TableCell>
                   <TableCell>{qty}</TableCell>

@@ -79,7 +79,7 @@ export default function ProposalTabsView({
           <StyledTab value={2}>PDF</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
-          <ProposalPricingView />
+          <ProposalPricingView activeProposal={activeProposal} />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
           <ClientCardDetails activeClient={clientInfo} />
