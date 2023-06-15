@@ -55,7 +55,7 @@ export const ActionsTableCell = styled(TableCell)(({ theme }) => ({
 
 export const StyledSearch = styled(TextField)(({ theme }) => {
   return {
-    backgroundColor: theme.palette.mode === "dark" ? grey[900] : grey[500],
+    backgroundColor: theme.palette.mode === "dark" ? grey[900] : "#fff",
     color: "#fff",
     borderRadius: ".5em",
   };
@@ -149,7 +149,7 @@ export const StyledTab = styled(Tab)(
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 600;
-  background-color: ${theme.palette.mode === "dark" ? grey[900] : grey[500]};
+  background-color: ${theme.palette.mode === "dark" ? grey[900] : grey[300]};
   width: 100%;
   padding: 10px 12px;
   margin: 6px 6px;
@@ -177,7 +177,7 @@ export const StyledTabPanel = styled(TabPanel)(
     font-family: IBM Plex Sans, sans-serif;
     font-size: 0.875rem;
     padding: 20px 12px;
-    background: ${theme.palette.mode === "dark" ? grey[900] : "#404040"};
+    background: ${theme.palette.mode === "dark" ? grey[900] : grey[200]};
     border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
     border-radius: 12px;
     `
@@ -186,7 +186,7 @@ export const StyledTabPanel = styled(TabPanel)(
 export const StyledTabsList = styled(TabsList)(
   ({ theme }) => `
     min-width: 400px;
-    background-color: ${theme.palette.mode === "dark" ? grey[800] : "#404040"};
+    background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[200]};
     border-radius: 12px;
     margin-bottom: 16px;
     display: flex;
