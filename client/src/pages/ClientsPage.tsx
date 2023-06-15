@@ -11,7 +11,6 @@ export default function ClientsPage() {
       ) : (
         <ClientTabsView selectedClient={selectedClient} />
       )}
-      ;
     </>
   );
 }

@@ -96,7 +96,7 @@ const ClientAddressView = ({
       </Card>
       <Card sx={{ padding: 3, marginTop: 1, marginBottom: 2 }}>
         <Typography variant="h5">Contact details</Typography>
-        <Stack spacing={3} direction="row">
+        <Stack marginTop={3} spacing={3} direction="row">
           <TextField
             label="Phone number"
             value={selectedClient.phone}

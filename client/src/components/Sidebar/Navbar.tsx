@@ -10,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { StyledSwitch } from "../StyledComponents";
 import { useThemeContext } from "../../theme/ThemeContextProvider";
+import TypeSearch from "../SearchInput";
+import { Stack } from "@mui/material";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -30,23 +32,21 @@ export default function Navbar() {
     <>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={setShowSidebar}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            color="inherit"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          >
-            {header}
-          </Typography>
+          <Stack direction="row" spacing={2} alignItems={"center"} flexGrow={1}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={setShowSidebar}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" component="div">
+              {header}
+            </Typography>
+            <TypeSearch />
+          </Stack>
           <FormControlLabel
             control={
               <StyledSwitch

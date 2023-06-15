@@ -7,7 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import ListItem from "@mui/material/ListItem";
 import TableCell from "@mui/material/TableCell";
 import Switch from "@mui/material/Switch";
-import { IconButton } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 
 const blue = {
@@ -52,6 +52,35 @@ export const ActionsTableCell = styled(TableCell)(({ theme }) => ({
   fontStyle: "italic",
   width: "20px",
 }));
+
+export const StyledSearch = styled(TextField)(({ theme }) => {
+  return {
+    backgroundColor: theme.palette.mode === "dark" ? grey[900] : grey[500],
+    color: "#fff",
+    borderRadius: ".5em",
+  };
+});
+
+export const StyledSearchItem = styled(ListItem)(({ theme }) => {
+  const backgroundColor =
+    theme.palette.mode === "light"
+      ? theme.palette.grey[100]
+      : theme.palette.grey[800];
+
+  const linkColor = theme.palette.mode === "light" ? grey[900] : "#fff";
+
+  return {
+    "&:hover": {
+      color: "#fff",
+      cursor: "pointer",
+      backgroundColor: "#1976d2",
+    },
+    gap: 15,
+    color: linkColor,
+    border: "1px solid black",
+    backgroundColor: backgroundColor,
+  };
+});
 
 // Table cell with min width and bolding
 export const StyledListItem = styled(ListItem)(({ theme }) => {
