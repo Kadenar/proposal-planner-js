@@ -22,6 +22,28 @@ class Router {
 
   // Configure API endpoints.
   private routes(): void {
+    // ADDRESSES \\
+    this.router.get("/addresses", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/addressInfo.json`,
+        res,
+        "Fetching cached addresses.",
+        "Reading addresses from file system.",
+        "addresses"
+      );
+    });
+
+    this.router.post("/addresses", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/addressInfo.json`,
+        req,
+        res,
+        "Addresses could not be updated",
+        "Address update was successful!",
+        "addresses"
+      );
+    });
+
     // CLIENTS \\
     this.router.get("/clients", (req, res) => {
       this.readFileFunc(

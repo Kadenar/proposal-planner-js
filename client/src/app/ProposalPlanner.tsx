@@ -41,6 +41,7 @@ import { initializeFees } from "../services/slices/feesSlice.ts";
 import { useAppDispatch } from "../services/store.ts";
 import ContactsView from "../views/ContactsView.tsx";
 import ContactDialog from "../components/dialogs/frontend/ContactDialog.tsx";
+import { intializeAddresses } from "../services/slices/serviceAddressInfoSlice.ts";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -57,6 +58,7 @@ const ProposalPlanner = () => {
       dispatch(initializeLabors());
       dispatch(initializeFees());
       dispatch(initializeContacts());
+      dispatch(intializeAddresses());
     });
   }, [dispatch]);
 

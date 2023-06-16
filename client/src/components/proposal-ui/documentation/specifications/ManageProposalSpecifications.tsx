@@ -182,6 +182,7 @@ export const ManageProposalSpecifications = ({
           <Autocomplete
             disablePortal
             id="filters"
+            ListboxProps={{ style: { maxHeight: 400 } }}
             getOptionLabel={(option) => option.label}
             isOptionEqualToValue={(option, value) => option.guid === value.guid}
             options={filters}

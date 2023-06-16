@@ -131,6 +131,7 @@ const AddProductToProposalDialog = () => {
               <Autocomplete
                 disablePortal
                 id="filters"
+                ListboxProps={{ style: { maxHeight: 450 } }}
                 getOptionLabel={(option) =>
                   `${option.label} - (${
                     sizesOfEachProductType[option.guid] || 0
@@ -154,6 +155,7 @@ const AddProductToProposalDialog = () => {
               <Autocomplete
                 disablePortal
                 id="products"
+                ListboxProps={{ style: { maxHeight: 350 } }}
                 options={productsForSelectedType}
                 getOptionLabel={(option) => option.model || ""}
                 isOptionEqualToValue={(option, value) =>

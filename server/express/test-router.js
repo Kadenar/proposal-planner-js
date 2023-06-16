@@ -12,6 +12,28 @@ const filePath = path.join(
   "../extraResources"
 );
 
+// ADDRESSES \\
+router.get("/addresses", (req, res) => {
+  readFileFunc(
+    `${filePath}/addressInfo.json`,
+    res,
+    "Fetching cached addresses.",
+    "Reading addresses from file system.",
+    "addresses"
+  );
+});
+
+router.post("/addresses", (req, res) => {
+  writeFileFunc(
+    `${filePath}/addressInfo.json`,
+    req,
+    res,
+    "Addresses could not be updated",
+    "Address update was successful!",
+    "addresses"
+  );
+});
+
 // CLIENTS \\
 router.get("/clients", (req, res) => {
   readFileFunc(

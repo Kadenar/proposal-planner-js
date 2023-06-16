@@ -8,6 +8,7 @@ import multipliersSlice from "./slices/multipliersSlice";
 import activeProposalSlice from "./slices/activeProposalSlice";
 import laborsSlice from "./slices/laborsSlice";
 import feesSlice from "./slices/feesSlice";
+import addressesSlice from "./slices/serviceAddressInfoSlice";
 
 import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 import contactsSlice from "./slices/contactsSlice";
@@ -28,6 +29,7 @@ const store = configureStore({
     labors: laborsSlice,
     fees: feesSlice,
     contacts: contactsSlice,
+    addresses: addressesSlice,
   },
 });
 

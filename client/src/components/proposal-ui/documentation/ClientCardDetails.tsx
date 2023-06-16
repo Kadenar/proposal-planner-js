@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Stack, Card, TextField, Typography } from "@mui/material";
+import {
+  Stack,
+  Card,
+  TextField,
+  Typography,
+  Autocomplete,
+} from "@mui/material";
 
 import UndoIcon from "@mui/icons-material/Undo";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
@@ -16,6 +22,7 @@ import { StyledIconButton } from "../../StyledComponents";
 import StateSelection from "../../StateSelection";
 import { saveClient } from "../../../services/slices/clientsSlice";
 import { ClientObject } from "../../../middleware/Interfaces";
+import { useAppSelector } from "../../../services/store";
 
 export default function ClientCardDetails({
   activeClient,
@@ -26,6 +33,7 @@ export default function ClientCardDetails({
   const [isDisabled, setDisabled] = useState(true);
   const [clientInfo, setClientInfo] = useState(activeClient);
   const [open, setOpen] = useState(false);
+  const { addresses } = useAppSelector((state) => state.addresses);
 
   if (!activeClient) {
     return (
@@ -156,37 +164,54 @@ export default function ClientCardDetails({
                       });
                     }}
                   />
-                  <TextField
-                    label="City"
-                    value={clientInfo.city}
-                    onChange={({ target: { value } }) => {
+                  <Autocomplete
+                    disablePortal
+                    id="filters"
+                    ListboxProps={{ style: { maxHeight: 150 } }}
+                    getOptionLabel={(option) => String(option.zip)}
+                    isOptionEqualToValue={(option, value) =>
+                      option.zip === value.zip
+                    }
+                    options={addresses}
+                    value={addresses.find(
+                      (add) => String(add.zip) === clientInfo.zip
+                    )}
+                    renderInput={(params) => (
+                      <div ref={params.InputProps.ref}>
+                        <TextField {...params} label="Zip code" />
+                      </div>
+                    )}
+                    onChange={(_, value) => {
                       setClientInfo({
                         ...clientInfo,
-                        city: value,
-                      });
-                    }}
-                  />
-                  <StateSelection
-                    initialValue={clientInfo.state}
-                    onChangeHandler={(value) => {
-                      setClientInfo({
-                        ...clientInfo,
-                        state: value,
-                      });
-                    }}
-                  />
-                  <TextField
-                    label="Zip code"
-                    value={clientInfo.zip}
-                    onChange={({ target: { value } }) => {
-                      setClientInfo({
-                        ...clientInfo,
-                        zip: value,
+                        zip: String(value?.zip) || "",
+                        state: value?.state || "",
+                        city: value?.primary_city || "",
                       });
                     }}
                   />
                 </>
               )}
+              <TextField
+                label="City"
+                value={clientInfo.city}
+                onChange={({ target: { value } }) => {
+                  setClientInfo({
+                    ...clientInfo,
+                    city: value,
+                  });
+                }}
+              />
+              <StateSelection
+                initialValue={clientInfo.state}
+                onChangeHandler={(value) => {
+                  setClientInfo({
+                    ...clientInfo,
+                    state: value,
+                  });
+                }}
+              />
+
               <TextField
                 label="Phone"
                 disabled={isDisabled}

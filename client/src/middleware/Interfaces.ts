@@ -114,3 +114,11 @@ export interface PdfInvoice {
   quoteOptions: QuoteOption[] | undefined;
   invoiceTotals: Record<number, Record<string, number>>;
 }
+
+export interface AddressInfo {
+  type: string;
+  state: string;
+  county: string;
+  zip: number;
+  primary_city: string;
+}

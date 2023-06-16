@@ -1,9 +1,10 @@
 import { create } from "zustand";
-import { Button, TextField } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 import StateSelection from "../../StateSelection";
 import BaseDialog from "../BaseDialog";
+import { AddressInfo } from "../../../middleware/Interfaces";
 
 interface ClientActions {
   name: string;
@@ -12,6 +13,7 @@ interface ClientActions {
   city: string;
   state: string;
   zip: string;
+  addresses: AddressInfo[];
   onSubmit:
     | ((
         name: string,
@@ -41,6 +43,7 @@ const useClientStore = create<ClientType>((set) => ({
   city: "",
   state: "",
   zip: "",
+  addresses: [],
   onSubmit: undefined,
   setName: (name) => set(() => ({ name: name })),
   setAddress: (address) => set(() => ({ address: address })),
@@ -52,7 +55,7 @@ const useClientStore = create<ClientType>((set) => ({
 }));
 
 const NewClientDialog = () => {
-  const { onSubmit, close } = useClientStore();
+  const { onSubmit, close, addresses } = useClientStore();
 
   const [name, setName] = useClientStore((state) => [
     state.name,
@@ -114,6 +117,26 @@ const NewClientDialog = () => {
               fullWidth
             />
           </Grid>
+          <Grid item xs={5}>
+            <Autocomplete
+              disablePortal
+              id="filters"
+              ListboxProps={{ style: { maxHeight: 160 } }}
+              getOptionLabel={(option) => String(option.zip)}
+              isOptionEqualToValue={(option, value) => option.zip === value.zip}
+              options={addresses}
+              renderInput={(params) => (
+                <div ref={params.InputProps.ref}>
+                  <TextField {...params} label="Zip code" value={zip} />
+                </div>
+              )}
+              onChange={(_, value) => {
+                setZip(String(value?.zip) || "");
+                setCity(value?.primary_city || "");
+                setState(value?.state || "");
+              }}
+            />
+          </Grid>
           <Grid item xs={11}>
             <TextField
               label="City"
@@ -126,16 +149,6 @@ const NewClientDialog = () => {
           </Grid>
           <Grid item xs={6}>
             <StateSelection initialValue={state} onChangeHandler={setState} />
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
-              label="Zip"
-              value={zip}
-              onChange={({ target: { value } }) => {
-                setZip(value);
-              }}
-              fullWidth
-            />
           </Grid>
         </Grid>
       }
@@ -184,6 +197,7 @@ export const clientDialog = ({
   city,
   state,
   zip,
+  addresses,
   onSubmit,
 }: ClientActions) => {
   useClientStore.setState({
@@ -193,6 +207,7 @@ export const clientDialog = ({
     city,
     state,
     zip,
+    addresses,
     onSubmit,
   });
 };

@@ -19,6 +19,7 @@ export default function AllClientsView() {
   const dispatch = useAppDispatch();
   const { clients } = useAppSelector((state) => state.clients);
   const { proposals } = useAppSelector((state) => state.proposals);
+  const { addresses } = useAppSelector((state) => state.addresses);
 
   const clientsWithProposalInfo = useMemo(() => {
     return clients.map((client) => {
@@ -40,9 +41,10 @@ export default function AllClientsView() {
               name: "",
               address: "",
               apt: "",
-              state: "",
+              state: "NY",
               city: "",
               zip: "",
+              addresses: addresses,
               onSubmit: async (name, address, apt, state, city, zip) =>
                 addClient(dispatch, { name, address, apt, state, city, zip }),
             });

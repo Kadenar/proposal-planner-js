@@ -94,6 +94,7 @@ const ProductDialog = () => {
           <Autocomplete
             disablePortal
             id="filters"
+            ListboxProps={{ style: { maxHeight: 300 } }}
             options={filters}
             isOptionEqualToValue={(option, value) =>
               !value || value.guid === "" || option.guid === value.guid

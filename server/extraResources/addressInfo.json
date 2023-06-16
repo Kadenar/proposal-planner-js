@@ -1,0 +1,1472 @@
+[
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Amawalk",
+    "zip": 10501
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Ardsley",
+    "zip": 10502
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Ardsley On Hudson",
+    "zip": 10503
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Armonk",
+    "zip": 10504
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Baldwin Place",
+    "zip": 10505
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Bedford",
+    "zip": 10506
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Bedford Hills",
+    "zip": 10507
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Brewster",
+    "zip": 10509
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Briarcliff Manor",
+    "zip": 10510
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Buchanan",
+    "zip": 10511
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Carmel",
+    "zip": 10512
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Chappaqua",
+    "zip": 10514
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Cold Spring",
+    "zip": 10516
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Crompond",
+    "zip": 10517
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Cross River",
+    "zip": 10518
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Croton Falls",
+    "zip": 10519
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Croton On Hudson",
+    "zip": 10520
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Croton On Hudson",
+    "zip": 10521
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Dobbs Ferry",
+    "zip": 10522
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Elmsford",
+    "zip": 10523
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Garrison",
+    "zip": 10524
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Goldens Bridge",
+    "zip": 10526
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Granite Springs",
+    "zip": 10527
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Harrison",
+    "zip": 10528
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Hartsdale",
+    "zip": 10530
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Hawthorne",
+    "zip": 10532
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Irvington",
+    "zip": 10533
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Jefferson Valley",
+    "zip": 10535
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Katonah",
+    "zip": 10536
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Lake Peekskill",
+    "zip": 10537
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Larchmont",
+    "zip": 10538
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Lincolndale",
+    "zip": 10540
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Mahopac",
+    "zip": 10541
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Mahopac Falls",
+    "zip": 10542
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mamaroneck",
+    "zip": 10543
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Maryknoll",
+    "zip": 10545
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Millwood",
+    "zip": 10546
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mohegan Lake",
+    "zip": 10547
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Montrose",
+    "zip": 10548
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mount Kisco",
+    "zip": 10549
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mount Vernon",
+    "zip": 10550
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mount Vernon",
+    "zip": 10551
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mount Vernon",
+    "zip": 10552
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mount Vernon",
+    "zip": 10553
+  },
+  {
+    "type": "UNIQUE",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mount Vernon",
+    "zip": 10557
+  },
+  {
+    "type": "UNIQUE",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Mount Vernon",
+    "zip": 10558
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "North Salem",
+    "zip": 10560
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Ossining",
+    "zip": 10562
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Peekskill",
+    "zip": 10566
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Cortlandt Manor",
+    "zip": 10567
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Pleasantville",
+    "zip": 10570
+  },
+  {
+    "type": "UNIQUE",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Pleasantville",
+    "zip": 10571
+  },
+  {
+    "type": "UNIQUE",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Pleasantville",
+    "zip": 10572
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Port Chester",
+    "zip": 10573
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Pound Ridge",
+    "zip": 10576
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Purchase",
+    "zip": 10577
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Purdys",
+    "zip": 10578
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Putnam Valley",
+    "zip": 10579
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Rye",
+    "zip": 10580
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Scarsdale",
+    "zip": 10583
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Shenorock",
+    "zip": 10587
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Shrub Oak",
+    "zip": 10588
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Somers",
+    "zip": 10589
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "South Salem",
+    "zip": 10590
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Tarrytown",
+    "zip": 10591
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Thornwood",
+    "zip": 10594
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Valhalla",
+    "zip": 10595
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Verplanck",
+    "zip": 10596
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Waccabuc",
+    "zip": 10597
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Yorktown Heights",
+    "zip": 10598
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "White Plains",
+    "zip": 10601
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "White Plains",
+    "zip": 10602
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "White Plains",
+    "zip": 10603
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "West Harrison",
+    "zip": 10604
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "White Plains",
+    "zip": 10605
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "White Plains",
+    "zip": 10606
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "White Plains",
+    "zip": 10607
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "White Plains",
+    "zip": 10610
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Yonkers",
+    "zip": 10701
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Yonkers",
+    "zip": 10702
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Yonkers",
+    "zip": 10703
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Yonkers",
+    "zip": 10704
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Yonkers",
+    "zip": 10705
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Hastings On Hudson",
+    "zip": 10706
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Tuckahoe",
+    "zip": 10707
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Bronxville",
+    "zip": 10708
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Eastchester",
+    "zip": 10709
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Yonkers",
+    "zip": 10710
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "New Rochelle",
+    "zip": 10801
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "New Rochelle",
+    "zip": 10802
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "Pelham",
+    "zip": 10803
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "New Rochelle",
+    "zip": 10804
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Westchester County",
+    "primary_city": "New Rochelle",
+    "zip": 10805
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Amenia",
+    "zip": 12501
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Annandale On Hudson",
+    "zip": 12504
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Bangall",
+    "zip": 12506
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Barrytown",
+    "zip": 12507
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Beacon",
+    "zip": 12508
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Billings",
+    "zip": 12510
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Castle Point",
+    "zip": 12511
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Chelsea",
+    "zip": 12512
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Clinton Corners",
+    "zip": 12514
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Dover Plains",
+    "zip": 12522
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Fishkill",
+    "zip": 12524
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Glenham",
+    "zip": 12527
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Holmes",
+    "zip": 12531
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Hopewell Junction",
+    "zip": 12533
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Hughsonville",
+    "zip": 12537
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Hyde Park",
+    "zip": 12538
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Lagrangeville",
+    "zip": 12540
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Millbrook",
+    "zip": 12545
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Millerton",
+    "zip": 12546
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Putnam County",
+    "primary_city": "Patterson",
+    "zip": 12563
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Pawling",
+    "zip": 12564
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Pine Plains",
+    "zip": 12567
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Pleasant Valley",
+    "zip": 12569
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Poughquag",
+    "zip": 12570
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Red Hook",
+    "zip": 12571
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Rhinebeck",
+    "zip": 12572
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Rhinecliff",
+    "zip": 12574
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Salt Point",
+    "zip": 12578
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Staatsburg",
+    "zip": 12580
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Stanfordville",
+    "zip": 12581
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Stormville",
+    "zip": 12582
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Tivoli",
+    "zip": 12583
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Verbank",
+    "zip": 12585
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Wappingers Falls",
+    "zip": 12590
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Wassaic",
+    "zip": 12592
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Wingdale",
+    "zip": 12594
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Poughkeepsie",
+    "zip": 12601
+  },
+  {
+    "type": "PO BOX",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Poughkeepsie",
+    "zip": 12602
+  },
+  {
+    "type": "STANDARD",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Poughkeepsie",
+    "zip": 12603
+  },
+  {
+    "type": "UNIQUE",
+    "state": "NY",
+    "county": "Dutchess County",
+    "primary_city": "Poughkeepsie",
+    "zip": 12604
+  },
+  {
+    "type": "PO BOX",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Bancroft",
+    "zip": 25011
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Buffalo",
+    "zip": 25033
+  },
+  {
+    "type": "PO BOX",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Eleanor",
+    "zip": 25070
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Fraziers Bottom",
+    "zip": 25082
+  },
+  {
+    "type": "PO BOX",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Hometown",
+    "zip": 25109
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Liberty",
+    "zip": 25124
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Poca",
+    "zip": 25159
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Red House",
+    "zip": 25168
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Winfield",
+    "zip": 25213
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Hurricane",
+    "zip": 25526
+  },
+  {
+    "type": "STANDARD",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Scott Depot",
+    "zip": 25560
+  },
+  {
+    "type": "PO BOX",
+    "state": "WV",
+    "county": "Putnam County",
+    "primary_city": "Teays",
+    "zip": 25569
+  },
+  {
+    "type": "STANDARD",
+    "state": "GA",
+    "county": "Putnam County",
+    "primary_city": "Eatonton",
+    "zip": 31024
+  },
+  {
+    "type": "UNIQUE",
+    "state": "GA",
+    "county": "Putnam County",
+    "primary_city": "Eatonton",
+    "zip": 31026
+  },
+  {
+    "type": "PO BOX",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Bostwick",
+    "zip": 32007
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Crescent City",
+    "zip": 32112
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "East Palatka",
+    "zip": 32131
+  },
+  {
+    "type": "PO BOX",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Grandin",
+    "zip": 32138
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Georgetown",
+    "zip": 32139
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Florahome",
+    "zip": 32140
+  },
+  {
+    "type": "PO BOX",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Hollister",
+    "zip": 32147
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Interlachen",
+    "zip": 32148
+  },
+  {
+    "type": "PO BOX",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Interlachen",
+    "zip": 32149
+  },
+  {
+    "type": "PO BOX",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Lake Como",
+    "zip": 32157
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Palatka",
+    "zip": 32177
+  },
+  {
+    "type": "PO BOX",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Palatka",
+    "zip": 32178
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Pomona Park",
+    "zip": 32181
+  },
+  {
+    "type": "PO BOX",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Putnam Hall",
+    "zip": 32185
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "San Mateo",
+    "zip": 32187
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Satsuma",
+    "zip": 32189
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Welaka",
+    "zip": 32193
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Hawthorne",
+    "zip": 32640
+  },
+  {
+    "type": "STANDARD",
+    "state": "FL",
+    "county": "Putnam County",
+    "primary_city": "Melrose",
+    "zip": 32666
+  },
+  {
+    "type": "STANDARD",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Cookeville",
+    "zip": 38501
+  },
+  {
+    "type": "PO BOX",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Cookeville",
+    "zip": 38502
+  },
+  {
+    "type": "PO BOX",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Cookeville",
+    "zip": 38503
+  },
+  {
+    "type": "UNIQUE",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Cookeville",
+    "zip": 38505
+  },
+  {
+    "type": "STANDARD",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Cookeville",
+    "zip": 38506
+  },
+  {
+    "type": "STANDARD",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Baxter",
+    "zip": 38544
+  },
+  {
+    "type": "STANDARD",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Buffalo Valley",
+    "zip": 38548
+  },
+  {
+    "type": "STANDARD",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Monterey",
+    "zip": 38574
+  },
+  {
+    "type": "STANDARD",
+    "state": "TN",
+    "county": "Putnam County",
+    "primary_city": "Silver Point",
+    "zip": 38582
+  },
+  {
+    "type": "PO BOX",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Belmore",
+    "zip": 45815
+  },
+  {
+    "type": "STANDARD",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Cloverdale",
+    "zip": 45827
+  },
+  {
+    "type": "STANDARD",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Columbus Grove",
+    "zip": 45830
+  },
+  {
+    "type": "STANDARD",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Continental",
+    "zip": 45831
+  },
+  {
+    "type": "PO BOX",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Dupont",
+    "zip": 45837
+  },
+  {
+    "type": "STANDARD",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Fort Jennings",
+    "zip": 45844
+  },
+  {
+    "type": "PO BOX",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Glandorf",
+    "zip": 45848
+  },
+  {
+    "type": "PO BOX",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Kalida",
+    "zip": 45853
+  },
+  {
+    "type": "STANDARD",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Leipsic",
+    "zip": 45856
+  },
+  {
+    "type": "PO BOX",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Miller City",
+    "zip": 45864
+  },
+  {
+    "type": "STANDARD",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Ottawa",
+    "zip": 45875
+  },
+  {
+    "type": "PO BOX",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Ottoville",
+    "zip": 45876
+  },
+  {
+    "type": "STANDARD",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Pandora",
+    "zip": 45877
+  },
+  {
+    "type": "PO BOX",
+    "state": "OH",
+    "county": "Putnam County",
+    "primary_city": "Vaughnsville",
+    "zip": 45893
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Bainbridge",
+    "zip": 46105
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Cloverdale",
+    "zip": 46120
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Coatesville",
+    "zip": 46121
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Fillmore",
+    "zip": 46128
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Greencastle",
+    "zip": 46135
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Putnamville",
+    "zip": 46170
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Reelsville",
+    "zip": 46171
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Roachdale",
+    "zip": 46172
+  },
+  {
+    "type": "STANDARD",
+    "state": "IN",
+    "county": "Putnam County",
+    "primary_city": "Russellville",
+    "zip": 46175
+  },
+  {
+    "type": "STANDARD",
+    "state": "IL",
+    "county": "Putnam County",
+    "primary_city": "Granville",
+    "zip": 61326
+  },
+  {
+    "type": "STANDARD",
+    "state": "IL",
+    "county": "Putnam County",
+    "primary_city": "Hennepin",
+    "zip": 61327
+  },
+  {
+    "type": "STANDARD",
+    "state": "IL",
+    "county": "Putnam County",
+    "primary_city": "Mc Nabb",
+    "zip": 61335
+  },
+  {
+    "type": "STANDARD",
+    "state": "IL",
+    "county": "Putnam County",
+    "primary_city": "Magnolia",
+    "zip": 61336
+  },
+  {
+    "type": "PO BOX",
+    "state": "IL",
+    "county": "Putnam County",
+    "primary_city": "Mark",
+    "zip": 61340
+  },
+  {
+    "type": "PO BOX",
+    "state": "IL",
+    "county": "Putnam County",
+    "primary_city": "Standard",
+    "zip": 61363
+  },
+  {
+    "type": "STANDARD",
+    "state": "IL",
+    "county": "Putnam County",
+    "primary_city": "Putnam",
+    "zip": 61560
+  },
+  {
+    "type": "STANDARD",
+    "state": "MO",
+    "county": "Putnam County",
+    "primary_city": "Livonia",
+    "zip": 63551
+  },
+  {
+    "type": "STANDARD",
+    "state": "MO",
+    "county": "Putnam County",
+    "primary_city": "Unionville",
+    "zip": 63565
+  },
+  {
+    "type": "STANDARD",
+    "state": "MO",
+    "county": "Putnam County",
+    "primary_city": "Worthington",
+    "zip": 63567
+  },
+  {
+    "type": "STANDARD",
+    "state": "MO",
+    "county": "Putnam County",
+    "primary_city": "Lucerne",
+    "zip": 64655
+  },
+  {
+    "type": "STANDARD",
+    "state": "MO",
+    "county": "Putnam County",
+    "primary_city": "Powersville",
+    "zip": 64672
+  }
+]
