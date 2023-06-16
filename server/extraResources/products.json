@@ -419,9 +419,9 @@
     },
     {
       "guid": "9fd31fbf-2a9c-4521-9d40-637083772bc2",
-      "model": "381359072 WEIL MCLAIN CGA-3 PIDN BOILER NATURAL GAS INTERMITTENT  (SPARK) IGNITION 70MBH INPUT 51MBH",
+      "model": "381359072 WEIL MCLAIN CGA-3 PIDN BOILER NATURAL GAS INTERMITTENT (SPARK) IGNITION ",
       "modelNum": "1584756",
-      "description": "NET 84% AFUE 4inch FLUE 1inch SUPPLY & RETURN SERIES 3 - WITH TACO 007e ECM CIRC ",
+      "description": "70MBH INPUT 51MBH\nNET 84% AFUE 4inch FLUE 1inch SUPPLY & RETURN SERIES 3 - WITH TACO 007e ECM CIRC ",
       "cost": 2075.34
     },
     {
@@ -577,6 +577,34 @@
       "modelNum": "1187220",
       "description": "INPUT 333mbh OUTPUT 96.5% AFUE 4inch VENT AND COMB AIR INPUT SIZE 1-1/2inch SUPPLY AND RETURN (NO LONGER SHIPS WITH LP CONVERSION KIT AS OF 6/18/18)",
       "cost": 8537.97
+    },
+    {
+      "guid": "565ed3a9-cd5b-49b1-b08b-90e9dcb074b4",
+      "model": "386700428 WEIL MCLAIN CARLIN BURNER",
+      "modelNum": "678408",
+      "description": "FOR 3 SECTION GOLD BOILER ",
+      "cost": 511.04
+    },
+    {
+      "guid": "e474e4f0-2ab9-4bf7-bd2b-07768bb78e94",
+      "model": "386700408 WEIL MCLAIN BECKETT BURNER FOR 6 SECTION GOLD ",
+      "modelNum": "678407",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "c87a529a-b223-422a-bdc5-0c56961aff09",
+      "model": "386700432 WEIL MCLAIN CARLIN BURNER  FOR 4 SECTION GOLD BOILER",
+      "modelNum": "678345",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "483dc317-363e-4f60-8010-65fe097558b7",
+      "model": "386700436 WEIL MCLAIN CARLIN BURNER FOR 5 SECTION GOLD",
+      "modelNum": "678409",
+      "description": "",
+      "cost": 511.04
     }
   ],
   "coils": [
@@ -947,6 +975,167 @@
       "modelNum": "1461110",
       "description": "5TON DRIVE\nCOMFORT AIRE 33inch TALL 28.5 DEEP 24-1/2inch WIDE - SUPPLY OPENING 24.5 W 19 1/2 D",
       "cost": 2803.33
+    },
+    {
+      "guid": "29986ed4-e944-4e82-b57b-7d7200a34cb0",
+      "model": "OH6FA072D48 THERMOPRIDE OH6 PSC DIRECT DRIVE HIGHBOY OIL FURNACE LESS BURNER ",
+      "modelNum": "1500452",
+      "description": "85% AFUE 60/72/90MBH 4 TON DRIVE 45 TALL X 20 WIDE X 30 DEEP 5INCH FLUE",
+      "cost": 2215.29
+    },
+    {
+      "guid": "84e626f0-1226-4ef2-9697-2474bde34172",
+      "model": "380692 THERMOPRIDE BECKETT TP2501 AFG OIL BURNER FOR 6 SERIES",
+      "modelNum": "1500449",
+      "description": "",
+      "cost": 598.06
+    },
+    {
+      "guid": "62dc1554-feb1-4d25-8814-145d9aa63db5",
+      "model": "OH6FA072DV4 THERMOPRIDE OH6 ECM DIRECT DRIVE 85% AFUE HIGHBOY OIL FURNACE LESS BURNER",
+      "modelNum": "1500453",
+      "description": "60/72/90MBH 5INCH FLUE SUPPLY OPENING 20X20",
+      "cost": 2809.34
+    },
+    {
+      "guid": "4258ed0a-328a-4ce5-ad7e-8067bb576dad",
+      "model": "OH8FA119D60 THERMOPRIDE OIL HIGH BOY FURNACE WITH DIRECT DRIVE PSC BLOWER MOTOR",
+      "modelNum": "1132525",
+      "description": "101,000 TO 132,000 BTU OUTPUT *** LESS BURNER *** 7inch FLUE",
+      "cost": 2594.38
+    },
+    {
+      "guid": "57b38138-07c8-4314-b394-b90fa6f516e7",
+      "model": "380754 THERMOPRIDE BECKETT TP2502 AFG OIL BURNER FOR 8 SERIES",
+      "modelNum": "1500451",
+      "description": "",
+      "cost": 598.06
+    },
+    {
+      "guid": "46501961-1a29-4b60-9b2f-5aff8d9d0744",
+      "model": "OH8FA119DV5 THERMOPRIDE OIL FURNACE HIGHBOY WITH ECM BLOWER MOTOR",
+      "modelNum": "1132526",
+      "description": "101K TO 132K BTU OUT FRONT FLUE 7inch *** LESS BURNER *** ",
+      "cost": 3133.23
+    },
+    {
+      "guid": "bfb98986-3e20-4e3f-8914-49b9a4824885",
+      "model": "L6FA072D48 THERMOPRIDE OL6 FRONT FLUE PSC DIRECT DRIVE LOWBOY OIL FURNACE",
+      "modelNum": "1500585",
+      "description": "86.5% AFUE LESS BURNER 60/72/90 5inch flue ",
+      "cost": 2183.35
+    },
+    {
+      "guid": "58b02654-5b8a-4df3-8c74-303f9f0d880e",
+      "model": "OL6FA072DV5 THERMOPRIDE OL6 FRONT FLUE ECM DIRECT DRIVE",
+      "modelNum": "1500586",
+      "description": "86.5% AFUE OIL FURNACE LESS BURNER\n60/72/90MBH SUPPLY OPENING 18\"W X 20\"D",
+      "cost": 2767.21
+    },
+    {
+      "guid": "edc9c1a1-f5cf-48cc-b9d5-c811282b3dee",
+      "model": "OL6RA072D48 THERMOPRIDE OL6 REAR FLUE PSC DIRECT DRIVE LOWBOY OIL FURNACE ",
+      "modelNum": "1500587",
+      "description": "86.5% AFUE LESS BURNER 60/72/90 5inch FLUE ",
+      "cost": 2120.88
+    },
+    {
+      "guid": "badc3d98-4d29-4f85-9afc-638e590bf6e6",
+      "model": "OL6RA072DV5 THERMOPRIDE OIL FIRED REAR FLU LOWBOY FURNACE WITH ECM MOTOR",
+      "modelNum": "1347157",
+      "description": "60/72/90 BTU UP TO 5 TON",
+      "cost": 2703.32
+    },
+    {
+      "guid": "d71dd9a5-46f0-4aac-8bee-d4ac37b44f0b",
+      "model": "OME-72T36 THERMOPRIDE OIL FURNACE WITH ECM MOTOR AND BECKETT BURNER",
+      "modelNum": "1461470",
+      "description": "FOR MANUFACTURED - MOBILE HOMES",
+      "cost": 2275.44
+    },
+    {
+      "guid": "af191e65-b769-4dfb-ac01-2698d146b1b6",
+      "model": "70-BASE THERMOPRIDE COMBUSTIBLE FLOOR BASE",
+      "modelNum": "1500511",
+      "description": "(FOR USE WITH MOBILE HOME) OME GMD CMA ",
+      "cost": 238.86
+    },
+    {
+      "guid": "daadc168-cace-4707-b3a5-60bb158378cb",
+      "model": "HF-ABP SPIRIT HIGHBOY 90/72/60MBH OIL FURNACE WITH AFG BECKETT BURNER",
+      "modelNum": "1127442",
+      "description": "PSC DIRECT DRIVE BLOWER MOTOR -85%AFUE - 5INCH FRONT FLUE 45HX21WX30D - SUPPLY 19X19\n4 TON DRIVE",
+      "cost": 1952.5
+    },
+    {
+      "guid": "27832804-8e8a-4ec3-956e-ab96d4bcb933",
+      "model": "VHF-ABT SPIRIT HIGHBOY 90/72/60MBH OIL FURNACE WITH BECKETT AFG BURNER",
+      "modelNum": "1195437",
+      "description": "ECM BLOWER MOTOR 85% AFUE - 5INCH FLUE - 45HX21WX30D - SUPPLY 19X19",
+      "cost": 2522.21
+    },
+    {
+      "guid": "ce3cc6de-17b6-451a-955c-e89756cb896f",
+      "model": "VHF-ACP SPIRIT HIGHBOY 90/72/60MBH OIL FURNACE WITH CARLIN EZ-1 BURNER",
+      "modelNum": "1605508",
+      "description": "PSC DIRECT DRIVE BLOWER MOTOR -86%AFUE - 5INCH FRONT FLUE 45HX21WX30D\nSUPPLY 19X19\n4 TON DRIVE",
+      "cost": 1963.42
+    },
+    {
+      "guid": "c62468c1-748d-41ed-b7b2-ec1fb3db81df",
+      "model": "VHF-ACT SPIRIT HIGHBOY 90/72/60MBH OIL FURNACE WITH CARLIN EZ-1 BURNER",
+      "modelNum": "1605509",
+      "description": "ECM BLOWER MOTOR 86% AFUE - 5INCH FLUE - 45HX21WX30D - SUPPLY 19X19",
+      "cost": 2544.06
+    },
+    {
+      "guid": "1043148a-15f6-4738-bc8b-132578e0a15b",
+      "model": "VC-CBP SPIRIT HORIZ DOWNFLOW 97/89/69MBH OIL FURNACE WITH BECKETT AFG BURNER",
+      "modelNum": "1195442",
+      "description": "PSC DIRECT DRIVE BLOWER MOTOR 85% AFUE 6inch FLUE",
+      "cost": 1963.38
+    },
+    {
+      "guid": "b60ef08e-7eaf-4d44-9ee5-b32298076455",
+      "model": "VH8FA119P60B SPIRIT HIGHBOY PSC 132/119/101 MBH OIL FURNACE WITH BECKETT AFG BURNER",
+      "modelNum": "1195436",
+      "description": "5 TON DRIVE BLOWER MOTOR - 85%AFUE - 7INCH FLUE 50HX24WX36 - SUPPLY 20X20\nAHRI # 8582043 335 LBS.",
+      "cost": 2390.8
+    },
+    {
+      "guid": "8b40d9cd-e971-4b91-aacf-c43afece59b7",
+      "model": "VH8FA119T60B SPIRIT HIGHBOY ECM 132/119/101 MBH OIL FURNACE WITH BECKETT AFG BURNER",
+      "modelNum": "1195443",
+      "description": "DIRECT 5 TON DRIVE BLOWER MOTOR - 85%AFUE -?INCH FLUE 50HX24WX36 - SUPPLY 20X20 ",
+      "cost": 2938.16
+    },
+    {
+      "guid": "594835dd-0b50-4cea-8f44-53f1cc663ba7",
+      "model": "VLR-DBP SPIRIT LOWBOY REAR FLUE BECKETT AFG BURNER OIL FURNACE",
+      "modelNum": "1620854",
+      "description": "114/98/88/?0MBH - 85% AFUE\nPSC DIRECT DRIVE BLOWER MOTOR\n6INCH FLUE\nHxWxD 41.5\"x22.25\"x47\"\nSUPPLY 20X20\nRETURN 20X12.5\n4ton AC",
+      "cost": 1963.48
+    },
+    {
+      "guid": "9d87cae7-1544-415f-96c6-c16e4d5ab009",
+      "model": "VLF-DCP SPIRIT LOWBOY FRONT FLUE CARLIN EZl BURNER",
+      "modelNum": "1605510",
+      "description": "114/98/88/?0MBH OIL FURNACE - PSC DIRECT DRIVE BLOWER MOTOR\n86% AFUE - 6INCH FLUE - 41.5HX22.25WX47D\nSUPPLY 20X20 RETURN 20X12.5 ",
+      "cost": 1974.38
+    },
+    {
+      "guid": "a0054658-2405-4c5a-97c7-b293a1a84a47",
+      "model": "VL8RA119P60B SPIRIT LOWBOY REAR FLUE 132K,119K,101K,OIL FIRED FURNACE WITH BECKETT AFG BURNER",
+      "modelNum": "1356328",
+      "description": "PSC DIRECT DRIVE BLOWER MOTOR - 85% AFUE - 7INCH FLUE\nHxWxL 38-1/2 X 24-1/2 X 55-1/2\"\nSUPPLY 20X20 RETURN 20X16",
+      "cost": 2347.04
+    },
+    {
+      "guid": "c6bfa55a-a47e-4309-87f3-8aacf41eb534",
+      "model": "VL8FA119P60B SPIRIT LOWBOY FRONT FLUE 132,000, 119,000, 101,000 OIL FIRED FURNACE WITH BECKETT AFG BURNER",
+      "modelNum": "1356327",
+      "description": "PSC DIRECT DRIVE BLOWER MOTOR - 85% AFUE - 7INCH FLUE\nWxDxH 24-1/2 X 55-1/2 X 38-1/2\nSUPPLY 20X20 RETURN 20X16",
+      "cost": 2368.88
     }
   ],
   "general": [
@@ -1105,34 +1294,6 @@
       "cost": 29.79
     },
     {
-      "guid": "ab6e05b6-9b80-4e31-88f9-16505420fd88",
-      "model": "386700428 WEIL MCLAIN CARLIN BURNER",
-      "modelNum": "678408",
-      "description": "FOR 3 SECTION GOLD BOILER ",
-      "cost": 511.04
-    },
-    {
-      "guid": "76683fa8-68f2-424b-a8ef-e90d550cdcc3",
-      "model": "386700408 WEIL MCLAIN BECKETT BURNER FOR 6 SECTION GOLD ",
-      "modelNum": "678407",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "b106dee3-67d8-4ebf-8019-ebcba3a4ab9f",
-      "model": "386700436 WEIL MCLAIN CARLIN BURNER FOR 5 SECTION GOLD",
-      "modelNum": "678409",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "4ac9ced2-7411-44d9-ae5a-61a2cefc57e4",
-      "model": "386700432 WEIL MCLAIN CARLIN BURNER  FOR 4 SECTION GOLD BOILER",
-      "modelNum": "678345",
-      "description": "",
-      "cost": 511.04
-    },
-    {
       "guid": "33c16c25-c9ed-4bdf-b089-a52a71dffc7a",
       "model": "416700170 WEIL MCLAIN WGO-7 JACKET",
       "modelNum": "678434",
@@ -1253,10 +1414,24 @@
     },
     {
       "guid": "ad0c19c9-da3e-4a7b-99f2-502b1ff2eb09",
-      "model": "691034",
-      "modelNum": "386700046 WEIL MCLAIN SGO STEAM",
+      "model": "386700046 WEIL MCLAIN SGO STEAM",
+      "modelNum": "691034",
       "description": "TRIM (!386700870) ",
       "cost": 353.8
+    },
+    {
+      "guid": "9b2a2419-fd52-4f4a-8a5d-6dfc1893c7ed",
+      "model": "96828OA-32E CARLIN BURNER FOR BOCK 32E OR 33E WITH PREWIRED DUAL AQUASTAT ",
+      "modelNum": "41920",
+      "description": "",
+      "cost": 480.36
+    },
+    {
+      "guid": "2f1b1d38-d1f2-4e55-8126-14b4441e8061",
+      "model": "100293212 AO SMITH CONVERSION KIT FOR LTE AND DCE HEATERS",
+      "modelNum": "1452684",
+      "description": "KIT CONTAINS NEW RATING PLATE FOR HEATER CONVERSIONS FROM 277V TO 240V 4500/4500 WATT ( LESS ELEMENTS) ",
+      "cost": 10.99
     }
   ],
   "heat_pumps": [
@@ -1483,7 +1658,7 @@
     },
     {
       "guid": "80ba137b-0163-4d6b-a41a-5f6e93d3fd5a",
-      "model": "PNT50 AO SMITH 50GAL l0YR ELECTRIC WATER HEATER",
+      "model": "PNT50 AO SMITH 50GAL 10YR ELECTRIC WATER HEATER",
       "modelNum": "1158024",
       "description": "4.5KW 240VSINGLE PHASE 60-1/2x22inch OLD#'S 9241360001 100159171\nNEW# 100233996",
       "cost": 745.67
@@ -1585,6 +1760,153 @@
       "modelNum": "39616",
       "description": "WIRED WITH 90000B10Sl",
       "cost": 571.53
+    },
+    {
+      "guid": "2340463c-911c-49f4-8a8b-8acc67cc91bf",
+      "model": "32E BOCK / TANK ONLY 30 gallon OIL",
+      "modelNum": "41907",
+      "description": "FIRED WATER HEATER WITH RELIEF VALVE\n51inch(H)x 20inch(D) 6inch\nTOP FLUE 3/4inch MALE CONNECTIONS",
+      "cost": 1628.51
+    },
+    {
+      "guid": "1409e969-a840-490b-a17d-b21489a4a2f4",
+      "model": "33E BOCK 30gallon LOW BOY OIL FIRED WATER HEATER TANK ONLY WITH RELIEF VALVE",
+      "modelNum": "387562",
+      "description": "43-1/4inch(H) X 24inch(D) 6inch TOP FLUE 1inch INLET \nand 3/4inch OUTLET",
+      "cost": 2136.93
+    },
+    {
+      "guid": "74f8c921-5a16-483c-8838-f63ae7eb2a9d",
+      "model": "51EC BOCK / TANK ONLY 50GALLON OIL FIRED WATER HEATER WITH RELIEF VALVE",
+      "modelNum": "41915",
+      "description": "59inch(H)x 24inch(D) 6inch TOP FLUE 1inch MALE CONNECTIONS",
+      "cost": 2263.75
+    },
+    {
+      "guid": "155279f3-2542-4360-a207-41044a653246",
+      "model": "B5003 BECKETT OIL BURNER ONLY FOR BOCK 51E & 51PP ",
+      "modelNum": "600912",
+      "description": "1.10gph Nozzle\nDUAL AQUASTAT BO203 ",
+      "cost": 482.61
+    },
+    {
+      "guid": "407f20e5-16aa-494c-97a0-85eba2b0b3c3",
+      "model": "50ES BOCK LOWBOY OIL FIRED WATER HEATER TANK ONLY W/RELIEF VALVE TANK ",
+      "modelNum": "41913",
+      "description": "DIMENSIONS: 52\" X 26\" \n6inch FLUE \n1inch INLET & 1-1/2inch OUTLET \n1-1/2inch DIELECTRIC NIPPLE NOT PROVIDED ON THE OUTLET SIDE",
+      "cost": 2953.99
+    },
+    {
+      "guid": "23b02acc-62d2-4945-a480-785fb30ffa3c",
+      "model": "CARLIN BURNER ONLY FOR 50ES BOCK OIL FIRED WATER HEATER",
+      "modelNum": "41912",
+      "description": "WITH DUAL AQUASTAT CARLIN 96828OA-50ES",
+      "cost": 484.85
+    },
+    {
+      "guid": "dd254078-c548-4c53-8cf0-e3d8cd11bed9",
+      "model": "72E BOCK OIL FIRED WATER HEATER TANK ONLY WITH RELIEF VALVE",
+      "modelNum": "80787",
+      "description": "3 YEAR LIMITED WARRANTY 67 GALLON 199000 BTU (58x28inches) 1-1/2\"MALE &\n1-1/2\" FEMALE TAPPING 1 EACH\n8inch FLUE",
+      "cost": 4337.83
+    },
+    {
+      "guid": "fafa91a1-168e-49e3-9075-a6fab81f30d1",
+      "model": "CARLIN BURNER ONLY FOR 72E BOCK OIL FIRED WATER HEATER EZ-2",
+      "modelNum": "759009",
+      "description": "",
+      "cost": 512.91
+    },
+    {
+      "guid": "6548a1e0-773e-468f-b1d9-33b499f1ccaa",
+      "model": "SSU45 SUPERSTOR ULTRA 45 GALLON STAINLESS STEEL INDIRECT WATER HEATER WITH L4080B AQUASTAT",
+      "modelNum": "369864",
+      "description": "- 1inch MALE NPT BOILER CONNECTIONS AND 3/4inch FEMALE NPT DOMESTIC INLET & OUTLET (COMES WITH\n3/4X4inch BRASS NIPPLES) 19-1/4inch WIDE X 52.5inch (USE A 34INCH 100XL-8)",
+      "cost": 1285.41
+    },
+    {
+      "guid": "cc47b858-f47f-4fad-93f8-b3639385b31b",
+      "model": "SSU60 SUPERSTOR 60 GALLON ULTRA INDIRECT WATER HEATER WITH L4080 AQUASTAT",
+      "modelNum": "45609",
+      "description": "1inch MALE NPT BOILER CONNECTIONS AND 3/4inch FEMALE NPT DOMESTIC INLET & OUTLET (COMES WITH 3/4X4inch BRASS NIPPLES) \n23-1/4INCH WIDE X 52.5INCH TALL",
+      "cost": 1813.89
+    },
+    {
+      "guid": "c7a26690-a718-445f-aa48-54ca77ea4996",
+      "model": "SSU80 SUPERSTOR ULTRA 80 GALLON INDIRECT HEATER WITH L4080B AQUASTAT",
+      "modelNum": "359682",
+      "description": "72inches TALL X 23-1/4inches DIAMETER WITH\n1-1/2inch DOMESTIC & 1inch BOILER CONNECTIONS",
+      "cost": 2013.09
+    },
+    {
+      "guid": "4be66df3-103a-4089-80b2-daa68291b858",
+      "model": "SSU119 SUPERSTOR 119 GALLON INDIRECT WATER HEATER WITH L4080B AQUASTAT",
+      "modelNum": "314640",
+      "description": "73-1/4inches TALL X 27inches DIAMETER WITH 1-1/2inch DOMESTIC & 1inch BOILER CONNECTIONS",
+      "cost": 2893.46
+    },
+    {
+      "guid": "da27557d-7cab-4842-afa2-b67cfc4d140f",
+      "model": "XCR40 AO SMITH 40GAL 10YR NATURAL GAS WATER HEATER 40000 BTU",
+      "modelNum": "1158027",
+      "description": "62x20inch 9212092005 NEW# 100191157",
+      "cost": 846.29
+    },
+    {
+      "guid": "7a9f5a9c-05ab-4424-ba03-3cc641e60e4e",
+      "model": "XCG50 AO SMITH 50GAL 10YR NATURAL GAS WATER HEATER 40000 BTU",
+      "modelNum": "1158025",
+      "description": "60x22inch 9212119005 NEW# 100191296",
+      "cost": 847.4
+    },
+    {
+      "guid": "d72dabda-19b7-4ca5-a5d7-52cbac58eeb5",
+      "model": "PCG-75 AO SMITH l0YR NATURAL GAS WATER HEATER 75MBH",
+      "modelNum": "344628",
+      "description": "INPUT 61 TO TOP OF DRAFT HOOD 26-1/2inch WIDE 4inch FLUE\nOLD#'S 9200472007 100113273\nNEW# 100279911",
+      "cost": 1486.75
+    },
+    {
+      "guid": "16b8bb6e-8083-4002-962c-4ca0343bd1d3",
+      "model": "LTE-80 250 AO SMITH 277VOLT 6100/6100 KW",
+      "modelNum": "1681922",
+      "description": "6YR TANK 1YR PARTS WARRANTY\nLIGHT DUTY SERVICE COMMERCIAL ELECTRIC WATER HEATER 60-1/2x24inch 3/4INCH MALE CONNECTIONS\nNEW# 100351209\nREQUIRES 25AMP BKR.\n3YR COMMERCIAL WARRANTY\n40R024S19\nSub for : LTE-80D AO SMITH 3YR TAN",
+      "cost": 1382.14
+    },
+    {
+      "guid": "66ca4f75-44a4-4167-9f16-30763ec1ce6a",
+      "model": "ENT50 AO SMITH 50GAL 6YR ELECTRIC WATER HEATER 4.5KW 240V SINGLE PHASE",
+      "modelNum": "1157993",
+      "description": "60-1/2x20-1/2inch OLD#'S 9241360008 100159287 \nNEW# 100233993 ",
+      "cost": 630.08
+    },
+    {
+      "guid": "412ba315-33a2-4656-920b-4f779108b37e",
+      "model": "ENT40 AO SMITH 40GAL 6YR ELECTRIC WATER HEATER 4.5KW 240V SINGLE PHASE",
+      "modelNum": "1157991",
+      "description": "61-1/4x18inch \nOLD#s 9241358009 100158969 \nNEW# 100234814",
+      "cost": 608.11
+    },
+    {
+      "guid": "314b98b7-ec73-4c1d-864e-044fc8633762",
+      "model": "32E BOCK/CAR 30gallon OIL FIRED WATER HEATER COMPLETE WITH CARLIN BURNER W/RELIEF VALVE",
+      "modelNum": "41906",
+      "description": "6inch TOP CENTER FLUE 20inches DIAMETER 50inches HEIGHT FIBERGLASS \nKit components:\n1 - 32E BOCK / TANK ONLY 30gallon OIL FIRED WATER HEATER WITH RELIE􀀅 VALVE 51inch(H)x 20inch(D) 6i1ch TOP FLUE 3/4inch MALE CONNECT ONS\n\n1 - 96828OA-32E CARLIN BURNER FOR BOCK 32E OR 33E WITH PREWIRED DUAL AQUASTAT",
+      "cost": 2108.87
+    },
+    {
+      "guid": "71bb3f63-4a22-444e-b418-d97f1230d9d3",
+      "model": "50ES BOCK/CARLIN 50GAL LOWBOY OIL FIRED WATER HEATER COMPLETE WITH CARLIN BURNER AND RELIEF VALVE",
+      "modelNum": "41911",
+      "description": "52x26 6inch FLUE \nKit components:\n1 - CARLIN BURNER ONLY FOR 50ES BOCK OIL FIRED WATER HEATER WITH DJAL AQUASTAT CARLIN 96828OA-50ES\n\n1 - 50ES BOCK LOWBOY OIL FIRED WATER HEATER TANK ONLY W/RELIEF VALVE TANK DIMENSIONS 52\" X 26\" 6inch FLU 1inch INLET & 1-1/2inch OUTLET 1-1/2inch DIELECTRIC NIPPLE NOT PROVIDED ON THE OUTLET SIDE",
+      "cost": 3438.84
+    },
+    {
+      "guid": "df2f0812-fc0d-4b49-9e99-4b73d818060d",
+      "model": "51EC BOCK/CAR 50gallon OIL FIRED WATER HEATER COMPLETE WITH CARLIN BURNER & RELIEF VALVE",
+      "modelNum": "41914",
+      "description": "59inchx24inch 6inch FLUE 1inch INLET & OUTLET \nKit components:\n1 - 51EC BOCK / TANK ONLY 50GALLON OIL FIRED WATER HEATER WITH RELIEF VALVE 59inch(H)x 24inch(D) 6inch TOP FLUE 1inch MALE CONNECTIONS\n\n1- CARLIN BURNER FOR BOCK 51EC WATER HEATER WITH PREWIRED DUAL AQUASTAT",
+      "cost": 2744.11
     }
   ]
 }

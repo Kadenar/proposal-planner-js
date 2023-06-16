@@ -61,6 +61,21 @@ export const StyledSearch = styled(TextField)(({ theme }) => {
   };
 });
 
+export const StyledSearchHeader = styled(ListItem)(({ theme }) => {
+  const backgroundColor =
+    theme.palette.mode === "light"
+      ? theme.palette.grey[400]
+      : theme.palette.grey[900];
+  const textColor = theme.palette.mode === "light" ? grey[900] : "#fff";
+
+  return {
+    gap: 25,
+    color: textColor,
+    border: "1px solid black",
+    backgroundColor: backgroundColor,
+  };
+});
+
 export const StyledSearchItem = styled(ListItem)(({ theme }) => {
   const backgroundColor =
     theme.palette.mode === "light"

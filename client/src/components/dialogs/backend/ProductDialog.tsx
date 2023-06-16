@@ -102,7 +102,7 @@ const ProductDialog = () => {
             getOptionLabel={(option) => option.label}
             value={filter}
             renderInput={(params) => (
-              <TextField {...params} label="Product type" />
+              <TextField {...params} required label="Product type" />
             )}
             onChange={(_, value) => {
               updateFilter(value);
@@ -111,6 +111,7 @@ const ProductDialog = () => {
           <TextField
             label="Model name"
             value={modelName}
+            required
             onChange={({ target: { value } }) => {
               updateModelName(value);
             }}
@@ -118,6 +119,7 @@ const ProductDialog = () => {
           <TextField
             label="Model #"
             value={modelNum || ""}
+            required
             onChange={({ target: { value } }) => {
               updateModelNum(value);
             }}
@@ -133,7 +135,9 @@ const ProductDialog = () => {
             sx={{ flexGrow: 1 }}
           />
           <FormControl fullWidth sx={{ m: 1 }}>
-            <InputLabel htmlFor="unit-cost-amount">Unit cost</InputLabel>
+            <InputLabel required htmlFor="unit-cost-amount">
+              Unit cost
+            </InputLabel>
             <Input
               type="number"
               startAdornment={

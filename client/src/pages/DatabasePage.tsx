@@ -1,6 +1,6 @@
 import AllProductsView from "../views/database/AllProductsView";
 import AllProductTypesView from "../views/database/AllProductTypesView";
-import CommissionMultipliersView from "../views/database/CommissionMultipliersView";
+// import CommissionMultipliersView from "../views/database/CommissionMultipliersView";
 
 import Tabs from "@mui/base/Tabs";
 import {
@@ -18,7 +18,7 @@ export default function DatabasePage() {
           <StyledTab value={0}>Products</StyledTab>
           <StyledTab value={1}>Product types</StyledTab>
           <StyledTab value={2}>Labor & Fees</StyledTab>
-          <StyledTab value={3}>Commissions & Multipliers</StyledTab>
+          {/* <StyledTab value={3}>Commissions & Multipliers</StyledTab> */}
         </StyledTabsList>
         <StyledTabPanel value={0}>
           <AllProductsView />
@@ -29,9 +29,9 @@ export default function DatabasePage() {
         <StyledTabPanel value={2}>
           <LaborAndFeesView />
         </StyledTabPanel>
-        <StyledTabPanel value={3}>
+        {/* <StyledTabPanel value={3}>
           <CommissionMultipliersView />
-        </StyledTabPanel>
+        </StyledTabPanel> */}
       </Tabs>
     </div>
   );

@@ -1,4 +1,11 @@
-import { FunctionComponent, useState, useEffect, ChangeEvent } from "react";
+import {
+  FunctionComponent,
+  useState,
+  ChangeEvent,
+  useMemo,
+  useRef,
+  useEffect,
+} from "react";
 
 import {
   FormControl,
@@ -6,6 +13,7 @@ import {
   InputAdornment,
   List,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -17,18 +25,40 @@ import HeatPumpIcon from "@mui/icons-material/HeatPump";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import HotTubIcon from "@mui/icons-material/HotTub";
 import OilBarrelIcon from "@mui/icons-material/OilBarrel";
+import PowerIcon from "@mui/icons-material/Power";
 
-import { StyledSearch, StyledSearchItem } from "./StyledComponents";
+import {
+  StyledSearch,
+  StyledSearchHeader,
+  StyledSearchItem,
+} from "./StyledComponents";
 import { useAppDispatch, useAppSelector } from "../services/store";
 import { updateActiveClient } from "../services/slices/clientsSlice";
 import { selectProposal } from "../services/slices/activeProposalSlice";
 import { productDialog } from "./dialogs/backend/ProductDialog";
 import { editProduct } from "../services/slices/productsSlice";
 import { useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 
 const TypeSearch: FunctionComponent = () => {
   const [searchText, setSearchText] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const debouncedSearch = useRef(
+    debounce(async (value) => {
+      if (value === "") {
+        setShowSearchResults(false);
+      } else {
+        setShowSearchResults(true);
+      }
+    }, 300)
+  ).current;
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
 
   return (
     <>
@@ -39,11 +69,10 @@ const TypeSearch: FunctionComponent = () => {
           value={searchText}
           onChange={(event: ChangeEvent<HTMLInputElement>): void => {
             setSearchText(event.target.value);
-
             if (event.target.value === "") {
               setShowSearchResults(false);
             } else {
-              setShowSearchResults(true);
+              debouncedSearch(event.target.value);
             }
           }}
           placeholder="Search for something"
@@ -111,6 +140,7 @@ type SearchResult = {
   icon: any;
   name: string;
   action: () => void;
+  category: string;
 };
 
 const SearchResults = ({
@@ -120,7 +150,6 @@ const SearchResults = ({
   value: string;
   callBack: () => void;
 }) => {
-  const [data, setData] = useState<SearchResult[]>([]);
   const dispatch = useAppDispatch();
   const { proposals } = useAppSelector((state) => state.proposals);
   const { clients } = useAppSelector((state) => state.clients);
@@ -128,8 +157,10 @@ const SearchResults = ({
   const { filters } = useAppSelector((state) => state.filters);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const searchResults = useMemo<SearchResult[]>(() => {
     let allResults: SearchResult[] = [];
+
+    // Add proposals to search results
     proposals.forEach((proposal) => {
       if (
         proposal.name.toLowerCase().includes(value.toLowerCase()) ||
@@ -138,6 +169,7 @@ const SearchResults = ({
         allResults.push({
           icon: <DescriptionIcon />,
           name: proposal.name,
+          category: "Proposals",
           action: () => {
             navigate("/proposals");
             selectProposal(dispatch, proposal);
@@ -147,11 +179,13 @@ const SearchResults = ({
       }
     });
 
+    // Add clients to search results
     clients.forEach((client) => {
       if (client.name.toLowerCase().includes(value.toLowerCase())) {
         allResults.push({
           icon: <PersonIcon />,
           name: client.name,
+          category: "Clients",
           action: () => {
             navigate("/clients");
             updateActiveClient(dispatch, client);
@@ -161,6 +195,7 @@ const SearchResults = ({
       }
     });
 
+    // Add products to search results
     Object.keys(products).forEach((category) => {
       products[category].forEach((product) => {
         if (
@@ -169,7 +204,11 @@ const SearchResults = ({
           product.modelNum.toLowerCase() === value.toLowerCase()
         ) {
           const categorySanitized = category.replaceAll("_", " ") || " ";
-          let icon = <ShoppingCartIcon />;
+          const categoryLabel =
+            categorySanitized.charAt(0).toUpperCase() +
+            categorySanitized.slice(1);
+
+          let icon;
 
           if (category === "furnaces" || category === "boilers") {
             icon = <LocalFireDepartmentIcon />;
@@ -189,10 +228,15 @@ const SearchResults = ({
             icon = <HotTubIcon />;
           } else if (category === "oil_tanks") {
             icon = <OilBarrelIcon />;
+          } else if (category === "generators") {
+            icon = <PowerIcon />;
+          } else {
+            icon = <ShoppingCartIcon />;
           }
 
           allResults.push({
             icon,
+            category: categoryLabel,
             name: product.model,
             action: () => {
               callBack();
@@ -201,9 +245,7 @@ const SearchResults = ({
                 filters: filters,
                 filter: {
                   guid: category,
-                  label:
-                    categorySanitized.charAt(0).toUpperCase() +
-                    categorySanitized.slice(1),
+                  label: categoryLabel,
                 },
                 modelName: product.model,
                 modelNum: product.modelNum,
@@ -234,7 +276,7 @@ const SearchResults = ({
       });
     });
 
-    setData(allResults);
+    return allResults;
   }, [
     value,
     products,
@@ -246,24 +288,44 @@ const SearchResults = ({
     navigate,
   ]);
 
-  return (
-    <>
-      {data.length > 0 ? (
-        data.map((result, index) => {
-          return (
+  const renderContent = () => {
+    let prevCategory = "";
+    return searchResults.length > 0 ? (
+      searchResults.map((result, index) => {
+        let contentToRender;
+
+        if (prevCategory !== result.category) {
+          contentToRender = (
+            <>
+              <StyledSearchHeader>
+                <Typography>{result.category}</Typography>
+              </StyledSearchHeader>
+              <StyledSearchItem key={index} onClick={result.action}>
+                <>{result.icon}</>
+                <>{result.name}</>
+              </StyledSearchItem>
+            </>
+          );
+        } else {
+          contentToRender = (
             <StyledSearchItem key={index} onClick={result.action}>
               <>{result.icon}</>
               <>{result.name}</>
             </StyledSearchItem>
           );
-        })
-      ) : (
-        <StyledSearchItem sx={{ justifyContent: "center" }}>
-          No results found
-        </StyledSearchItem>
-      )}
-    </>
-  );
+        }
+        prevCategory = result.category;
+
+        return contentToRender;
+      })
+    ) : (
+      <StyledSearchItem sx={{ justifyContent: "center" }}>
+        No results found
+      </StyledSearchItem>
+    );
+  };
+
+  return <>{renderContent()}</>;
 };
 
 export default TypeSearch;
