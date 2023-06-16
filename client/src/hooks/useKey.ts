@@ -14,6 +14,9 @@ export function useKey(key: string, cb: (event: KeyboardEvent) => void) {
       } else if (key === "ctrls" && event.key === "s" && event.ctrlKey) {
         event.preventDefault();
         callback.current(event);
+      } else if (key === "ctrlo" && event.key === "o" && event.ctrlKey) {
+        event.preventDefault();
+        callback.current(event);
       }
     }
 

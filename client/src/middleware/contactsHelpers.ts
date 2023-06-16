@@ -11,8 +11,7 @@ import {
  * @returns
  */
 export async function fetchContacts(): Promise<ContactObject[]> {
-  const response = await runGetRequest("contacts");
-  return response;
+  return await runGetRequest("contacts");
 }
 
 export async function addContact(name: string, email: string, phone: string) {

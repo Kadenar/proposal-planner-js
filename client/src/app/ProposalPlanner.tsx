@@ -56,7 +56,7 @@ const ProposalPlanner = () => {
       dispatch(initializeClients());
       dispatch(initializeLabors());
       dispatch(initializeFees());
-      dispatch(initializeContacts);
+      dispatch(initializeContacts());
     });
   }, [dispatch]);
 

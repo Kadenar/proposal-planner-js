@@ -6,6 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { SidebarData } from "./SidebarItems";
 import { StyledListItem } from "../StyledComponents";
+import { useKey } from "../../hooks/useKey";
 
 export default function SidebarDrawer({
   showDrawer,
@@ -25,6 +26,10 @@ export default function SidebarDrawer({
     setShowDrawer(open);
   };
 
+  useKey("ctrlo", () => {
+    setShowDrawer(true);
+  });
+
   return (
     <div>
       <Drawer anchor="left" open={showDrawer} onClose={toggleDrawer(false)}>
@@ -32,9 +37,8 @@ export default function SidebarDrawer({
           sx={{
             bgcolor: "background.paper",
             boxShadow: 1,
-            borderRadius: 2,
             p: 2,
-            minWidth: 300,
+            minWidth: 250,
             flexGrow: 1,
           }}
           onClick={toggleDrawer(false)}
