@@ -64,7 +64,8 @@ export async function editProduct(
   dispatch: Dispatch,
   {
     guid,
-    filter_guid,
+    existing_filter_guid,
+    new_filter_guid,
     modelName,
     modelNum,
     description,
@@ -72,7 +73,8 @@ export async function editProduct(
     image,
   }: {
     guid: string;
-    filter_guid: string | undefined;
+    existing_filter_guid: string;
+    new_filter_guid: string | undefined;
     modelName: string;
     modelNum: string;
     description: string;
@@ -85,7 +87,8 @@ export async function editProduct(
     dbOperation: async () =>
       editExistingProduct(
         guid,
-        filter_guid,
+        existing_filter_guid,
+        new_filter_guid,
         modelName,
         modelNum,
         description,

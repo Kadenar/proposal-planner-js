@@ -198,7 +198,6 @@ const SearchResults = ({
               callBack();
               productDialog({
                 header: "Edit product",
-                guid: product.guid,
                 filters: filters,
                 filter: {
                   guid: category,
@@ -219,7 +218,8 @@ const SearchResults = ({
                 ) => {
                   return editProduct(dispatch, {
                     guid: product.guid,
-                    filter_guid: filter?.guid,
+                    existing_filter_guid: category,
+                    new_filter_guid: filter?.guid,
                     modelName,
                     modelNum,
                     description,

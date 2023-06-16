@@ -15,7 +15,6 @@ import { StyledTextarea } from "../../StyledComponents";
 
 interface ProductStoreActions {
   header: string;
-  guid: string;
   filters: ProductTypeObject[];
   filter: ProductTypeObject | null;
   modelName: string;
@@ -44,7 +43,6 @@ interface ProductStoreType extends ProductStoreActions {
 
 const useProductDialogStore = create<ProductStoreType>((set) => ({
   header: "",
-  guid: "",
   filters: [],
   filter: null,
   modelName: "",
@@ -61,7 +59,7 @@ const useProductDialogStore = create<ProductStoreType>((set) => ({
 }));
 
 const ProductDialog = () => {
-  const { header, onSubmit, close, guid, filters } = useProductDialogStore();
+  const { header, onSubmit, close, filters } = useProductDialogStore();
 
   const [filter, updateFilter] = useProductDialogStore((state) => [
     state.filter,
@@ -96,7 +94,6 @@ const ProductDialog = () => {
           <Autocomplete
             disablePortal
             id="filters"
-            disabled={guid !== ""}
             options={filters}
             isOptionEqualToValue={(option, value) =>
               !value || value.guid === "" || option.guid === value.guid
@@ -188,7 +185,6 @@ const ProductDialog = () => {
 
 export const productDialog = ({
   header,
-  guid,
   filters,
   filter,
   modelName,
@@ -199,7 +195,6 @@ export const productDialog = ({
 }: ProductStoreActions) => {
   useProductDialogStore.setState({
     header,
-    guid,
     filters,
     filter,
     modelName,

@@ -33,7 +33,6 @@ export default function AllProductsView() {
         onClick={() =>
           productDialog({
             header: "Add product",
-            guid: "",
             filters,
             filter: filters[0],
             modelName: "",
@@ -111,7 +110,6 @@ export default function AllProductsView() {
 
               productDialog({
                 header: "Edit product",
-                guid: rowData.guid,
                 filters,
                 filter: {
                   label: rowData.productLabel,
@@ -130,7 +128,8 @@ export default function AllProductsView() {
                 ) =>
                   editProduct(dispatch, {
                     guid: rowData.guid,
-                    filter_guid: selectedFilter?.guid,
+                    existing_filter_guid: rowData.productCategory,
+                    new_filter_guid: selectedFilter?.guid,
                     modelName,
                     modelNum,
                     description,

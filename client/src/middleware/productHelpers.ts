@@ -39,7 +39,13 @@ export async function addProduct(
   image?: any
 ) {
   try {
-    validateProductInfo(filter_guid, modelName, modelNum, cost);
+    validateProductInfo(
+      filter_guid || "",
+      filter_guid,
+      modelName,
+      modelNum,
+      cost
+    );
   } catch (e) {
     if (e instanceof Error) {
       return {
@@ -72,8 +78,37 @@ export async function addProduct(
     };
   }
 
-  const newProducts = { ...existingProductData };
+  const updatedProducts = insertNewProduct(
+    { ...existingProductData },
+    filter_guid,
+    modelName,
+    modelNum,
+    cost,
+    description,
+    image
+  );
 
+  // Filter out any categories that have no products associated with them
+  const filteredProducts: PsuedoObjectOfProducts = {};
+  Object.keys(updatedProducts)
+    .filter((product) => updatedProducts[product].length !== 0)
+    .forEach((name) => {
+      filteredProducts[name] = updatedProducts[name];
+    });
+
+  return runPostRequest(filteredProducts, "products");
+}
+
+// Helper method for inserting a new product into the database (handling when the category does not exist)
+const insertNewProduct = (
+  newProducts: PsuedoObjectOfProducts,
+  filter_guid: string,
+  modelName: string,
+  modelNum: string,
+  cost: number,
+  description: string,
+  image?: any
+) => {
   if (newProducts[filter_guid] === undefined) {
     newProducts[filter_guid] = [
       {
@@ -99,16 +134,8 @@ export async function addProduct(
     ];
   }
 
-  // Filter out any categories that have no products associated with them
-  const filteredProducts: PsuedoObjectOfProducts = {};
-  Object.keys(newProducts)
-    .filter((product) => newProducts[product].length !== 0)
-    .forEach((name) => {
-      filteredProducts[name] = newProducts[name];
-    });
-
-  return runPostRequest(filteredProducts, "products");
-}
+  return newProducts;
+};
 
 /**
  * Edit an existing product in the database
@@ -116,7 +143,8 @@ export async function addProduct(
  */
 export async function editExistingProduct(
   guid: string,
-  filter_guid: string | undefined,
+  existing_filter_guid: string,
+  new_filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
   description: string,
@@ -124,7 +152,13 @@ export async function editExistingProduct(
   image?: any
 ) {
   try {
-    validateProductInfo(filter_guid, modelName, modelNum, cost);
+    validateProductInfo(
+      existing_filter_guid,
+      new_filter_guid,
+      modelName,
+      modelNum,
+      cost
+    );
   } catch (e: unknown) {
     if (e instanceof Error) {
       return {
@@ -143,7 +177,8 @@ export async function editExistingProduct(
 
   const existingProductData = await fetchProducts();
 
-  const index = existingProductData[filter_guid].findIndex(
+  // Find the existing product in current category
+  const index = existingProductData[existing_filter_guid].findIndex(
     (existingProduct: ProductObject) => {
       return existingProduct.guid === guid;
     }
@@ -158,15 +193,52 @@ export async function editExistingProduct(
     };
   }
 
-  const newProductsData = { ...existingProductData };
-  newProductsData[filter_guid][index] = {
-    ...newProductsData[filter_guid][index],
-    model: modelName,
-    modelNum,
-    cost,
-    description,
-    image,
-  };
+  let newProductsData = { ...existingProductData };
+
+  // If moving the product to a new category...
+  if (existing_filter_guid !== new_filter_guid) {
+    // Check for conflicts in the new location
+    const conflictIndex = existingProductData[new_filter_guid]?.findIndex(
+      (existingProduct: ProductObject) => {
+        return existingProduct.guid === guid;
+      }
+    );
+
+    if (conflictIndex && conflictIndex !== -1) {
+      return {
+        status: 500,
+        data: {
+          message:
+            "Cannot move product to specified category. It already exists there.",
+        },
+      };
+    }
+
+    // Remove the product from the existing category
+    newProductsData[existing_filter_guid].splice(index, 1);
+
+    // Add the product to the new category
+    newProductsData = insertNewProduct(
+      newProductsData,
+      new_filter_guid,
+      modelName,
+      modelNum,
+      cost,
+      description,
+      image
+    );
+  }
+  // Otherwise, just edit it in place
+  else {
+    newProductsData[existing_filter_guid][index] = {
+      ...newProductsData[existing_filter_guid][index],
+      model: modelName,
+      modelNum,
+      cost,
+      description,
+      image,
+    };
+  }
 
   return runPostRequest(newProductsData, "products");
 }
@@ -209,12 +281,18 @@ export const flattenProductData = (productData: PsuedoObjectOfProducts) => {
 };
 
 function validateProductInfo(
-  filter_guid: string | undefined,
+  existing_filter_guid: string,
+  new_filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
   cost: number
-): asserts filter_guid is NonNullable<string> {
-  if (!filter_guid || filter_guid === "") {
+): asserts new_filter_guid is NonNullable<string> {
+  if (
+    !existing_filter_guid ||
+    !new_filter_guid ||
+    existing_filter_guid === "" ||
+    new_filter_guid === ""
+  ) {
     throw Error("Please specify a valid filter.");
   }
 
