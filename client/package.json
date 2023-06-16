@@ -6,7 +6,7 @@
   "author": "Kyle Steike",
   "private": true,
   "proxy": "http://127.0.0.1:4000",
-  "homepage": "http://./",
+  "homepage": "./",
   "devDependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -72,11 +72,7 @@
     "files": [
       "build/**/*",
       "node_modules/**/*",
-      "package.json",
-      "server/**/*"
-    ],
-    "extraFiles": [
-      "server/**/*"
+      "package.json"
     ]
   },
   "main": "index.js",

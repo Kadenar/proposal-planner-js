@@ -1,5 +1,4 @@
 import { Text, View, StyleSheet, Page } from "@react-pdf/renderer";
-import { PdfInvoice } from "../../../../middleware/Interfaces";
 
 const styles = StyleSheet.create({
   body: {
