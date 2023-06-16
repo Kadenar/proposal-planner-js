@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-import { NumericFormat } from "react-number-format";
 import { PdfInvoice, QuoteOption } from "../../../../middleware/Interfaces";
+import { ccyFormat } from "../../../../lib/pricing-utils";
 
 const styles = StyleSheet.create({
   proposal_view: {
@@ -82,39 +82,22 @@ const Specifications = ({
         Robison will provide material and labor for the above specifications for
         the sum of:
       </Text>
-      return (
-      <NumberAsCurrency value={invoice.invoiceTotals[index].invoiceTotal} />
-      );
+      <Text
+        style={{
+          fontSize: 10,
+          marginLeft: 5,
+          fontFamily: "Times-Bold",
+          borderBottom: "1px solid black",
+          paddingBottom: 5,
+          paddingLeft: 25,
+          flexGrow: 1,
+          marginRight: 50,
+        }}
+      >
+        {ccyFormat(invoice.invoiceTotals[index].invoiceTotal)}
+      </Text>
     </View>
   </>
 );
-
-const NumberAsCurrency = ({ value }: { value: any }) => {
-  return (
-    <NumericFormat
-      value={value}
-      displayType={"text"}
-      decimalScale={2}
-      thousandSeparator={true}
-      prefix={"$"}
-      renderText={(formattedValue) => (
-        <Text
-          style={{
-            fontSize: 10,
-            marginLeft: 5,
-            fontFamily: "Times-Bold",
-            borderBottom: "1px solid black",
-            paddingBottom: 5,
-            paddingLeft: 25,
-            flexGrow: 1,
-            marginRight: 50,
-          }}
-        >
-          {formattedValue}
-        </Text>
-      )}
-    />
-  );
-};
 
 export default Specifications;

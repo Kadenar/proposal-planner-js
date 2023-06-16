@@ -44,6 +44,28 @@ class Router {
       );
     });
 
+    // CONTACTS \\
+    this.router.get("/contacts", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/contacts.json`,
+        res,
+        "Fetching cached contacts.",
+        "Reading contacts from file system.",
+        "contacts"
+      );
+    });
+
+    this.router.post("/contacts", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/contacts.json`,
+        req,
+        res,
+        "Contact could not be updated",
+        "Contact update was successful!",
+        "contacts"
+      );
+    });
+
     // PRODUCTS \\
     this.router.get("/products", (req, res) => {
       this.readFileFunc(

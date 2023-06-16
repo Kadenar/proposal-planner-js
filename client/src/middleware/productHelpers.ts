@@ -14,7 +14,16 @@ import {
  * @returns
  */
 export async function fetchProducts(): Promise<PsuedoObjectOfProducts> {
-  return runGetRequest("products");
+  const products: PsuedoObjectOfProducts = await runGetRequest("products");
+
+  const ordered = Object.keys(products)
+    .sort()
+    .reduce((obj, key) => {
+      obj[key] = products[key];
+      return obj;
+    }, {} as PsuedoObjectOfProducts);
+
+  return ordered;
 }
 
 /**

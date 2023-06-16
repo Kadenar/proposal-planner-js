@@ -34,10 +34,13 @@ import { initializeMultipliers } from "../services/slices/multipliersSlice.ts";
 import { initializeCommissions } from "../services/slices/commissionsSlice.ts";
 import { initializeProposals } from "../services/slices/proposalsSlice.ts";
 import { initializeProducts } from "../services/slices/productsSlice.ts";
+import { initializeContacts } from "../services/slices/contactsSlice.ts";
 import { initializeClients } from "../services/slices/clientsSlice.ts";
 import { initializeLabors } from "../services/slices/laborsSlice.ts";
 import { initializeFees } from "../services/slices/feesSlice.ts";
 import { useAppDispatch } from "../services/store.ts";
+import ContactsView from "../views/ContactsView.tsx";
+import ContactDialog from "../components/dialogs/frontend/ContactDialog.tsx";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -53,6 +56,7 @@ const ProposalPlanner = () => {
       dispatch(initializeClients());
       dispatch(initializeLabors());
       dispatch(initializeFees());
+      dispatch(initializeContacts);
     });
   }, [dispatch]);
 
@@ -60,6 +64,7 @@ const ProposalPlanner = () => {
     <>
       <CustomSnackbar />
       <NewClientDialog />
+      <ContactDialog />
       <NewProposalDialog />
       <ConfirmDialog />
       <ProductDialog />
@@ -72,13 +77,13 @@ const ProposalPlanner = () => {
       <FeesDialog />
       <HashRouter>
         <Navbar />
-        <Routes /*classname="routesContent"*/>
-          {/*TODO Remove this className if it is not needed*/}
+        <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/proposals" element={<ProposalsPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/database" element={<DatabasePage />} />
+          <Route path="/contacts" element={<ContactsView />} />
         </Routes>
       </HashRouter>
     </>

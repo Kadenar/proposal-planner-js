@@ -34,6 +34,28 @@ router.post("/clients", (req, res) => {
   );
 });
 
+// CONTACTS \\
+router.get("/contacts", (req, res) => {
+  readFileFunc(
+    `${filePath}/contacts.json`,
+    res,
+    "Fetching cached contacts.",
+    "Reading contacts from file system.",
+    "contacts"
+  );
+});
+
+router.post("/contacts", (req, res) => {
+  writeFileFunc(
+    `${filePath}/contacts.json`,
+    req,
+    res,
+    "Contact could not be updated",
+    "Contact update was successful!",
+    "contacts"
+  );
+});
+
 // PRODUCTS \\
 router.get("/products", (req, res) => {
   readFileFunc(

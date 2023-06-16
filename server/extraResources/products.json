@@ -1,388 +1,4 @@
 {
-  "water_heaters": [
-    {
-      "guid": "cfbb483d-a0c2-42dc-8dd9-1a2b2bb047be",
-      "model": "HPTU80N AO SMITH 80GALLON 10 YR 202172S19",
-      "modelNum": "202172S19",
-      "cost": 2721.39,
-      "description": "4500/4500KW 4-240V ELECTRIC HEAT PUMP WATER HEATER 69inch X 27inch EF 3.07 100325928 30amp lphase "
-    },
-    {
-      "guid": "5b95e976-1743-42ae-bf32-9c147f957c1e",
-      "model": "HPTU50N AO SMITH 50 GALLON VOLTEX HIGH EFFECIENCY RESIDENTIAL HYBRID",
-      "modelNum": "1308884",
-      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH 4500/4500 WATTS ELEMENTS 240 VOLT (63x22inch) EF 3.24 UEF 3.45 700 CUBIC FT MAKE-UP AIR REQUIRED 100319870 ",
-      "cost": 1761.85
-    },
-    {
-      "guid": "2c4622a3-0603-44c9-982d-bf1bc4d9e03f",
-      "model": "HPTU66N AO SMITH 66 GALLON VOLTEX HIGH EFICIENCY RESIDENTIAL HYBRID",
-      "modelNum": "1308886",
-      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH 4500/4500 WATTS ELEMENTS 240VOLT (61x27inches) UEF 3.45 EF 3.17 100319013",
-      "cost": 2242.78
-    },
-    {
-      "guid": "21ac2c10-b9b1-4dbf-b285-04928aee4ded",
-      "model": "HPTS-50 AO SMITH 50 GALLON VOLTEX AL SMART HIGH EFFECIENCY RESIDENTIAL HYBRID",
-      "modelNum": "1694719",
-      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH \n4500/4500 WATTS ELEMENTS 240 VOLT INTEGRATED ICOMM SMART CONNECTIVITY (63x22inch) UEF 3.80 100350404 ",
-      "cost": 1889.02
-    },
-    {
-      "guid": "34d19599-9e52-4bdb-bd42-85d43a37adaa",
-      "model": "HPTS-66 AO SMITH 66 GALLON VOLTEX AL SMART HIGH EFFECIENCY RESIDENTIAL HYBRID",
-      "modelNum": "1694720",
-      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH \n4500/4500 WATTS ELEMENTS 240 VOLT INTEGRATED ICOMM SMART CONNECTIVITY \n(61-1/2x26-1/2inch) UEF 4.02 100350405 ",
-      "cost": 2369.95
-    },
-    {
-      "guid": "c05d5fca-593e-456f-b5fc-dd6f6a15452f",
-      "model": "HPTS-80 AO SMITH 80 GALLON VOLTEX AL SMART HIGH EFFECIENCY RESIDENTIAL HYBRID",
-      "modelNum": "1694721",
-      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH \n4500/4500 WATTS ELEMENTS 240 VOLT INTEGRATED ICOMM SMART CONNECTIVITY \n(69x26-1/2inch) UEF 3.88 100350407 ",
-      "cost": 2848.56
-    },
-    {
-      "guid": "80ba137b-0163-4d6b-a41a-5f6e93d3fd5a",
-      "model": "PNT50 AO SMITH 50GAL l0YR ELECTRIC WATER HEATER",
-      "modelNum": "1158024",
-      "description": "4.5KW 240VSINGLE PHASE 60-1/2x22inch OLD#'S 9241360001 100159171\nNEW# 100233996",
-      "cost": 745.67
-    },
-    {
-      "guid": "6d7de5f7-d4ed-48a2-9683-3c65cdd7a322",
-      "model": "NPE-180S2 NAVIEN TANKLESS WATER ",
-      "modelNum": "1650455",
-      "description": "HEATER PNPE0020024G001",
-      "cost": 912.57
-    },
-    {
-      "guid": "48aa02d8-fd17-4faf-a3d8-614ada48d160",
-      "model": "NPE-180A2 NAVIEN WITH COMFORTFLO",
-      "modelNum": "1650454",
-      "description": "ECIRC AND BUFFER TANK TANKLESS\nWATER HEATER PNPE0020024B001 ",
-      "cost": 1087.44
-    },
-    {
-      "guid": "f66be4da-6bd5-4042-a3d2-f4cbf754130d",
-      "model": "NPE-210S2 NAVIEN TANKLESS WATER",
-      "modelNum": "1650457",
-      "description": "HEATER PNPE0020029G001",
-      "cost": 1010.93
-    },
-    {
-      "guid": "1bc4520a-8f52-4430-9156-db1d4e0d066a",
-      "model": "NPE-210A2 NAVIEN WITH COMFORTFLOW",
-      "modelNum": "1650456",
-      "description": "RECIRC AND BUFFER TANK TANKLESS",
-      "cost": 1218.58
-    },
-    {
-      "guid": "a361e599-bf25-486c-ba27-a4f01e7db5a1",
-      "model": "WATER HEATER PNPE0020029B001 ",
-      "modelNum": "1650459",
-      "description": "HEATER PNPE0020032G0015 \n67* RISE @ 5.7 GPM 19,900-199,900 BTU/H 3/4 HOT AND COLD CONNECTIONS 2 INCH FLUE CONNECTIONS ",
-      "cost": 1109.29
-    },
-    {
-      "guid": "5bbdf5ae-636a-4788-8633-c532807cd974",
-      "model": "NPE-240A2 NAVIEN WITH COMFORTFLOW",
-      "modelNum": "1650458",
-      "description": "RECIRC AND BUFFER TANK TANKLESS WATER HEATER PNPE0020032B001",
-      "cost": 1355.2
-    },
-    {
-      "guid": "fb4bb134-83c9-4ae8-ac3c-de72f964137c",
-      "model": "S30GL COMPLETE CARLIN CENTER FLUE THERMAFLOW OIL FIRED WATER HEATER",
-      "modelNum": "39607",
-      "description": "DUAL PRE-WIRED AQUASTAT 30 GALLON\n************** Kit Components **************\n1 - S30GL TANK ONLY CENTER FLUE\nTHERMAFLOW OIL FIRED WATER HR\\TER 30 GALLON 48inch HIGH X 22inc1 DIAMETER 6inch FLUE \n\n1 - 30gal CARLIN BURNER ONLY THERJ .fAFLOW EZ-1 96779AE3",
-      "cost": 1753.77
-    },
-    {
-      "guid": "9c2b0ea4-99c5-4008-a65a-6c4150caff0c",
-      "model": "S50GL COMPLETE CARLIN CENTER FLUE THERMAFLOW OIL FIRED WATER HEATER",
-      "modelNum": "39608",
-      "description": "DUAL PRE-WIRED AQUASTAT 50 GALLON 3/4inch TAPPINGS AND 6inch FLUE \n************** Kit Components ************** \n1 - S50GL TANK ONLY CENTER FLUE THERMAFLOW OIL FIRED WATER HEATER \n1 - 50gal CARLIN BURNER ONLY THERMAFLOW\n\n",
-      "cost": 2447.88
-    },
-    {
-      "guid": "1ca3c771-4b8a-456b-9532-2ebebdc4104e",
-      "model": "E30GL TANK ONLY REAR FLUE THERMAFLOW OIL FIRED WATER HEATER",
-      "modelNum": "39609",
-      "description": "30 GALLON 58inch HIGH X 22inch 3/4inch MALE TAPPINGS 6inch FLUE USE 3/4inch WATTS 100XL-8 RELIEF VALVE ",
-      "cost": 1403.07
-    },
-    {
-      "guid": "9343346f-2f1a-4487-9632-f001c5dad3f9",
-      "model": "30gal CARLIN BURNER ONLY THERMAFLOW  EZ-1 96779AE3",
-      "modelNum": "39614",
-      "description": "",
-      "cost": 541.53
-    },
-    {
-      "guid": "82e07e3b-6cf7-4a1b-9d5d-03d387025134",
-      "model": "E50GL TANK ONLY REAR FLUE THERMAFLOW OIL FIRED WATER HEATER",
-      "modelNum": "39610",
-      "description": "50 GALLON 69inch HIGH X 26inch 3/4inch MALE TAPPINGS 6inch FLUE ",
-      "cost": 2143.33
-    },
-    {
-      "guid": "9ce2d58a-0b3c-42ce-aa45-406d709326fc",
-      "model": "50gal CARLIN BURNER ONLY THERMAFLOW EZ-1 96779AE5",
-      "modelNum": "39615",
-      "description": "",
-      "cost": 553.53
-    },
-    {
-      "guid": "c0166403-5c10-4ee5-9419-e39140ad57cc",
-      "model": "E70GL THERMAFLOW REAR FLUE TANK ",
-      "modelNum": "39611",
-      "description": "ONLY FOR OIL FIRED WATER HEATER -70 GALLON 74-1/2inch HIGH X 26inch DIAMETER 1inch MALE TAPPINGS 6inch FLUE USE 3/4inch RELIEF VALVE",
-      "cost": 2643.33
-    },
-    {
-      "guid": "3cab4af1-7cc0-489d-8f17-c271ab421be0",
-      "model": "70gal CARLIN BURNER ONLY THERMAFLOW EZ-1 96779AE7",
-      "modelNum": "39616",
-      "description": "WIRED WITH 90000B10Sl",
-      "cost": 571.53
-    }
-  ],
-  "condensers": [
-    {
-      "guid": "e822772a-3ae7-4f19-9cdb-f7086ac5a428",
-      "model": "RSG1318S1M 1.5TON 13SEER R410A CONDENSING UNIT",
-      "modelNum": "1348459",
-      "cost": 901.91,
-      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET\n25 TALL 24-1/4 WIDE 24-1/4 DEEP 20AMP MAX FUSE"
-    },
-    {
-      "guid": "c37b28cd-fd9f-49aa-af38-d16243601704",
-      "model": "RSG1324S1M 2TON 13SEER R410A CONDENSING UNIT",
-      "modelNum": "1348460",
-      "description": "208/230V-1PH COMFORT AIRE\nMUST USE 3/8X3/4 LINESET WITH 5/8X1/2 COUPLING\n25H X 24.25 W X 24.25 DEEP 25AMP MAX FUSE ",
-      "cost": 941.73
-    },
-    {
-      "guid": "1fde13bc-39d4-4670-9c54-dcdd084cf44c",
-      "model": "RSG1330S1M 2.5TON 13SEER R410A CONDENSING UNIT",
-      "modelNum": "1348461",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET\n29 TALL 24-1/4 WIDE 24-1/4 DEEP 25AMP MAX FUSE ",
-      "cost": 1062.66
-    },
-    {
-      "guid": "52bb06c4-44c5-4384-b1ab-dd255c5e66a5",
-      "model": "RSG1336S1M 3TON 13SEER R410A CONDENSING UNIT",
-      "modelNum": "1348462",
-      "description": "208/230V-1PH SCROLL COMFORT AIRE 3/8X3/4 LINESET\n29 TALL 24.25 W X 24.25 D 35 AMP MAX FUSE ",
-      "cost": 1184.8
-    },
-    {
-      "guid": "558076da-0007-4c29-a18d-e3119b91a938",
-      "model": "RSG1348S1M 4TON 13SEER R410A CONDENSING UNIT",
-      "modelNum": "1348464",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET\n33 TALL 28-1/4 WIDE 28-1/4 DEEP 50AMP MAX FUSE ",
-      "cost": 1498.68
-    },
-    {
-      "guid": "d366f7e9-3298-4e53-96ac-1fafda5336e9",
-      "model": "RSG1360S1M 5TON 13SEER R410A CONDENSING UNIT",
-      "modelNum": "1348465",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET FOR PIPING OVER 25 ft. USE 1\"1/8 X 3/8 LINESET\n29 TALL 28-1/4 WIDE 28-1/4 DEEP 60AMP MAX FUSE ",
-      "cost": 1123.25
-    },
-    {
-      "guid": "114d1219-f529-4e40-9409-74f7a442e4fb",
-      "model": "RSG1618S1P 1.5TON 16SEER 1-STG CONDENSING UNIT",
-      "modelNum": "1521612",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET 29 TALL 24-1/4 WIDE 24-1/4 DEEP 20AMP MAX FUSE \nR410A ",
-      "cost": 1123.25
-    },
-    {
-      "guid": "c0bd1159-73c2-4512-a6f4-f1ca7d0a2c0e",
-      "model": "RSG1624S1P 2TON 16SEER 1-STG CONDENSING UNIT",
-      "modelNum": "1521613",
-      "description": " 208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET\n37 TALL 28-1/4 WIDE 28-1/4 DEEP 25AMP MAX FUSE \nR410A ",
-      "cost": 1149.31
-    },
-    {
-      "guid": "e6eb9a2e-97ae-48e4-be9a-bdda295c23c7",
-      "model": "RSG1630S1P 2.5TON 16SEER 1-STG CONDENSING UNIT",
-      "modelNum": "1521614",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET \n37 TALL 28-1/4\" WIDE 28-1/4\" DEEP 25AMP MAX FUSE \nR410A ",
-      "cost": 1260.8
-    },
-    {
-      "guid": "75476552-4613-4377-82de-ffe796b6485c",
-      "model": "RSG1636S1P 3TON 16SEER 1-STG CONDENSING UNIT\t",
-      "modelNum": "1521615",
-      "description": "208/230V-1PH SCROLL COMFORT AIRE 3/8X7/8 LINESET\n37 TALL 28-1/4 WIDE 28-1/4 DEEP 35AMP MAX FUSE R410A\t",
-      "cost": 1427.16
-    },
-    {
-      "guid": "1d746433-8d19-4e78-af76-6f1dba39cbe5",
-      "model": "RSG1641S1P 3.5TON 16SEER 1-STG CONDENSING UNIT\t",
-      "modelNum": "1522678",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET\n33 TALL 28-1/4 WIDE 28-1/4 DEEP 40AMP MAX FUSE R410A\t",
-      "cost": 1704.84
-    },
-    {
-      "guid": "ebb9cbc0-d95f-4d45-9d00-ce9604333a7b",
-      "model": "RSG1647S1P 4TON 16SEER 1-STG CONDENSING UNIT",
-      "modelNum": "1521617",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET \n33 TALL 32.25 WIDE 32.25 DEEP 50AMP MAX FUSE R410A ",
-      "cost": 1991.21
-    },
-    {
-      "guid": "34a74ace-4e15-4918-9ba5-19206996be91",
-      "model": "RSG1624S1M 2TON 16SEER 2-STAGE CONDENSING UNIT",
-      "modelNum": "1348466",
-      "description": "208/230V lPH COMFORT AIRE 3/8X3/4inch LINESET REQUIRED\n29.75 TALL 26-3/4 WIDE 24-3/4 DEEP 30 AMP MAX FUSE SIZE R410A",
-      "cost": 1512.3
-    },
-    {
-      "guid": "21d457e4-d5f4-4ac6-8037-50a870aa75a6",
-      "model": "RSG1636S1M 3TON 16SEER 2-STG CONDENSING UNIT\t",
-      "modelNum": "1348467",
-      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET 29 3/4 H X 26 3/4 W X 24 3/4 D 30 AMP MAX R410A REQUIRES MUST RUN 18-4 CONTROL WIRE FROM INDOOR TO OUTDOOR UNIT\t",
-      "cost": 1878.95
-    },
-    {
-      "guid": "ebd4b311-7f01-4a3d-8957-45694b824b49",
-      "model": "RSG1648S1M 4TON 16SEER 2-STG CONDENSING UNIT",
-      "modelNum": "1348468",
-      "description": "208/230V-1PH COMFORT AIRE\n3/8X7/8 LINESET 37.75 H X 31.25 W X 29.37 D 45 AMP MAX FUSE R410A\t",
-      "cost": 2263.82
-    }
-  ],
-  "coils": [
-    {
-      "guid": "6810b597-5727-491e-996d-ecb47ca3585d",
-      "model": "MCG24TB4P 2TON CASED A COIL MULTIPOSITION R410A TXV ",
-      "modelNum": "1580558",
-      "cost": 532.53,
-      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 16.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-3/4 LINESET \nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER "
-    },
-    {
-      "guid": "39808964-a850-4fc8-af2e-be913d42ee0c",
-      "model": "MCG24TC2M 2TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1351818",
-      "description": "COMFORT AIRE 21INCH WIDE 21.5 DEEP 23INCH TALL - SUPPLY\n20 WIDE 20.5 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
-      "cost": 529.53
-    },
-    {
-      "guid": "aa14f129-6fae-4e6f-81a8-de202b1bb210",
-      "model": "MCG30TB5P 2.5TON CASED COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1580560",
-      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
-      "cost": 562.53
-    },
-    {
-      "guid": "5a541514-1c0a-42e4-832c-10f2e2a4d7ab",
-      "model": "MCG30TC5P 2.5TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1580561",
-      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n20 WIDE 21 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
-      "cost": 562.53
-    },
-    {
-      "guid": "2ed4eaf5-6f7d-44f5-bdd6-258a05d7016c",
-      "model": "MCG36TC2M 3TON CASED A 1 MCG36TB7P 3TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1580563",
-      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
-      "cost": 679.53
-    },
-    {
-      "guid": "6234ec51-be16-420c-be42-e3b69875f584",
-      "model": "MCG36TC7P 3TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1580564",
-      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n20 WIDE 20 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
-      "cost": 679.53
-    },
-    {
-      "guid": "b579ee7c-c628-4b4c-a007-21532a1c2981",
-      "model": "MCG4248TB8P 3.5 - 4TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1580565",
-      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 25.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-7/8 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" HEAT EXCHANGER ",
-      "cost": 709.53
-    },
-    {
-      "guid": "97080a30-bf83-4777-99e2-a516feccb048",
-      "model": "MCG4248TC8P 3.5-4TON CASED COIL MULTIPOSITION R410A TXV ",
-      "modelNum": "1580554",
-      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 25.5INCH TALL - SUPPLY\n20 WIDE 20 DEEP 3/8-7/8 LINESET \nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN NEEDS TO BE 6\" ABOVE HEAT EXCHANGER ",
-      "cost": 709.53
-    },
-    {
-      "guid": "1b830fa0-3835-4f6e-8f45-cc541069117d",
-      "model": "MCG48TD2M 4TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1143276",
-      "description": "24inch COMFORT AIRE 24-1/2inch WIDE 21.5 DEEP 30inch TALL - SUPPLY\n23.5 WIDE X 20.5 DEEP 3/8 - 7/8 LINESET LINE\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
-      "cost": 706.53
-    },
-    {
-      "guid": "823461ea-ea11-4cbc-a9e3-8e8a5c8b1a1b",
-      "model": "MCG60TCBP 5TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1580569",
-      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 31.5INCH TALL - SUPPLY\n20 WIDE 20 DEEP 3/8-7/8 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER ",
-      "cost": 862.53
-    },
-    {
-      "guid": "fe24a678-a48a-42d3-9821-f4cc936bbb29",
-      "model": "MCG60TDAP 5TON CASED A COIL MULTIPOSITION R410A TXV",
-      "modelNum": "1580570",
-      "description": "COMFORT AIRE 24.5INCH WIDE 21 DEEP 27.5INCH TALL - SUPPLY\n23.5 WIDE 20 DEEP 3/8-7/8 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
-      "cost": 787.53
-    },
-    {
-      "guid": "53e643a5-05b4-47b1-97a0-b9fd141c305b",
-      "model": "CCG1824PB1P 2TON UNCASED A COIL R410A 17inch COMFORT AIRE",
-      "modelNum": "1521976",
-      "description": "12inch TALL 3/8 - 3/4 LINESET MATCH 13SEER AND 14SEER CONDENSING UNITS\n17.5H X 16W X 19 D \nPISTON COIL IF TXV IS NEEDED USE TXV KIT 4200. ",
-      "cost": 331.19
-    },
-    {
-      "guid": "fb98b533-0751-45aa-a767-3e4eb112e1ba",
-      "model": "CCG2430PB3P 2.5TON UNCASED A COIL R410A COMFORT AIRE ",
-      "modelNum": "1521978",
-      "description": "3/8 - 3/4 LINESET MATCH 13SEER AND 14SEER CONDENSING UNITS 17.5H X 16W x 19D\n",
-      "cost": 331.19
-    },
-    {
-      "guid": "7e77137b-dc73-4e79-a4ea-3d0f683ec338",
-      "model": "CCG30PA2P 2.5 TON UNCASED A COIL R410A COMFORT AIRE\t",
-      "modelNum": "1522720",
-      "description": "14inch WIDE 19-3/8inch DEEP 17.5inch TALL 3/8 -3/4 LINESET MATCH 13SEER AND 14SEER CONDENSING UNITS\nPISTON COIL IF TXV IS NEEDED USE 4202 TXV KIT\t",
-      "cost": 331.19
-    },
-    {
-      "guid": "acf20220-0964-4759-9a99-ffa14725e502",
-      "model": "CCG36PB7P 3TON UNCASED A COIL R410A COMFORT AIRE\t",
-      "modelNum": "1521828",
-      "description": "16inch WIDE 19-3/8inch DEEP 19.5inch TALL 3/8- 3/4 LINESET MATCH WITH 13SEER AND 14SEER CONDENSING UNITS PISTON IF TXV IS NEEDED USE 4200 TXV KIT.\t",
-      "cost": 391.19
-    },
-    {
-      "guid": "017f620a-0651-4c18-92e6-12cd6ef4cb93",
-      "model": "CCG48PC1M 4TON UNCASED A COIL R410A COMFORT AIRE",
-      "modelNum": "1441948",
-      "description": "19-1/2inch WIDE 19-3/8inch DEEP 25.5 TALL 3/8 - 7/8 LINESET LINE MATCH WITH 13SEER AND 14SEER CONDENSING UNITS\nPISTON COIL IF TXV IS NEEDED USE 4202 TXV KIT",
-      "cost": 517.53
-    },
-    {
-      "guid": "b704ec0d-2379-42f9-914d-0aa2bb902aa5",
-      "model": "CCG48PB1M 4TON UNCASED A COIL R410A COMFORT AIRE",
-      "modelNum": "1441952",
-      "description": "16inch WIDE 19-3/8inch DEEP 25.5 TALL 3/8 - 7/8 LINESET LINE MATCH WITH 13SEER AND 14SER CONDENSING UNITS PISTON COIL IF TXV IS NEEDED USE 4202 TXV KIT\t",
-      "cost": 517.53
-    },
-    {
-      "guid": "efb7bf41-41cb-469e-8157-59f00d5b4353",
-      "model": "CCG60PCAP 5TON UNCASED A COIL R410A COMFORT AIRE",
-      "modelNum": "1605319",
-      "description": "19-1/2inch WIDE 19-3/8inch DEEP 27.5 TALL 3/8 - 7/8 LINESET LINE\nMATCH WITH 13SEER AND 14SEER CONDENSING UNITS PISTON COIL\nIF TXV IS NEEDED USE 4202 TXV KIT",
-      "cost": 565.53
-    }
-  ],
   "air_handlers": [
     {
       "guid": "617e8f28-190c-4fec-8e02-9d210610438b",
@@ -511,507 +127,69 @@
       "cost": 2083.33
     }
   ],
-  "heat_pumps": [
+  "aqua_boosters": [
     {
-      "guid": "ca9b97ed-b2ed-47b8-b182-43487ff39b94",
-      "model": "HRG1424S1P 2TON R410A 208/230-lPH COMFORT AIRE 14 SEER HEAT PUMP",
-      "modelNum": "1521619",
-      "cost": 2023.33,
-      "description": "3/4X3/8 LINE SET \n37H X 28.25W X 28.25D "
+      "guid": "7b9b65cf-ed2a-4824-bad6-5bad6670781e",
+      "model": "GL50ST SUPERSTOR 50gallon GLASS LINED STORAGE TANK",
+      "modelNum": "45623",
+      "cost": 791.44,
+      "description": "WITH SURFACE MOUNTED THERMOSTAT CONTROL - LESS 006B CIRCULATOR 52inch X 19-1/4inch"
     },
     {
-      "guid": "0cb98a5c-98c1-4ea9-b06a-5114c64c6d87",
-      "model": "HRG1430S1P HEAT PUMP 2.5TON R410A 208/230V-1PH 14SEER SCROLL COMFORT AIRE",
-      "modelNum": "1521620",
-      "description": "38X34 LINSET \n37H X 28.25W X 28.25D ",
-      "cost": 2183.33
+      "guid": "bdd15462-64fd-43dd-a4e5-d2ec841106ae",
+      "model": "GL80ST SUPERSTOR 80gal JACKETED GLASS LINED TANK NON ASME ",
+      "modelNum": "76690",
+      "description": "58-5/16inch H x 24-7/16inch DIA. 2inch WATER CONNECTIONS STORAGE TANK LESS CONTROL WITH 1inch T&P PORT",
+      "cost": 1321.41
     },
     {
-      "guid": "5b8573d1-8a50-419c-bab5-8b92c79b1d2d",
-      "model": "HRG1436S1P 3TON R410A COMFORTAIRE HEAT PUMP 14 SEER",
-      "modelNum": "1521621",
-      "description": "38X78 LINESET 37H X 28.25W X 28.25D",
-      "cost": 2403.33
+      "guid": "5e46e38f-3f56-4d8f-bf4d-fc95fd317f66",
+      "model": "WB30 EVERHOT AQUABOOSTER 30 GALLON ",
+      "modelNum": "439436",
+      "description": "GLASS LINED COMPLETE WITH TACO 006 CIRCULATOR AND IMMERSION AQUASTAT (2 boxes)\n1 - WB30 THERMAFLOW AQUABOOSTER 3) GALLON GLASS LINED TANK ONLY 39inch HIGH X 18inch DIAMETER \n1 - WB THERMAFLOW PUMP KIT - CIRCULATOR PACKAGE WITH TACO 006S AND AQUASTAT WITH WELL",
+      "cost": 934.55
     },
     {
-      "guid": "333a4875-66ba-499c-9738-5ffc7cba8ff5",
-      "model": "HRG1442S1P 3.5TON R410A 208/230-1 COMFORT AIRE 14 SEER\t",
-      "modelNum": "1521622",
-      "description": "38X78 LINESET 37H X 32.25W X 32.25D",
-      "cost": 2703.33
+      "guid": "ae13a206-91b1-4677-99ad-29eb141e0d96",
+      "model": "WB30 THERMAFLOW AQUABOOSTER 30 GALLON GLASS LINED TANK ONLY",
+      "modelNum": "85185",
+      "description": "39inch HIGH X 18inch DIAMETER",
+      "cost": 740.61
     },
     {
-      "guid": "2cba892b-534b-47cf-915a-e927f7f4fd86",
-      "model": "HRG1460S1P 5TON R410A 208/230-lPH COMFORT AIRE ",
-      "modelNum": "1521624",
-      "description": "14 SEER 38X78 LINESET \n37H X 32.25W X 32.25D ",
-      "cost": 3383.33
+      "guid": "93cf9bf7-f549-49d6-a3e4-e463015b3999",
+      "model": "WB40 THERMAFLOW AQUABOOSTER 40 GALLON GLASS LINED TANK ONLY",
+      "modelNum": "85191",
+      "description": "16 - 1/2inch DIAMETER x 59inch HIGH",
+      "cost": 819.4
     },
     {
-      "guid": "878af2c7-4ed7-481e-a1d1-662c7d2651b2",
-      "model": "HRG1624S1P HEAT PUMP 2TON R410A 208/230V-1PH 16SEER SCROLL COMFORT AIRE TWO STAGE COMPRESSOR ",
-      "modelNum": "1521625",
-      "description": "38X34 LINSET \n33.75H X 24.75W X 26.75D ",
-      "cost": 2023.33
+      "guid": "ffe25490-f378-4a0a-ab2d-6e40cf80a4fa",
+      "model": "WB40 *KIT* EVERHOT AQUABOOSTER 40  GALLON GLASS LINED COMPLETE WITH TACO 006 CIRCULATOR AND IMMERSION AQUASTAT",
+      "modelNum": "439438",
+      "description": "16-1/2INCH DIAMETER 59INCH HIGH (2 BOXES) \n1 - WB40 THERMAFLOW AQUABOOSTER 40 GALLON GLASS LINED TANK ONLY 16-1/2inch DIAMETER X 59inch HIGH\n1 - WB THERMAFLOW PUMP KIT - CIRCULATOR PACKAGE WITH TACO 006S and AQUASTAT WITH WELL",
+      "cost": 1013.34
     },
     {
-      "guid": "2def957b-5b2d-4625-a090-3f4744c91c94",
-      "model": "HRG1836S1P COMFORTAIRE 1.5-3 TON INVERTER HEAT PUMP 18 SEER R410A",
-      "modelNum": "1690540",
-      "description": "208/230V lPH 196LBS 33.75 H X 29.38 W X 31.25 D 38 X 34 LINE SET",
-      "cost": 3523.33
+      "guid": "9f146adf-96f0-463d-820c-7003b04ec7ae",
+      "model": "WB50 THERMAFLOW AQUABOOSTER 50 GALLON GLASS LINED TANK ONLY",
+      "modelNum": "59687",
+      "description": " 20inch DIAMETER X 49inch HIGH",
+      "cost": 943.04
     },
     {
-      "guid": "d50aeda0-a583-4277-980c-f5cdfac23708",
-      "model": "HRG1860S1P 4-5 TON COMFORTAIRE 18 SEER HEAT PUMP WITH INVERTER COMPRESSOR R410A",
-      "modelNum": "1684599",
-      "description": "208/230V lPH 29 W 29 W X 31.25 DX 43.75 H \n1 1/8 x 3/8 LINE SET ",
-      "cost": 5463.33
-    }
-  ],
-  "general": [
-    {
-      "guid": "2803da02-5ee3-42d5-8603-ee461d676894",
-      "model": "4200 COMFORT-AIRE R410A TXV",
-      "modelNum": "1178795",
-      "cost": 122.13,
-      "description": "1.5-3TON FITS CCG MCG VCG COILS AND HWCG AIR HANDLERS "
-    },
-    {
-      "guid": "521e35bc-22c0-469f-b284-6129bc26d4ee",
-      "model": "4202 COMFORT-AIRE R410A TXV",
-      "modelNum": "1178796",
-      "description": "3.5-5TON FITS CCG MCG VCG COILS AND HWCG AIR HANDLERS",
-      "cost": 116.13
-    },
-    {
-      "guid": "d2306e51-6be2-4999-8ca0-df564c55bcc0",
-      "model": "12S08 COMFORT AIRE 7.5KW ELECTRIC",
-      "modelNum": "1500264",
-      "description": "HEAT FOR HCG HMG AIR HANDLERS WITH CIRCUIT BREAKER ",
-      "cost": 207.13
-    },
-    {
-      "guid": "6e9d4bd0-36d6-4e53-a597-61168d57165e",
-      "model": "12S60 COMFORT AIRE 9 KW ELECTRIC HEAT",
-      "modelNum": "1353481",
-      "description": "FOR HCG HMG AIR HANDLERS INCLUDES CIRCUIT BREAKER \nFITS NEW \"M\" SERIES ",
-      "cost": 214.63
-    },
-    {
-      "guid": "68018b7f-dcf4-4696-a4e5-cd5f1587fccd",
-      "model": "12S77 COMFORT AIRE 12.5 KW ELECTRIC HEAT",
-      "modelNum": "1353482",
-      "description": "FOR HCG HMG AIR HANDLERS INCLUDES CIRCUIT BREAKER \n(old# 12R77) ",
-      "cost": 325.19
-    },
-    {
-      "guid": "8567861c-9991-4277-bf5e-a5721330d0bb",
-      "model": "12S88 COMFORT AIRE 20KW ELECTRIC HEAT",
-      "modelNum": "1435610",
-      "description": "FOR HCG AIR HANDLERS INCLUDES CIRCUIT BREAKER ",
-      "cost": 355.19
-    },
-    {
-      "guid": "b0ea4baf-df2a-44a3-88ae-1813783156aa",
-      "model": "11K50 COMFORT AIRE LP KIT FOR GUH ",
-      "modelNum": "1351838",
-      "description": "80A 92A 95C BOC FITS NEW \"M\" SERIES \nSINGLE STAGE HEATING ",
-      "cost": 152.13
-    },
-    {
-      "guid": "43a4e454-e63e-4a61-a41d-99c4f44d5979",
-      "model": "11K48 COMFORT AIRE LP KIT FOR GUH ",
-      "modelNum": "1351836",
-      "description": "95T AND 96T MODELS ONLY \n2-STAGE HEATING FITS NEW \"M\" SERIES",
-      "cost": 146.13
-    },
-    {
-      "guid": "ee4c73ff-4104-48e5-a3f2-4f9fe1ceb639",
-      "model": "WB THERMAFLOW PUMP KIT",
-      "modelNum": "439437",
-      "description": "CIRCULATOR PACKAGE WITH TACO 006S AND AQUASTAT WITH WELL",
-      "cost": 270.77
-    },
-    {
-      "guid": "1d8b34bc-0f45-4c0f-a72d-50945928f94f",
-      "model": "2315001001 ROTH 275gal 3/8\" DUPLEX",
-      "modelNum": "592999",
-      "description": "INSTALL KIT WITH: VENT ALARM, GAUGE, 3/8inch DUPLEX BUSHING\n(FEMALE ADAPTER INCLUDED WITH TANK)",
-      "cost": 86.49
-    },
-    {
-      "guid": "e2c9e8f7-09fd-420b-ae4d-46692aa82fc7",
-      "model": "2315001002 ROTH 275gal 1/2\" DUPLEX",
-      "modelNum": "1269288",
-      "description": "INSTALL KIT WITH: VENT ALARM AND GAUGE,l/2inch DUPLEX BUSHING\n(FEMALE ADAPTER INCLUDED WITH TANK) ",
-      "cost": 90.75
-    },
-    {
-      "guid": "21ed7689-d415-4a0d-867a-fe378407823a",
-      "model": "2335100757 ROTH RAIN CAP",
-      "modelNum": "745551",
-      "description": "FOR 1000L 275gallon TANK ",
-      "cost": 245.13
-    },
-    {
-      "guid": "1783034b-0a00-4724-8f96-56c286a5293b",
-      "model": "2335001863 ROTH TANK GAUGE FOR 620L and 1000L",
-      "modelNum": "255838",
-      "description": "(165g and 275g) ",
-      "cost": 28.32
-    },
-    {
-      "guid": "a1a5208b-5fd9-4648-b6a2-e93c42a0c7b3",
-      "model": "5517 OEM ROTH VENTALARM",
-      "modelNum": "427789",
-      "description": "FITS UNDER UNION NUT FOR ROTH TANKS 2350000999",
-      "cost": 23.29
-    },
-    {
-      "guid": "0693ddde-10aa-4870-9e8d-e4b88d8fdadb",
-      "model": "5475 OEM DWT 2x3/8inch DUPLEX TANK BUSHING W/ COMPRESSION ADAPTERS",
-      "modelNum": "427792",
-      "description": "MOUNTS UNDER UNION NUT FOR DWT TYPE TANKS ",
-      "cost": 20.89
-    },
-    {
-      "guid": "f6134d2e-eaec-4353-b690-1456610a5b74",
-      "model": "5476 OEM DWT 2xl/2inch DUPLEX TANK BUSHING W/ COMPRESSION ADAPTERS",
-      "modelNum": "427793",
-      "description": "MOUNTS UNDER UNION NUT FOR DWT TYPE TANKS",
-      "cost": 22.51
-    },
-    {
-      "guid": "8814062e-17f3-4ef5-a529-70b2a42dcd6d",
-      "model": "2315001102 ROTH 275gal 1/211 LOWBOY",
-      "modelNum": "1642255",
-      "description": "INSTALL KIT FOR 1000LH \nINCLUDES: LOWBOY-VENT ALARM, GAUGE, 1/2inch DUPLEX BUSHING \n(FEMALE ADAPTER INCLUDED WITH TANK)",
-      "cost": 69.29
-    },
-    {
-      "guid": "e1207b1e-0129-4c79-bb0e-36eb260f574f",
-      "model": "2335003832 ROTH LOWBOY TANK GAUGE FOR 1000LH OIL TANK",
-      "modelNum": "1454121",
-      "description": "",
-      "cost": 28.39
-    },
-    {
-      "guid": "582f47f8-3fd1-4591-adf9-ce426dbb4594",
-      "model": "2335003721 ROTH LOWBOY RAIN CAP",
-      "modelNum": "1133781",
-      "description": "FOR 1000LH OIL TANK",
-      "cost": 271.19
-    },
-    {
-      "guid": "d07341b7-75c3-45ed-8baa-6ad74ff12c96",
-      "model": "2315001501 ROTH 400gal 3/8\" DUPLEX",
-      "modelNum": "1269300",
-      "description": "INSTALL KIT FOR 1500L INCLUDES: VENT ALARM, GAUGE AND DUP BUSHING\n(FEMALE ADAPTER INCLUDED WITH TANK)",
-      "cost": 86.49
-    },
-    {
-      "guid": "01ea7779-d3af-4829-8e43-4e0c02d84668",
-      "model": "2335002054 ROTH RAIN CAP FOR 1500L 400gallon TANK ",
-      "modelNum": "666410",
-      "description": "",
-      "cost": 302.69
-    },
-    {
-      "guid": "d2acba14-d8e4-4f1e-97eb-988338c68c05",
-      "model": "2335000191 ROTH TANK GAUGE FOR 1500L 400 GALLON ",
-      "modelNum": "722332",
-      "description": "",
-      "cost": 29.79
-    },
-    {
-      "guid": "ab6e05b6-9b80-4e31-88f9-16505420fd88",
-      "model": "386700428 WEIL MCLAIN CARLIN BURNER",
-      "modelNum": "678408",
-      "description": "FOR 3 SECTION GOLD BOILER ",
-      "cost": 511.04
-    },
-    {
-      "guid": "76683fa8-68f2-424b-a8ef-e90d550cdcc3",
-      "model": "386700408 WEIL MCLAIN BECKETT BURNER FOR 6 SECTION GOLD ",
-      "modelNum": "678407",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "b106dee3-67d8-4ebf-8019-ebcba3a4ab9f",
-      "model": "386700436 WEIL MCLAIN CARLIN BURNER FOR 5 SECTION GOLD",
-      "modelNum": "678409",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "4ac9ced2-7411-44d9-ae5a-61a2cefc57e4",
-      "model": "386700432 WEIL MCLAIN CARLIN BURNER  FOR 4 SECTION GOLD BOILER",
-      "modelNum": "678345",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "33c16c25-c9ed-4bdf-b089-a52a71dffc7a",
-      "model": "416700170 WEIL MCLAIN WGO-7 JACKET",
-      "modelNum": "678434",
-      "description": "",
-      "cost": 232.5
-    },
-    {
-      "guid": "9c324c8d-a2ea-48aa-8111-f316e7134f44",
-      "model": "450020188 WEIL MCLAIN WGO/WTGO-7 COLLECT HOOD ",
-      "modelNum": "678437",
-      "description": "",
-      "cost": 50.84
-    },
-    {
-      "guid": "1e25e563-4380-4e52-bb2d-2ce5bf82cb01",
-      "model": "416700172 WEIL MCLAIN WGO-8 JACKET",
-      "modelNum": "794004",
-      "description": "",
-      "cost": 246.04
-    },
-    {
-      "guid": "d7a634be-d99a-4490-b424-d88972932065",
-      "model": "450020189 WEIL MCLAIN WGO/WTGO-8 COLLECTOR HOOD ",
-      "modelNum": "728007",
-      "description": "",
-      "cost": 52.88
-    },
-    {
-      "guid": "1757dbae-6492-4aba-8246-a6d1a5a28a73",
-      "model": "416700174 WEIL-MCLAIN WGO-9 JACKET",
-      "modelNum": "755181",
-      "description": "",
-      "cost": 251.46
-    },
-    {
-      "guid": "543e0295-282d-4f59-9420-b3a84daff7d0",
-      "model": "450020190 WEIL-MCLAIN WGO/WTGO 9 COLLECT HOOD",
-      "modelNum": "755182",
-      "description": "",
-      "cost": 56.94
-    },
-    {
-      "guid": "38781cb1-8a96-44a8-947c-edf0de656ae8",
-      "model": "386700861 WATER TRIM W/CONTROL FOR WEIL MCLAIN WGO",
-      "modelNum": "707044",
-      "description": "",
-      "cost": 357.19
-    },
-    {
-      "guid": "63d3844c-2896-404e-a6ac-5f54200c6e1c",
-      "model": "386700412 WEIL MCLAIN WGO-7 BECKETT BURNER",
-      "modelNum": "706566",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "47d1188f-ad7d-422c-b58c-a4e50ff7b9f1",
-      "model": "386700416 WEIL MCLAIN WGO-8 BECKETT OIL BURNER",
-      "modelNum": "725364",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "c73862ba-e1ac-42b5-8b2d-e7a43ac10e55",
-      "model": "386700420 WEIL-MCLAIN WGO-9 BECKETT OIL BURNER ONLY",
-      "modelNum": "755183",
-      "description": "",
-      "cost": 511.04
-    },
-    {
-      "guid": "2b461f45-c8e9-4538-ba6e-0b0ddf0f5021",
-      "model": "386700440 WEIL MCLAIN 21D64-2CARLIN BURNER FOR 6 SECTION GOLD ",
-      "modelNum": "678410",
-      "description": "",
-      "cost": 511.62
-    },
-    {
-      "guid": "d2a0c862-8b77-472d-af26-d95cf68c4520",
-      "model": "416700182 WEIL MCLAIN SGO-7 JACKET",
-      "modelNum": "706563",
-      "description": "",
-      "cost": 229.09
-    },
-    {
-      "guid": "54770af8-0117-4613-b21c-fbbc93367a5f",
-      "model": "450020191 WEIL MCLAIN SGO-7  COLLECTOR HOOD",
-      "modelNum": "706565",
-      "description": "",
-      "cost": 47.46
-    },
-    {
-      "guid": "53a3a34e-587e-44b8-9a43-33c923badf14",
-      "model": "416700184 SGO8 JACKET ASSEMBLY WEIL MCLAIN STEAM OIL GOLD",
-      "modelNum": "828019",
-      "description": "",
-      "cost": 244.68
-    },
-    {
-      "guid": "34fa9098-0519-4894-980d-9db56d8dadc8",
-      "model": "450020192 SGO-8 WEIL MCLAIN STEAM GOLD OIL COLLECT HOOD",
-      "modelNum": "828020",
-      "description": "",
-      "cost": 50.84
-    },
-    {
-      "guid": "e0665bd3-13e8-465b-9e72-87a4644b9e68",
-      "model": "W-M 416700186 BX JKT SGO9 S3 UL726 ",
-      "modelNum": "1669279",
-      "description": "",
-      "cost": 249.42
-    },
-    {
-      "guid": "b9a4bada-f04c-40a3-a95d-93fd2ca6d0c3",
-      "model": "W-M 450020193 SGO-9 COLLECT HOOD",
-      "modelNum": "1669280",
-      "description": "MUST ADD STEAM CONTROLS TO THE 7-9",
-      "cost": 54.24
-    },
-    {
-      "guid": "ad0c19c9-da3e-4a7b-99f2-502b1ff2eb09",
-      "model": "691034",
-      "modelNum": "386700046 WEIL MCLAIN SGO STEAM",
-      "description": "TRIM (!386700870) ",
-      "cost": 353.8
-    }
-  ],
-  "furnaces": [
-    {
-      "guid": "962cdc67-4dbf-4004-88ac-2725aff37c1d",
-      "model": "GUH80C045A3M COMFORTAIRE NATURAL GAS FURNACE UPFLOW/ HORIZ 80% 45K 1-STG ECM 2-3TON 4\" FLUE CONNECTION",
-      "modelNum": "1521641",
-      "cost": 961.53,
-      "description": "33H X 14.5W X 28.375 D SUPPLY OPENING 14.5 W X 19.5 D"
-    },
-    {
-      "guid": "8971e39d-102e-411b-8d99-3f598ba302a4",
-      "model": "GUH80C070B3M GAS FURNACE UPFLOW HORIZ 80% 72K 1-STG ECM 3-5TON COMFORT AIRE",
-      "modelNum": "1521642",
-      "description": "33 H X 17.5W X 28.37 D\nSUPPLY OPENING 16.5 W X 19.5 D",
-      "cost": 1113.07
-    },
-    {
-      "guid": "efb68f87-b934-4802-be58-5df51ae81528",
-      "model": "GUH80C090B4M 80% 90K 1-STG ECM GAS FURNACE UPFLOW - HORIZ 3-5TON COMFORT AIRE",
-      "modelNum": "1521643",
-      "description": "33H X 17.5W X 28.37 D SUPPLY OPENING 17.5 W X 19.5 D",
-      "cost": 1203.07
-    },
-    {
-      "guid": "3ed0e619-99af-4d65-8bf4-698a33eaaccc",
-      "model": "GUH80C110C5M 80% 108K 1-STG ECM GAS FURNACE UPFLOW - HORIZ 3-5TON COMFORT AIRE",
-      "modelNum": "1521644",
-      "description": "33 H X 21 W X 28.37 D SUPPLY OPENING 21 W X 19.5 D",
-      "cost": 1283.07
-    },
-    {
-      "guid": "5ecc22a4-22f7-4998-859f-7be0789addfe",
-      "model": "GUH80C135D5M 80% 106K 1-STG X13 CONSTANT TORQUE GAS FURNACE UPFLOWITH HORIZ 4-5TON COMFORT AIRE",
-      "modelNum": "1521645",
-      "description": "33H X 24.5 W X 28.37D SUPPLY OPENING 24.5 W X 19.5 D 132K BTU IN/105,600 BTU OUT ",
-      "cost": 1353.07
-    },
-    {
-      "guid": "f2cbe149-1efa-46c0-b067-cf39c17fd5a1",
-      "model": "GUH95C045B3M 45K lSTG 95% UPRIGHT OR HORIZONTAL GAS FURNACE 3TON DRIVE",
-      "modelNum": "1348458",
-      "description": "33 HIGH X 17-1/2 WIDE X \n28-1/2 DEEP SUPPLY 16.5 W X 19.5 D",
-      "cost": 1323.07
-    },
-    {
-      "guid": "9ae000ba-94ae-43a7-8df7-a6c29aa6e51b",
-      "model": "GUH95C070B3M 95% 72K 1-STG ECM GAS FURNACE UPFLOWITH HORIZ 3-5TON COMFORT AIRE\t",
-      "modelNum": "1348427",
-      "description": "33inch TALL 28-1/2inch DEEP 17-1/2inch WIDE - SUPPLY OPENING 16.5 WIDE 19-1/2inch DEEP\t",
-      "cost": 1503.07
-    },
-    {
-      "guid": "1300342f-54da-48d7-aaa3-8695a45b4f71",
-      "model": "GUH95C090C4M 95% 90K 1-STG ECM GAS FURNACE UPFLOW WITH HORIZ 2.5-4 TON COMFORT AIRE",
-      "modelNum": "1348428",
-      "description": "33inch TALL 28-1/2inch DEEP 21inch WIDE - SUPPLY OPENING 21 WIDE 19-1/2inch DEEP",
-      "cost": 1553.07
-    },
-    {
-      "guid": "dc134a9b-6613-402f-b6c8-d2bed17cde89",
-      "model": "GUH95C110C5M 95% 106K 1-STG ECM GAS FURNACE UPFLOW WITH HORIZ  4-5TON COMFORT AIRE",
-      "modelNum": "1348429",
-      "description": "33inch TALL 28-1/2inch DEEP 21inch WIDE -SUPPLY OPENING 21 WIDE 19-1/2inch DEEP",
-      "cost": 1623.07
-    },
-    {
-      "guid": "82581fd2-ebce-4aad-a605-931dac4e595c",
-      "model": "GUH95C135D5M 95% 128K 1-STG ECM GAS FURNACE UPFLOWITH HORIZ 4-5TON COMFORT AIRE",
-      "modelNum": "1348430",
-      "description": " 33inch TALL 28-1/2inch DEEP 24-1/2inch WIDE - SUPPLY OPENING 24.5 WIDE 19-1/2inch DEEP 132K BTU IN/128K BTU OUT",
-      "cost": 1713.07
-    },
-    {
-      "guid": "09583186-f633-4ca6-8fd0-d40e128626d0",
-      "model": "GUH96T045B3M 45K 2 STG 96% U/H 3T DRIVE ECM MOTOR",
-      "modelNum": "1348457",
-      "description": "33H X 17-1/2 X 28-1/2 DEEP SUPPLY 17.5 WIDE X 19-1/2 DEEP 1ST STAGE 28K BTU OUT 2ND STAGE 42K BTU OUT",
-      "cost": 1383.07
-    },
-    {
-      "guid": "636c7c43-b442-40cf-9c64-cc77c1579881",
-      "model": "GUH96T070B3M 96% 70K 2-STG VARIABLE GAS FURNACE UPFLOW/HORIZ 3TON DRIVE COMFORT AIRE",
-      "modelNum": "1618295",
-      "description": " 33inch TALL 28inch DEEP 17-1/2inch WIDE - SUPPLY OPENING 17.5 WIDE 19-1/2inch DEEP",
-      "cost": 1643.07
-    },
-    {
-      "guid": "d671615f-6066-4066-a287-77d29b1385a8",
-      "model": "GUH96T090C5M 96% 90K 2-STG ECM VARIABLE SPEED GAS FURNACE UPFLOW HORIZ 5TON COMFORT AIRE",
-      "modelNum": "1348432",
-      "description": "33inch TALL 28.5 DEEP 21inch WIDE - SUPPLY OPENING 21 WIDE 19-1/2inch DEEP FORMERLY GUH95T090C5M",
-      "cost": 1773.07
-    },
-    {
-      "guid": "0480cd55-8175-4653-936d-f5d9ea404c6b",
-      "model": "GUH96T110C5M 95% 100K 2-STG ECM GAS FURNACE UPFLOWITH HORIZ 5TON COMFORT AIRE",
-      "modelNum": "1662410",
-      "description": "33 TALL 28.5 DEEP 21inch WIDE - SUPPLY OPENING \n21 WIDE 19-1/2inch DEEP ",
-      "cost": 2003.07
-    },
-    {
-      "guid": "8fc997d8-1941-4884-9e91-d235fb3216f9",
-      "model": "GUH95T135D5M 95% 135K 2-STG ECM GAS FURNACE UPFLOW/HORIZONTAL 5TON COMFORT AIRE",
-      "modelNum": "1348434",
-      "description": "33inch TALL 28.5 DEEP 24-1/2inch WIDE - SUPPLY OPENING 24.5 WIDE 19-1/2 DEEP",
-      "cost": 2163.33
-    },
-    {
-      "guid": "8b871601-5c9f-44b3-9704-f0118c41baa2",
-      "model": "GUH97M070B3M 97% 70K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL ",
-      "modelNum": "1461107",
-      "description": "3TON DRIVE COMFORT AIRE\n33inch TALL 28.5 DEEP 17-1/2inch WIDE - SUPPLY OPENING 17.5 WIDE 19-1/2inch DEEP",
-      "cost": 2883.33
-    },
-    {
-      "guid": "c0decef9-46cd-4678-ba7d-c11a3f98f4bd",
-      "model": "GUH97M090C5M 97% 90K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL",
-      "modelNum": "1461109",
-      "description": "5TON DRIVE\n33inch TALL 28.5 DEEP 21inch WIDE -SUPPLY OPENING 21 WIDE 19-1/2inch DEEP",
-      "cost": 2443.33
-    },
-    {
-      "guid": "e348aeac-97b9-44b4-969e-ee7b09a97e2c",
-      "model": "GUH97M110C5M 97% 110K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL",
-      "modelNum": "1461111",
-      "description": "5TON DRIVE\nCOMFORT AIRE 33 TALL 28.5 DEEP 21inch WIDE - SUPPLY OPENING\n21 WIDE 19-1/2inch DEEP",
-      "cost": 2643.33
+      "guid": "62abc560-ed35-466b-a583-4a616782110f",
+      "model": "THERMAFLOW WB50 AQUABOOSTER 50 GALLON GLASS LINED WATER HEATER",
+      "modelNum": "439440",
+      "description": "INCLUDES 006 TACO CIRCULATOR AND CONTROL 20INCH DIAM 49INCH HIGH (2 BOXES) \n1 - WB50 THERMAFLOW AQUABOOSTER 5) GALLON GLASS LINED TANK ONLY 20inch DIAMETER X 49inch HIGH\n1 - WB THERMAFLOW PUMP KIT - CIRCULATOR PACKAGE WITH TACO 006S AND AQUASTAT WITH WELL\n",
+      "cost": 1136.97
     },
     {
-      "guid": "490d5f6f-79b0-4f28-851b-13897aff9018",
-      "model": "GUH97M135D5M 97% 135K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL",
-      "modelNum": "1461110",
-      "description": "5TON DRIVE\nCOMFORT AIRE 33inch TALL 28.5 DEEP 24-1/2inch WIDE - SUPPLY OPENING 24.5 W 19 1/2 D",
-      "cost": 2803.33
+      "guid": "4b00d75c-6b8b-45c5-acfe-3acf5b6e847f",
+      "model": "WB70 THERMAFLOW AQUABOOSTER  70 GALLON GLASS LINED TANK ONLY",
+      "modelNum": "137515",
+      "description": "*** INCLUDES AQUASTAT *** ",
+      "cost": 1366.07
     }
   ],
   "boilers": [
@@ -1401,69 +579,742 @@
       "cost": 8537.97
     }
   ],
-  "aqua_boosters": [
+  "coils": [
     {
-      "guid": "7b9b65cf-ed2a-4824-bad6-5bad6670781e",
-      "model": "GL50ST SUPERSTOR 50gallon GLASS LINED STORAGE TANK",
-      "modelNum": "45623",
-      "cost": 791.44,
-      "description": "WITH SURFACE MOUNTED THERMOSTAT CONTROL - LESS 006B CIRCULATOR 52inch X 19-1/4inch"
+      "guid": "6810b597-5727-491e-996d-ecb47ca3585d",
+      "model": "MCG24TB4P 2TON CASED A COIL MULTIPOSITION R410A TXV ",
+      "modelNum": "1580558",
+      "cost": 532.53,
+      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 16.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-3/4 LINESET \nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER "
     },
     {
-      "guid": "bdd15462-64fd-43dd-a4e5-d2ec841106ae",
-      "model": "GL80ST SUPERSTOR 80gal JACKETED GLASS LINED TANK NON ASME ",
-      "modelNum": "76690",
-      "description": "58-5/16inch H x 24-7/16inch DIA. 2inch WATER CONNECTIONS STORAGE TANK LESS CONTROL WITH 1inch T&P PORT",
-      "cost": 1321.41
+      "guid": "39808964-a850-4fc8-af2e-be913d42ee0c",
+      "model": "MCG24TC2M 2TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1351818",
+      "description": "COMFORT AIRE 21INCH WIDE 21.5 DEEP 23INCH TALL - SUPPLY\n20 WIDE 20.5 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
+      "cost": 529.53
     },
     {
-      "guid": "5e46e38f-3f56-4d8f-bf4d-fc95fd317f66",
-      "model": "WB30 EVERHOT AQUABOOSTER 30 GALLON ",
-      "modelNum": "439436",
-      "description": "GLASS LINED COMPLETE WITH TACO 006 CIRCULATOR AND IMMERSION AQUASTAT (2 boxes)\n1 - WB30 THERMAFLOW AQUABOOSTER 3) GALLON GLASS LINED TANK ONLY 39inch HIGH X 18inch DIAMETER \n1 - WB THERMAFLOW PUMP KIT - CIRCULATOR PACKAGE WITH TACO 006S AND AQUASTAT WITH WELL",
-      "cost": 934.55
+      "guid": "aa14f129-6fae-4e6f-81a8-de202b1bb210",
+      "model": "MCG30TB5P 2.5TON CASED COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1580560",
+      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
+      "cost": 562.53
     },
     {
-      "guid": "ae13a206-91b1-4677-99ad-29eb141e0d96",
-      "model": "WB30 THERMAFLOW AQUABOOSTER 30 GALLON GLASS LINED TANK ONLY",
-      "modelNum": "85185",
-      "description": "39inch HIGH X 18inch DIAMETER",
-      "cost": 740.61
+      "guid": "5a541514-1c0a-42e4-832c-10f2e2a4d7ab",
+      "model": "MCG30TC5P 2.5TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1580561",
+      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n20 WIDE 21 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
+      "cost": 562.53
     },
     {
-      "guid": "93cf9bf7-f549-49d6-a3e4-e463015b3999",
-      "model": "WB40 THERMAFLOW AQUABOOSTER 40 GALLON GLASS LINED TANK ONLY",
-      "modelNum": "85191",
-      "description": "16 - 1/2inch DIAMETER x 59inch HIGH",
-      "cost": 819.4
+      "guid": "2ed4eaf5-6f7d-44f5-bdd6-258a05d7016c",
+      "model": "MCG36TC2M 3TON CASED A 1 MCG36TB7P 3TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1580563",
+      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
+      "cost": 679.53
     },
     {
-      "guid": "ffe25490-f378-4a0a-ab2d-6e40cf80a4fa",
-      "model": "WB40 *KIT* EVERHOT AQUABOOSTER 40  GALLON GLASS LINED COMPLETE WITH TACO 006 CIRCULATOR AND IMMERSION AQUASTAT",
-      "modelNum": "439438",
-      "description": "16-1/2INCH DIAMETER 59INCH HIGH (2 BOXES) \n1 - WB40 THERMAFLOW AQUABOOSTER 40 GALLON GLASS LINED TANK ONLY 16-1/2inch DIAMETER X 59inch HIGH\n1 - WB THERMAFLOW PUMP KIT - CIRCULATOR PACKAGE WITH TACO 006S and AQUASTAT WITH WELL",
-      "cost": 1013.34
+      "guid": "6234ec51-be16-420c-be42-e3b69875f584",
+      "model": "MCG36TC7P 3TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1580564",
+      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 20.5INCH TALL - SUPPLY\n20 WIDE 20 DEEP 3/8-3/4 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
+      "cost": 679.53
     },
     {
-      "guid": "9f146adf-96f0-463d-820c-7003b04ec7ae",
-      "model": "WB50 THERMAFLOW AQUABOOSTER 50 GALLON GLASS LINED TANK ONLY",
-      "modelNum": "59687",
-      "description": " 20inch DIAMETER X 49inch HIGH",
-      "cost": 943.04
+      "guid": "b579ee7c-c628-4b4c-a007-21532a1c2981",
+      "model": "MCG4248TB8P 3.5 - 4TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1580565",
+      "description": "COMFORT AIRE 17.5INCH WIDE 21 DEEP 25.5INCH TALL - SUPPLY\n16.5 WIDE 20 DEEP 3/8-7/8 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" HEAT EXCHANGER ",
+      "cost": 709.53
     },
     {
-      "guid": "62abc560-ed35-466b-a583-4a616782110f",
-      "model": "THERMAFLOW WB50 AQUABOOSTER 50 GALLON GLASS LINED WATER HEATER",
-      "modelNum": "439440",
-      "description": "INCLUDES 006 TACO CIRCULATOR AND CONTROL 20INCH DIAM 49INCH HIGH (2 BOXES) \n1 - WB50 THERMAFLOW AQUABOOSTER 5) GALLON GLASS LINED TANK ONLY 20inch DIAMETER X 49inch HIGH\n1 - WB THERMAFLOW PUMP KIT - CIRCULATOR PACKAGE WITH TACO 006S AND AQUASTAT WITH WELL\n",
-      "cost": 1136.97
+      "guid": "97080a30-bf83-4777-99e2-a516feccb048",
+      "model": "MCG4248TC8P 3.5-4TON CASED COIL MULTIPOSITION R410A TXV ",
+      "modelNum": "1580554",
+      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 25.5INCH TALL - SUPPLY\n20 WIDE 20 DEEP 3/8-7/8 LINESET \nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN NEEDS TO BE 6\" ABOVE HEAT EXCHANGER ",
+      "cost": 709.53
     },
     {
-      "guid": "4b00d75c-6b8b-45c5-acfe-3acf5b6e847f",
-      "model": "WB70 THERMAFLOW AQUABOOSTER  70 GALLON GLASS LINED TANK ONLY",
-      "modelNum": "137515",
-      "description": "*** INCLUDES AQUASTAT *** ",
-      "cost": 1366.07
+      "guid": "1b830fa0-3835-4f6e-8f45-cc541069117d",
+      "model": "MCG48TD2M 4TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1143276",
+      "description": "24inch COMFORT AIRE 24-1/2inch WIDE 21.5 DEEP 30inch TALL - SUPPLY\n23.5 WIDE X 20.5 DEEP 3/8 - 7/8 LINESET LINE\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
+      "cost": 706.53
+    },
+    {
+      "guid": "823461ea-ea11-4cbc-a9e3-8e8a5c8b1a1b",
+      "model": "MCG60TCBP 5TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1580569",
+      "description": "COMFORT AIRE 21INCH WIDE 21 DEEP 31.5INCH TALL - SUPPLY\n20 WIDE 20 DEEP 3/8-7/8 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER ",
+      "cost": 862.53
+    },
+    {
+      "guid": "fe24a678-a48a-42d3-9821-f4cc936bbb29",
+      "model": "MCG60TDAP 5TON CASED A COIL MULTIPOSITION R410A TXV",
+      "modelNum": "1580570",
+      "description": "COMFORT AIRE 24.5INCH WIDE 21 DEEP 27.5INCH TALL - SUPPLY\n23.5 WIDE 20 DEEP 3/8-7/8 LINESET\nDO NOT USE DIRECTLY ON TOP OF OIL FURNACES COIL PAN MUST BE 6\" ABOVE HEAT EXCHANGER",
+      "cost": 787.53
+    },
+    {
+      "guid": "53e643a5-05b4-47b1-97a0-b9fd141c305b",
+      "model": "CCG1824PB1P 2TON UNCASED A COIL R410A 17inch COMFORT AIRE",
+      "modelNum": "1521976",
+      "description": "12inch TALL 3/8 - 3/4 LINESET MATCH 13SEER AND 14SEER CONDENSING UNITS\n17.5H X 16W X 19 D \nPISTON COIL IF TXV IS NEEDED USE TXV KIT 4200. ",
+      "cost": 331.19
+    },
+    {
+      "guid": "fb98b533-0751-45aa-a767-3e4eb112e1ba",
+      "model": "CCG2430PB3P 2.5TON UNCASED A COIL R410A COMFORT AIRE ",
+      "modelNum": "1521978",
+      "description": "3/8 - 3/4 LINESET MATCH 13SEER AND 14SEER CONDENSING UNITS 17.5H X 16W x 19D\n",
+      "cost": 331.19
+    },
+    {
+      "guid": "7e77137b-dc73-4e79-a4ea-3d0f683ec338",
+      "model": "CCG30PA2P 2.5 TON UNCASED A COIL R410A COMFORT AIRE\t",
+      "modelNum": "1522720",
+      "description": "14inch WIDE 19-3/8inch DEEP 17.5inch TALL 3/8 -3/4 LINESET MATCH 13SEER AND 14SEER CONDENSING UNITS\nPISTON COIL IF TXV IS NEEDED USE 4202 TXV KIT\t",
+      "cost": 331.19
+    },
+    {
+      "guid": "acf20220-0964-4759-9a99-ffa14725e502",
+      "model": "CCG36PB7P 3TON UNCASED A COIL R410A COMFORT AIRE\t",
+      "modelNum": "1521828",
+      "description": "16inch WIDE 19-3/8inch DEEP 19.5inch TALL 3/8- 3/4 LINESET MATCH WITH 13SEER AND 14SEER CONDENSING UNITS PISTON IF TXV IS NEEDED USE 4200 TXV KIT.\t",
+      "cost": 391.19
+    },
+    {
+      "guid": "017f620a-0651-4c18-92e6-12cd6ef4cb93",
+      "model": "CCG48PC1M 4TON UNCASED A COIL R410A COMFORT AIRE",
+      "modelNum": "1441948",
+      "description": "19-1/2inch WIDE 19-3/8inch DEEP 25.5 TALL 3/8 - 7/8 LINESET LINE MATCH WITH 13SEER AND 14SEER CONDENSING UNITS\nPISTON COIL IF TXV IS NEEDED USE 4202 TXV KIT",
+      "cost": 517.53
+    },
+    {
+      "guid": "b704ec0d-2379-42f9-914d-0aa2bb902aa5",
+      "model": "CCG48PB1M 4TON UNCASED A COIL R410A COMFORT AIRE",
+      "modelNum": "1441952",
+      "description": "16inch WIDE 19-3/8inch DEEP 25.5 TALL 3/8 - 7/8 LINESET LINE MATCH WITH 13SEER AND 14SER CONDENSING UNITS PISTON COIL IF TXV IS NEEDED USE 4202 TXV KIT\t",
+      "cost": 517.53
+    },
+    {
+      "guid": "efb7bf41-41cb-469e-8157-59f00d5b4353",
+      "model": "CCG60PCAP 5TON UNCASED A COIL R410A COMFORT AIRE",
+      "modelNum": "1605319",
+      "description": "19-1/2inch WIDE 19-3/8inch DEEP 27.5 TALL 3/8 - 7/8 LINESET LINE\nMATCH WITH 13SEER AND 14SEER CONDENSING UNITS PISTON COIL\nIF TXV IS NEEDED USE 4202 TXV KIT",
+      "cost": 565.53
+    }
+  ],
+  "condensers": [
+    {
+      "guid": "e822772a-3ae7-4f19-9cdb-f7086ac5a428",
+      "model": "RSG1318S1M 1.5TON 13SEER R410A CONDENSING UNIT",
+      "modelNum": "1348459",
+      "cost": 901.91,
+      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET\n25 TALL 24-1/4 WIDE 24-1/4 DEEP 20AMP MAX FUSE"
+    },
+    {
+      "guid": "c37b28cd-fd9f-49aa-af38-d16243601704",
+      "model": "RSG1324S1M 2TON 13SEER R410A CONDENSING UNIT",
+      "modelNum": "1348460",
+      "description": "208/230V-1PH COMFORT AIRE\nMUST USE 3/8X3/4 LINESET WITH 5/8X1/2 COUPLING\n25H X 24.25 W X 24.25 DEEP 25AMP MAX FUSE ",
+      "cost": 941.73
+    },
+    {
+      "guid": "1fde13bc-39d4-4670-9c54-dcdd084cf44c",
+      "model": "RSG1330S1M 2.5TON 13SEER R410A CONDENSING UNIT",
+      "modelNum": "1348461",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET\n29 TALL 24-1/4 WIDE 24-1/4 DEEP 25AMP MAX FUSE ",
+      "cost": 1062.66
+    },
+    {
+      "guid": "52bb06c4-44c5-4384-b1ab-dd255c5e66a5",
+      "model": "RSG1336S1M 3TON 13SEER R410A CONDENSING UNIT",
+      "modelNum": "1348462",
+      "description": "208/230V-1PH SCROLL COMFORT AIRE 3/8X3/4 LINESET\n29 TALL 24.25 W X 24.25 D 35 AMP MAX FUSE ",
+      "cost": 1184.8
+    },
+    {
+      "guid": "558076da-0007-4c29-a18d-e3119b91a938",
+      "model": "RSG1348S1M 4TON 13SEER R410A CONDENSING UNIT",
+      "modelNum": "1348464",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET\n33 TALL 28-1/4 WIDE 28-1/4 DEEP 50AMP MAX FUSE ",
+      "cost": 1498.68
+    },
+    {
+      "guid": "d366f7e9-3298-4e53-96ac-1fafda5336e9",
+      "model": "RSG1360S1M 5TON 13SEER R410A CONDENSING UNIT",
+      "modelNum": "1348465",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET FOR PIPING OVER 25 ft. USE 1\"1/8 X 3/8 LINESET\n29 TALL 28-1/4 WIDE 28-1/4 DEEP 60AMP MAX FUSE ",
+      "cost": 1123.25
+    },
+    {
+      "guid": "114d1219-f529-4e40-9409-74f7a442e4fb",
+      "model": "RSG1618S1P 1.5TON 16SEER 1-STG CONDENSING UNIT",
+      "modelNum": "1521612",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET 29 TALL 24-1/4 WIDE 24-1/4 DEEP 20AMP MAX FUSE \nR410A ",
+      "cost": 1123.25
+    },
+    {
+      "guid": "c0bd1159-73c2-4512-a6f4-f1ca7d0a2c0e",
+      "model": "RSG1624S1P 2TON 16SEER 1-STG CONDENSING UNIT",
+      "modelNum": "1521613",
+      "description": " 208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET\n37 TALL 28-1/4 WIDE 28-1/4 DEEP 25AMP MAX FUSE \nR410A ",
+      "cost": 1149.31
+    },
+    {
+      "guid": "e6eb9a2e-97ae-48e4-be9a-bdda295c23c7",
+      "model": "RSG1630S1P 2.5TON 16SEER 1-STG CONDENSING UNIT",
+      "modelNum": "1521614",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X3/4 LINESET \n37 TALL 28-1/4\" WIDE 28-1/4\" DEEP 25AMP MAX FUSE \nR410A ",
+      "cost": 1260.8
+    },
+    {
+      "guid": "75476552-4613-4377-82de-ffe796b6485c",
+      "model": "RSG1636S1P 3TON 16SEER 1-STG CONDENSING UNIT\t",
+      "modelNum": "1521615",
+      "description": "208/230V-1PH SCROLL COMFORT AIRE 3/8X7/8 LINESET\n37 TALL 28-1/4 WIDE 28-1/4 DEEP 35AMP MAX FUSE R410A\t",
+      "cost": 1427.16
+    },
+    {
+      "guid": "1d746433-8d19-4e78-af76-6f1dba39cbe5",
+      "model": "RSG1641S1P 3.5TON 16SEER 1-STG CONDENSING UNIT\t",
+      "modelNum": "1522678",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET\n33 TALL 28-1/4 WIDE 28-1/4 DEEP 40AMP MAX FUSE R410A\t",
+      "cost": 1704.84
+    },
+    {
+      "guid": "ebb9cbc0-d95f-4d45-9d00-ce9604333a7b",
+      "model": "RSG1647S1P 4TON 16SEER 1-STG CONDENSING UNIT",
+      "modelNum": "1521617",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET \n33 TALL 32.25 WIDE 32.25 DEEP 50AMP MAX FUSE R410A ",
+      "cost": 1991.21
+    },
+    {
+      "guid": "34a74ace-4e15-4918-9ba5-19206996be91",
+      "model": "RSG1624S1M 2TON 16SEER 2-STAGE CONDENSING UNIT",
+      "modelNum": "1348466",
+      "description": "208/230V lPH COMFORT AIRE 3/8X3/4inch LINESET REQUIRED\n29.75 TALL 26-3/4 WIDE 24-3/4 DEEP 30 AMP MAX FUSE SIZE R410A",
+      "cost": 1512.3
+    },
+    {
+      "guid": "21d457e4-d5f4-4ac6-8037-50a870aa75a6",
+      "model": "RSG1636S1M 3TON 16SEER 2-STG CONDENSING UNIT\t",
+      "modelNum": "1348467",
+      "description": "208/230V-1PH COMFORT AIRE 3/8X7/8 LINESET 29 3/4 H X 26 3/4 W X 24 3/4 D 30 AMP MAX R410A REQUIRES MUST RUN 18-4 CONTROL WIRE FROM INDOOR TO OUTDOOR UNIT\t",
+      "cost": 1878.95
+    },
+    {
+      "guid": "ebd4b311-7f01-4a3d-8957-45694b824b49",
+      "model": "RSG1648S1M 4TON 16SEER 2-STG CONDENSING UNIT",
+      "modelNum": "1348468",
+      "description": "208/230V-1PH COMFORT AIRE\n3/8X7/8 LINESET 37.75 H X 31.25 W X 29.37 D 45 AMP MAX FUSE R410A\t",
+      "cost": 2263.82
+    }
+  ],
+  "furnaces": [
+    {
+      "guid": "962cdc67-4dbf-4004-88ac-2725aff37c1d",
+      "model": "GUH80C045A3M COMFORTAIRE NATURAL GAS FURNACE UPFLOW/ HORIZ 80% 45K 1-STG ECM 2-3TON 4\" FLUE CONNECTION",
+      "modelNum": "1521641",
+      "cost": 961.53,
+      "description": "33H X 14.5W X 28.375 D SUPPLY OPENING 14.5 W X 19.5 D"
+    },
+    {
+      "guid": "8971e39d-102e-411b-8d99-3f598ba302a4",
+      "model": "GUH80C070B3M GAS FURNACE UPFLOW HORIZ 80% 72K 1-STG ECM 3-5TON COMFORT AIRE",
+      "modelNum": "1521642",
+      "description": "33 H X 17.5W X 28.37 D\nSUPPLY OPENING 16.5 W X 19.5 D",
+      "cost": 1113.07
+    },
+    {
+      "guid": "efb68f87-b934-4802-be58-5df51ae81528",
+      "model": "GUH80C090B4M 80% 90K 1-STG ECM GAS FURNACE UPFLOW - HORIZ 3-5TON COMFORT AIRE",
+      "modelNum": "1521643",
+      "description": "33H X 17.5W X 28.37 D SUPPLY OPENING 17.5 W X 19.5 D",
+      "cost": 1203.07
+    },
+    {
+      "guid": "3ed0e619-99af-4d65-8bf4-698a33eaaccc",
+      "model": "GUH80C110C5M 80% 108K 1-STG ECM GAS FURNACE UPFLOW - HORIZ 3-5TON COMFORT AIRE",
+      "modelNum": "1521644",
+      "description": "33 H X 21 W X 28.37 D SUPPLY OPENING 21 W X 19.5 D",
+      "cost": 1283.07
+    },
+    {
+      "guid": "5ecc22a4-22f7-4998-859f-7be0789addfe",
+      "model": "GUH80C135D5M 80% 106K 1-STG X13 CONSTANT TORQUE GAS FURNACE UPFLOWITH HORIZ 4-5TON COMFORT AIRE",
+      "modelNum": "1521645",
+      "description": "33H X 24.5 W X 28.37D SUPPLY OPENING 24.5 W X 19.5 D 132K BTU IN/105,600 BTU OUT ",
+      "cost": 1353.07
+    },
+    {
+      "guid": "f2cbe149-1efa-46c0-b067-cf39c17fd5a1",
+      "model": "GUH95C045B3M 45K lSTG 95% UPRIGHT OR HORIZONTAL GAS FURNACE 3TON DRIVE",
+      "modelNum": "1348458",
+      "description": "33 HIGH X 17-1/2 WIDE X \n28-1/2 DEEP SUPPLY 16.5 W X 19.5 D",
+      "cost": 1323.07
+    },
+    {
+      "guid": "9ae000ba-94ae-43a7-8df7-a6c29aa6e51b",
+      "model": "GUH95C070B3M 95% 72K 1-STG ECM GAS FURNACE UPFLOWITH HORIZ 3-5TON COMFORT AIRE\t",
+      "modelNum": "1348427",
+      "description": "33inch TALL 28-1/2inch DEEP 17-1/2inch WIDE - SUPPLY OPENING 16.5 WIDE 19-1/2inch DEEP\t",
+      "cost": 1503.07
+    },
+    {
+      "guid": "1300342f-54da-48d7-aaa3-8695a45b4f71",
+      "model": "GUH95C090C4M 95% 90K 1-STG ECM GAS FURNACE UPFLOW WITH HORIZ 2.5-4 TON COMFORT AIRE",
+      "modelNum": "1348428",
+      "description": "33inch TALL 28-1/2inch DEEP 21inch WIDE - SUPPLY OPENING 21 WIDE 19-1/2inch DEEP",
+      "cost": 1553.07
+    },
+    {
+      "guid": "dc134a9b-6613-402f-b6c8-d2bed17cde89",
+      "model": "GUH95C110C5M 95% 106K 1-STG ECM GAS FURNACE UPFLOW WITH HORIZ  4-5TON COMFORT AIRE",
+      "modelNum": "1348429",
+      "description": "33inch TALL 28-1/2inch DEEP 21inch WIDE -SUPPLY OPENING 21 WIDE 19-1/2inch DEEP",
+      "cost": 1623.07
+    },
+    {
+      "guid": "82581fd2-ebce-4aad-a605-931dac4e595c",
+      "model": "GUH95C135D5M 95% 128K 1-STG ECM GAS FURNACE UPFLOWITH HORIZ 4-5TON COMFORT AIRE",
+      "modelNum": "1348430",
+      "description": " 33inch TALL 28-1/2inch DEEP 24-1/2inch WIDE - SUPPLY OPENING 24.5 WIDE 19-1/2inch DEEP 132K BTU IN/128K BTU OUT",
+      "cost": 1713.07
+    },
+    {
+      "guid": "09583186-f633-4ca6-8fd0-d40e128626d0",
+      "model": "GUH96T045B3M 45K 2 STG 96% U/H 3T DRIVE ECM MOTOR",
+      "modelNum": "1348457",
+      "description": "33H X 17-1/2 X 28-1/2 DEEP SUPPLY 17.5 WIDE X 19-1/2 DEEP 1ST STAGE 28K BTU OUT 2ND STAGE 42K BTU OUT",
+      "cost": 1383.07
+    },
+    {
+      "guid": "636c7c43-b442-40cf-9c64-cc77c1579881",
+      "model": "GUH96T070B3M 96% 70K 2-STG VARIABLE GAS FURNACE UPFLOW/HORIZ 3TON DRIVE COMFORT AIRE",
+      "modelNum": "1618295",
+      "description": " 33inch TALL 28inch DEEP 17-1/2inch WIDE - SUPPLY OPENING 17.5 WIDE 19-1/2inch DEEP",
+      "cost": 1643.07
+    },
+    {
+      "guid": "d671615f-6066-4066-a287-77d29b1385a8",
+      "model": "GUH96T090C5M 96% 90K 2-STG ECM VARIABLE SPEED GAS FURNACE UPFLOW HORIZ 5TON COMFORT AIRE",
+      "modelNum": "1348432",
+      "description": "33inch TALL 28.5 DEEP 21inch WIDE - SUPPLY OPENING 21 WIDE 19-1/2inch DEEP FORMERLY GUH95T090C5M",
+      "cost": 1773.07
+    },
+    {
+      "guid": "0480cd55-8175-4653-936d-f5d9ea404c6b",
+      "model": "GUH96T110C5M 95% 100K 2-STG ECM GAS FURNACE UPFLOWITH HORIZ 5TON COMFORT AIRE",
+      "modelNum": "1662410",
+      "description": "33 TALL 28.5 DEEP 21inch WIDE - SUPPLY OPENING \n21 WIDE 19-1/2inch DEEP ",
+      "cost": 2003.07
+    },
+    {
+      "guid": "8fc997d8-1941-4884-9e91-d235fb3216f9",
+      "model": "GUH95T135D5M 95% 135K 2-STG ECM GAS FURNACE UPFLOW/HORIZONTAL 5TON COMFORT AIRE",
+      "modelNum": "1348434",
+      "description": "33inch TALL 28.5 DEEP 24-1/2inch WIDE - SUPPLY OPENING 24.5 WIDE 19-1/2 DEEP",
+      "cost": 2163.33
+    },
+    {
+      "guid": "8b871601-5c9f-44b3-9704-f0118c41baa2",
+      "model": "GUH97M070B3M 97% 70K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL ",
+      "modelNum": "1461107",
+      "description": "3TON DRIVE COMFORT AIRE\n33inch TALL 28.5 DEEP 17-1/2inch WIDE - SUPPLY OPENING 17.5 WIDE 19-1/2inch DEEP",
+      "cost": 2883.33
+    },
+    {
+      "guid": "c0decef9-46cd-4678-ba7d-c11a3f98f4bd",
+      "model": "GUH97M090C5M 97% 90K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL",
+      "modelNum": "1461109",
+      "description": "5TON DRIVE\n33inch TALL 28.5 DEEP 21inch WIDE -SUPPLY OPENING 21 WIDE 19-1/2inch DEEP",
+      "cost": 2443.33
+    },
+    {
+      "guid": "e348aeac-97b9-44b4-969e-ee7b09a97e2c",
+      "model": "GUH97M110C5M 97% 110K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL",
+      "modelNum": "1461111",
+      "description": "5TON DRIVE\nCOMFORT AIRE 33 TALL 28.5 DEEP 21inch WIDE - SUPPLY OPENING\n21 WIDE 19-1/2inch DEEP",
+      "cost": 2643.33
+    },
+    {
+      "guid": "490d5f6f-79b0-4f28-851b-13897aff9018",
+      "model": "GUH97M135D5M 97% 135K MODULATING VARIABLE SPEED COMFORT AIRE GAS FURNACE UPFLOW/HORIZONTAL",
+      "modelNum": "1461110",
+      "description": "5TON DRIVE\nCOMFORT AIRE 33inch TALL 28.5 DEEP 24-1/2inch WIDE - SUPPLY OPENING 24.5 W 19 1/2 D",
+      "cost": 2803.33
+    }
+  ],
+  "general": [
+    {
+      "guid": "2803da02-5ee3-42d5-8603-ee461d676894",
+      "model": "4200 COMFORT-AIRE R410A TXV",
+      "modelNum": "1178795",
+      "cost": 122.13,
+      "description": "1.5-3TON FITS CCG MCG VCG COILS AND HWCG AIR HANDLERS "
+    },
+    {
+      "guid": "521e35bc-22c0-469f-b284-6129bc26d4ee",
+      "model": "4202 COMFORT-AIRE R410A TXV",
+      "modelNum": "1178796",
+      "description": "3.5-5TON FITS CCG MCG VCG COILS AND HWCG AIR HANDLERS",
+      "cost": 116.13
+    },
+    {
+      "guid": "d2306e51-6be2-4999-8ca0-df564c55bcc0",
+      "model": "12S08 COMFORT AIRE 7.5KW ELECTRIC",
+      "modelNum": "1500264",
+      "description": "HEAT FOR HCG HMG AIR HANDLERS WITH CIRCUIT BREAKER ",
+      "cost": 207.13
+    },
+    {
+      "guid": "6e9d4bd0-36d6-4e53-a597-61168d57165e",
+      "model": "12S60 COMFORT AIRE 9 KW ELECTRIC HEAT",
+      "modelNum": "1353481",
+      "description": "FOR HCG HMG AIR HANDLERS INCLUDES CIRCUIT BREAKER \nFITS NEW \"M\" SERIES ",
+      "cost": 214.63
+    },
+    {
+      "guid": "68018b7f-dcf4-4696-a4e5-cd5f1587fccd",
+      "model": "12S77 COMFORT AIRE 12.5 KW ELECTRIC HEAT",
+      "modelNum": "1353482",
+      "description": "FOR HCG HMG AIR HANDLERS INCLUDES CIRCUIT BREAKER \n(old# 12R77) ",
+      "cost": 325.19
+    },
+    {
+      "guid": "8567861c-9991-4277-bf5e-a5721330d0bb",
+      "model": "12S88 COMFORT AIRE 20KW ELECTRIC HEAT",
+      "modelNum": "1435610",
+      "description": "FOR HCG AIR HANDLERS INCLUDES CIRCUIT BREAKER ",
+      "cost": 355.19
+    },
+    {
+      "guid": "b0ea4baf-df2a-44a3-88ae-1813783156aa",
+      "model": "11K50 COMFORT AIRE LP KIT FOR GUH ",
+      "modelNum": "1351838",
+      "description": "80A 92A 95C BOC FITS NEW \"M\" SERIES \nSINGLE STAGE HEATING ",
+      "cost": 152.13
+    },
+    {
+      "guid": "43a4e454-e63e-4a61-a41d-99c4f44d5979",
+      "model": "11K48 COMFORT AIRE LP KIT FOR GUH ",
+      "modelNum": "1351836",
+      "description": "95T AND 96T MODELS ONLY \n2-STAGE HEATING FITS NEW \"M\" SERIES",
+      "cost": 146.13
+    },
+    {
+      "guid": "ee4c73ff-4104-48e5-a3f2-4f9fe1ceb639",
+      "model": "WB THERMAFLOW PUMP KIT",
+      "modelNum": "439437",
+      "description": "CIRCULATOR PACKAGE WITH TACO 006S AND AQUASTAT WITH WELL",
+      "cost": 270.77
+    },
+    {
+      "guid": "1d8b34bc-0f45-4c0f-a72d-50945928f94f",
+      "model": "2315001001 ROTH 275gal 3/8\" DUPLEX",
+      "modelNum": "592999",
+      "description": "INSTALL KIT WITH: VENT ALARM, GAUGE, 3/8inch DUPLEX BUSHING\n(FEMALE ADAPTER INCLUDED WITH TANK)",
+      "cost": 86.49
+    },
+    {
+      "guid": "e2c9e8f7-09fd-420b-ae4d-46692aa82fc7",
+      "model": "2315001002 ROTH 275gal 1/2\" DUPLEX",
+      "modelNum": "1269288",
+      "description": "INSTALL KIT WITH: VENT ALARM AND GAUGE,l/2inch DUPLEX BUSHING\n(FEMALE ADAPTER INCLUDED WITH TANK) ",
+      "cost": 90.75
+    },
+    {
+      "guid": "21ed7689-d415-4a0d-867a-fe378407823a",
+      "model": "2335100757 ROTH RAIN CAP",
+      "modelNum": "745551",
+      "description": "FOR 1000L 275gallon TANK ",
+      "cost": 245.13
+    },
+    {
+      "guid": "1783034b-0a00-4724-8f96-56c286a5293b",
+      "model": "2335001863 ROTH TANK GAUGE FOR 620L and 1000L",
+      "modelNum": "255838",
+      "description": "(165g and 275g) ",
+      "cost": 28.32
+    },
+    {
+      "guid": "a1a5208b-5fd9-4648-b6a2-e93c42a0c7b3",
+      "model": "5517 OEM ROTH VENTALARM",
+      "modelNum": "427789",
+      "description": "FITS UNDER UNION NUT FOR ROTH TANKS 2350000999",
+      "cost": 23.29
+    },
+    {
+      "guid": "0693ddde-10aa-4870-9e8d-e4b88d8fdadb",
+      "model": "5475 OEM DWT 2x3/8inch DUPLEX TANK BUSHING W/ COMPRESSION ADAPTERS",
+      "modelNum": "427792",
+      "description": "MOUNTS UNDER UNION NUT FOR DWT TYPE TANKS ",
+      "cost": 20.89
+    },
+    {
+      "guid": "f6134d2e-eaec-4353-b690-1456610a5b74",
+      "model": "5476 OEM DWT 2xl/2inch DUPLEX TANK BUSHING W/ COMPRESSION ADAPTERS",
+      "modelNum": "427793",
+      "description": "MOUNTS UNDER UNION NUT FOR DWT TYPE TANKS",
+      "cost": 22.51
+    },
+    {
+      "guid": "8814062e-17f3-4ef5-a529-70b2a42dcd6d",
+      "model": "2315001102 ROTH 275gal 1/211 LOWBOY",
+      "modelNum": "1642255",
+      "description": "INSTALL KIT FOR 1000LH \nINCLUDES: LOWBOY-VENT ALARM, GAUGE, 1/2inch DUPLEX BUSHING \n(FEMALE ADAPTER INCLUDED WITH TANK)",
+      "cost": 69.29
+    },
+    {
+      "guid": "e1207b1e-0129-4c79-bb0e-36eb260f574f",
+      "model": "2335003832 ROTH LOWBOY TANK GAUGE FOR 1000LH OIL TANK",
+      "modelNum": "1454121",
+      "description": "",
+      "cost": 28.39
+    },
+    {
+      "guid": "582f47f8-3fd1-4591-adf9-ce426dbb4594",
+      "model": "2335003721 ROTH LOWBOY RAIN CAP",
+      "modelNum": "1133781",
+      "description": "FOR 1000LH OIL TANK",
+      "cost": 271.19
+    },
+    {
+      "guid": "d07341b7-75c3-45ed-8baa-6ad74ff12c96",
+      "model": "2315001501 ROTH 400gal 3/8\" DUPLEX",
+      "modelNum": "1269300",
+      "description": "INSTALL KIT FOR 1500L INCLUDES: VENT ALARM, GAUGE AND DUP BUSHING\n(FEMALE ADAPTER INCLUDED WITH TANK)",
+      "cost": 86.49
+    },
+    {
+      "guid": "01ea7779-d3af-4829-8e43-4e0c02d84668",
+      "model": "2335002054 ROTH RAIN CAP FOR 1500L 400gallon TANK ",
+      "modelNum": "666410",
+      "description": "",
+      "cost": 302.69
+    },
+    {
+      "guid": "d2acba14-d8e4-4f1e-97eb-988338c68c05",
+      "model": "2335000191 ROTH TANK GAUGE FOR 1500L 400 GALLON ",
+      "modelNum": "722332",
+      "description": "",
+      "cost": 29.79
+    },
+    {
+      "guid": "ab6e05b6-9b80-4e31-88f9-16505420fd88",
+      "model": "386700428 WEIL MCLAIN CARLIN BURNER",
+      "modelNum": "678408",
+      "description": "FOR 3 SECTION GOLD BOILER ",
+      "cost": 511.04
+    },
+    {
+      "guid": "76683fa8-68f2-424b-a8ef-e90d550cdcc3",
+      "model": "386700408 WEIL MCLAIN BECKETT BURNER FOR 6 SECTION GOLD ",
+      "modelNum": "678407",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "b106dee3-67d8-4ebf-8019-ebcba3a4ab9f",
+      "model": "386700436 WEIL MCLAIN CARLIN BURNER FOR 5 SECTION GOLD",
+      "modelNum": "678409",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "4ac9ced2-7411-44d9-ae5a-61a2cefc57e4",
+      "model": "386700432 WEIL MCLAIN CARLIN BURNER  FOR 4 SECTION GOLD BOILER",
+      "modelNum": "678345",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "33c16c25-c9ed-4bdf-b089-a52a71dffc7a",
+      "model": "416700170 WEIL MCLAIN WGO-7 JACKET",
+      "modelNum": "678434",
+      "description": "",
+      "cost": 232.5
+    },
+    {
+      "guid": "9c324c8d-a2ea-48aa-8111-f316e7134f44",
+      "model": "450020188 WEIL MCLAIN WGO/WTGO-7 COLLECT HOOD ",
+      "modelNum": "678437",
+      "description": "",
+      "cost": 50.84
+    },
+    {
+      "guid": "1e25e563-4380-4e52-bb2d-2ce5bf82cb01",
+      "model": "416700172 WEIL MCLAIN WGO-8 JACKET",
+      "modelNum": "794004",
+      "description": "",
+      "cost": 246.04
+    },
+    {
+      "guid": "d7a634be-d99a-4490-b424-d88972932065",
+      "model": "450020189 WEIL MCLAIN WGO/WTGO-8 COLLECTOR HOOD ",
+      "modelNum": "728007",
+      "description": "",
+      "cost": 52.88
+    },
+    {
+      "guid": "1757dbae-6492-4aba-8246-a6d1a5a28a73",
+      "model": "416700174 WEIL-MCLAIN WGO-9 JACKET",
+      "modelNum": "755181",
+      "description": "",
+      "cost": 251.46
+    },
+    {
+      "guid": "543e0295-282d-4f59-9420-b3a84daff7d0",
+      "model": "450020190 WEIL-MCLAIN WGO/WTGO 9 COLLECT HOOD",
+      "modelNum": "755182",
+      "description": "",
+      "cost": 56.94
+    },
+    {
+      "guid": "38781cb1-8a96-44a8-947c-edf0de656ae8",
+      "model": "386700861 WATER TRIM W/CONTROL FOR WEIL MCLAIN WGO",
+      "modelNum": "707044",
+      "description": "",
+      "cost": 357.19
+    },
+    {
+      "guid": "63d3844c-2896-404e-a6ac-5f54200c6e1c",
+      "model": "386700412 WEIL MCLAIN WGO-7 BECKETT BURNER",
+      "modelNum": "706566",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "47d1188f-ad7d-422c-b58c-a4e50ff7b9f1",
+      "model": "386700416 WEIL MCLAIN WGO-8 BECKETT OIL BURNER",
+      "modelNum": "725364",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "c73862ba-e1ac-42b5-8b2d-e7a43ac10e55",
+      "model": "386700420 WEIL-MCLAIN WGO-9 BECKETT OIL BURNER ONLY",
+      "modelNum": "755183",
+      "description": "",
+      "cost": 511.04
+    },
+    {
+      "guid": "2b461f45-c8e9-4538-ba6e-0b0ddf0f5021",
+      "model": "386700440 WEIL MCLAIN 21D64-2CARLIN BURNER FOR 6 SECTION GOLD ",
+      "modelNum": "678410",
+      "description": "",
+      "cost": 511.62
+    },
+    {
+      "guid": "d2a0c862-8b77-472d-af26-d95cf68c4520",
+      "model": "416700182 WEIL MCLAIN SGO-7 JACKET",
+      "modelNum": "706563",
+      "description": "",
+      "cost": 229.09
+    },
+    {
+      "guid": "54770af8-0117-4613-b21c-fbbc93367a5f",
+      "model": "450020191 WEIL MCLAIN SGO-7  COLLECTOR HOOD",
+      "modelNum": "706565",
+      "description": "",
+      "cost": 47.46
+    },
+    {
+      "guid": "53a3a34e-587e-44b8-9a43-33c923badf14",
+      "model": "416700184 SGO8 JACKET ASSEMBLY WEIL MCLAIN STEAM OIL GOLD",
+      "modelNum": "828019",
+      "description": "",
+      "cost": 244.68
+    },
+    {
+      "guid": "34fa9098-0519-4894-980d-9db56d8dadc8",
+      "model": "450020192 SGO-8 WEIL MCLAIN STEAM GOLD OIL COLLECT HOOD",
+      "modelNum": "828020",
+      "description": "",
+      "cost": 50.84
+    },
+    {
+      "guid": "e0665bd3-13e8-465b-9e72-87a4644b9e68",
+      "model": "W-M 416700186 BX JKT SGO9 S3 UL726 ",
+      "modelNum": "1669279",
+      "description": "",
+      "cost": 249.42
+    },
+    {
+      "guid": "b9a4bada-f04c-40a3-a95d-93fd2ca6d0c3",
+      "model": "W-M 450020193 SGO-9 COLLECT HOOD",
+      "modelNum": "1669280",
+      "description": "MUST ADD STEAM CONTROLS TO THE 7-9",
+      "cost": 54.24
+    },
+    {
+      "guid": "ad0c19c9-da3e-4a7b-99f2-502b1ff2eb09",
+      "model": "691034",
+      "modelNum": "386700046 WEIL MCLAIN SGO STEAM",
+      "description": "TRIM (!386700870) ",
+      "cost": 353.8
+    }
+  ],
+  "heat_pumps": [
+    {
+      "guid": "ca9b97ed-b2ed-47b8-b182-43487ff39b94",
+      "model": "HRG1424S1P 2TON R410A 208/230-lPH COMFORT AIRE 14 SEER HEAT PUMP",
+      "modelNum": "1521619",
+      "cost": 2023.33,
+      "description": "3/4X3/8 LINE SET \n37H X 28.25W X 28.25D "
+    },
+    {
+      "guid": "0cb98a5c-98c1-4ea9-b06a-5114c64c6d87",
+      "model": "HRG1430S1P HEAT PUMP 2.5TON R410A 208/230V-1PH 14SEER SCROLL COMFORT AIRE",
+      "modelNum": "1521620",
+      "description": "38X34 LINSET \n37H X 28.25W X 28.25D ",
+      "cost": 2183.33
+    },
+    {
+      "guid": "5b8573d1-8a50-419c-bab5-8b92c79b1d2d",
+      "model": "HRG1436S1P 3TON R410A COMFORTAIRE HEAT PUMP 14 SEER",
+      "modelNum": "1521621",
+      "description": "38X78 LINESET 37H X 28.25W X 28.25D",
+      "cost": 2403.33
+    },
+    {
+      "guid": "333a4875-66ba-499c-9738-5ffc7cba8ff5",
+      "model": "HRG1442S1P 3.5TON R410A 208/230-1 COMFORT AIRE 14 SEER\t",
+      "modelNum": "1521622",
+      "description": "38X78 LINESET 37H X 32.25W X 32.25D",
+      "cost": 2703.33
+    },
+    {
+      "guid": "2cba892b-534b-47cf-915a-e927f7f4fd86",
+      "model": "HRG1460S1P 5TON R410A 208/230-lPH COMFORT AIRE ",
+      "modelNum": "1521624",
+      "description": "14 SEER 38X78 LINESET \n37H X 32.25W X 32.25D ",
+      "cost": 3383.33
+    },
+    {
+      "guid": "878af2c7-4ed7-481e-a1d1-662c7d2651b2",
+      "model": "HRG1624S1P HEAT PUMP 2TON R410A 208/230V-1PH 16SEER SCROLL COMFORT AIRE TWO STAGE COMPRESSOR ",
+      "modelNum": "1521625",
+      "description": "38X34 LINSET \n33.75H X 24.75W X 26.75D ",
+      "cost": 2023.33
+    },
+    {
+      "guid": "2def957b-5b2d-4625-a090-3f4744c91c94",
+      "model": "HRG1836S1P COMFORTAIRE 1.5-3 TON INVERTER HEAT PUMP 18 SEER R410A",
+      "modelNum": "1690540",
+      "description": "208/230V lPH 196LBS 33.75 H X 29.38 W X 31.25 D 38 X 34 LINE SET",
+      "cost": 3523.33
+    },
+    {
+      "guid": "d50aeda0-a583-4277-980c-f5cdfac23708",
+      "model": "HRG1860S1P 4-5 TON COMFORTAIRE 18 SEER HEAT PUMP WITH INVERTER COMPRESSOR R410A",
+      "modelNum": "1684599",
+      "description": "208/230V lPH 29 W 29 W X 31.25 DX 43.75 H \n1 1/8 x 3/8 LINE SET ",
+      "cost": 5463.33
     }
   ],
   "oil_tanks": [
@@ -1585,6 +1436,155 @@
       "modelNum": "1269279",
       "description": "1500L OIL TANK 64x30x68 LxWxH\n312 LBS",
       "cost": 1735.94
+    }
+  ],
+  "water_heaters": [
+    {
+      "guid": "cfbb483d-a0c2-42dc-8dd9-1a2b2bb047be",
+      "model": "HPTU80N AO SMITH 80GALLON 10 YR 202172S19",
+      "modelNum": "202172S19",
+      "cost": 2721.39,
+      "description": "4500/4500KW 4-240V ELECTRIC HEAT PUMP WATER HEATER 69inch X 27inch EF 3.07 100325928 30amp lphase "
+    },
+    {
+      "guid": "5b95e976-1743-42ae-bf32-9c147f957c1e",
+      "model": "HPTU50N AO SMITH 50 GALLON VOLTEX HIGH EFFECIENCY RESIDENTIAL HYBRID",
+      "modelNum": "1308884",
+      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH 4500/4500 WATTS ELEMENTS 240 VOLT (63x22inch) EF 3.24 UEF 3.45 700 CUBIC FT MAKE-UP AIR REQUIRED 100319870 ",
+      "cost": 1761.85
+    },
+    {
+      "guid": "2c4622a3-0603-44c9-982d-bf1bc4d9e03f",
+      "model": "HPTU66N AO SMITH 66 GALLON VOLTEX HIGH EFICIENCY RESIDENTIAL HYBRID",
+      "modelNum": "1308886",
+      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH 4500/4500 WATTS ELEMENTS 240VOLT (61x27inches) UEF 3.45 EF 3.17 100319013",
+      "cost": 2242.78
+    },
+    {
+      "guid": "21ac2c10-b9b1-4dbf-b285-04928aee4ded",
+      "model": "HPTS-50 AO SMITH 50 GALLON VOLTEX AL SMART HIGH EFFECIENCY RESIDENTIAL HYBRID",
+      "modelNum": "1694719",
+      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH \n4500/4500 WATTS ELEMENTS 240 VOLT INTEGRATED ICOMM SMART CONNECTIVITY (63x22inch) UEF 3.80 100350404 ",
+      "cost": 1889.02
+    },
+    {
+      "guid": "34d19599-9e52-4bdb-bd42-85d43a37adaa",
+      "model": "HPTS-66 AO SMITH 66 GALLON VOLTEX AL SMART HIGH EFFECIENCY RESIDENTIAL HYBRID",
+      "modelNum": "1694720",
+      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH \n4500/4500 WATTS ELEMENTS 240 VOLT INTEGRATED ICOMM SMART CONNECTIVITY \n(61-1/2x26-1/2inch) UEF 4.02 100350405 ",
+      "cost": 2369.95
+    },
+    {
+      "guid": "c05d5fca-593e-456f-b5fc-dd6f6a15452f",
+      "model": "HPTS-80 AO SMITH 80 GALLON VOLTEX AL SMART HIGH EFFECIENCY RESIDENTIAL HYBRID",
+      "modelNum": "1694721",
+      "description": "10 YEAR ELECTRIC HEAT PUMP WATER HEATER WITH \n4500/4500 WATTS ELEMENTS 240 VOLT INTEGRATED ICOMM SMART CONNECTIVITY \n(69x26-1/2inch) UEF 3.88 100350407 ",
+      "cost": 2848.56
+    },
+    {
+      "guid": "80ba137b-0163-4d6b-a41a-5f6e93d3fd5a",
+      "model": "PNT50 AO SMITH 50GAL l0YR ELECTRIC WATER HEATER",
+      "modelNum": "1158024",
+      "description": "4.5KW 240VSINGLE PHASE 60-1/2x22inch OLD#'S 9241360001 100159171\nNEW# 100233996",
+      "cost": 745.67
+    },
+    {
+      "guid": "6d7de5f7-d4ed-48a2-9683-3c65cdd7a322",
+      "model": "NPE-180S2 NAVIEN TANKLESS WATER ",
+      "modelNum": "1650455",
+      "description": "HEATER PNPE0020024G001",
+      "cost": 912.57
+    },
+    {
+      "guid": "48aa02d8-fd17-4faf-a3d8-614ada48d160",
+      "model": "NPE-180A2 NAVIEN WITH COMFORTFLO",
+      "modelNum": "1650454",
+      "description": "ECIRC AND BUFFER TANK TANKLESS\nWATER HEATER PNPE0020024B001 ",
+      "cost": 1087.44
+    },
+    {
+      "guid": "f66be4da-6bd5-4042-a3d2-f4cbf754130d",
+      "model": "NPE-210S2 NAVIEN TANKLESS WATER",
+      "modelNum": "1650457",
+      "description": "HEATER PNPE0020029G001",
+      "cost": 1010.93
+    },
+    {
+      "guid": "1bc4520a-8f52-4430-9156-db1d4e0d066a",
+      "model": "NPE-210A2 NAVIEN WITH COMFORTFLOW",
+      "modelNum": "1650456",
+      "description": "RECIRC AND BUFFER TANK TANKLESS",
+      "cost": 1218.58
+    },
+    {
+      "guid": "a361e599-bf25-486c-ba27-a4f01e7db5a1",
+      "model": "WATER HEATER PNPE0020029B001 ",
+      "modelNum": "1650459",
+      "description": "HEATER PNPE0020032G0015 \n67* RISE @ 5.7 GPM 19,900-199,900 BTU/H 3/4 HOT AND COLD CONNECTIONS 2 INCH FLUE CONNECTIONS ",
+      "cost": 1109.29
+    },
+    {
+      "guid": "5bbdf5ae-636a-4788-8633-c532807cd974",
+      "model": "NPE-240A2 NAVIEN WITH COMFORTFLOW",
+      "modelNum": "1650458",
+      "description": "RECIRC AND BUFFER TANK TANKLESS WATER HEATER PNPE0020032B001",
+      "cost": 1355.2
+    },
+    {
+      "guid": "fb4bb134-83c9-4ae8-ac3c-de72f964137c",
+      "model": "S30GL COMPLETE CARLIN CENTER FLUE THERMAFLOW OIL FIRED WATER HEATER",
+      "modelNum": "39607",
+      "description": "DUAL PRE-WIRED AQUASTAT 30 GALLON\n************** Kit Components **************\n1 - S30GL TANK ONLY CENTER FLUE\nTHERMAFLOW OIL FIRED WATER HR\\TER 30 GALLON 48inch HIGH X 22inc1 DIAMETER 6inch FLUE \n\n1 - 30gal CARLIN BURNER ONLY THERJ .fAFLOW EZ-1 96779AE3",
+      "cost": 1753.77
+    },
+    {
+      "guid": "9c2b0ea4-99c5-4008-a65a-6c4150caff0c",
+      "model": "S50GL COMPLETE CARLIN CENTER FLUE THERMAFLOW OIL FIRED WATER HEATER",
+      "modelNum": "39608",
+      "description": "DUAL PRE-WIRED AQUASTAT 50 GALLON 3/4inch TAPPINGS AND 6inch FLUE \n************** Kit Components ************** \n1 - S50GL TANK ONLY CENTER FLUE THERMAFLOW OIL FIRED WATER HEATER \n1 - 50gal CARLIN BURNER ONLY THERMAFLOW\n\n",
+      "cost": 2447.88
+    },
+    {
+      "guid": "1ca3c771-4b8a-456b-9532-2ebebdc4104e",
+      "model": "E30GL TANK ONLY REAR FLUE THERMAFLOW OIL FIRED WATER HEATER",
+      "modelNum": "39609",
+      "description": "30 GALLON 58inch HIGH X 22inch 3/4inch MALE TAPPINGS 6inch FLUE USE 3/4inch WATTS 100XL-8 RELIEF VALVE ",
+      "cost": 1403.07
+    },
+    {
+      "guid": "9343346f-2f1a-4487-9632-f001c5dad3f9",
+      "model": "30gal CARLIN BURNER ONLY THERMAFLOW  EZ-1 96779AE3",
+      "modelNum": "39614",
+      "description": "",
+      "cost": 541.53
+    },
+    {
+      "guid": "82e07e3b-6cf7-4a1b-9d5d-03d387025134",
+      "model": "E50GL TANK ONLY REAR FLUE THERMAFLOW OIL FIRED WATER HEATER",
+      "modelNum": "39610",
+      "description": "50 GALLON 69inch HIGH X 26inch 3/4inch MALE TAPPINGS 6inch FLUE ",
+      "cost": 2143.33
+    },
+    {
+      "guid": "9ce2d58a-0b3c-42ce-aa45-406d709326fc",
+      "model": "50gal CARLIN BURNER ONLY THERMAFLOW EZ-1 96779AE5",
+      "modelNum": "39615",
+      "description": "",
+      "cost": 553.53
+    },
+    {
+      "guid": "c0166403-5c10-4ee5-9419-e39140ad57cc",
+      "model": "E70GL THERMAFLOW REAR FLUE TANK ",
+      "modelNum": "39611",
+      "description": "ONLY FOR OIL FIRED WATER HEATER -70 GALLON 74-1/2inch HIGH X 26inch DIAMETER 1inch MALE TAPPINGS 6inch FLUE USE 3/4inch RELIEF VALVE",
+      "cost": 2643.33
+    },
+    {
+      "guid": "3cab4af1-7cc0-489d-8f17-c271ab421be0",
+      "model": "70gal CARLIN BURNER ONLY THERMAFLOW EZ-1 96779AE7",
+      "modelNum": "39616",
+      "description": "WIRED WITH 90000B10Sl",
+      "cost": 571.53
     }
   ]
 }

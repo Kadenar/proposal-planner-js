@@ -39,6 +39,13 @@ export interface ClientObject extends NewClientObject {
   guid: string;
 }
 
+export interface ContactObject {
+  guid: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export interface Fee {
   guid: string;
   name: string;
