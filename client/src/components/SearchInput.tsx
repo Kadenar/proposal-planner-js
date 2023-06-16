@@ -1,10 +1,4 @@
-import {
-  FunctionComponent,
-  useState,
-  useEffect,
-  KeyboardEvent,
-  ChangeEvent,
-} from "react";
+import { FunctionComponent, useState, useEffect, ChangeEvent } from "react";
 
 import {
   FormControl,
@@ -18,6 +12,12 @@ import ClearIcon from "@mui/icons-material/Clear";
 import PersonIcon from "@mui/icons-material/Person";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import HeatPumpIcon from "@mui/icons-material/HeatPump";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import HotTubIcon from "@mui/icons-material/HotTub";
+import OilBarrelIcon from "@mui/icons-material/OilBarrel";
+
 import { StyledSearch, StyledSearchItem } from "./StyledComponents";
 import { useAppDispatch, useAppSelector } from "../services/store";
 import { updateActiveClient } from "../services/slices/clientsSlice";
@@ -163,12 +163,37 @@ const SearchResults = ({
 
     Object.keys(products).forEach((category) => {
       products[category].forEach((product) => {
-        if (product.model.toLowerCase().includes(value.toLowerCase())) {
+        if (
+          product.model.toLowerCase().includes(value.toLowerCase()) ||
+          product.description.toLowerCase().includes(value.toLowerCase()) ||
+          product.modelNum.toLowerCase() === value.toLowerCase()
+        ) {
           const categorySanitized = category.replaceAll("_", " ") || " ";
-          allResults.push({
-            icon: <ShoppingCartIcon />,
-            name: product.model,
+          let icon = <ShoppingCartIcon />;
 
+          if (category === "furnaces" || category === "boilers") {
+            icon = <LocalFireDepartmentIcon />;
+          } else if (
+            category === "mini_splits" ||
+            category === "air_handlers" ||
+            category === "condensers" ||
+            category === "coils"
+          ) {
+            icon = <AcUnitIcon />;
+          } else if (category === "heat_pumps") {
+            icon = <HeatPumpIcon />;
+          } else if (
+            category === "water_heaters" ||
+            category === "aqua_boosters"
+          ) {
+            icon = <HotTubIcon />;
+          } else if (category === "oil_tanks") {
+            icon = <OilBarrelIcon />;
+          }
+
+          allResults.push({
+            icon,
+            name: product.model,
             action: () => {
               callBack();
               productDialog({
@@ -183,13 +208,21 @@ const SearchResults = ({
                 },
                 modelName: product.model,
                 modelNum: product.modelNum,
+                description: product.description,
                 cost: product.cost,
-                onSubmit: async (filter, modelName, modelNum, cost) => {
+                onSubmit: async (
+                  filter,
+                  modelName,
+                  modelNum,
+                  description,
+                  cost
+                ) => {
                   return editProduct(dispatch, {
                     guid: product.guid,
                     filter_guid: filter?.guid,
                     modelName,
                     modelNum,
+                    description,
                     cost,
                     image: undefined,
                   });

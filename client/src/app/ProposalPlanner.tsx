@@ -44,7 +44,6 @@ const ProposalPlanner = () => {
 
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
-    console.log("*********** Loading Data from BACKEND SERVER! *********** ");
     batch(() => {
       dispatch(initializeProductTypes());
       dispatch(initializeMultipliers());

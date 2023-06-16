@@ -53,7 +53,7 @@ export default function ProductsForProposal() {
             proposalProducts.map((product, index) => {
               const { model, modelNum, qty, cost } = product;
               return (
-                <TableRow key={model + index}>
+                <TableRow key={`table-row-${modelNum}-${index}`}>
                   <TableCell>{model}</TableCell>
                   <TableCell>{getQuoteName(product.quote_option)}</TableCell>
                   <TableCell>{modelNum}</TableCell>
@@ -75,7 +75,7 @@ export default function ProductsForProposal() {
               );
             })
           ) : (
-            <TableRow>
+            <TableRow key="no-products-yet-row">
               <BoldedTableCell align="center" colSpan={7}>
                 No products added yet
               </BoldedTableCell>

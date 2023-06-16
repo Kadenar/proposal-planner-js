@@ -25,15 +25,25 @@ export async function addProduct(
   filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
+  description: string,
   cost: number,
   image?: any
 ) {
   try {
     validateProductInfo(filter_guid, modelName, modelNum, cost);
   } catch (e) {
+    if (e instanceof Error) {
+      return {
+        status: 500,
+        data: { message: e.message },
+      };
+    }
+
     return {
       status: 500,
-      data: { message: e },
+      data: {
+        message: "Internal server error - Could not validate product info.",
+      },
     };
   }
 
@@ -62,6 +72,7 @@ export async function addProduct(
         model: modelName,
         modelNum,
         cost,
+        description,
         image,
       },
     ];
@@ -72,6 +83,7 @@ export async function addProduct(
         guid: crypto.randomUUID(),
         model: modelName,
         modelNum,
+        description,
         cost,
         image,
       },
@@ -98,15 +110,25 @@ export async function editExistingProduct(
   filter_guid: string | undefined,
   modelName: string,
   modelNum: string,
+  description: string,
   cost: number,
   image?: any
 ) {
   try {
     validateProductInfo(filter_guid, modelName, modelNum, cost);
-  } catch (e) {
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      return {
+        status: 500,
+        data: { message: e.message },
+      };
+    }
+
     return {
       status: 500,
-      data: { message: e },
+      data: {
+        message: "Internal server error - Could not validate product info.",
+      },
     };
   }
 
@@ -133,6 +155,7 @@ export async function editExistingProduct(
     model: modelName,
     modelNum,
     cost,
+    description,
     image,
   };
 
@@ -166,6 +189,7 @@ export const flattenProductData = (productData: PsuedoObjectOfProducts) => {
         model: model.model,
         modelNum: model.modelNum,
         cost: model.cost,
+        description: model.description,
         guid: model.guid,
         image: model.image,
       });

@@ -3,6 +3,7 @@ export interface ProductObject {
   guid: string;
   model: string;
   modelNum: string;
+  description: string;
   cost: number;
   image?: any;
 }

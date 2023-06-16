@@ -38,9 +38,16 @@ export default function AllProductsView() {
             filter: filters[0],
             modelName: "",
             modelNum: "",
+            description: "",
             cost: 0,
-            onSubmit: async (filter, modelName, modelNum, cost) =>
-              addProduct(dispatch, { filter, modelName, modelNum, cost }),
+            onSubmit: async (filter, modelName, modelNum, description, cost) =>
+              addProduct(dispatch, {
+                filter,
+                modelName,
+                modelNum,
+                description,
+                cost,
+              }),
           })
         }
       />
@@ -48,17 +55,24 @@ export default function AllProductsView() {
       <MaterialTable
         title={"Products management"}
         columns={[
-          { title: "Type", field: "productLabel" },
+          { title: "Type", field: "productLabel", width: "250px" },
           { title: "Model name", field: "model" },
           {
             title: "Model #",
             field: "modelNum",
+            width: "300px",
+          },
+          {
+            title: "Description",
+            field: "description",
+            width: "700px",
           },
           {
             title: "Unit cost",
             field: "cost",
             type: "currency",
             searchable: false,
+            width: "300px",
           },
         ]}
         data={flattenedProductData.map((model) => {
@@ -73,6 +87,7 @@ export default function AllProductsView() {
               modelNameSanitized.slice(1),
             model: model.model,
             modelNum: model.modelNum,
+            description: model.description,
             cost: model.cost,
             guid: model.guid,
           };
@@ -104,13 +119,21 @@ export default function AllProductsView() {
                 },
                 modelName: rowData.model,
                 modelNum: rowData.modelNum,
+                description: rowData.description,
                 cost: rowData.cost,
-                onSubmit: async (selectedFilter, modelName, modelNum, cost) =>
+                onSubmit: async (
+                  selectedFilter,
+                  modelName,
+                  modelNum,
+                  description,
+                  cost
+                ) =>
                   editProduct(dispatch, {
                     guid: rowData.guid,
                     filter_guid: selectedFilter?.guid,
                     modelName,
                     modelNum,
+                    description,
                     cost,
                     image: undefined,
                   }),

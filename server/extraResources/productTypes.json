@@ -65,5 +65,10 @@
   {
     "label": "Zoning kits",
     "guid": "zoning_kits"
+  },
+  {
+    "label": "Aqua boosters",
+    "guid": "aqua_boosters",
+    "specifications": []
   }
 ]

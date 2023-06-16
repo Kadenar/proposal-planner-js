@@ -40,18 +40,20 @@ export async function addProduct(
     filter,
     modelName,
     modelNum,
+    description,
     cost,
   }: {
     filter: ProductTypeObject | null;
     modelName: string;
     modelNum: string;
+    description: string;
     cost: number;
   }
 ) {
   return updateStore({
     dispatch,
     dbOperation: async () =>
-      add_product(filter?.guid, modelName, modelNum, cost),
+      add_product(filter?.guid, modelName, modelNum, description, cost),
     methodToDispatch: updateProducts,
     dataKey: "products",
     successMessage: "Successfully added product.",
@@ -65,6 +67,7 @@ export async function editProduct(
     filter_guid,
     modelName,
     modelNum,
+    description,
     cost,
     image,
   }: {
@@ -72,6 +75,7 @@ export async function editProduct(
     filter_guid: string | undefined;
     modelName: string;
     modelNum: string;
+    description: string;
     cost: number;
     image: any; // TODO when we do images
   }
@@ -79,7 +83,15 @@ export async function editProduct(
   const result = await updateStore({
     dispatch,
     dbOperation: async () =>
-      editExistingProduct(guid, filter_guid, modelName, modelNum, cost, image),
+      editExistingProduct(
+        guid,
+        filter_guid,
+        modelName,
+        modelNum,
+        description,
+        cost,
+        image
+      ),
     methodToDispatch: updateProducts,
     dataKey: "products",
     successMessage: "Successfully edited product!",

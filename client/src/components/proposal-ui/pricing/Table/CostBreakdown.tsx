@@ -31,7 +31,7 @@ const CostBreakdown = ({
     <TableContainer component={Paper}>
       <Table stickyHeader={true} aria-label="cost breakdown table">
         <TableHead>
-          <TableRow>
+          <TableRow key="costs-header">
             <BoldedTableCell>Costs</BoldedTableCell>
             <TableCell>Cost applicable to all options</TableCell>
             {arrayOfQuoteNames.length > 0 ? (
@@ -47,66 +47,66 @@ const CostBreakdown = ({
         </TableHead>
 
         <TableBody>
-          <TableRow>
+          <TableRow key="base-cost-row">
             <BoldedTableCell>Base cost</BoldedTableCell>
             <TableCell>{ccyFormat(costAppliedToAllQuotes)}</TableCell>
-            <TableCellTest
+            <QuoteOptionPriceCell
               arrayOfQuoteNames={arrayOfQuoteNames}
               pricingForQuotesData={pricingForQuotesData}
               valueToFetch="itemSubtotal"
               valueToSubtract={undefined}
             />
           </TableRow>
-          <TableRow>
+          <TableRow key="taxes-row">
             <BoldedTableCell>Cost with taxes</BoldedTableCell>
             <TableCell>
               <ConfigureUnitCostTax />
             </TableCell>
-            <TableCellTest
+            <QuoteOptionPriceCell
               arrayOfQuoteNames={arrayOfQuoteNames}
               pricingForQuotesData={pricingForQuotesData}
               valueToFetch="totalWithTaxes"
               valueToSubtract="itemSubtotal"
             />
           </TableRow>
-          <TableRow>
+          <TableRow key="labor-row">
             <BoldedTableCell>Cost with labor</BoldedTableCell>
             <TableCell>{ccyFormat(labor)}</TableCell>
-            <TableCellTest
+            <QuoteOptionPriceCell
               arrayOfQuoteNames={arrayOfQuoteNames}
               pricingForQuotesData={pricingForQuotesData}
               valueToFetch="costWithLabor"
               valueToSubtract={undefined}
             />
           </TableRow>
-          <TableRow>
+          <TableRow key="multiplier-row">
             <BoldedTableCell>Cost with multiplier</BoldedTableCell>
             <TableCell>
               <ConfigureMultiplier />
             </TableCell>
-            <TableCellTest
+            <QuoteOptionPriceCell
               arrayOfQuoteNames={arrayOfQuoteNames}
               pricingForQuotesData={pricingForQuotesData}
               valueToFetch="costAfterMultiplier"
               valueToSubtract="costWithLabor"
             />
           </TableRow>
-          <TableRow>
+          <TableRow key="fees-row">
             <BoldedTableCell>Cost after fees</BoldedTableCell>
             <TableCell>{ccyFormat(fees)}</TableCell>
-            <TableCellTest
+            <QuoteOptionPriceCell
               arrayOfQuoteNames={arrayOfQuoteNames}
               pricingForQuotesData={pricingForQuotesData}
               valueToFetch="costAfterFees"
               valueToSubtract={undefined}
             />
           </TableRow>
-          <TableRow>
+          <TableRow key="commission-row">
             <BoldedTableCell>Cost after commission</BoldedTableCell>
             <TableCell>
               <ConfigureCommission />
             </TableCell>
-            <TableCellTest
+            <QuoteOptionPriceCell
               arrayOfQuoteNames={arrayOfQuoteNames}
               pricingForQuotesData={pricingForQuotesData}
               valueToFetch="invoiceTotal"
@@ -119,7 +119,7 @@ const CostBreakdown = ({
   );
 };
 
-const TableCellTest = ({
+const QuoteOptionPriceCell = ({
   arrayOfQuoteNames,
   pricingForQuotesData,
   valueToFetch,

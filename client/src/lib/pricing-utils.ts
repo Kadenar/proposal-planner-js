@@ -77,6 +77,7 @@ export const handleAddProductToProposal = (
     model: selectedProduct.model,
     modelNum: selectedProduct.modelNum,
     cost: selectedProduct.cost,
+    description: selectedProduct.description,
     qty,
     quote_option,
   });

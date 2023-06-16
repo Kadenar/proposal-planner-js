@@ -8,9 +8,9 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 
 const StoreProvider = () => {
   // TODO - Only for debugging
-  store.subscribe(() => {
-    console.log(store.getState());
-  });
+  // store.subscribe(() => {
+  //   console.log(store.getState());
+  // });
 
   const { theme } = useThemeContext();
   return (

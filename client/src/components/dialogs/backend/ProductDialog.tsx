@@ -11,6 +11,7 @@ import {
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
 import { ProductTypeObject } from "../../../middleware/Interfaces";
+import { StyledTextarea } from "../../StyledComponents";
 
 interface ProductStoreActions {
   header: string;
@@ -19,12 +20,14 @@ interface ProductStoreActions {
   filter: ProductTypeObject | null;
   modelName: string;
   modelNum: string;
+  description: string;
   cost: number;
   onSubmit:
     | ((
         filter: ProductTypeObject | null,
         modelName: string,
         modelNum: string,
+        description: string,
         cost: number
       ) => Promise<boolean | undefined>)
     | undefined;
@@ -34,6 +37,7 @@ interface ProductStoreType extends ProductStoreActions {
   updateFilter: (filter: ProductTypeObject | null) => void;
   updateModelName: (modelName: string) => void;
   updateModelNum: (modelNum: string) => void;
+  updateDescription: (description: string) => void;
   updateCost: (cost: number) => void;
   close: () => void;
 }
@@ -45,11 +49,13 @@ const useProductDialogStore = create<ProductStoreType>((set) => ({
   filter: null,
   modelName: "",
   modelNum: "",
+  description: "",
   cost: 0,
   onSubmit: undefined,
   updateFilter: (filter) => set(() => ({ filter: filter })),
   updateModelName: (modelName) => set(() => ({ modelName: modelName })),
   updateModelNum: (modelNum) => set(() => ({ modelNum: modelNum })),
+  updateDescription: (description) => set(() => ({ description: description })),
   updateCost: (cost) => set(() => ({ cost: cost })),
   close: () => set({ onSubmit: undefined }),
 }));
@@ -70,6 +76,11 @@ const ProductDialog = () => {
   const [modelNum, updateModelNum] = useProductDialogStore((state) => [
     state.modelNum,
     state.updateModelNum,
+  ]);
+
+  const [description, updateDescription] = useProductDialogStore((state) => [
+    state.description,
+    state.updateDescription,
   ]);
 
   const [cost, updateCost] = useProductDialogStore((state) => [
@@ -113,6 +124,16 @@ const ProductDialog = () => {
               updateModelNum(value);
             }}
           />
+          <StyledTextarea
+            placeholder="Enter a short description"
+            minRows={3}
+            maxRows={3}
+            value={description}
+            onChange={({ target: { value } }) => {
+              updateDescription(value);
+            }}
+            sx={{ flexGrow: 1 }}
+          />
           <FormControl fullWidth sx={{ m: 1 }}>
             <InputLabel htmlFor="unit-cost-amount">Unit cost</InputLabel>
             <Input
@@ -146,6 +167,7 @@ const ProductDialog = () => {
                 filter,
                 modelName,
                 modelNum,
+                description,
                 cost
               );
 
@@ -171,6 +193,7 @@ export const productDialog = ({
   filter,
   modelName,
   modelNum,
+  description,
   cost,
   onSubmit,
 }: ProductStoreActions) => {
@@ -181,6 +204,7 @@ export const productDialog = ({
     filter,
     modelName,
     modelNum,
+    description,
     cost,
     onSubmit,
   });
