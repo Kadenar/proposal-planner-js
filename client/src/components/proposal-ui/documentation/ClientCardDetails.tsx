@@ -219,7 +219,7 @@ export default function ClientCardDetails({
                 onChange={({ target: { value } }) => {
                   setClientInfo({
                     ...clientInfo,
-                    state: value,
+                    phone: value,
                   });
                 }}
               />
@@ -243,7 +243,7 @@ export default function ClientCardDetails({
                 onChange={({ target: { value } }) => {
                   setClientInfo({
                     ...clientInfo,
-                    state: value,
+                    accountNum: value,
                   });
                 }}
               >

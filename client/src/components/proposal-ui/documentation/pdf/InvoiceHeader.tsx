@@ -21,7 +21,7 @@ const RobisonInvoiceHeader = () => (
   <View style={styles.header}>
     <Image style={styles.logo} src={logo} />
     <View style={styles.address}>
-      <Text>One Gatway Plaza, 4th Flr</Text>
+      <Text>One Gateway Plaza, 4th Flr</Text>
       <Text>Port Chester, NY 10573</Text>
       <Text>(914)-345-5700</Text>
       <Text>Fax (914)-345-5783</Text>

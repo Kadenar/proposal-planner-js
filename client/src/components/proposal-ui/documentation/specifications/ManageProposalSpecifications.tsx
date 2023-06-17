@@ -186,10 +186,13 @@ export const ManageProposalSpecifications = ({
             getOptionLabel={(option) => option.label}
             isOptionEqualToValue={(option, value) => option.guid === value.guid}
             options={filters}
-            value={selectedProductType}
             renderInput={(params) => (
               <div ref={params.InputProps.ref}>
-                <TextField {...params} label="Product type" />
+                <TextField
+                  {...params}
+                  value={selectedProductType?.guid}
+                  label="Product type"
+                />
               </div>
             )}
             onChange={(_, value) => {

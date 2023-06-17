@@ -109,19 +109,26 @@ const SubmittedToContent = ({ invoice }: { invoice: PdfInvoice }) => (
         >
           Tim Fernandez
         </Text>
-        <Text style={{ flexGrow: 0 }}>Approximate Start Date:</Text>
+        <Text style={{ flexGrow: 0 }}>Approximate Start Date: </Text>
         <Text
           style={{
             flexGrow: 1,
             marginRight: 10,
             borderBottom: "1px solid black",
+            paddingLeft: 10,
           }}
         >
           ASAP
         </Text>
         <Text style={{ flexGrow: 0 }}>Account # </Text>
-        <Text style={{ flexGrow: 1, borderBottom: "1px solid black" }}>
-          {invoice.accountNum}
+        <Text
+          style={{
+            flexGrow: 1,
+            paddingLeft: 5,
+            borderBottom: "1px solid black",
+          }}
+        >
+          {invoice.accountNum || "New Customer"}
         </Text>
       </View>
     </View>

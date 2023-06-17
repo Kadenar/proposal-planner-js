@@ -126,7 +126,7 @@ const PaymentOptions = () => (
       <Text>
         The above prices, specifications and conditions are satisfactory and are
         hereby accepted. Robison is authorized to do the work. Payment will be
-        made as outlined above. To the extend that the price is being reduced by
+        made as outlined above. To the extent that the price is being reduced by
         anticipated rebates, the customer will be responsible for the full price
         in the event rebate application is denied for any reason. Robison will
         make reasonable efforts to resubmit documents to remediate denial and
