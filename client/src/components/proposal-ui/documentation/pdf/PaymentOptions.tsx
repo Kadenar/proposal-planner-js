@@ -1,4 +1,6 @@
 import { Text, View, StyleSheet, Page } from "@react-pdf/renderer";
+import { PdfInvoice } from "../../../../middleware/Interfaces";
+import { ccyFormat } from "../../../../lib/pricing-utils";
 
 const styles = StyleSheet.create({
   body: {
@@ -32,9 +34,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
+  option_category: {
+    fontFamily: "Times-BoldItalic",
+    textDecoration: "underline",
+    fontSize: 12,
+  },
+  option_prefix: {
+    borderBottom: "1px solid black",
+    paddingBottom: 1,
+    marginRight: 5,
+  },
 });
 
-const PaymentOptions = () => (
+const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
   <Page style={styles.body}>
     <View style={styles.proposal_view}>
       <Text style={styles.small_text}>
@@ -46,41 +58,48 @@ const PaymentOptions = () => (
       <Text style={{ fontFamily: "Times-Italic", fontSize: 10 }}>
         Please initial the payment plan option you would like to proceed with.
       </Text>
-      <View style={{ marginTop: 10, gap: 10 }}>
-        <Text style={styles.small_text}>
-          <Text style={styles.text_bold_underlined}>Option # 1</Text> - No Money
-          Down - 0 Interest for 18 months ______ Initial
-        </Text>
-        <Text style={styles.small_text}>
-          <Text style={styles.text_bold_underlined}>Option # 2</Text> - No Money
-          Down - 5.99% Interest for 37 months ______ Initial
-        </Text>
-        <Text style={styles.small_text}>
-          <Text style={styles.text_bold_underlined}>Option # 3</Text> - No Money
-          Down - 7.99% Interest for 61 months ______ Initial
-        </Text>
-        <Text style={styles.small_text}>
-          <Text style={styles.text_bold_underlined}>Option # 4</Text> - No Money
-          Down - 9.99% Interest for 132 Months ______ Initial
-        </Text>
-        <Text style={styles.small_text}>
-          <Text style={styles.text_bold_underlined}>Option # 5</Text> - 50% down
-          payment & 50% due day of installation (with customer credit check
-          approval) ______ Initial
-        </Text>
-        <Text style={styles.small_text}>
-          <Text style={styles.text_bold_underlined}>Option # 6</Text> - 80% down
-          payment & 20% due day of installation (with customer credit check
-          approval) ______ Initial
-        </Text>
+      <View style={{ marginTop: 5 }}>
+        {Object.keys(invoice.financingOptions).map((provider) => {
+          return (
+            <View style={{ marginTop: 10, gap: 10 }}>
+              <Text style={styles.option_category}>
+                {provider} - Financing Options
+              </Text>
+              {invoice.financingOptions[provider].map((option, index) => {
+                return (
+                  <Text style={styles.small_text}>
+                    <Text style={styles.option_prefix}>
+                      Option # {index + 1}
+                    </Text>
+                    <Text>
+                      {" "}
+                      - {option.name} - Total ={" "}
+                      {ccyFormat(option.costPerMonth || 0)} per month
+                    </Text>
+                    <Text>______ Initial</Text>
+                  </Text>
+                );
+              })}
+            </View>
+          );
+        })}
       </View>
-      <View style={{ gap: 10, marginTop: 10 }}>
-        <Text style={{ fontSize: 11 }}>
-          Visa, Master Card, American Express, Discover or Personal Check
+
+      <View style={{ gap: 10, marginTop: 20, fontSize: 11 }}>
+        <Text>
+          ** There's no prepayment penalty on any of the financing options.
         </Text>
-        <Text style={{ fontFamily: "Times-BoldItalic", fontSize: 11 }}>
+        <Text style={{ fontFamily: "Times-BoldItalic" }}>
           *Financing is through Synchrony Financial or National Energy
           Improvement Fund with customer credit approval
+        </Text>
+        <Text style={styles.option_category}>Credit card or Check Payment</Text>
+        <Text>
+          50% down payment and 50% due day of installation (with customer credit
+          check approval) ______ Initial
+        </Text>
+        <Text>
+          Visa, Master Card, American Express, Discover or Personal Check
         </Text>
       </View>
     </View>

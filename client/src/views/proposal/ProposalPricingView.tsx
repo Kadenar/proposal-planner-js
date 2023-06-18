@@ -1,14 +1,9 @@
-import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useKey } from "../../hooks/useKey";
 
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import Collapse from "@mui/material/Collapse";
-import Box from "@mui/material/Box";
-import { Button, Stack } from "@mui/material";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
-import { StyledIconButton } from "../../components/StyledComponents";
 import { addProductToProposalDialog } from "../../components/dialogs/frontend/AddProductToProposalDialog";
 import { removeAllProductsFromProposal } from "../../services/slices/activeProposalSlice";
 import { saveProposal } from "../../services/slices/proposalsSlice";
@@ -32,7 +27,6 @@ export default function ProposalPricingView({
   const dispatch = useAppDispatch();
   const { products } = useAppSelector((state) => state.products);
   const { filters } = useAppSelector((state) => state.filters);
-  const [open, setOpen] = useState(true);
 
   useKey("ctrls", () => {
     saveProposal(dispatch, {
@@ -44,15 +38,15 @@ export default function ProposalPricingView({
       unitCostTax: activeProposal.data.unitCostTax,
       multiplier: activeProposal.data.multiplier,
       quoteOptions: activeProposal.data.quote_options,
+      start_date: activeProposal.data.start_date || "",
     });
   });
 
   return (
     <>
-      <Stack gap="20px" direction="row" width="100%">
+      <Stack gap={2} direction="row" justifyContent="space-between">
         <Button
           variant="contained"
-          sx={{ paddingRight: "5px" }}
           onClick={() => {
             addProductToProposalDialog({
               filters,
@@ -75,50 +69,17 @@ export default function ProposalPricingView({
         >
           Add a product
         </Button>
-        <Box sx={{ flexGrow: 1 }}>
-          <Button
-            variant="contained"
-            onClick={() => removeAllProductsFromProposal(dispatch)}
-          >
-            Remove all products
-          </Button>
-        </Box>
         <Button
           variant="contained"
-          onClick={async () =>
-            saveProposal(dispatch, {
-              guid: activeProposal.guid,
-              commission: activeProposal.data.commission,
-              fees: activeProposal.data.fees,
-              labor: activeProposal.data.labor,
-              products: activeProposal.data.products,
-              unitCostTax: activeProposal.data.unitCostTax,
-              multiplier: activeProposal.data.multiplier,
-              quoteOptions: activeProposal.data.quote_options,
-            })
-          }
+          onClick={() => removeAllProductsFromProposal(dispatch)}
         >
-          Save proposal
+          Remove all products
         </Button>
       </Stack>
-
-      <Stack paddingTop="20px" gap="20px">
+      <Stack paddingTop={2} gap={1}>
         <ProductsForProposal />
-        <Stack direction="row" justifyContent="space-between">
-          <StyledIconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-            style={{ fontWeight: "bold" }}
-          >
-            {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
-            Pricing data
-          </StyledIconButton>
-        </Stack>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <FeesAndLaborForProposal activeProposal={activeProposal} />
-          <CostBreakdown activeProposal={activeProposal} />
-        </Collapse>
+        <FeesAndLaborForProposal activeProposal={activeProposal} />
+        <CostBreakdown activeProposal={activeProposal} />
       </Stack>
     </>
   );

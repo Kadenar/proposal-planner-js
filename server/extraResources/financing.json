@@ -1,0 +1,58 @@
+[
+  {
+    "guid": "43316ab8-099a-4643-934e-b2aff5ec2f42",
+    "name": "No Money Down - 0% Interest for 18 Months",
+    "interest": 0,
+    "term_length": 18,
+    "term_type": "months",
+    "provider": "Synchrony Financial"
+  },
+  {
+    "guid": "8a9bb306-5777-47e2-8c49-32b7b37c856d",
+    "name": "No Money Down - 5.99% Interest for 37 Months",
+    "interest": 5.99,
+    "term_length": 37,
+    "term_type": "months",
+    "provider": "Synchrony Financial"
+  },
+  {
+    "guid": "589b2fb5-6226-496d-8656-c483662a73e4",
+    "name": "No Money Down - 7.99% Interest for 61 Months",
+    "interest": 7.99,
+    "term_length": 61,
+    "term_type": "months",
+    "provider": "Synchrony Financial"
+  },
+  {
+    "guid": "cc3b4940-ab53-40ad-bf3a-040749702a04",
+    "name": "No Money Down - 9.99% Interest for 132 Months",
+    "interest": 9.99,
+    "term_length": 132,
+    "term_type": "months",
+    "provider": "Synchrony Financial"
+  },
+  {
+    "guid": "fb1236cd-773f-4861-889f-b0e8965be438",
+    "name": "No Money Down - 7.99% for 36 Months",
+    "interest": 7.99,
+    "term_length": 36,
+    "term_type": "months",
+    "provider": "National Energy Improvement Fund"
+  },
+  {
+    "guid": "f8452174-c7fa-4766-9423-88092e439a88",
+    "name": "No Money Down - 7.99% for 60 Months",
+    "interest": 7.99,
+    "term_length": 60,
+    "term_type": "months",
+    "provider": "National Energy Improvement Fund"
+  },
+  {
+    "guid": "e2a1ef8c-3e64-4d15-bec4-a9702ae63149",
+    "name": "No Money Down - 7.99% for 120 Months",
+    "interest": 7.99,
+    "term_length": 120,
+    "term_type": "months",
+    "provider": "National Energy Improvement Fund"
+  }
+]

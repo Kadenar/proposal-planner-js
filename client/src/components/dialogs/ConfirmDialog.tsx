@@ -37,7 +37,7 @@ const ConfirmDialog = () => {
         </IconButton>
       </Box>
       <DialogContent>
-        <Typography fontWeight={"bold"}>{message}</Typography>
+        <Typography fontWeight="bold">{message}</Typography>
       </DialogContent>
       <DialogActions>
         <Button color="secondary" variant="contained" onClick={close}>

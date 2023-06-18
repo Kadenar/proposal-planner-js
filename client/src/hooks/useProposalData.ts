@@ -7,29 +7,6 @@ import calculateLabor, {
 import { omit } from "lodash";
 import { ProposalObject, ProductOnProposal } from "../middleware/Interfaces";
 
-export function useProposalDetails(activeProposal: ProposalObject) {
-  const {
-    fees,
-    labor,
-    products,
-    multiplier,
-    commission,
-    unitCostTax,
-    quote_options,
-  } = activeProposal.data;
-  return {
-    ...activeProposal,
-    owner: activeProposal.owner.guid,
-    fees,
-    labor,
-    products,
-    multiplier,
-    commission,
-    unitCostTax,
-    quote_options,
-  };
-}
-
 export function useProposalData(activeProposal: ProposalObject) {
   const products = activeProposal.data.products;
   const fees = activeProposal.data.fees;

@@ -52,7 +52,7 @@ const ProductTypeDialog = () => {
       content={
         <Stack
           spacing={2}
-          paddingTop={"5px"}
+          paddingTop="5px"
           sx={{ maxHeight: "50vh", overflowY: "auto" }}
         >
           <TextField
@@ -65,7 +65,7 @@ const ProductTypeDialog = () => {
           />
           <Typography variant="h6">Specifications</Typography>
           {!specifications || specifications.length === 0 ? (
-            <Stack alignItems={"center"}>No specifications added yet.</Stack>
+            <Stack alignItems="center">No specifications added yet.</Stack>
           ) : (
             specifications.map((spec, index) => {
               return (

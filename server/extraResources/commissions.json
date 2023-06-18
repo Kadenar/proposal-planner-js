@@ -42,5 +42,29 @@
   {
     "value": 5,
     "guid": "e9863ed6-6f40-41c6-af78-b51abf3bf1eb"
+  },
+  {
+    "value": 4.5,
+    "guid": "b7b9e1c5-9f5c-44f0-924e-b7cd856ab91f"
+  },
+  {
+    "value": 4,
+    "guid": "cdd1f4eb-9c24-4a7e-bc62-e23f57425f23"
+  },
+  {
+    "value": 3.5,
+    "guid": "c9c216ed-c4d1-4fc8-83d0-2dc62aad3235"
+  },
+  {
+    "value": 3,
+    "guid": "23ac904e-3bec-487e-8697-ca860072816f"
+  },
+  {
+    "value": 2.5,
+    "guid": "b2d51a6a-8cc1-463e-b736-e2d56e775af4"
+  },
+  {
+    "value": 2,
+    "guid": "0be3adc1-7c9c-4547-a072-c74792bd3c53"
   }
 ]

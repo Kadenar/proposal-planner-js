@@ -33,6 +33,7 @@ import { initializeProductTypes } from "../services/slices/productTypesSlice.ts"
 import { initializeMultipliers } from "../services/slices/multipliersSlice.ts";
 import { initializeCommissions } from "../services/slices/commissionsSlice.ts";
 import { initializeProposals } from "../services/slices/proposalsSlice.ts";
+import { initializeFinancing } from "../services/slices/financingSlice.ts";
 import { initializeProducts } from "../services/slices/productsSlice.ts";
 import { initializeContacts } from "../services/slices/contactsSlice.ts";
 import { initializeClients } from "../services/slices/clientsSlice.ts";
@@ -42,6 +43,7 @@ import { useAppDispatch } from "../services/store.ts";
 import ContactsView from "../views/ContactsView.tsx";
 import ContactDialog from "../components/dialogs/frontend/ContactDialog.tsx";
 import { intializeAddresses } from "../services/slices/serviceAddressInfoSlice.ts";
+import FinancingDialog from "../components/dialogs/backend/FinancingDialog.tsx";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -59,6 +61,7 @@ const ProposalPlanner = () => {
       dispatch(initializeFees());
       dispatch(initializeContacts());
       dispatch(intializeAddresses());
+      dispatch(initializeFinancing());
     });
   }, [dispatch]);
 
@@ -77,6 +80,7 @@ const ProposalPlanner = () => {
       <LaborsDialog />
       <FeeDialog />
       <FeesDialog />
+      <FinancingDialog />
       <HashRouter>
         <Navbar />
         <Routes>

@@ -12,6 +12,28 @@ const filePath = path.join(
   "../extraResources"
 );
 
+// FINANCING \\
+router.get("/financing", (req, res) => {
+  readFileFunc(
+    `${filePath}/financing.json`,
+    res,
+    "Fetching cached financing.",
+    "Reading financing from file system.",
+    "financing"
+  );
+});
+
+router.post("/financing", (req, res) => {
+  writeFileFunc(
+    `${filePath}/financing.json`,
+    req,
+    res,
+    "Financing could not be updated",
+    "Financing update was successful!",
+    "financing"
+  );
+});
+
 // ADDRESSES \\
 router.get("/addresses", (req, res) => {
   readFileFunc(

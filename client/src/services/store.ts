@@ -9,9 +9,10 @@ import activeProposalSlice from "./slices/activeProposalSlice";
 import laborsSlice from "./slices/laborsSlice";
 import feesSlice from "./slices/feesSlice";
 import addressesSlice from "./slices/serviceAddressInfoSlice";
+import contactsSlice from "./slices/contactsSlice";
+import financingSlice from "./slices/financingSlice";
 
 import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
-import contactsSlice from "./slices/contactsSlice";
 
 export const useMultiplierDispatch: () => AppDispatch = useDispatch;
 export const useMultiplierSelector: TypedUseSelectorHook<RootState> =
@@ -30,6 +31,7 @@ const store = configureStore({
     fees: feesSlice,
     contacts: contactsSlice,
     addresses: addressesSlice,
+    financing: financingSlice,
   },
 });
 

@@ -22,6 +22,28 @@ class Router {
 
   // Configure API endpoints.
   private routes(): void {
+    // FINANCING \\
+    this.router.get("/financing", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/financing.json`,
+        res,
+        "Fetching cached financing.",
+        "Reading financing from file system.",
+        "financing"
+      );
+    });
+
+    this.router.post("/financing", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/financing.json`,
+        req,
+        res,
+        "Financing could not be updated",
+        "Financing update was successful!",
+        "financing"
+      );
+    });
+
     // ADDRESSES \\
     this.router.get("/addresses", (req, res) => {
       this.readFileFunc(

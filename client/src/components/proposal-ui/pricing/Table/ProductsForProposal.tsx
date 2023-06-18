@@ -36,7 +36,7 @@ export default function ProductsForProposal() {
 
   return (
     <TableContainer component={Paper}>
-      <Table size={"small"} stickyHeader={true} aria-label="products table">
+      <Table size="small" stickyHeader={true} aria-label="products table">
         <TableHead>
           <TableRow>
             <BoldedItalicsTableCell>Model name</BoldedItalicsTableCell>

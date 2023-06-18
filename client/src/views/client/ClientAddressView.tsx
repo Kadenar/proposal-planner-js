@@ -1,4 +1,6 @@
-import Button from "@mui/material/Button";
+import { useAppDispatch } from "../../services/store";
+import { useKey } from "../../hooks/useKey";
+
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 
@@ -16,9 +18,8 @@ import {
   setClientState,
   setClientZip,
 } from "../../services/slices/clientsSlice";
-import { useAppDispatch } from "../../services/store";
+
 import { ClientObject } from "../../middleware/Interfaces";
-import { useKey } from "../../hooks/useKey";
 
 const ClientAddressView = ({
   selectedClient,
@@ -35,18 +36,6 @@ const ClientAddressView = ({
 
   return (
     <>
-      <Stack spacing={2} direction="row" justifyContent="flex-end">
-        <Button
-          variant="contained"
-          onClick={async () => {
-            saveClient(dispatch, {
-              ...selectedClient,
-            });
-          }}
-        >
-          Save client
-        </Button>
-      </Stack>
       <Card sx={{ padding: 3, marginTop: 1, marginBottom: 2 }}>
         <Typography variant="h5">Address</Typography>
         <Stack marginTop={2} spacing={3}>

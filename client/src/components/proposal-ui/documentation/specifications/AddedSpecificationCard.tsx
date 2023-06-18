@@ -120,8 +120,8 @@ export const AddedSpecificationCard: FC<SpecificationProps> = ({
 
   return (
     <Stack
-      direction={"row"}
-      alignItems={"center"}
+      direction="row"
+      alignItems="center"
       ref={dragRef}
       style={{ ...style, opacity }}
       data-handler-id={handlerId}

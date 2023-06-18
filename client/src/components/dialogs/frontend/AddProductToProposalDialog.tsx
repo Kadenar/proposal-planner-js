@@ -122,7 +122,7 @@ const AddProductToProposalDialog = () => {
         onClose={close}
         maxWidth="sm"
         fullWidth
-        scroll={"paper"}
+        scroll="paper"
       >
         <DialogTitle>Add product to this proposal</DialogTitle>
         <DialogContent>

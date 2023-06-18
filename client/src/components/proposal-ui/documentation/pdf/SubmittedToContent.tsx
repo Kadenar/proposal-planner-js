@@ -118,7 +118,7 @@ const SubmittedToContent = ({ invoice }: { invoice: PdfInvoice }) => (
             paddingLeft: 10,
           }}
         >
-          ASAP
+          {invoice.start_date || "ASAP"}
         </Text>
         <Text style={{ flexGrow: 0 }}>Account # </Text>
         <Text

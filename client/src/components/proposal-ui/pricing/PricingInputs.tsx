@@ -29,6 +29,7 @@ export function ConfigureCommission() {
         id="commission-simple-select"
         value={activeProposal.data.commission}
         label="Commission"
+        MenuProps={{ style: { maxHeight: 250 } }}
         onChange={(e) =>
           setProposalCommission(dispatch, Number(e.target?.value) || 0)
         }
@@ -86,6 +87,7 @@ export function ConfigureMultiplier() {
         id="multiplier-simple-select"
         value={activeProposal.data.multiplier}
         label="Multiplier"
+        MenuProps={{ style: { maxHeight: 250 } }}
         onChange={(e) =>
           setProposalMultiplier(dispatch, Number(e.target?.value))
         }

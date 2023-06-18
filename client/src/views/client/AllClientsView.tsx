@@ -54,7 +54,7 @@ export default function AllClientsView() {
         </Button>
       </Stack>
       <MaterialTable
-        title={""}
+        title=""
         columns={[
           { title: "Name", field: "name" },
           { title: "Address", field: "address" },

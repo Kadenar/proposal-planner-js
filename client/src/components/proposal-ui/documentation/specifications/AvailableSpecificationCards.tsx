@@ -18,13 +18,13 @@ export const AvailableSpecificationCard = ({
       borderTop={index === 0 ? "1px solid white" : ""}
       borderBottom="1px solid white"
       direction="row"
-      padding={"15px 0 15px 0"}
-      margin={"5px 0 5px"}
-      alignItems={"center"}
+      padding="15px 0 15px 0"
+      margin="5px 0 5px 0"
+      alignItems="center"
       spacing={2}
     >
       <Checkbox
-        checked={isChecked} // left[index]?.checked
+        checked={isChecked}
         onChange={({ target: { checked } }) => {
           handleSelect(checked);
         }}

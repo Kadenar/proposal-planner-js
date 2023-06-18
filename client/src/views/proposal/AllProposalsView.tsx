@@ -57,7 +57,7 @@ export default function AllProposalsView() {
         </Button>
       </Stack>
       <MaterialTable
-        title={""}
+        title=""
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },

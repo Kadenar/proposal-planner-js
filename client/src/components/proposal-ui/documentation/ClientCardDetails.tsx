@@ -35,14 +35,6 @@ export default function ClientCardDetails({
   const [open, setOpen] = useState(false);
   const { addresses } = useAppSelector((state) => state.addresses);
 
-  if (!activeClient) {
-    return (
-      <>
-        Client details could not be found. This might be an orphaned proposal?
-      </>
-    );
-  }
-
   const ActionButtons = () => {
     if (!open) {
       return <></>;
@@ -118,9 +110,11 @@ export default function ClientCardDetails({
 
         <Collapse in={open || !clientInfo} timeout="auto" unmountOnExit>
           {!clientInfo ? (
-            <Typography sx={{ margin: 2 }}>
-              Client could not be found. This might be an orphaned proposal?
-            </Typography>
+            <Stack sx={{ alignItems: "center" }}>
+              <Typography variant="h6" sx={{ margin: 2 }}>
+                Client could not be found. This might be an orphaned proposal?
+              </Typography>
+            </Stack>
           ) : (
             <Stack margin={2} spacing={2}>
               <TextField
@@ -134,7 +128,7 @@ export default function ClientCardDetails({
                   });
                 }}
               >
-                {activeClient.name}
+                {clientInfo.name}
               </TextField>
               {isDisabled ? (
                 <TextField
@@ -194,6 +188,7 @@ export default function ClientCardDetails({
               )}
               <TextField
                 label="City"
+                disabled={isDisabled}
                 value={clientInfo.city}
                 onChange={({ target: { value } }) => {
                   setClientInfo({
@@ -204,6 +199,7 @@ export default function ClientCardDetails({
               />
               <StateSelection
                 initialValue={clientInfo.state}
+                disabled={isDisabled}
                 onChangeHandler={(value) => {
                   setClientInfo({
                     ...clientInfo,
@@ -234,7 +230,7 @@ export default function ClientCardDetails({
                   });
                 }}
               >
-                {activeClient.email}
+                {clientInfo.email}
               </TextField>
               <TextField
                 label="Account #"
@@ -247,7 +243,7 @@ export default function ClientCardDetails({
                   });
                 }}
               >
-                {activeClient.accountNum}
+                {clientInfo.accountNum}
               </TextField>
             </Stack>
           )}

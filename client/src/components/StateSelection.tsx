@@ -7,9 +7,11 @@ import { US_STATES } from "../lib/pricing-utils";
 
 const StateSelection = ({
   initialValue,
+  disabled,
   onChangeHandler = () => {},
 }: {
   initialValue: string;
+  disabled?: boolean;
   onChangeHandler: (value: string) => void;
 }) => {
   const [state, updateState] = useState(initialValue);
@@ -18,6 +20,7 @@ const StateSelection = ({
       <InputLabel>State</InputLabel>
       <Select
         value={state}
+        disabled={disabled || false}
         onChange={({ target: { value } }) => {
           updateState(value);
           onChangeHandler(value);

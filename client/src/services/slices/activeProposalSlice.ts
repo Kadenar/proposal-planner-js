@@ -146,6 +146,12 @@ export const activeProposalSlice = createSlice({
       }
       state.activeProposal.data.fees = fees.payload;
     },
+    updateStartDate: (state, value) => {
+      if (!state.activeProposal) {
+        return;
+      }
+      state.activeProposal.data.start_date = value.payload;
+    },
     updateDirtyFlag: (state, value) => {
       state.is_dirty = value.payload;
     },
@@ -168,6 +174,7 @@ const {
   updateLabors,
   updateFees,
   updateDirtyFlag,
+  updateStartDate,
 } = activeProposalSlice.actions;
 
 export const selectProposal = (
@@ -224,6 +231,13 @@ export const setProposalSpecifications = (
       specifications: specifications,
     })
   );
+};
+
+export const setProposalStartDate = (
+  dispatch: Dispatch,
+  start_date: string
+) => {
+  dispatch(updateStartDate(start_date));
 };
 
 export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {

@@ -35,7 +35,7 @@ export default function AllProductTypesView() {
       />
 
       <MaterialTable
-        title={"Product types management"}
+        title="Product types management"
         columns={[
           { title: "Label", field: "label" },
           { title: "Key name", field: "guid", searchable: false },

@@ -58,7 +58,7 @@ const ContactDialog = () => {
       content={
         <Stack
           spacing={2}
-          paddingTop={"5px"}
+          paddingTop="5px"
           sx={{ maxHeight: "50vh", overflowY: "auto" }}
         >
           <TextField

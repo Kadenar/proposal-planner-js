@@ -90,7 +90,7 @@ const FeeDialog = () => {
               }}
             />
             <TextField
-              id="select"
+              id="type"
               label="Type"
               value={type}
               onChange={(e) => {

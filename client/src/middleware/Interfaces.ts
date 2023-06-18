@@ -80,6 +80,7 @@ export interface ProposalData {
   unitCostTax: number;
   commission: number;
   quote_options: QuoteOption[]; // this array is 0 indexed, so index 0 = quote 1, etc
+  start_date?: string;
 }
 export interface QuoteOption {
   title: string | undefined;
@@ -99,20 +100,31 @@ export interface Multiplier {
   value: number;
   guid: string;
 }
+export interface Financing {
+  guid: string;
+  name: string;
+  interest: number;
+  term_length: number;
+  term_type: string | "months" | "years";
+  provider: string | "Synchrony Financial" | "National Energy Improvement Fund";
+  costPerMonth?: number;
+}
 
 // Objects of a given type
 export type FeesOnProposal = Record<string, Fee>;
 export type LaborOnProposal = Record<string, Labor>;
 
 export interface PdfInvoice {
+  start_date: string | undefined;
   submitted_to: string | undefined;
   address: string | undefined;
   phone: string | undefined;
   email: string | undefined;
   current_date: string | undefined;
   accountNum: string | undefined;
-  quoteOptions: QuoteOption[] | undefined;
+  quoteOptions: QuoteOption[];
   invoiceTotals: Record<number, Record<string, number>>;
+  financingOptions: Record<string, Financing[]>;
 }
 
 export interface AddressInfo {

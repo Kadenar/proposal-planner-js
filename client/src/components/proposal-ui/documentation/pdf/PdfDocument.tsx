@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   Text,
   Document,
   Page,
   StyleSheet,
   PDFViewer,
+  View,
 } from "@react-pdf/renderer";
 
 import Collapse from "@mui/material/Collapse";
@@ -19,44 +20,17 @@ import RobisonInvoiceHeader from "./InvoiceHeader";
 import SubmittedToContent from "./SubmittedToContent";
 import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";
-import {
-  ClientObject,
-  PdfInvoice,
-  ProposalObject,
-} from "../../../../middleware/Interfaces";
-import { useProposalData } from "../../../../hooks/useProposalData";
+import { PdfInvoice } from "../../../../middleware/Interfaces";
 
 export const PdfDocument = ({
-  clientInfo,
-  proposalDetails,
+  invoice_data,
+  quote_option,
 }: {
-  clientInfo: ClientObject | undefined;
-  proposalDetails: ProposalObject;
+  invoice_data: PdfInvoice;
+  quote_option: number;
 }) => {
   const [open, setOpen] = useState(true);
-  const { pricingForQuotesData } = useProposalData(proposalDetails);
 
-  const invoice_data = useMemo<PdfInvoice>(() => {
-    return {
-      submitted_to: clientInfo?.name,
-      address: `${clientInfo?.address} ${clientInfo?.apt} ${clientInfo?.city} ${clientInfo?.state} ${clientInfo?.zip}`,
-      phone: clientInfo?.phone,
-      email: clientInfo?.email,
-      current_date: proposalDetails?.dateModified,
-      accountNum: clientInfo?.accountNum,
-      quoteOptions: proposalDetails.data.quote_options,
-      invoiceTotals: pricingForQuotesData,
-    };
-  }, [clientInfo, proposalDetails, pricingForQuotesData]);
-
-  if (!clientInfo) {
-    return (
-      <>
-        Client details necessary to create the PDF could not be found. This
-        might be an orphaned proposal?
-      </>
-    );
-  }
   return (
     <Card sx={{ padding: 2 }}>
       <StyledIconButton
@@ -78,25 +52,32 @@ export const PdfDocument = ({
         >
           <PDFViewer style={{ minWidth: "100%" }}>
             <Document>
-              {invoice_data.quoteOptions?.map((quote, index) => {
-                return (
-                  <Page style={styles.body}>
-                    <RobisonInvoiceHeader />
-                    <SubmittedToContent invoice={invoice_data} />
-                    <Specifications
-                      invoice={invoice_data}
-                      quote={quote}
-                      index={index + 1}
-                    />
-                    <Text
-                      style={styles.pageNumber}
-                      render={({ pageNumber, totalPages }) => `${1} / ${2}`}
-                      fixed
-                    />
-                  </Page>
-                );
-              })}
-              <PaymentOptions />
+              <Page style={styles.body}>
+                <View
+                  style={{
+                    border: "3px solid purple",
+                    flexGrow: 1,
+                    paddingHorizontal: 20,
+                    paddingBottom: 65,
+                    paddingTop: 25,
+                  }}
+                >
+                  <RobisonInvoiceHeader />
+                  <SubmittedToContent invoice={invoice_data} />
+                  <Specifications
+                    invoice={invoice_data}
+                    quote={invoice_data.quoteOptions[quote_option]}
+                    index={quote_option + 1}
+                  />
+                  <Text
+                    style={styles.pageNumber}
+                    render={({ pageNumber, totalPages }) => `${1} / ${2}`}
+                    fixed
+                  />
+                </View>
+              </Page>
+
+              <PaymentOptions invoice={invoice_data} />
             </Document>
           </PDFViewer>
         </Stack>
@@ -107,9 +88,7 @@ export const PdfDocument = ({
 
 const styles = StyleSheet.create({
   body: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35,
+    padding: 10,
   },
   small_text: {
     fontSize: 10,

@@ -52,7 +52,7 @@ export default function AllProductsView() {
       />
 
       <MaterialTable
-        title={"Products management"}
+        title="Products management"
         columns={[
           { title: "Type", field: "productLabel", width: "250px" },
           { title: "Model name", field: "model" },

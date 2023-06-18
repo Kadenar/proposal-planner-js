@@ -33,7 +33,7 @@ const ContactsView = () => {
         </Button>
       </Stack>
       <MaterialTable
-        title={""}
+        title=""
         columns={[
           { title: "Name", field: "name" },
           { title: "Email", field: "email" },

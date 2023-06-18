@@ -3,5 +3,11 @@
   { "value": 1.55, "guid": "91280e8c-1a5e-4bbe-a057-bef25037bbf3" },
   { "value": 1.6, "guid": "65a51e96-2e24-4c4b-b0b4-6cb0d5b6d1e0" },
   { "value": 1.65, "guid": "a474d761-0d9f-45d4-b7f1-99085dd32a7c" },
-  { "value": 1.7, "guid": "1ec58489-9aa7-455d-a5a4-74bf1a8baf18" }
+  { "value": 1.7, "guid": "1ec58489-9aa7-455d-a5a4-74bf1a8baf18" },
+  { "value": 1.75, "guid": "2f36db26-fc91-43f7-aa0c-271b457a01c4" },
+  { "value": 1.8, "guid": "7e8e3fac-b2bb-4147-80d5-941909b5f073" },
+  { "value": 1.85, "guid": "49a49c93-a662-4e5e-9340-53ece85cc079" },
+  { "value": 1.9, "guid": "8e367998-f4f1-4765-85df-56f037521ffd" },
+  { "value": 1.95, "guid": "3a5e3264-97da-4aa5-9c81-7cf4b6078fc4" },
+  { "value": 2.0, "guid": "cf6489af-f706-4f2d-b963-f157852f28f3" }
 ]

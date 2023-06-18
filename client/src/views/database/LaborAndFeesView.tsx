@@ -132,7 +132,7 @@ const LaborAndFeesView = () => {
         />
 
         <MaterialTable
-          title={"Fee management - (This controls defaults for new proposals)"}
+          title="Fee management - (This controls defaults for new proposals)"
           columns={[
             { title: "Name", field: "name" },
             {

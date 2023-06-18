@@ -6,7 +6,6 @@ import update from "immutability-helper";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -21,6 +20,7 @@ import {
   ProposalSpec,
 } from "../../../../middleware/Interfaces";
 import { setProposalSpecifications } from "../../../../services/slices/activeProposalSlice";
+import { MenuItem } from "@mui/material";
 
 interface AvailableSpecification {
   text: string;
@@ -41,13 +41,13 @@ export const ManageProposalSpecifications = ({
   quoteOption: number;
 }) => {
   const dispatch = useAppDispatch();
-
-  const [left, setLeft] = useState<AvailableSpecification[] | undefined>([]);
   const { filters } = useAppSelector((state) => state.filters);
 
   const [selectedProductType, setSelectedProductType] = useState<
-    ProductTypeObject | null | undefined
-  >(undefined);
+    ProductTypeObject | undefined
+  >(filters[0]);
+
+  const [left, setLeft] = useState<AvailableSpecification[] | undefined>([]);
 
   const allLeft = selectedProductType?.specifications?.map((spec) => {
     return { text: spec, checked: false };
@@ -63,8 +63,6 @@ export const ManageProposalSpecifications = ({
 
   // Run on initial load to default the selected product type due to useSelector and useEffect issues (really just a workaround)
   useEffect(() => {
-    setSelectedProductType(filters[0]);
-
     const initialLeft = filters[0]?.specifications?.map((spec) => {
       return { text: spec, checked: false };
     });
@@ -179,30 +177,25 @@ export const ManageProposalSpecifications = ({
             border: "1px solid",
           }}
         >
-          <Autocomplete
-            disablePortal
-            id="filters"
-            ListboxProps={{ style: { maxHeight: 400 } }}
-            getOptionLabel={(option) => option.label}
-            isOptionEqualToValue={(option, value) => option.guid === value.guid}
-            options={filters}
-            renderInput={(params) => (
-              <div ref={params.InputProps.ref}>
-                <TextField
-                  {...params}
-                  value={selectedProductType?.guid}
-                  label="Product type"
-                />
-              </div>
-            )}
-            onChange={(_, value) => {
-              setSelectedProductType(value);
+          <TextField
+            fullWidth
+            id="select"
+            label="Quote option"
+            value={selectedProductType?.guid}
+            onChange={({ target: { value } }) => {
+              const matchingProductType = filters.find(
+                (type) => type.guid === value
+              );
+
+              setSelectedProductType(matchingProductType);
 
               // Update left to be the specifications available for the chosen product type
               if (value) {
-                const newLeft = value?.specifications?.map((spec) => {
-                  return { text: spec, checked: false };
-                });
+                const newLeft = matchingProductType?.specifications?.map(
+                  (spec) => {
+                    return { text: spec, checked: false };
+                  }
+                );
 
                 const intersectedLeft = intersection(
                   newLeft || [],
@@ -211,12 +204,23 @@ export const ManageProposalSpecifications = ({
                 setLeft(intersectedLeft);
               }
             }}
-          />
+            select
+          >
+            {filters.map((filter) => {
+              return (
+                <MenuItem key={filter.guid} value={filter.guid}>
+                  {filter.label}
+                </MenuItem>
+              );
+            })}
+          </TextField>
           {left?.map((spec, index) => {
             return renderAvailableSpecification(index, spec);
           })}
           {!left || left?.length > 0 ? (
             <Button
+              sx={{ marginTop: 2 }}
+              variant="outlined"
               onClick={() => {
                 if (!left) {
                   return;
@@ -245,11 +249,7 @@ export const ManageProposalSpecifications = ({
               Add to proposal
             </Button>
           ) : (
-            <Stack
-              height={"80%"}
-              justifyContent={"center"}
-              alignItems={"center"}
-            >
+            <Stack height="80%" justifyContent="center" alignItems="center">
               <Typography variant="h5">
                 No specifications left to add
               </Typography>
@@ -272,11 +272,7 @@ export const ManageProposalSpecifications = ({
                 return renderAddedSpecification(spec, index);
               })
             ) : (
-              <Stack
-                height={"100%"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
+              <Stack height="100%" justifyContent="center" alignItems="center">
                 <Typography variant="h5">
                   No specifications added yet
                 </Typography>

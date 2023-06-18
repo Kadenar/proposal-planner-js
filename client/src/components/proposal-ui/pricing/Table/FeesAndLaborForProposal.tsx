@@ -88,14 +88,14 @@ export default function FeesAndLaborForProposal({
       {/* Our second table contains cost breakdown */}
       <TableContainer component={Paper}>
         <Table
-          size={"small"}
+          size="small"
           stickyHeader={true}
           aria-label="fees and labor table"
         >
           <TableBody>
             {/* Labor */}
             <CollapsibleRow
-              title={"Labor"}
+              title="Labor"
               breakdown={laborBreakDown}
               configure={() =>
                 laborsDialog({
@@ -141,7 +141,7 @@ export default function FeesAndLaborForProposal({
             />
             {/* Fees */}
             <CollapsibleRow
-              title={"Fees"}
+              title="Fees"
               breakdown={feesBreakDown}
               configure={() =>
                 feesDialog({

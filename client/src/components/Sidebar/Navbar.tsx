@@ -32,7 +32,7 @@ export default function Navbar() {
     <>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <Stack direction="row" spacing={2} alignItems={"center"} flexGrow={1}>
+          <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
             <IconButton
               edge="start"
               color="inherit"

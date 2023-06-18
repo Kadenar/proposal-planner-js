@@ -53,8 +53,12 @@ const Specifications = ({
       <Text style={{ fontSize: 7 }}>
         We hereby submit specifications and estimate for:
       </Text>
-      <Text style={styles.title}>{quote.title}</Text>
-      <Text style={styles.summary}>{quote.summary}</Text>
+      <Text style={styles.title}>
+        {quote.title || `Quote option #${index}`}
+      </Text>
+      <Text style={styles.summary}>
+        {quote.summary || "Enter a brief summary for this proposal!"}
+      </Text>
       <Text style={styles.specification_title}>
         Installation with include the following:
       </Text>

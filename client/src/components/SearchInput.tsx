@@ -201,7 +201,7 @@ const SearchResults = ({
         if (
           product.model.toLowerCase().includes(value.toLowerCase()) ||
           product.description.toLowerCase().includes(value.toLowerCase()) ||
-          product.modelNum.toLowerCase() === value.toLowerCase()
+          product.modelNum.toLowerCase().includes(value.toLowerCase())
         ) {
           const categorySanitized = category.replaceAll("_", " ") || " ";
           const categoryLabel =
