@@ -121,7 +121,6 @@ const LaborAndFeesView = () => {
             feeDialog({
               header: "Add fee",
               name: "",
-              qty: 0,
               cost: 0,
               type: "add",
               onSubmit: async (name, qty, cost, type) => {
@@ -181,7 +180,6 @@ const LaborAndFeesView = () => {
                 feeDialog({
                   header: "Edit fee",
                   name: rowData.name,
-                  qty: rowData.qty,
                   cost: rowData.cost,
                   type: rowData.type,
                   onSubmit: async (name, qty, cost, type) =>

@@ -90,7 +90,7 @@ const ProposalPdfDocumentView = ({
       financingOptions: groupBy(
         updateFinancingOptionsWithCost(
           financing,
-          pricingForQuotesData[quote_option + 1].invoiceTotal
+          pricingForQuotesData[quote_option + 1]?.invoiceTotal || 0
         ),
         "provider"
       ),

@@ -5,7 +5,6 @@ import BaseDialog from "../BaseDialog";
 interface FeeStoreActions {
   header: string;
   name: string;
-  qty: number;
   cost: number;
   type: string;
   onSubmit:
@@ -20,7 +19,6 @@ interface FeeStoreActions {
 
 interface FeeStoreType extends FeeStoreActions {
   updateName: (name: string) => void;
-  updateQty: (qty: number) => void;
   updateCost: (cost: number) => void;
   updateType: (type: string) => void;
   close: () => void;
@@ -29,12 +27,10 @@ interface FeeStoreType extends FeeStoreActions {
 const useFeeStore = create<FeeStoreType>((set) => ({
   header: "",
   name: "",
-  qty: 0,
   cost: 0,
   type: "add",
   onSubmit: undefined,
   updateName: (name) => set(() => ({ name: name })),
-  updateQty: (qty) => set(() => ({ qty: qty })),
   updateCost: (cost) => set(() => ({ cost: cost })),
   updateType: (type) => set(() => ({ type: type })),
   close: () => set({ onSubmit: undefined }),
@@ -47,8 +43,6 @@ const FeeDialog = () => {
     state.name,
     state.updateName,
   ]);
-
-  const [qty, updateQty] = useFeeStore((state) => [state.qty, state.updateQty]);
 
   const [cost, updateCost] = useFeeStore((state) => [
     state.cost,
@@ -71,14 +65,6 @@ const FeeDialog = () => {
               value={name}
               onChange={(e) => {
                 updateName(e.target.value);
-              }}
-            />
-            <TextField
-              label="Quantity"
-              value={qty}
-              type="number"
-              onChange={(e) => {
-                updateQty(Number(e.target.value));
               }}
             />
             <TextField
@@ -118,7 +104,7 @@ const FeeDialog = () => {
                 return;
               }
 
-              const isValid = await onSubmit(name, qty, cost, type);
+              const isValid = await onSubmit(name, 1, cost, type);
 
               if (isValid) {
                 close();
@@ -138,7 +124,6 @@ const FeeDialog = () => {
 export const feeDialog = ({
   header,
   name,
-  qty,
   cost,
   type = "add",
   onSubmit,
@@ -146,7 +131,6 @@ export const feeDialog = ({
   useFeeStore.setState({
     header,
     name,
-    qty,
     cost,
     type,
     onSubmit,

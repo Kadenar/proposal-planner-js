@@ -2,14 +2,14 @@
   {
     "name": "Permit fee",
     "qty": 1,
-    "cost": 300,
+    "cost": 350,
     "guid": "c9ca67fa-6625-4865-aa9f-1544ef0bfa96",
     "type": "add"
   },
   {
     "name": "Financing fee",
     "qty": 1,
-    "cost": 0,
+    "cost": 300,
     "guid": "e8cdc9a1-de5f-4a95-8637-2010c04af0df",
     "type": "add"
   },
