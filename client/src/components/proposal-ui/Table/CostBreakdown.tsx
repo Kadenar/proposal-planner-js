@@ -239,17 +239,18 @@ const CostBreakdown = ({
                           return false;
                         }
 
-                        let error = false;
+                        let errors = false;
                         labors.forEach((labor) => {
-                          if (labor.cost < 0) {
+                          if (labor.qty < 0 || labor.cost < 0) {
+                            errors = true;
                             return false;
                           }
                         });
 
-                        if (error) {
+                        if (errors) {
                           showSnackbar({
                             title:
-                              "Labor costs must be greater than or equal to 0.",
+                              "Labor cost / quantity must be greater than or equal to 0.",
                             show: true,
                             status: "error",
                           });
