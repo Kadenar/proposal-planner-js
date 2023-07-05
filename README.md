@@ -2,7 +2,7 @@
 
 Proposal planning software built father-in-law at Robison Oil
 
-Aids in ability to create clients and proposals while managing the backend store of products, types, fees, commissions, etc
+Aids in ability to create clients and proposals while managing the backend store of products, types, fees, etc
 
 ## Install dependencies
 

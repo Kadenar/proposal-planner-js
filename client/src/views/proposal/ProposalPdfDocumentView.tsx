@@ -1,57 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { PdfDocument } from "../../components/proposal-ui/documentation/pdf/PdfDocument";
-import { Card, Stack, TextField, Typography } from "@mui/material";
+import { Card, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import QuoteSelection from "../../components/QuoteSelection";
-import { useProposalData } from "../../hooks/useProposalData";
-import {
-  Financing,
-  PdfInvoice,
-  ProposalObject,
-} from "../../middleware/Interfaces";
+import { useProposalPricing } from "../../hooks/useProposalData";
+import { PdfInvoice, ProposalObject } from "../../middleware/Interfaces";
 import { setProposalStartDate } from "../../services/slices/activeProposalSlice";
 import { debounce, groupBy } from "lodash";
-
-function updateFinancingOptionsWithCost(
-  financingOptions: Financing[],
-  totalCost: number
-) {
-  return [...financingOptions].map((option) => {
-    let totalNumPayments = option.term_length;
-    // If it is yearly, multiply the payments by 12
-    if (option.term_type === "years") {
-      totalNumPayments *= 12;
-    }
-
-    const loanAmount = totalCost - 0; // Can replace 0 with the money down option if that were an option
-
-    // Calculating the Payment Amount per Period
-    // A = P * (r*(1+r)^n) / ((1+r)^n - 1)
-    // a = payment amount per period
-    // P = initial principal (loan amount)
-    // r = interest rate per period
-    // n = total number of payments or periods
-    let ratePerPeriod = option.interest / 12.0 / 100.0;
-    let paymentPerPeriod;
-
-    // If the rate is 0, then the loan is just all principal payments
-    if (ratePerPeriod === 0) {
-      paymentPerPeriod = loanAmount / totalNumPayments;
-    } else {
-      const paymentPerPeriodTop =
-        ratePerPeriod * Math.pow(1 + ratePerPeriod, totalNumPayments);
-      const paymentPerPeriodBot =
-        Math.pow(1 + ratePerPeriod, totalNumPayments) - 1;
-      paymentPerPeriod =
-        loanAmount * (paymentPerPeriodTop / paymentPerPeriodBot);
-    }
-
-    return {
-      ...option,
-      costPerMonth: paymentPerPeriod,
-    };
-  });
-}
+import {
+  ccyFormat,
+  updateFinancingOptionsWithCost,
+} from "../../lib/pricing-utils";
 
 const ProposalPdfDocumentView = ({
   activeProposal,
@@ -62,8 +21,11 @@ const ProposalPdfDocumentView = ({
   const { clients } = useAppSelector((state) => state.clients);
   const { financing } = useAppSelector((state) => state.financing);
 
-  const [quote_option, setQuoteOption] = useState(0);
   const quote_options = activeProposal?.data.quote_options;
+  const [quote_option, setQuoteOption] = useState(0);
+
+  const { markedUpPricesForQuotes } = useProposalPricing(activeProposal);
+  const [markUpOption, setMarkupOption] = useState(6);
 
   const clientInfo = useMemo(() => {
     return clients.find((client) => {
@@ -71,11 +33,16 @@ const ProposalPdfDocumentView = ({
     });
   }, [activeProposal, clients]);
 
-  const { pricingForQuotesData } = useProposalData(activeProposal);
   const invoice_data = useMemo<PdfInvoice | undefined>(() => {
     if (!clientInfo) {
       return undefined;
     }
+
+    const markedUpPrices = markedUpPricesForQuotes[`quote_${quote_option + 1}`];
+
+    const pricingForQuote = markedUpPrices
+      ? markedUpPrices[markUpOption]?.sellPrice
+      : 0;
 
     return {
       submitted_to: clientInfo?.name,
@@ -86,19 +53,17 @@ const ProposalPdfDocumentView = ({
       current_date: activeProposal?.dateModified,
       accountNum: clientInfo?.accountNum,
       quoteOptions: activeProposal?.data.quote_options,
-      invoiceTotals: pricingForQuotesData,
+      invoiceTotal: pricingForQuote,
       financingOptions: groupBy(
-        updateFinancingOptionsWithCost(
-          financing,
-          pricingForQuotesData[quote_option + 1]?.invoiceTotal || 0
-        ),
+        updateFinancingOptionsWithCost(financing, pricingForQuote),
         "provider"
       ),
     };
   }, [
     clientInfo,
     activeProposal,
-    pricingForQuotesData,
+    markUpOption,
+    markedUpPricesForQuotes,
     financing,
     quote_option,
   ]);
@@ -131,7 +96,7 @@ const ProposalPdfDocumentView = ({
       <Stack alignItems="center">
         <Typography variant="h6">
           Please add products to this proposal before trying to view the PDF for
-          it.
+          it
         </Typography>
       </Stack>
     );
@@ -148,6 +113,26 @@ const ProposalPdfDocumentView = ({
               setQuoteOption(value);
             }}
           />
+          <TextField
+            id="select"
+            label="Cost for customer / your commission"
+            value={markUpOption}
+            onChange={({ target: { value } }) => {
+              setMarkupOption(Number(value));
+            }}
+            select
+          >
+            {markedUpPricesForQuotes &&
+              markedUpPricesForQuotes[`quote_${quote_option + 1}`].map(
+                (option, index) => {
+                  return (
+                    <MenuItem value={index}>{`Cost: ${ccyFormat(
+                      option.sellPrice
+                    )} - Commission: ${option.commissionPercent}%`}</MenuItem>
+                  );
+                }
+              )}
+          </TextField>
           <TextField
             autoComplete="off"
             id="start-date"

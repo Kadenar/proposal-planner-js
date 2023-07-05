@@ -166,50 +166,6 @@ router.post("/proposals", (req, res) => {
   );
 });
 
-// COMMISSIONS \\
-router.get("/commissions", (req, res) => {
-  readFileFunc(
-    `${filePath}/commissions.json`,
-    res,
-    "Fetching cached commissions.",
-    "Reading commissions from file system.",
-    "commissions"
-  );
-});
-
-router.post("/commissions", (req, res) => {
-  writeFileFunc(
-    `${filePath}/commissions.json`,
-    req,
-    res,
-    "Commission could not be updated",
-    "Commission update was successful!",
-    "commissions"
-  );
-});
-
-// MULTIPLIERS \\
-router.get("/multipliers", (req, res) => {
-  readFileFunc(
-    `${filePath}/multipliers.json`,
-    res,
-    "Fetching cached multipliers.",
-    "Reading multipliers from file system.",
-    "multipliers"
-  );
-});
-
-router.post("/multipliers", (req, res) => {
-  writeFileFunc(
-    `${filePath}/multipliers.json`,
-    req,
-    res,
-    "Multiplier could not be updated",
-    "Multiplier updated was successful!",
-    "multipliers"
-  );
-});
-
 // LABORS \\
 router.get("/labors", (req, res) => {
   readFileFunc(
@@ -251,6 +207,28 @@ router.post("/fees", (req, res) => {
     "Fee could not be updated",
     "Fee updated was successful!",
     "fees"
+  );
+});
+
+// PRICING WORKUP \\
+router.get("/multipliers", (req, res) => {
+  readFileFunc(
+    `${filePath}/multipliers.json`,
+    res,
+    "Fetching cached multipliers.",
+    "Reading multipliers from file system.",
+    "multipliers"
+  );
+});
+
+router.post("/multipliers", (req, res) => {
+  writeFileFunc(
+    `${filePath}/multipliers.json`,
+    req,
+    res,
+    "Multipliers could not be updated",
+    "Multipliers updated was successful!",
+    "multipliers"
   );
 });
 

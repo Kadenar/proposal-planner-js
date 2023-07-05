@@ -1,38 +1,38 @@
 [
   {
     "name": "(2) men (8) hours",
-    "qty": "0",
-    "cost": "680",
-    "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f"
+    "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
+    "cost": 1520,
+    "allowCostOverride": false
   },
   {
     "name": "(2) men (16) hours",
-    "qty": 0,
-    "cost": 1360,
-    "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458"
+    "cost": 3040,
+    "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458",
+    "allowCostOverride": false
   },
   {
     "name": "(2) men (20) hours",
-    "qty": 0,
-    "cost": 1700,
-    "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7"
+    "cost": 3800,
+    "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7",
+    "allowCostOverride": false
   },
   {
     "name": "(3) men (24) hours",
-    "qty": 0,
-    "cost": 2040,
-    "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb"
+    "cost": 6840,
+    "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb",
+    "allowCostOverride": false
   },
   {
     "name": "(3) men (30) hours",
-    "qty": 0,
-    "cost": 2550,
-    "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7"
+    "cost": 8550,
+    "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7",
+    "allowCostOverride": false
   },
   {
     "name": "Sub contractor labor",
-    "qty": "0",
-    "cost": "0",
-    "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146"
+    "cost": 0,
+    "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146",
+    "allowCostOverride": true
   }
 ]

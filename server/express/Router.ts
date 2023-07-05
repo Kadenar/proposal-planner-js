@@ -176,50 +176,6 @@ class Router {
       );
     });
 
-    // COMMISSIONS \\
-    this.router.get("/commissions", (req, res) => {
-      this.readFileFunc(
-        `${this.filePath}/commissions.json`,
-        res,
-        "Fetching cached commissions.",
-        "Reading commissions from file system.",
-        "commissions"
-      );
-    });
-
-    this.router.post("/commissions", (req, res) => {
-      this.writeFileFunc(
-        `${this.filePath}/commissions.json`,
-        req,
-        res,
-        "Commission could not be updated",
-        "Commission update was successful!",
-        "commissions"
-      );
-    });
-
-    // MULTIPLIERS \\
-    this.router.get("/multipliers", (req, res) => {
-      this.readFileFunc(
-        `${this.filePath}/multipliers.json`,
-        res,
-        "Fetching cached multipliers.",
-        "Reading multipliers from file system.",
-        "multipliers"
-      );
-    });
-
-    this.router.post("/multipliers", (req, res) => {
-      this.writeFileFunc(
-        `${this.filePath}/multipliers.json`,
-        req,
-        res,
-        "Multiplier could not be updated",
-        "Multiplier updated was successful!",
-        "multipliers"
-      );
-    });
-
     // LABORS \\
     this.router.get("/labors", (req, res) => {
       this.readFileFunc(
@@ -261,6 +217,28 @@ class Router {
         "Fee could not be updated",
         "Fee updated was successful!",
         "fees"
+      );
+    });
+
+    // PRICING WORKUP \\
+    this.router.get("/multipliers", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/multipliers.json`,
+        res,
+        "Fetching cached multipliers.",
+        "Reading multipliers from file system.",
+        "multipliers"
+      );
+    });
+
+    this.router.post("/multipliers", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/multipliers.json`,
+        req,
+        res,
+        "Multipliers could not be updated",
+        "Multipliers updated was successful!",
+        "multipliers"
       );
     });
   }

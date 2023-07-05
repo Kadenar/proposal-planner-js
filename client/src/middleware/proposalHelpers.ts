@@ -1,5 +1,5 @@
 import {
-  FeesOnProposal,
+  FeeOnProposal,
   LaborOnProposal,
   ProposalObject,
   ProductOnProposal,
@@ -65,9 +65,7 @@ export async function addProposal(
         products: existingProposal.data.products,
         fees: existingProposal.data.fees,
         labor: existingProposal.data.labor,
-        multiplier: existingProposal.data.multiplier,
         unitCostTax: existingProposal.data.unitCostTax,
-        commission: existingProposal.data.commission,
         quote_options: existingProposal.data.quote_options,
       },
     };
@@ -96,12 +94,10 @@ export async function deleteProposal(guid: string) {
  */
 export async function saveProposal(
   guid: string,
-  commission: number,
-  fees: FeesOnProposal,
-  labor: LaborOnProposal,
+  fees: FeeOnProposal[],
+  labor: LaborOnProposal[],
   products: ProductOnProposal[],
   unitCostTax: number,
-  multiplier: number,
   quoteOptions: QuoteOption[],
   start_date: string
 ) {
@@ -129,9 +125,7 @@ export async function saveProposal(
     dateModified: `${month}/${day}/${year}`,
     data: {
       ...newProposals[index].data,
-      commission,
       unitCostTax,
-      multiplier,
       labor,
       fees,
       products,
@@ -167,29 +161,13 @@ const getNewProposalItem = async (
   description: string,
   client_guid: string
 ): Promise<ProposalObject> => {
-  const fees = await fetchFees();
-
-  const reducedFees = fees.reduce<FeesOnProposal>(
-    (result, fee) => ({
-      ...result,
-      [fee.guid]: fee,
-    }),
-    {} as FeesOnProposal
-  );
-
-  const labors = await fetchLabors();
-  const reducedLabors = labors.reduce<LaborOnProposal>(
-    (result, labor) => ({
-      ...result,
-      [labor.guid]: labor,
-    }),
-    {} as LaborOnProposal
-  );
-
   const date = new Date();
   const dateNow = `${
     date.getMonth() + 1
   }/${date.getDate()}/${date.getFullYear()}`;
+
+  const fees = await fetchFees();
+  const labors = await fetchLabors();
 
   return {
     guid: crypto.randomUUID(),
@@ -203,10 +181,19 @@ const getNewProposalItem = async (
     data: {
       products: [],
       unitCostTax: 8.375,
-      labor: reducedLabors,
-      fees: reducedFees,
-      multiplier: 1.75,
-      commission: 8.5,
+      labor: labors.map((labor) => {
+        return {
+          guid: labor.guid,
+          cost: labor.cost,
+          qty: 0,
+        };
+      }),
+      fees: fees.map((fee) => {
+        return {
+          guid: fee.guid,
+          cost: fee.cost,
+        };
+      }),
       quote_options: [],
       start_date: "",
     },

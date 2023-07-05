@@ -1,37 +1,38 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
 
 interface LaborStoreActions {
   header: string;
   name: string;
-  qty: number;
   cost: number;
+  allowCostOverride: boolean;
   onSubmit:
     | ((
         name: string,
-        qty: number,
-        cost: number
+        cost: number,
+        allowCostOverride: boolean
       ) => Promise<boolean | undefined>)
     | undefined;
 }
 
 interface LaborStoreType extends LaborStoreActions {
   updateName: (name: string) => void;
-  updateQty: (qty: number) => void;
   updateCost: (cost: number) => void;
+  setCostOverride: (allowCostOverride: boolean) => void;
   close: () => void;
 }
 
 const useLaborStore = create<LaborStoreType>((set) => ({
   header: "",
   name: "",
-  qty: 0,
   cost: 0,
+  allowCostOverride: false,
   onSubmit: undefined,
   updateName: (name) => set(() => ({ name: name })),
-  updateQty: (qty) => set(() => ({ qty: qty })),
   updateCost: (cost) => set(() => ({ cost: cost })),
+  setCostOverride: (allowCostOverride) =>
+    set(() => ({ allowCostOverride: allowCostOverride })),
   close: () => set({ onSubmit: undefined }),
 }));
 
@@ -43,14 +44,14 @@ const LaborDialog = () => {
     state.updateName,
   ]);
 
-  const [qty, updateQty] = useLaborStore((state) => [
-    state.qty,
-    state.updateQty,
-  ]);
-
   const [cost, updateCost] = useLaborStore((state) => [
     state.cost,
     state.updateCost,
+  ]);
+
+  const [allowCostOverride, setCostOverride] = useLaborStore((state) => [
+    state.allowCostOverride,
+    state.setCostOverride,
   ]);
 
   return (
@@ -67,14 +68,6 @@ const LaborDialog = () => {
               }}
             />
             <TextField
-              label="Quantity"
-              value={qty}
-              type="number"
-              onChange={(e) => {
-                updateQty(Number(e.target.value));
-              }}
-            />
-            <TextField
               label="Cost"
               value={cost}
               type="number"
@@ -82,6 +75,18 @@ const LaborDialog = () => {
                 updateCost(Number(e.target.value));
               }}
             />
+            <TextField
+              id="can_override_cost"
+              label="Is cost editable on proposals"
+              value={allowCostOverride}
+              onChange={({ target: { value } }) => {
+                setCostOverride(Boolean(value));
+              }}
+              select
+            >
+              <MenuItem value={false as any}>No</MenuItem>;
+              <MenuItem value={true as any}>Yes</MenuItem>;
+            </TextField>
           </Stack>
         </div>
       }
@@ -99,7 +104,7 @@ const LaborDialog = () => {
                 return;
               }
 
-              const isValid = await onSubmit(name, qty, cost);
+              const isValid = await onSubmit(name, cost, allowCostOverride);
 
               if (isValid) {
                 close();
@@ -119,15 +124,15 @@ const LaborDialog = () => {
 export const laborDialog = ({
   header,
   name,
-  qty,
   cost,
+  allowCostOverride,
   onSubmit,
 }: LaborStoreActions) => {
   useLaborStore.setState({
     header,
     name,
-    qty,
     cost,
+    allowCostOverride,
     onSubmit,
   });
 };

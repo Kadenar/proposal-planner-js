@@ -63,10 +63,10 @@ const Specifications = ({
         Installation with include the following:
       </Text>
       <View style={styles.specifications}>
-        {quote.specifications?.map((spec, index) => {
+        {quote.specifications?.map((spec, idx) => {
           return (
             <>
-              <Text>{`${index + 1}. ${spec.modifiedText}`}</Text>
+              <Text>{`${idx + 1}. ${spec.modifiedText}`}</Text>
             </>
           );
         })}
@@ -98,7 +98,7 @@ const Specifications = ({
           marginRight: 50,
         }}
       >
-        {ccyFormat(invoice.invoiceTotals[index].invoiceTotal)}
+        {ccyFormat(invoice.invoiceTotal)}
       </Text>
     </View>
   </>

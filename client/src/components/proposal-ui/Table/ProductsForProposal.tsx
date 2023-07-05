@@ -1,6 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../../../../services/store";
+import { useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 
-import { ccyFormat, getQuoteName } from "../../../../lib/pricing-utils";
+import {
+  ccyFormat,
+  getFullProductData,
+  getQuoteName,
+} from "../../../lib/pricing-utils";
 
 import {
   Paper,
@@ -19,20 +24,25 @@ import {
   BoldedItalicsTableCell,
   BoldedTableCell,
   ActionsTableCell,
-} from "../../../StyledComponents";
+} from "../../StyledComponents";
 
-import { removeProductFromProposal } from "../../../../services/slices/activeProposalSlice";
+import { removeProductFromProposal } from "../../../services/slices/activeProposalSlice";
 
 export default function ProductsForProposal() {
   const dispatch = useAppDispatch();
 
   const { activeProposal } = useAppSelector((state) => state.activeProposal);
+  const { products } = useAppSelector((state) => state.products);
+  const proposalProducts = activeProposal?.data.products;
+
+  // Get matching product data from the database
+  const productData = useMemo(() => {
+    return getFullProductData(proposalProducts, products);
+  }, [products, proposalProducts]);
 
   if (!activeProposal) {
     return <>Cannot view products when no proposal is selected!</>;
   }
-
-  const proposalProducts = activeProposal.data.products;
 
   return (
     <TableContainer component={Paper}>
@@ -49,8 +59,8 @@ export default function ProductsForProposal() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {proposalProducts.length > 0 ? (
-            proposalProducts.map((product, index) => {
+          {productData.length > 0 ? (
+            productData.map((product, index) => {
               const { model, modelNum, qty, cost } = product;
               return (
                 <TableRow key={`table-row-${modelNum}-${index}`}>

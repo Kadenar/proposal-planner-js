@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useKey } from "../../hooks/useKey";
 
+import { Button, Stack } from "@mui/material";
 import Tabs from "@mui/base/Tabs";
 
 import {
@@ -9,16 +10,17 @@ import {
   StyledTabPanel,
 } from "../../components/StyledComponents";
 
-import ProposalPricingView from "./ProposalPricingView";
 import BreadcrumbNavigation from "../../components/BreadcrumbNavigation";
+
+import ProposalJobView from "./ProposalJobView";
+import ProposalDocumentationView from "./ProposalDocumentationView";
+import ProposalPdfDocumentView from "./ProposalPdfDocumentView";
+import PricingWorkup from "../../components/proposal-ui/Table/PricingWorkup";
 
 import { selectProposal } from "../../services/slices/activeProposalSlice";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
 import { saveProposal } from "../../services/slices/proposalsSlice";
 import { ProposalObject } from "../../middleware/Interfaces";
-import ProposalDocumentationView from "./ProposalDocumentationView";
-import ProposalPdfDocumentView from "./ProposalPdfDocumentView";
-import { Button, Stack } from "@mui/material";
 
 export default function ProposalTabsView({
   activeProposal,
@@ -31,12 +33,10 @@ export default function ProposalTabsView({
   useKey("ctrls", () => {
     saveProposal(dispatch, {
       guid: activeProposal.guid,
-      commission: activeProposal.data.commission,
       fees: activeProposal.data.fees,
       labor: activeProposal.data.labor,
       products: activeProposal.data.products,
       unitCostTax: activeProposal.data.unitCostTax,
-      multiplier: activeProposal.data.multiplier,
       quoteOptions: activeProposal.data.quote_options,
       start_date: activeProposal.data.start_date || "",
     });
@@ -67,12 +67,10 @@ export default function ProposalTabsView({
           onClick={async () =>
             saveProposal(dispatch, {
               guid: activeProposal.guid,
-              commission: activeProposal.data.commission,
               fees: activeProposal.data.fees,
               labor: activeProposal.data.labor,
               products: activeProposal.data.products,
               unitCostTax: activeProposal.data.unitCostTax,
-              multiplier: activeProposal.data.multiplier,
               quoteOptions: activeProposal.data.quote_options,
               start_date: activeProposal.data.start_date || "",
             })
@@ -83,17 +81,21 @@ export default function ProposalTabsView({
       </Stack>
       <Tabs defaultValue={0}>
         <StyledTabsList>
-          <StyledTab value={0}>Costs</StyledTab>
-          <StyledTab value={1}>Documentation</StyledTab>
-          <StyledTab value={2}>PDF</StyledTab>
+          <StyledTab value={0}>Job</StyledTab>
+          <StyledTab value={1}>Pricing workup</StyledTab>
+          <StyledTab value={2}>Documentation</StyledTab>
+          <StyledTab value={3}>PDF</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
-          <ProposalPricingView activeProposal={activeProposal} />
+          <ProposalJobView activeProposal={activeProposal} />
         </StyledTabPanel>
         <StyledTabPanel value={1}>
-          <ProposalDocumentationView />
+          <PricingWorkup activeProposal={activeProposal} />
         </StyledTabPanel>
         <StyledTabPanel value={2}>
+          <ProposalDocumentationView />
+        </StyledTabPanel>
+        <StyledTabPanel value={3}>
           <ProposalPdfDocumentView activeProposal={activeProposal} />
         </StyledTabPanel>
       </Tabs>

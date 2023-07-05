@@ -26,6 +26,7 @@ interface ProductDialogActions {
   quote_option: number;
   onSubmit:
     | ((
+        category: string | undefined,
         selectedProduct: ProductObject | null,
         qty: number,
         quote_option: number
@@ -210,6 +211,7 @@ const AddProductToProposalDialog = () => {
               }
 
               const returnValue = await onSubmit(
+                filter?.guid,
                 selectedProduct,
                 qty,
                 quote_option

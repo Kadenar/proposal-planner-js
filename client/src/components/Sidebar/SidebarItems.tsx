@@ -4,6 +4,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 // import WorkIcon from "@mui/icons-material/Work";
 import StorageIcon from "@mui/icons-material/Storage";
 import ContactsIcon from "@mui/icons-material/Contacts";
+import PriceChangeIcon from "@mui/icons-material/PriceChange";
 
 export const SidebarData = [
   // {
@@ -40,6 +41,12 @@ export const SidebarData = [
     title: "Contacts",
     path: "/contacts",
     icon: <ContactsIcon />,
+    cName: "nav-text",
+  },
+  {
+    title: "Mark-ups",
+    path: "/markups",
+    icon: <PriceChangeIcon />,
     cName: "nav-text",
   },
 ];

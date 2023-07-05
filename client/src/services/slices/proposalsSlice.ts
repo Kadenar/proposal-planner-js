@@ -10,7 +10,7 @@ import { updateStore } from "../Dispatcher.ts";
 import {
   ProductOnProposal,
   ProposalObject,
-  FeesOnProposal,
+  FeeOnProposal,
   LaborOnProposal,
   QuoteOption,
 } from "../../middleware/Interfaces.ts";
@@ -118,22 +118,18 @@ export async function saveProposal(
   dispatch: Dispatch,
   {
     guid,
-    commission,
     fees,
     labor,
     products,
     unitCostTax,
-    multiplier,
     quoteOptions,
     start_date,
   }: {
     guid: string;
-    commission: number;
-    fees: FeesOnProposal;
-    labor: LaborOnProposal;
+    fees: FeeOnProposal[];
+    labor: LaborOnProposal[];
     products: ProductOnProposal[];
     unitCostTax: number;
-    multiplier: number;
     quoteOptions: QuoteOption[];
     start_date: string;
   }
@@ -143,12 +139,10 @@ export async function saveProposal(
     dbOperation: async () =>
       save_proposal(
         guid,
-        commission,
         fees,
         labor,
         products,
         unitCostTax,
-        multiplier,
         quoteOptions,
         start_date
       ),

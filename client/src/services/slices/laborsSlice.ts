@@ -36,11 +36,15 @@ export const initializeLabors = () => async (dispatch: Dispatch) => {
 
 export const addLabor = async (
   dispatch: Dispatch,
-  { name, qty, cost }: { name: string; qty: number; cost: number }
+  {
+    name,
+    cost,
+    allowCostOverride,
+  }: { name: string; cost: number; allowCostOverride: boolean }
 ) =>
   updateStore({
     dispatch,
-    dbOperation: async () => add_labor(name, qty, cost),
+    dbOperation: async () => add_labor(name, cost, allowCostOverride),
     methodToDispatch: updateLabors,
     dataKey: "labors",
     successMessage: "Successfully added labor!",
@@ -51,13 +55,13 @@ export const editLabor = async (
   {
     guid,
     name,
-    qty,
     cost,
-  }: { guid: string; name: string; qty: number; cost: number }
+    allowCostOverride,
+  }: { guid: string; name: string; cost: number; allowCostOverride: boolean }
 ) =>
   updateStore({
     dispatch,
-    dbOperation: async () => edit_labor(guid, name, qty, cost),
+    dbOperation: async () => edit_labor(guid, name, cost, allowCostOverride),
     methodToDispatch: updateLabors,
     dataKey: "labors",
     successMessage: "Successfully edited labor!",

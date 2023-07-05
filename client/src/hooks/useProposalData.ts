@@ -1,71 +1,109 @@
 import { useMemo } from "react";
-import calculateLabor, {
+import {
+  calculateLabor,
   calculateCostForOption,
   calculateCostForProductsInOption,
   calculateFees,
+  getFullProductData,
+  calculateMarkedUpCostsForOption,
 } from "../lib/pricing-utils";
 import { omit } from "lodash";
-import { ProposalObject, ProductOnProposal } from "../middleware/Interfaces";
+import {
+  ProposalObject,
+  ProductOnProposalWithPricing,
+  Markup,
+} from "../middleware/Interfaces";
+import { useAppSelector } from "../services/store";
 
-export function useProposalData(activeProposal: ProposalObject) {
-  const products = activeProposal.data.products;
-  const fees = activeProposal.data.fees;
-  const labor = activeProposal.data.labor;
+export function useProposalPricing(activeProposal: ProposalObject) {
+  const { products } = useAppSelector((state) => state.products);
+  const { fees } = useAppSelector((state) => state.fees);
+  const { equipmentMarkups, laborMarkups } = useAppSelector(
+    (state) => state.multipliers
+  );
+  const productsOnProposal = activeProposal.data.products;
+  const unitCostTax = activeProposal.data.unitCostTax;
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
-    return products.reduce<Record<number, ProductOnProposal[]>>(
-      (result, currentValue) => {
-        (result[currentValue.quote_option] =
-          result[currentValue.quote_option] || []).push(currentValue);
-        return result;
-      },
-      {} as Record<number, ProductOnProposal[]>
-    );
-  }, [products]);
+    return getFullProductData(productsOnProposal, products).reduce<
+      Record<string, ProductOnProposalWithPricing[]>
+    >((result, currentValue) => {
+      (result[`quote_${currentValue.quote_option}`] =
+        result[currentValue.quote_option] || []).push(currentValue);
+      return result;
+    }, {} as Record<number, ProductOnProposalWithPricing[]>);
+  }, [productsOnProposal, products]);
 
   // Calculate the cost of products applied to ALL quotes
   const costAppliedToAllQuotes = useMemo(() => {
-    return calculateCostForProductsInOption(productsInOptionsArrays[0] || []);
+    return calculateCostForProductsInOption(
+      productsInOptionsArrays["quote_0"] || []
+    );
   }, [productsInOptionsArrays]);
 
+  const costOfFees = useMemo(() => {
+    return calculateFees(activeProposal.data.fees, fees);
+  }, [activeProposal.data.fees, fees]);
+
+  const costOfLabor = useMemo(() => {
+    return calculateLabor(activeProposal.data.labor);
+  }, [activeProposal.data.labor]);
+
   // Construct table information for each quote
-  const pricingForQuotesData = useMemo(() => {
+  const baselinePricingForQuotes = useMemo(() => {
     // Omit option 0
-    const remainingOptions = omit(productsInOptionsArrays, "0");
+    const remainingOptions = omit(productsInOptionsArrays, "quote_0");
 
     // Calculate the cost of the remaining options
     return Object.keys(remainingOptions).reduce<
-      Record<number, Record<string, number>>
+      Record<string, Record<string, number>>
     >(
       (result, option) => ({
         ...result,
         [option]: calculateCostForOption(
-          activeProposal,
-          productsInOptionsArrays[Number(option)],
-          costAppliedToAllQuotes
+          productsInOptionsArrays[option],
+          costAppliedToAllQuotes,
+          unitCostTax,
+          costOfFees,
+          costOfLabor
         ),
       }),
-      {} as Record<number, Record<string, number>>
+      {} as Record<string, Record<string, number>>
     );
-  }, [productsInOptionsArrays, costAppliedToAllQuotes, activeProposal]);
-
-  const quoteNamesArray = Object.keys(pricingForQuotesData);
-
-  const _fees = useMemo(() => {
-    return calculateFees(fees);
-  }, [fees]);
-
-  const _labor = useMemo(() => {
-    return calculateLabor(labor);
-  }, [labor]);
-
-  return {
+  }, [
     productsInOptionsArrays,
     costAppliedToAllQuotes,
-    pricingForQuotesData,
-    quoteNamesArray,
-    fees: _fees,
-    labor: _labor,
+    unitCostTax,
+    costOfFees,
+    costOfLabor,
+  ]);
+
+  const markedUpPricesForQuotes = useMemo(() => {
+    return Object.keys(baselinePricingForQuotes).reduce<
+      Record<string, Markup[]>
+    >(
+      (result, option) => ({
+        ...result,
+        [option]: calculateMarkedUpCostsForOption(
+          baselinePricingForQuotes[option].invoiceTotal,
+          baselinePricingForQuotes[option].costOfFees,
+          baselinePricingForQuotes[option].costOfLabor,
+          baselinePricingForQuotes[option].totalWithTaxes,
+          laborMarkups,
+          equipmentMarkups
+        ),
+      }),
+      {} as Record<string, Markup[]>
+    );
+  }, [baselinePricingForQuotes, laborMarkups, equipmentMarkups]);
+
+  return {
+    costAppliedToAllQuotes,
+    baselinePricingForQuotes,
+    markedUpPricesForQuotes,
+    quoteNamesArray: Object.keys(baselinePricingForQuotes),
+    costOfFees,
+    costOfLabor,
   };
 }

@@ -29,9 +29,9 @@ import NewProposalDialog from "../components/dialogs/frontend/NewProposalDialog.
 import AddScalarValueDialog from "../components/dialogs/backend/AddScalarValueDialog.tsx";
 
 // Slices
+import { intializeAddresses } from "../services/slices/serviceAddressInfoSlice.ts";
 import { initializeProductTypes } from "../services/slices/productTypesSlice.ts";
 import { initializeMultipliers } from "../services/slices/multipliersSlice.ts";
-import { initializeCommissions } from "../services/slices/commissionsSlice.ts";
 import { initializeProposals } from "../services/slices/proposalsSlice.ts";
 import { initializeFinancing } from "../services/slices/financingSlice.ts";
 import { initializeProducts } from "../services/slices/productsSlice.ts";
@@ -40,10 +40,11 @@ import { initializeClients } from "../services/slices/clientsSlice.ts";
 import { initializeLabors } from "../services/slices/laborsSlice.ts";
 import { initializeFees } from "../services/slices/feesSlice.ts";
 import { useAppDispatch } from "../services/store.ts";
+
 import ContactsView from "../views/ContactsView.tsx";
 import ContactDialog from "../components/dialogs/frontend/ContactDialog.tsx";
-import { intializeAddresses } from "../services/slices/serviceAddressInfoSlice.ts";
 import FinancingDialog from "../components/dialogs/backend/FinancingDialog.tsx";
+import MarkupsPage from "../pages/MarkupsPage.tsx";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -52,8 +53,6 @@ const ProposalPlanner = () => {
   useEffect(() => {
     batch(() => {
       dispatch(initializeProductTypes());
-      dispatch(initializeMultipliers());
-      dispatch(initializeCommissions());
       dispatch(initializeProposals());
       dispatch(initializeProducts());
       dispatch(initializeClients());
@@ -62,6 +61,7 @@ const ProposalPlanner = () => {
       dispatch(initializeContacts());
       dispatch(intializeAddresses());
       dispatch(initializeFinancing());
+      dispatch(initializeMultipliers());
     });
   }, [dispatch]);
 
@@ -90,6 +90,7 @@ const ProposalPlanner = () => {
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/database" element={<DatabasePage />} />
           <Route path="/contacts" element={<ContactsView />} />
+          <Route path="/markups" element={<MarkupsPage />} />
         </Routes>
       </HashRouter>
     </>

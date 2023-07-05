@@ -3,21 +3,29 @@ import { Button, TextField } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
 import BaseDialog from "../BaseDialog";
-import { FeesOnProposal } from "../../../middleware/Interfaces";
+import { FeeOnProposal } from "../../../middleware/Interfaces";
+
+interface FeeBreakdown {
+  guid: string;
+  name: string;
+  qty: number;
+  cost: number;
+  type: string;
+}
 
 interface FeesStoreActions {
-  fees: FeesOnProposal | undefined;
+  fees: FeeBreakdown[] | undefined;
   onSubmit:
-    | ((fees: FeesOnProposal | undefined) => Promise<boolean | undefined>)
+    | ((fees: FeeOnProposal[] | undefined) => Promise<boolean | undefined>)
     | undefined;
 }
 
 interface FeesStoreType extends FeesStoreActions {
-  setFees: (fees: FeesOnProposal) => void;
+  setFees: (fees: FeeBreakdown[]) => void;
   close: () => void;
 }
 const useFeesStore = create<FeesStoreType>((set) => ({
-  fees: {},
+  fees: [],
   onSubmit: undefined,
   setFees: (fees) => set(() => ({ fees: fees })),
   close: () => set({ onSubmit: undefined }),
@@ -34,20 +42,18 @@ const FeesDialog = () => {
       content={
         <Stack paddingTop={3} spacing={2}>
           {fees &&
-            Object.keys(fees).map((fee) => {
+            fees.map((fee, index) => {
               return (
                 <TextField
-                  id={`${fees[fee].name + "-input"}`}
-                  label={fees[fee].name}
+                  id={`${fee.name + "-input"}`}
+                  label={fees[index].name}
                   variant="outlined"
-                  value={fees[fee].cost}
+                  value={fees[index].cost}
                   InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) => {
-                    const newFees = {
-                      ...fees,
-                    };
-                    newFees[fee] = {
-                      ...newFees[fee],
+                    const newFees = [...fees];
+                    newFees[index] = {
+                      ...newFees[index],
                       cost: Number(e.target.value),
                     };
                     setFees(newFees);
@@ -72,7 +78,14 @@ const FeesDialog = () => {
                 return;
               }
 
-              const isValid = await onSubmit(fees);
+              const newFees = fees?.map((fee) => {
+                return {
+                  guid: fee.guid,
+                  cost: fee.cost,
+                };
+              });
+
+              const isValid = await onSubmit(newFees);
 
               if (isValid) {
                 close();
@@ -89,7 +102,7 @@ const FeesDialog = () => {
   );
 };
 
-export const feesDialog = ({ fees = {}, onSubmit }: FeesStoreActions) => {
+export const feesDialog = ({ fees = [], onSubmit }: FeesStoreActions) => {
   useFeesStore.setState({
     fees,
     onSubmit,

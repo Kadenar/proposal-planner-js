@@ -28,10 +28,10 @@ const LaborAndFeesView = () => {
             laborDialog({
               header: "Add labor",
               name: "",
-              qty: 0,
               cost: 0,
-              onSubmit: async (name, qty, cost) =>
-                addLabor(dispatch, { name, qty, cost }),
+              allowCostOverride: false,
+              onSubmit: async (name, cost, allowCostOverride) =>
+                addLabor(dispatch, { name, cost, allowCostOverride }),
             })
           }
         />
@@ -43,13 +43,13 @@ const LaborAndFeesView = () => {
           columns={[
             { title: "Name", field: "name" },
             {
-              title: "Default quantity",
-              field: "qty",
+              title: "Default cost",
+              field: "cost",
               searchable: false,
             },
             {
-              title: "Default cost",
-              field: "cost",
+              title: "Cost editable on proposals",
+              field: "allowCostOverride",
               searchable: false,
             },
           ]}
@@ -57,9 +57,9 @@ const LaborAndFeesView = () => {
             return {
               id: labor.guid,
               name: labor.name,
-              qty: labor.qty,
               cost: labor.cost,
               guid: labor.guid,
+              allowCostOverride: labor.allowCostOverride,
             };
           })}
           options={{
@@ -82,14 +82,14 @@ const LaborAndFeesView = () => {
                 laborDialog({
                   header: "Edit labor",
                   name: rowData.name,
-                  qty: rowData.qty,
                   cost: rowData.cost,
-                  onSubmit: async (name, qty, cost) =>
+                  allowCostOverride: rowData.allowCostOverride,
+                  onSubmit: async (name, cost, allowCostOverride) =>
                     editLabor(dispatch, {
                       guid: rowData.guid,
                       name,
-                      qty,
                       cost,
+                      allowCostOverride,
                     }),
                 });
               },
@@ -154,7 +154,6 @@ const LaborAndFeesView = () => {
             return {
               id: fee.guid,
               name: fee.name,
-              qty: fee.qty,
               cost: fee.cost,
               type: fee.type,
               guid: fee.guid,
