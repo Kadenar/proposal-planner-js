@@ -124,6 +124,8 @@ export async function saveProposal(
     unitCostTax,
     quoteOptions,
     start_date,
+    target_quote,
+    target_commission,
   }: {
     guid: string;
     fees: FeeOnProposal[];
@@ -132,6 +134,8 @@ export async function saveProposal(
     unitCostTax: number;
     quoteOptions: QuoteOption[];
     start_date: string;
+    target_quote: number | undefined;
+    target_commission: number | undefined;
   }
 ) {
   const response = await updateStore({
@@ -144,7 +148,9 @@ export async function saveProposal(
         products,
         unitCostTax,
         quoteOptions,
-        start_date
+        start_date,
+        target_quote,
+        target_commission
       ),
     methodToDispatch: updateProposals,
     dataKey: "proposals",

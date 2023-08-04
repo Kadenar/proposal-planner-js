@@ -120,9 +120,9 @@ export default function AllProposalsView() {
             selectProposal(dispatch, menuItemInfo.rowData);
           }}
         >
-          Edit proposal
+          Work on proposal
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           onClick={(e) => {
             setMenuItemInfo({
               anchorEl: undefined,
@@ -132,7 +132,7 @@ export default function AllProposalsView() {
           }}
         >
           Mark as sold
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           onClick={(e) => {
             setMenuItemInfo({

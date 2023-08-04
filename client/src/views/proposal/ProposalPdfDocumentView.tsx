@@ -5,7 +5,11 @@ import { Card, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import QuoteSelection from "../../components/QuoteSelection";
 import { useProposalPricing } from "../../hooks/useProposalData";
 import { PdfInvoice, ProposalObject } from "../../middleware/Interfaces";
-import { setProposalStartDate } from "../../services/slices/activeProposalSlice";
+import {
+  setProposalStartDate,
+  setTargetCommission,
+  setTargetQuoteOption,
+} from "../../services/slices/activeProposalSlice";
 import { debounce, groupBy } from "lodash";
 import {
   ccyFormat,
@@ -20,12 +24,24 @@ const ProposalPdfDocumentView = ({
   const dispatch = useAppDispatch();
   const { clients } = useAppSelector((state) => state.clients);
   const { financing } = useAppSelector((state) => state.financing);
-
-  const quote_options = activeProposal?.data.quote_options;
-  const [quote_option, setQuoteOption] = useState(0);
-
   const { markedUpPricesForQuotes } = useProposalPricing(activeProposal);
-  const [markUpOption, setMarkupOption] = useState(6);
+
+  const quote_options = activeProposal.data.quote_options;
+
+  // Get active quote option - handling the possibility user deleted products removing quote option
+  const quote_option =
+    activeProposal.data.target_quote &&
+    quote_options[activeProposal.data.target_quote]
+      ? activeProposal.data.target_quote
+      : 0;
+
+  const markedUpPrices = markedUpPricesForQuotes[`quote_${quote_option + 1}`];
+
+  // Default markup option to most expensive unless user made a selection
+  const markUpOption =
+    activeProposal.data.target_commission === undefined
+      ? markedUpPrices.length - 1
+      : activeProposal.data.target_commission;
 
   const clientInfo = useMemo(() => {
     return clients.find((client) => {
@@ -37,8 +53,6 @@ const ProposalPdfDocumentView = ({
     if (!clientInfo) {
       return undefined;
     }
-
-    const markedUpPrices = markedUpPricesForQuotes[`quote_${quote_option + 1}`];
 
     const pricingForQuote = markedUpPrices
       ? markedUpPrices[markUpOption]?.sellPrice
@@ -59,14 +73,7 @@ const ProposalPdfDocumentView = ({
         "provider"
       ),
     };
-  }, [
-    clientInfo,
-    activeProposal,
-    markUpOption,
-    markedUpPricesForQuotes,
-    financing,
-    quote_option,
-  ]);
+  }, [clientInfo, activeProposal, markedUpPrices, markUpOption, financing]);
 
   const setStartDateDebounced = useRef(
     debounce(async (value) => {
@@ -84,8 +91,8 @@ const ProposalPdfDocumentView = ({
     return (
       <Stack alignItems="center">
         <Typography variant="h6">
-          Client details necessary to create the PDF could not be found. This
-          might be an orphaned proposal?
+          Client details which are necessary to create the PDF could not be
+          found. This might be an orphaned proposal?
         </Typography>
       </Stack>
     );
@@ -110,7 +117,7 @@ const ProposalPdfDocumentView = ({
             initialValue={quote_option}
             quoteOptions={quote_options || []}
             onChangeCallback={(value) => {
-              setQuoteOption(value);
+              setTargetQuoteOption(dispatch, value);
             }}
           />
           <TextField
@@ -118,7 +125,7 @@ const ProposalPdfDocumentView = ({
             label="Cost for customer / your commission"
             value={markUpOption}
             onChange={({ target: { value } }) => {
-              setMarkupOption(Number(value));
+              setTargetCommission(dispatch, Number(value));
             }}
             select
           >

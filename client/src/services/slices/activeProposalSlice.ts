@@ -138,6 +138,18 @@ export const activeProposalSlice = createSlice({
       }
       state.activeProposal.data.start_date = value.payload;
     },
+    updateDesiredCommission: (state, value) => {
+      if (!state.activeProposal) {
+        return;
+      }
+      state.activeProposal.data.target_commission = value.payload;
+    },
+    updateTargetQuoteOption: (state, value) => {
+      if (!state.activeProposal) {
+        return;
+      }
+      state.activeProposal.data.target_quote = value.payload;
+    },
     updateDirtyFlag: (state, value) => {
       state.is_dirty = value.payload;
     },
@@ -159,6 +171,8 @@ const {
   updateFees,
   updateDirtyFlag,
   updateStartDate,
+  updateDesiredCommission,
+  updateTargetQuoteOption,
 } = activeProposalSlice.actions;
 
 export const selectProposal = (
@@ -222,6 +236,20 @@ export const setProposalStartDate = (
   start_date: string
 ) => {
   dispatch(updateStartDate(start_date));
+};
+
+export const setTargetQuoteOption = (
+  dispatch: Dispatch,
+  target_quote: number
+) => {
+  dispatch(updateTargetQuoteOption(target_quote));
+};
+
+export const setTargetCommission = (
+  dispatch: Dispatch,
+  target_commission: number
+) => {
+  dispatch(updateDesiredCommission(target_commission));
 };
 
 export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {

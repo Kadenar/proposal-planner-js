@@ -97,6 +97,8 @@ export interface ProposalData {
   unitCostTax: number;
   quote_options: QuoteOption[]; // this array is 0 indexed, so index 0 = quote 1, etc
   start_date?: string;
+  target_quote?: number;
+  target_commission?: number;
 }
 export interface QuoteOption {
   title: string | undefined;

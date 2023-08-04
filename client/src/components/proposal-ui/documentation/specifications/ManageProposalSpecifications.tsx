@@ -207,9 +207,15 @@ export const ManageProposalSpecifications = ({
             select
           >
             {filters.map((filter) => {
+              const filterSpecLength = filter.specifications?.length || 0;
+              const filterLabel =
+                filterSpecLength === 1
+                  ? `${filter.label} (${filterSpecLength} specification)`
+                  : `${filter.label} (${filterSpecLength} specifications)`;
+
               return (
                 <MenuItem key={filter.guid} value={filter.guid}>
-                  {filter.label}
+                  {filterLabel}
                 </MenuItem>
               );
             })}

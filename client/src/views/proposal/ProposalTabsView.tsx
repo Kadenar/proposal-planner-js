@@ -73,6 +73,8 @@ export default function ProposalTabsView({
               unitCostTax: activeProposal.data.unitCostTax,
               quoteOptions: activeProposal.data.quote_options,
               start_date: activeProposal.data.start_date || "",
+              target_quote: activeProposal.data.target_quote,
+              target_commission: activeProposal.data.target_commission,
             })
           }
         >

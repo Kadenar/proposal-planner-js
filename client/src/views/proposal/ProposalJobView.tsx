@@ -17,12 +17,13 @@ import {
   removeAllProductsFromProposal,
 } from "../../services/slices/activeProposalSlice";
 import { saveProposal } from "../../services/slices/proposalsSlice";
+import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
 
 export const handleAddProductToProposal = (
   dispatch: Dispatch,
   category: string | undefined,
   activeProposal: ProposalObject | undefined,
-  selectedProduct: ProductObject | null,
+  selectedProduct: Array<ProductObject> | undefined,
   qty: number,
   quote_option: number
 ) => {
@@ -53,8 +54,10 @@ export const handleAddProductToProposal = (
     return false;
   }
 
-  const existingProduct = activeProposal.data.products.find(
-    (product) => product.guid === selectedProduct.guid
+  const existingProduct = activeProposal.data.products.find((product) =>
+    selectedProduct.find((selected) => {
+      return selected.guid === product.guid;
+    })
   );
 
   // Check if product is added to proposal in 1 of existing options
@@ -88,11 +91,13 @@ export const handleAddProductToProposal = (
     }
   }
 
-  addProductToProposal(dispatch, {
-    category,
-    guid: selectedProduct.guid,
-    qty,
-    quote_option,
+  selectedProduct.forEach((prod) => {
+    addProductToProposal(dispatch, {
+      category,
+      guid: prod.guid,
+      qty,
+      quote_option,
+    });
   });
 
   showSnackbar({
@@ -140,7 +145,7 @@ export default function ProposalJobView({
               filters,
               filter: filters[0],
               allProducts: products,
-              selectedProduct: null,
+              selectedProduct: [],
               qty: 1,
               quote_option: 1,
               onSubmit: async (
@@ -165,7 +170,16 @@ export default function ProposalJobView({
         </Button>
         <Button
           variant="contained"
-          onClick={() => removeAllProductsFromProposal(dispatch)}
+          onClick={() => {
+            confirmDialog({
+              message:
+                "Are you sure you want to remove all products from this proposal?",
+              onSubmit: async () => {
+                removeAllProductsFromProposal(dispatch);
+                return true;
+              },
+            });
+          }}
         >
           Remove all products
         </Button>

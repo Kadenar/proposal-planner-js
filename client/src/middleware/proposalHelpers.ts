@@ -99,7 +99,9 @@ export async function saveProposal(
   products: ProductOnProposal[],
   unitCostTax: number,
   quoteOptions: QuoteOption[],
-  start_date: string
+  start_date: string,
+  target_quote: number | undefined,
+  target_commission: number | undefined
 ) {
   const existingProposals = await fetchProposals();
   const date = new Date();
@@ -131,6 +133,8 @@ export async function saveProposal(
       products,
       quote_options: quoteOptions,
       start_date,
+      target_quote,
+      target_commission,
     },
   };
 

@@ -26,13 +26,17 @@ export function useProposalPricing(activeProposal: ProposalObject) {
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
-    return getFullProductData(productsOnProposal, products).reduce<
+    const fullProducts = getFullProductData(productsOnProposal, products);
+
+    const reducedProducts = fullProducts.reduce<
       Record<string, ProductOnProposalWithPricing[]>
     >((result, currentValue) => {
       (result[`quote_${currentValue.quote_option}`] =
-        result[currentValue.quote_option] || []).push(currentValue);
+        result[`quote_${currentValue.quote_option}`] || []).push(currentValue);
       return result;
     }, {} as Record<number, ProductOnProposalWithPricing[]>);
+
+    return reducedProducts;
   }, [productsOnProposal, products]);
 
   // Calculate the cost of products applied to ALL quotes
