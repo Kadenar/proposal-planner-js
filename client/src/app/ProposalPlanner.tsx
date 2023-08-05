@@ -2,7 +2,7 @@ import "../styles/page-styles.css";
 import { useEffect } from "react";
 import { batch } from "react-redux";
 
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Navbar from "../components/Sidebar/Navbar.tsx";
 
@@ -84,13 +84,22 @@ const ProposalPlanner = () => {
       <HashRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Navigate to="/proposals" />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/proposals" element={<ProposalsPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/database" element={<DatabasePage />} />
           <Route path="/contacts" element={<ContactsView />} />
           <Route path="/markups" element={<MarkupsPage />} />
+          <Route
+            path="*"
+            element={
+              <div>
+                <h2>404 Page not found</h2>
+              </div>
+            }
+          />
         </Routes>
       </HashRouter>
     </>
