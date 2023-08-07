@@ -9,21 +9,27 @@ const BaseDialog = ({
   actions,
   show,
   close = () => {},
+  styles = {
+    minWidth: "300px",
+    maxWidth: "700px",
+    width: "50vw",
+  },
 }: {
   title: string;
   content: ReactNode;
   actions: ReactNode;
   show: boolean;
   close: () => void;
+  styles?: {
+    minWidth: string;
+    maxWidth: string;
+    width?: string;
+  };
 }) => {
   return (
     <StyledBootstrapDialog
       PaperProps={{
-        style: {
-          minWidth: "300px",
-          maxWidth: "700px",
-          width: "50vw",
-        },
+        style: styles,
       }}
       open={show}
       onClose={close}

@@ -4,7 +4,7 @@
     "name": "Test Template",
     "description": "Test",
     "dateCreated": "8/6/2023",
-    "dateModified": "8/6/2023",
+    "dateModified": "8/7/2023",
     "data": {
       "products": [
         {
@@ -12,6 +12,12 @@
           "guid": "617e8f28-190c-4fec-8e02-9d210610438b",
           "qty": 1,
           "quote_option": 1
+        },
+        {
+          "category": "air_handlers",
+          "guid": "dffba4b6-9aad-4e56-b33d-8e0e524366d7",
+          "qty": 1,
+          "quote_option": 2
         }
       ],
       "unitCostTax": 8.375,
@@ -75,12 +81,26 @@
           "summary": "Test summary",
           "specifications": [
             {
-              "originalText": "We will remove..",
-              "modifiedText": "We will remove.."
+              "guid": "4d810d2c-b18a-4bc2-9ee4-3bde813554e6",
+              "text": "We will remove.."
             },
             {
-              "originalText": "Install..",
-              "modifiedText": "Install.."
+              "guid": "cc06a01f-b20f-4e1e-ab31-f7f58b838b98",
+              "text": "Install.."
+            }
+          ]
+        },
+        {
+          "title": "",
+          "summary": "",
+          "specifications": [
+            {
+              "guid": "6c0e5983-29d8-46f9-92df-79bec6e96e9b",
+              "text": "Test spec"
+            },
+            {
+              "guid": "c6c5b6b6-f1b7-40d5-8c9c-98307eaa079b",
+              "text": "Test spec 2"
             }
           ]
         }

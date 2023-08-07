@@ -3,28 +3,23 @@ import { useAppDispatch } from "../../../services/store";
 
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
-import Collapse from "@mui/material/Collapse";
 import TextField from "@mui/material/TextField";
 
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-
-import { StyledTextarea, StyledIconButton } from "../../StyledComponents";
+import { StyledTextarea } from "../../StyledComponents";
 import {
   setProposalSummary,
   setProposalTitle,
 } from "../../../services/slices/activeProposalSlice";
-import { ManageProposalSpecifications } from "./specifications/ManageProposalSpecifications";
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { ProposalObject } from "../../../middleware/Interfaces";
 import QuoteSelection from "../../QuoteSelection";
+import { ManageProposalSpecifications } from "./specifications/ManageProposalSpecifications";
 
 const ProposalCardDetails = ({
   activeProposal,
 }: {
   activeProposal: ProposalObject;
 }) => {
-  const [open, setOpen] = useState(true);
   const [quote_option, setQuoteOption] = useState(0);
 
   const dispatch = useAppDispatch();
@@ -37,54 +32,41 @@ const ProposalCardDetails = ({
   const summary = selectedQuoteOption ? selectedQuoteOption.summary : "";
 
   return (
-    <Card sx={{ marginBottom: 2 }}>
-      <Stack
-        flexDirection="row"
-        padding={1}
-        margin={1}
-        justifyContent="space-between"
-      >
-        <StyledIconButton
-          aria-label="expand row"
-          size="small"
-          onClick={() => setOpen(!open)}
-          style={{ fontWeight: "bold" }}
-        >
-          {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
-          Proposal specifications
-        </StyledIconButton>
-      </Stack>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+    <Stack spacing={2}>
+      <QuoteSelection
+        initialValue={quote_option}
+        quoteOptions={quote_options}
+        onChangeCallback={(value) => {
+          setQuoteOption(value);
+        }}
+      />
+      <Divider />
+      <Card>
         {
           // Can only show specifications if products have been added and there are quotes available
           quote_options && quote_options.length > 0 ? (
-            <Stack gap={2} marginLeft={2} marginRight={2}>
-              <QuoteSelection
-                initialValue={quote_option}
-                quoteOptions={quote_options}
-                onChangeCallback={(value) => {
-                  setQuoteOption(value);
-                }}
-              />
+            <Stack gap={2} marginTop={2} marginLeft={2} marginRight={2}>
               <TextField
                 sx={{ flexGrow: 1 }}
                 label="Proposal title"
+                placeholder="Enter a title"
                 value={title}
                 onChange={({ target: { value } }) => {
                   setProposalTitle(dispatch, value, quote_option);
                 }}
               />
               <StyledTextarea
-                placeholder="Enter a brief summary"
+                placeholder="Enter a brief summary describing the job"
                 title={summary}
                 onChange={({ target: { value } }) => {
                   setProposalSummary(dispatch, value, quote_option);
                 }}
                 sx={{ flexGrow: 1 }}
-                minRows={4}
+                minRows={3}
                 maxRows={4}
                 value={summary}
               />
+              <Divider />
               <ManageProposalSpecifications
                 quoteOption={Number(quote_option)}
                 activeProposal={activeProposal}
@@ -104,8 +86,8 @@ const ProposalCardDetails = ({
             </Stack>
           )
         }
-      </Collapse>
-    </Card>
+      </Card>
+    </Stack>
   );
 };
 

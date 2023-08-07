@@ -89,7 +89,7 @@ export default function ClientCardDetails({
 
   return (
     <>
-      <Card sx={{ marginBottom: 2 }}>
+      <Card>
         <Stack
           margin={1}
           spacing={2}

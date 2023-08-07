@@ -140,8 +140,9 @@ export default function CreateNewItem() {
         variant="contained"
         component="label"
         sx={{ spacing: "25px" }}
-        onClick={(event: React.MouseEvent<HTMLElement>) =>
-          setMenuItemInfo(event.currentTarget)
+        onClick={
+          (event: React.MouseEvent<HTMLElement>) =>
+            setMenuItemInfo(event.currentTarget) // TODO Figure out why typescript isn't happy
         }
       >
         + Create
@@ -157,6 +158,7 @@ export default function CreateNewItem() {
         {frontEndMenuItems.map((menuItem) => {
           return (
             <MenuItem
+              key={menuItem.label}
               sx={{ gap: 1 }}
               onClick={() => {
                 setMenuItemInfo(null);
@@ -172,6 +174,7 @@ export default function CreateNewItem() {
         {backEndMenuItems.map((menuItem) => {
           return (
             <MenuItem
+              key={menuItem.label}
               sx={{ gap: 1 }}
               onClick={() => {
                 setMenuItemInfo(null);

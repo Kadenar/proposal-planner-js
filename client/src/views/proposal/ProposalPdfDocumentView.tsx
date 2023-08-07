@@ -15,6 +15,7 @@ import {
   ccyFormat,
   updateFinancingOptionsWithCost,
 } from "../../lib/pricing-utils";
+import ClientCardDetails from "../../components/proposal-ui/documentation/ClientCardDetails";
 
 const ProposalPdfDocumentView = ({
   activeProposal,
@@ -113,6 +114,9 @@ const ProposalPdfDocumentView = ({
     <Stack gap={2}>
       <Card sx={{ padding: 2, gap: 2 }}>
         <Stack gap={2}>
+          <Typography variant="h6" fontWeight={"bold"}>
+            PDF Data Source
+          </Typography>
           <QuoteSelection
             initialValue={quote_option}
             quoteOptions={quote_options || []}
@@ -144,6 +148,7 @@ const ProposalPdfDocumentView = ({
             autoComplete="off"
             id="start-date"
             label="Starting date"
+            placeholder="ASAP"
             defaultValue={activeProposal.data.start_date}
             onChange={({ target: { value } }) => {
               setStartDateDebounced(value);
@@ -151,6 +156,7 @@ const ProposalPdfDocumentView = ({
           />
         </Stack>
       </Card>
+      {clientInfo && <ClientCardDetails activeClient={clientInfo} />}
       <PdfDocument invoice_data={invoice_data} quote_option={quote_option} />
     </Stack>
   );

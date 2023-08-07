@@ -51,7 +51,7 @@ const LaborsDialog = () => {
           {labor &&
             labor.map((labor_entry, index) => {
               return (
-                <Stack direction="row" gap="20px">
+                <Stack key={`${labor_entry.name}`} direction="row" gap="20px">
                   <TextField
                     id="labor-cost-id"
                     label="Quantity"

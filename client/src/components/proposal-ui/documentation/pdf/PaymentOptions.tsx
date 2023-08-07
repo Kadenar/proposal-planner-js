@@ -67,7 +67,10 @@ const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
               </Text>
               {invoice.financingOptions[provider].map((option, index) => {
                 return (
-                  <Text style={styles.small_text}>
+                  <Text
+                    key={`${option.name}-financing-options`}
+                    style={styles.small_text}
+                  >
                     <Text style={styles.option_prefix}>
                       Option # {index + 1}
                     </Text>

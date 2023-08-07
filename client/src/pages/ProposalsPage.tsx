@@ -7,11 +7,14 @@ export default function ProposalsPage() {
 
   return (
     <>
-      {!activeProposal ? (
-        <AllProposalsView />
-      ) : (
-        <ProposalTabsView activeProposal={activeProposal} />
-      )}
+      {
+        // Don't allow user to see proposals view for templates
+        !activeProposal || !activeProposal.owner ? (
+          <AllProposalsView />
+        ) : (
+          <ProposalTabsView activeProposal={activeProposal} />
+        )
+      }
     </>
   );
 }

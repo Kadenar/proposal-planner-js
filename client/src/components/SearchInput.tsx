@@ -318,15 +318,15 @@ const SearchResults = ({
 
         if (prevCategory !== result.category) {
           contentToRender = (
-            <>
+            <div key={index}>
               <StyledSearchHeader>
                 <Typography>{result.category}</Typography>
               </StyledSearchHeader>
-              <StyledSearchItem key={index} onClick={result.action}>
+              <StyledSearchItem onClick={result.action}>
                 <>{result.icon}</>
                 <>{result.name}</>
               </StyledSearchItem>
-            </>
+            </div>
           );
         } else {
           contentToRender = (

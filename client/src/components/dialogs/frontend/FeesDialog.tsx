@@ -45,6 +45,7 @@ const FeesDialog = () => {
             fees.map((fee, index) => {
               return (
                 <TextField
+                  key={`${fee.name + "-input"}`}
                   id={`${fee.name + "-input"}`}
                   label={fees[index].name}
                   variant="outlined"

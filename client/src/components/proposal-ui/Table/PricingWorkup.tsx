@@ -28,6 +28,8 @@ const PricingWorkup = ({
   const { quoteNamesArray, markedUpPricesForQuotes, baselinePricingForQuotes } =
     useProposalPricing(activeProposal);
 
+  const quote_options = activeProposal.data.quote_options;
+
   const [open, setOpen] = useState(false);
 
   if (quoteNamesArray.length === 0) {
@@ -55,7 +57,11 @@ const PricingWorkup = ({
 
       <Collapse in={open} timeout="auto" unmountOnExit>
         <>
-          {quoteNamesArray.map((quote) => {
+          {quoteNamesArray.map((quote, index) => {
+            const quoteTitle =
+              quote_options[index].title === ""
+                ? getQuoteNameStr(quote)
+                : quote_options[index].title;
             return (
               <Stack
                 key={quote}
@@ -63,11 +69,11 @@ const PricingWorkup = ({
                 paddingLeft={2}
                 paddingBottom={2}
               >
-                <Typography variant="h6">{`${getQuoteNameStr(
-                  quote
-                )} - ${ccyFormat(
-                  baselinePricingForQuotes[quote].invoiceTotal
-                )}`}</Typography>
+                <Typography variant="h6">
+                  {`${quoteTitle} - ${ccyFormat(
+                    baselinePricingForQuotes[quote].invoiceTotal
+                  )}`}
+                </Typography>
                 <TableContainer component={Paper}>
                   <Table stickyHeader={true} aria-label="cost breakdown table">
                     <TableHead>

@@ -66,7 +66,7 @@ const Specifications = ({
         {quote.specifications?.map((spec, idx) => {
           return (
             <>
-              <Text>{`${idx + 1}. ${spec.modifiedText}`}</Text>
+              <Text>{`${idx + 1}. ${spec.text}`}</Text>
             </>
           );
         })}

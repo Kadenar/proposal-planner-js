@@ -33,11 +33,11 @@ export const initializeProductTypes = () => async (dispatch: Dispatch) => {
 
 export const addProductType = async (
   dispatch: Dispatch,
-  { label, specifications }: { label: string; specifications?: string[] }
+  { label }: { label: string }
 ) =>
   updateStore({
     dispatch,
-    dbOperation: async () => add_product_type(label, specifications),
+    dbOperation: async () => add_product_type(label),
     methodToDispatch: updateProductTypes,
     dataKey: "types",
     successMessage: "Successfully added new product type!",
@@ -45,15 +45,11 @@ export const addProductType = async (
 
 export const editProductType = async (
   dispatch: Dispatch,
-  {
-    guid,
-    value,
-    specifications,
-  }: { guid: string; value: string; specifications?: string[] }
+  { guid, value }: { guid: string; value: string }
 ) =>
   updateStore({
     dispatch,
-    dbOperation: async () => edit_product_type(guid, value, specifications),
+    dbOperation: async () => edit_product_type(guid, value),
     methodToDispatch: updateProductTypes,
     dataKey: "types",
     successMessage: "Successfully edited product type",

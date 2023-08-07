@@ -48,6 +48,7 @@ import FinancingDialog from "../components/dialogs/backend/FinancingDialog.tsx";
 import MarkupsPage from "../pages/MarkupsPage.tsx";
 import NewTemplateDialog from "../components/dialogs/frontend/NewTemplateDialog.tsx";
 import TemplatesPage from "../pages/TemplatesPage.tsx";
+import ImportSpecificationDialog from "../components/dialogs/backend/ImportSpecificationsDialog.tsx";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -86,6 +87,7 @@ const ProposalPlanner = () => {
       <FeeDialog />
       <FeesDialog />
       <FinancingDialog />
+      <ImportSpecificationDialog />
       <HashRouter>
         <Navbar />
         <Routes>

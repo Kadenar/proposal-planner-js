@@ -379,7 +379,11 @@ const QuoteOptionPriceCell = ({
     <>
       {arrayOfQuoteNames.length > 0 ? (
         arrayOfQuoteNames.map((quote_name) => {
-          return <TableCell>{formattedContent(quote_name)}</TableCell>;
+          return (
+            <TableCell key={quote_name}>
+              {formattedContent(quote_name)}
+            </TableCell>
+          );
         })
       ) : (
         <TableCell />

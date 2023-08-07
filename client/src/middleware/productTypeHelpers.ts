@@ -22,7 +22,7 @@ export async function fetchProductTypes(): Promise<ProductTypeObject[]> {
  * Add a new product type to the database
  * @returns
  */
-export async function addProductType(label: string, specifications?: string[]) {
+export async function addProductType(label: string) {
   if (label === "") {
     return {
       status: 500,
@@ -48,7 +48,6 @@ export async function addProductType(label: string, specifications?: string[]) {
     existingTypes.concat({
       label,
       guid,
-      specifications: specifications?.filter((spec) => spec.trim() !== ""),
     }),
     "types"
   );
@@ -58,11 +57,7 @@ export async function addProductType(label: string, specifications?: string[]) {
  * Edit a property type
  * @returns
  */
-export const editProductType = async (
-  guid: string,
-  newLabel: string,
-  specifications?: string[]
-) => {
+export const editProductType = async (guid: string, newLabel: string) => {
   const existingTypes = await fetchProductTypes();
 
   const index = existingTypes.findIndex((existing) => {
@@ -82,7 +77,6 @@ export const editProductType = async (
   newProductTypes[index] = {
     label: newLabel,
     guid: guid, // ? keep guid and only change label - otherwise replace with new_guid,
-    specifications: specifications?.filter((spec) => spec.trim() !== ""),
   };
 
   return runPostRequest(newProductTypes, "types");

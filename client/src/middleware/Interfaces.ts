@@ -30,7 +30,6 @@ export interface FlattenedProductObject extends ProductObject {
 export interface ProductTypeObject {
   label: string;
   guid: string;
-  specifications?: string[];
 }
 
 export interface NewClientObject {
@@ -110,8 +109,8 @@ export interface QuoteOption {
   specifications: ProposalSpec[];
 }
 export interface ProposalSpec {
-  originalText: string;
-  modifiedText: string;
+  guid: string;
+  text: string;
 }
 
 export interface Multiplier {

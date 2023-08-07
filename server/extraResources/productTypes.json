@@ -1,30 +1,15 @@
 [
   {
     "label": "General",
-    "guid": "general",
-    "specifications": [
-      "We will file permits with the town immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval.",
-      "All old equipment and debris will be removed from the property.",
-      "(1) Year Robison Gold Service Contract ($550.00 Value) FREE (customer must purchase oil from Robison for free contract)",
-      "Permit and application fees are included in proposal pricing"
-    ]
+    "guid": "general"
   },
   {
     "label": "Air handlers",
-    "guid": "air_handlers",
-    "specifications": [
-      "We will remove..",
-      "Install.."
-    ]
+    "guid": "air_handlers"
   },
   {
     "label": "Boilers",
-    "guid": "boilers",
-    "specifications": [
-      "The boiler installation will include...",
-      "Energy Kinetics - Lifetime Heat Exchanger warranty (customer must register product within 60 days of installation)",
-      "Installation includes a complimentary inspection and cleaning of the home heating chimney by Guaranteed Home Improvement - per National Fire Protection Association (NFPA) 211 to ensure safe venting."
-    ]
+    "guid": "boilers"
   },
   {
     "label": "Coils",
@@ -68,7 +53,6 @@
   },
   {
     "label": "Aqua boosters",
-    "guid": "aqua_boosters",
-    "specifications": []
+    "guid": "aqua_boosters"
   }
 ]

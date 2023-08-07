@@ -45,7 +45,7 @@ const NewTemplateDialog = () => {
     <BaseDialog
       title={isExistingTemplate ? "Copy template" : "Create a new template"}
       content={
-        <div style={{ paddingTop: "5px", minHeight: "50vh" }}>
+        <div style={{ paddingTop: "5px" }}>
           <Stack spacing={2}>
             <TextField
               label="Name"
