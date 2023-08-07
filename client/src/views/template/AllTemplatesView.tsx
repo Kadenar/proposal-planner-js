@@ -5,20 +5,19 @@ import { Stack } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-import {
-  copyProposal,
-  deleteProposal,
-} from "../../services/slices/proposalsSlice";
 import { selectProposal } from "../../services/slices/activeProposalSlice";
 
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
-import { newProposalDialog } from "../../components/dialogs/frontend/NewProposalDialog";
 import { useAppDispatch, useAppSelector } from "../../services/store";
+import { newTemplateDialog } from "../../components/dialogs/frontend/NewTemplateDialog";
+import {
+  copyTemplate,
+  deleteTemplate,
+} from "../../services/slices/templatesSlice";
 
-export default function AllProposalsView() {
+export default function AllTemplatesView() {
   const dispatch = useAppDispatch();
-  const { proposals } = useAppSelector((state) => state.proposals);
-  const { clients } = useAppSelector((state) => state.clients);
+  const { templates } = useAppSelector((state) => state.templates);
 
   const [menuItemInfo, setMenuItemInfo] = useState<{
     anchorEl: HTMLAnchorElement | undefined;
@@ -36,25 +35,18 @@ export default function AllProposalsView() {
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
-          { title: "Client", field: "owner.name" },
           { title: "Date created", field: "dateCreated" },
           { title: "Date modified", field: "dateModified" },
         ]}
-        data={proposals.map((proposal) => {
+        data={templates.map((template) => {
           return {
-            id: proposal.guid, // needed for material table dev tools warning
-            name: proposal.name,
-            description: proposal.description,
-            owner: {
-              ...proposal.owner,
-              name:
-                clients.find((client) => client.guid === proposal?.owner?.guid)
-                  ?.name || "Orphaned proposal",
-            },
-            dateCreated: proposal.dateCreated,
-            dateModified: proposal.dateModified,
-            guid: proposal.guid,
-            data: proposal.data,
+            id: template.guid, // needed for material table dev tools warning
+            name: template.name,
+            description: template.description,
+            dateCreated: template.dateCreated,
+            dateModified: template.dateModified,
+            guid: template.guid,
+            data: template.data,
           };
         })}
         options={{
@@ -95,10 +87,10 @@ export default function AllProposalsView() {
             selectProposal(dispatch, menuItemInfo.rowData);
           }}
         >
-          Work on proposal
+          Work on template
         </MenuItem>
         <MenuItem
-          onClick={() => {
+          onClick={(e) => {
             setMenuItemInfo({
               ...menuItemInfo,
               anchorEl: undefined,
@@ -108,26 +100,23 @@ export default function AllProposalsView() {
               return;
             }
 
-            newProposalDialog({
+            newTemplateDialog({
               name: menuItemInfo.rowData.name,
               description: `${menuItemInfo.rowData.description} copy`,
-              owner: menuItemInfo.rowData.owner,
-              clients,
-              isExistingProposal: true,
-              onSubmit: (name, description, client_guid) =>
-                copyProposal(dispatch, {
+              isExistingTemplate: true,
+              onSubmit: (name, description) =>
+                copyTemplate(dispatch, {
                   name,
                   description,
-                  client_guid,
-                  existing_proposal: menuItemInfo.rowData,
+                  existing_template: menuItemInfo.rowData,
                 }),
             });
           }}
         >
-          Copy proposal
+          Copy template
         </MenuItem>
         <MenuItem
-          onClick={() => {
+          onClick={(e) => {
             setMenuItemInfo({
               ...menuItemInfo,
               anchorEl: undefined,
@@ -137,11 +126,11 @@ export default function AllProposalsView() {
               message:
                 "Do you really want to delete this? This action cannot be undone.",
               onSubmit: async () =>
-                deleteProposal(dispatch, { guid: menuItemInfo.rowData.guid }),
+                deleteTemplate(dispatch, { guid: menuItemInfo.rowData.guid }),
             });
           }}
         >
-          Delete proposal
+          Delete template
         </MenuItem>
       </Menu>
     </Stack>

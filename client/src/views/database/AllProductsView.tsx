@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "../../services/store.ts";
 import {
   editProduct,
   deleteProduct,
-  addProduct,
 } from "../../services/slices/productsSlice.ts";
 import { flattenProductData } from "../../middleware/productHelpers.ts";
 
@@ -12,7 +11,6 @@ import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog.tsx";
 import { productDialog } from "../../components/dialogs/backend/ProductDialog.tsx";
-import AddNewItem from "../../components/AddNewItem.tsx";
 
 /**
  * Component used to display the set of products that have been selected for this particular job
@@ -29,28 +27,6 @@ export default function AllProductsView() {
 
   return (
     <Stack gap={2}>
-      <AddNewItem
-        onClick={() =>
-          productDialog({
-            header: "Add product",
-            filters,
-            filter: filters[0],
-            modelName: "",
-            modelNum: "",
-            description: "",
-            cost: 0,
-            onSubmit: async (filter, modelName, modelNum, description, cost) =>
-              addProduct(dispatch, {
-                filter,
-                modelName,
-                modelNum,
-                description,
-                cost,
-              }),
-          })
-        }
-      />
-
       <MaterialTable
         title="Products management"
         columns={[

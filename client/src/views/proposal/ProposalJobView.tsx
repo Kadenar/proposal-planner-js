@@ -18,6 +18,7 @@ import {
 } from "../../services/slices/activeProposalSlice";
 import { saveProposal } from "../../services/slices/proposalsSlice";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import PricingWorkup from "../../components/proposal-ui/Table/PricingWorkup";
 
 export const handleAddProductToProposal = (
   dispatch: Dispatch,
@@ -124,15 +125,7 @@ export default function ProposalJobView({
   const { filters } = useAppSelector((state) => state.filters);
 
   useKey("ctrls", () => {
-    saveProposal(dispatch, {
-      guid: activeProposal.guid,
-      fees: activeProposal.data.fees,
-      labor: activeProposal.data.labor,
-      products: activeProposal.data.products,
-      unitCostTax: activeProposal.data.unitCostTax,
-      quoteOptions: activeProposal.data.quote_options,
-      start_date: activeProposal.data.start_date || "",
-    });
+    saveProposal(dispatch, activeProposal);
   });
 
   return (
@@ -188,6 +181,8 @@ export default function ProposalJobView({
         <ProductsForProposal />
         <CostBreakdown activeProposal={activeProposal} />
       </Stack>
+
+      <PricingWorkup activeProposal={activeProposal} />
     </>
   );
 }

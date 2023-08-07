@@ -5,6 +5,7 @@ import {
   ProposalSpec,
   FeeOnProposal,
   LaborOnProposal,
+  TemplateObject,
 } from "../../middleware/Interfaces";
 
 const initialState: {
@@ -177,7 +178,7 @@ const {
 
 export const selectProposal = (
   dispatch: Dispatch,
-  proposal: ProposalObject | undefined
+  proposal: ProposalObject | TemplateObject | undefined
 ) => dispatch(activeProposal(proposal));
 
 export const markProposalAsDirty = (dispatch: Dispatch, value: boolean) => {

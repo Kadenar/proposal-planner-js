@@ -1,0 +1,91 @@
+[
+  {
+    "guid": "31da4e6e-c063-463e-ae74-cc450485cadd",
+    "name": "Test Template",
+    "description": "Test",
+    "dateCreated": "8/6/2023",
+    "dateModified": "8/6/2023",
+    "data": {
+      "products": [
+        {
+          "category": "air_handlers",
+          "guid": "617e8f28-190c-4fec-8e02-9d210610438b",
+          "qty": 1,
+          "quote_option": 1
+        }
+      ],
+      "unitCostTax": 8.375,
+      "labor": [
+        {
+          "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
+          "cost": 1520,
+          "qty": 0
+        },
+        {
+          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458",
+          "cost": 3040,
+          "qty": 0
+        },
+        {
+          "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7",
+          "cost": 3800,
+          "qty": 0
+        },
+        {
+          "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb",
+          "cost": 6840,
+          "qty": 0
+        },
+        {
+          "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7",
+          "cost": 8550,
+          "qty": 0
+        },
+        {
+          "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146",
+          "cost": 0,
+          "qty": 0
+        }
+      ],
+      "fees": [
+        {
+          "guid": "c9ca67fa-6625-4865-aa9f-1544ef0bfa96",
+          "cost": 350
+        },
+        {
+          "guid": "e8cdc9a1-de5f-4a95-8637-2010c04af0df",
+          "cost": 315
+        },
+        {
+          "guid": "40a42c3d-de63-474c-b7b1-53201c5999f3",
+          "cost": 0
+        },
+        {
+          "guid": "66d0ac7b-8293-4712-ab52-a43ffb626c47",
+          "cost": 0
+        },
+        {
+          "guid": "6e133019-054a-448c-a515-d580d2a1f448",
+          "cost": 0
+        }
+      ],
+      "quote_options": [
+        {
+          "title": "Test title",
+          "summary": "Test summary",
+          "specifications": [
+            {
+              "originalText": "We will remove..",
+              "modifiedText": "We will remove.."
+            },
+            {
+              "originalText": "Install..",
+              "modifiedText": "Install.."
+            }
+          ]
+        }
+      ],
+      "start_date": ""
+    }
+  }
+]

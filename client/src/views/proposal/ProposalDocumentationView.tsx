@@ -16,7 +16,7 @@ const ProposalDocumentationView = () => {
 
   return (
     <>
-      <ClientCardDetails activeClient={clientInfo} />
+      {clientInfo && <ClientCardDetails activeClient={clientInfo} />}
       {activeProposal ? (
         <ProposalCardDetails activeProposal={activeProposal} />
       ) : (

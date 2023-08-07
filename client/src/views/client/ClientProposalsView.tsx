@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 
@@ -11,12 +11,14 @@ import { updateActiveClient } from "../../services/slices/clientsSlice";
 import { selectProposal } from "../../services/slices/activeProposalSlice";
 import {
   addProposal,
+  copyProposal,
   deleteProposal,
 } from "../../services/slices/proposalsSlice";
 import { ClientObject } from "../../middleware/Interfaces";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import { Menu, MenuItem } from "@mui/material";
 
 const ClientProposalsView = ({
   selectedClient,
@@ -28,12 +30,22 @@ const ClientProposalsView = ({
 
   const { clients } = useAppSelector((state) => state.clients);
   const { proposals } = useAppSelector((state) => state.proposals);
+  const { templates } = useAppSelector((state) => state.templates);
 
   const proposalsForClient = useMemo(() => {
     return proposals.filter(
       (proposal) => selectedClient?.guid === proposal?.owner?.guid
     );
   }, [proposals, selectedClient]);
+
+  const [menuItemInfo, setMenuItemInfo] = useState<{
+    anchorEl: HTMLAnchorElement | undefined;
+    rowData: any;
+  }>({
+    anchorEl: undefined,
+    rowData: undefined,
+  });
+  const open = Boolean(menuItemInfo.anchorEl);
 
   return (
     <Stack gap={2}>
@@ -49,9 +61,15 @@ const ClientProposalsView = ({
                   ...selectedClient,
                 },
                 clients,
+                templates,
                 isExistingProposal: false,
-                onSubmit: async (name, description, client_guid) =>
-                  addProposal(dispatch, { name, description, client_guid }),
+                onSubmit: async (name, description, client_guid, template) =>
+                  addProposal(dispatch, {
+                    name,
+                    description,
+                    client_guid,
+                    template,
+                  }),
               });
             }}
           >
@@ -86,69 +104,85 @@ const ClientProposalsView = ({
         }}
         actions={[
           {
-            icon: "edit",
-            tooltip: "View proposal",
-            onClick: (_, rowData) => {
-              // Keeping typescript happy
-              if (!rowData || rowData instanceof Array) {
-                return;
-              }
-
-              updateActiveClient(dispatch, undefined);
-              selectProposal(dispatch, rowData);
-              navigate("/proposals");
-            },
-          },
-          {
-            icon: "save",
-            tooltip: "Copy proposal",
-            onClick: (_, rowData) => {
-              // Keeping typescript happy
-              if (!rowData || rowData instanceof Array) {
-                return;
-              }
-
-              newProposalDialog({
-                name: rowData.name,
-                description: rowData.description,
-                owner: {
-                  ...rowData.owner,
-                  name: "",
-                  address: "",
-                  state: "",
-                  city: "",
-                  zip: "",
-                },
-                clients,
-                isExistingProposal: true,
-                onSubmit: async (
-                  name: string,
-                  description: string,
-                  client_guid: string | undefined
-                ) => addProposal(dispatch, { name, description, client_guid }),
-              });
-            },
-          },
-          {
-            icon: "delete",
-            tooltip: "Delete proposal",
-            onClick: (_, rowData) => {
-              // Keeping typescript happy
-              if (!rowData || rowData instanceof Array) {
-                return;
-              }
-
-              confirmDialog({
-                message:
-                  "Do you really want to delete this? This action cannot be undone.",
-                onSubmit: async () => {
-                  return deleteProposal(dispatch, { guid: rowData.guid });
-                },
-              });
-            },
+            icon: "pending",
+            tooltip: "Actions",
+            onClick: (event, rowData) =>
+              setMenuItemInfo({
+                anchorEl: event.currentTarget,
+                rowData,
+              }),
           },
         ]}
       />
+      <Menu
+        anchorEl={menuItemInfo?.anchorEl}
+        open={open}
+        onClose={() =>
+          setMenuItemInfo({
+            anchorEl: undefined,
+            rowData: undefined,
+          })
+        }
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem
+          onClick={(e) => {
+            updateActiveClient(dispatch, undefined);
+            selectProposal(dispatch, menuItemInfo.rowData);
+            navigate("/proposals");
+          }}
+        >
+          Work on proposal
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setMenuItemInfo({
+              ...menuItemInfo,
+              anchorEl: undefined,
+            });
+
+            if (!menuItemInfo.rowData) {
+              return;
+            }
+
+            newProposalDialog({
+              name: menuItemInfo.rowData.name,
+              description: `${menuItemInfo.rowData.description} copy`,
+              owner: { ...selectedClient },
+              clients,
+              isExistingProposal: true,
+              onSubmit: (name, description, client_guid) =>
+                copyProposal(dispatch, {
+                  name,
+                  description,
+                  client_guid,
+                  existing_proposal: menuItemInfo.rowData,
+                }),
+            });
+          }}
+        >
+          Copy proposal
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setMenuItemInfo({
+              ...menuItemInfo,
+              anchorEl: undefined,
+            });
+
+            confirmDialog({
+              message:
+                "Do you really want to delete this? This action cannot be undone.",
+              onSubmit: async () =>
+                deleteProposal(dispatch, { guid: menuItemInfo.rowData.guid }),
+            });
+          }}
+        >
+          Delete proposal
+        </MenuItem>
+      </Menu>
     </Stack>
   );
 };

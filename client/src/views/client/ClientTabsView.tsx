@@ -62,7 +62,7 @@ export default function ClientTabsView({
           <StyledTabsList>
             <StyledTab value={0}>Address</StyledTab>
             <StyledTab value={1}>Proposals</StyledTab>
-            <StyledTab value={2}>Jobs</StyledTab>
+            {/* <StyledTab value={2}>Jobs</StyledTab> */}
           </StyledTabsList>
           <StyledTabPanel value={0}>
             <ClientAddressView selectedClient={selectedClient} />
@@ -70,9 +70,9 @@ export default function ClientTabsView({
           <StyledTabPanel value={1}>
             <ClientProposalsView selectedClient={selectedClient} />
           </StyledTabPanel>
-          <StyledTabPanel value={2}>
+          {/* <StyledTabPanel value={2}>
             <>Jobs will go here</>
-          </StyledTabPanel>
+          </StyledTabPanel> */}
         </Tabs>
       </div>
     </>

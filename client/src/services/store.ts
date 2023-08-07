@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import productTypesSlice from "./slices/productTypesSlice";
 import productsSlice from "./slices/productsSlice";
 import proposalsSlice from "./slices/proposalsSlice";
+import templatesSlice from "./slices/templatesSlice";
 import clientsSlice from "./slices/clientsSlice";
 import multipliersSlice from "./slices/multipliersSlice";
 import activeProposalSlice from "./slices/activeProposalSlice";
@@ -21,6 +22,7 @@ const store = configureStore({
   reducer: {
     filters: productTypesSlice,
     products: productsSlice,
+    templates: templatesSlice,
     proposals: proposalsSlice,
     clients: clientsSlice,
     multipliers: multipliersSlice,

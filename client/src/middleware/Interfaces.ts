@@ -78,17 +78,21 @@ export interface LaborOnProposal {
   qty: number;
 }
 
-export interface ProposalObject {
+export interface TemplateObject {
   guid: string;
   name: string;
   description: string;
   dateCreated: string;
   dateModified: string;
+  data: ProposalData;
+}
+
+export interface ProposalObject extends TemplateObject {
   owner: {
     guid: string;
   };
-  data: ProposalData;
 }
+
 // Information stored within data object for a proposal
 export interface ProposalData {
   fees: FeeOnProposal[];

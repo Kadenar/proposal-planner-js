@@ -12,6 +12,7 @@ import { StyledSwitch } from "../StyledComponents";
 import { useThemeContext } from "../../theme/ThemeContextProvider";
 import TypeSearch from "../SearchInput";
 import { Stack } from "@mui/material";
+import CreateNewItem from "./CreateNewItem";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -46,7 +47,9 @@ export default function Navbar() {
               {header}
             </Typography>
             <TypeSearch />
+            <CreateNewItem />
           </Stack>
+
           <FormControlLabel
             control={
               <StyledSwitch

@@ -1,12 +1,8 @@
 import MaterialTable from "@material-table/core";
 import { useAppDispatch, useAppSelector } from "../services/store";
-import { Button, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { confirmDialog } from "../components/dialogs/ConfirmDialog";
-import {
-  addContact,
-  deleteContact,
-  editContact,
-} from "../services/slices/contactsSlice";
+import { deleteContact, editContact } from "../services/slices/contactsSlice";
 import { contactDialog } from "../components/dialogs/frontend/ContactDialog";
 
 const ContactsView = () => {
@@ -15,23 +11,6 @@ const ContactsView = () => {
 
   return (
     <Stack padding={2} gap={2}>
-      <Stack spacing={1} direction="row" justifyContent="flex-end">
-        <Button
-          variant="contained"
-          onClick={() => {
-            contactDialog({
-              header: "Add new contact",
-              name: "",
-              email: "",
-              phone: "",
-              onSubmit: async (name, email, phone) =>
-                addContact(dispatch, { name, email, phone }),
-            });
-          }}
-        >
-          Create new contact
-        </Button>
-      </Stack>
       <MaterialTable
         title=""
         columns={[

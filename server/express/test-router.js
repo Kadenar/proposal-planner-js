@@ -166,6 +166,28 @@ router.post("/proposals", (req, res) => {
   );
 });
 
+// TEMPLATES \\
+router.get("/templates", (req, res) => {
+  readFileFunc(
+    `${filePath}/templates.json`,
+    res,
+    "Fetching cached templates.",
+    "Reading templates from file system.",
+    "templates"
+  );
+});
+
+router.post("/templates", (req, res) => {
+  writeFileFunc(
+    `${filePath}/templates.json`,
+    req,
+    res,
+    "Template could not be updated",
+    "Template update was successful!",
+    "templates"
+  );
+});
+
 // LABORS \\
 router.get("/labors", (req, res) => {
   readFileFunc(

@@ -176,6 +176,28 @@ class Router {
       );
     });
 
+    // TEMPLATES \\
+    this.router.get("/templates", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/templates.json`,
+        res,
+        "Fetching cached templates.",
+        "Reading templates from file system.",
+        "templates"
+      );
+    });
+
+    this.router.post("/templates", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/templates.json`,
+        req,
+        res,
+        "Template could not be updated",
+        "Template update was successful!",
+        "templates"
+      );
+    });
+
     // LABORS \\
     this.router.get("/labors", (req, res) => {
       this.readFileFunc(

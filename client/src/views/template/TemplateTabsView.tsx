@@ -12,32 +12,31 @@ import {
 
 import BreadcrumbNavigation from "../../components/BreadcrumbNavigation";
 
-import ProposalJobView from "./ProposalJobView";
-import ProposalDocumentationView from "./ProposalDocumentationView";
-import ProposalPdfDocumentView from "./ProposalPdfDocumentView";
+import ProposalJobView from "../proposal/ProposalJobView";
+import ProposalDocumentationView from "../proposal/ProposalDocumentationView";
 
-import { selectProposal } from "../../services/slices/activeProposalSlice";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
-import { saveProposal } from "../../services/slices/proposalsSlice";
+import { saveTemplate } from "../../services/slices/templatesSlice";
 import { ProposalObject } from "../../middleware/Interfaces";
+import { selectProposal } from "../../services/slices/activeProposalSlice";
 
-export default function ProposalTabsView({
-  activeProposal,
+export default function TemplateTabsView({
+  activeTemplate,
 }: {
-  activeProposal: ProposalObject;
+  activeTemplate: ProposalObject;
 }) {
   const dispatch = useAppDispatch();
   const { is_dirty } = useAppSelector((state) => state.activeProposal);
 
   useKey("ctrls", () => {
-    saveProposal(dispatch, activeProposal);
+    saveTemplate(dispatch, activeTemplate);
   });
 
   return (
     <div className="proposals">
       <Stack direction="row" justifyContent="space-between" marginBottom={2}>
         <BreadcrumbNavigation
-          initialBreadCrumbTitle="All proposals"
+          initialBreadCrumbTitle="All templates"
           navigateBackFunc={() => {
             if (is_dirty) {
               confirmDialog({
@@ -51,29 +50,25 @@ export default function ProposalTabsView({
               selectProposal(dispatch, undefined);
             }
           }}
-          breadcrumbName={activeProposal.name}
+          breadcrumbName={activeTemplate.name}
         />
         <Button
           variant="contained"
-          onClick={async () => saveProposal(dispatch, activeProposal)}
+          onClick={async () => saveTemplate(dispatch, activeTemplate)}
         >
-          Save proposal
+          Save template
         </Button>
       </Stack>
       <Tabs defaultValue={0}>
         <StyledTabsList>
           <StyledTab value={0}>Job</StyledTab>
-          <StyledTab value={2}>Documentation</StyledTab>
-          <StyledTab value={3}>PDF</StyledTab>
+          <StyledTab value={1}>Documentation</StyledTab>
         </StyledTabsList>
         <StyledTabPanel value={0}>
-          <ProposalJobView activeProposal={activeProposal} />
+          <ProposalJobView activeProposal={activeTemplate} />
         </StyledTabPanel>
-        <StyledTabPanel value={2}>
+        <StyledTabPanel value={1}>
           <ProposalDocumentationView />
-        </StyledTabPanel>
-        <StyledTabPanel value={3}>
-          <ProposalPdfDocumentView activeProposal={activeProposal} />
         </StyledTabPanel>
       </Tabs>
     </div>

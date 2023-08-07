@@ -5,6 +5,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import StorageIcon from "@mui/icons-material/Storage";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import PriceChangeIcon from "@mui/icons-material/PriceChange";
+import ArticleIcon from "@mui/icons-material/Article";
 
 export const SidebarData = [
   // {
@@ -20,6 +21,18 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
+    title: "Contacts",
+    path: "/contacts",
+    icon: <ContactsIcon />,
+    cName: "nav-text",
+  },
+  {
+    title: "Database",
+    path: "/database",
+    icon: <StorageIcon />,
+    cName: "nav-text",
+  },
+  {
     title: "Proposals",
     path: "/proposals",
     icon: <DescriptionIcon />,
@@ -32,21 +45,15 @@ export const SidebarData = [
   //   cName: "nav-text",
   // },
   {
-    title: "Database",
-    path: "/database",
-    icon: <StorageIcon />,
-    cName: "nav-text",
-  },
-  {
-    title: "Contacts",
-    path: "/contacts",
-    icon: <ContactsIcon />,
-    cName: "nav-text",
-  },
-  {
     title: "Mark-ups",
     path: "/markups",
     icon: <PriceChangeIcon />,
+    cName: "nav-text",
+  },
+  {
+    title: "Templates",
+    path: "/templates",
+    icon: <ArticleIcon />,
     cName: "nav-text",
   },
 ];

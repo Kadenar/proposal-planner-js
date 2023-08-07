@@ -7,13 +7,7 @@ import {
   saveProposal as save_proposal,
 } from "../../middleware/proposalHelpers.ts";
 import { updateStore } from "../Dispatcher.ts";
-import {
-  ProductOnProposal,
-  ProposalObject,
-  FeeOnProposal,
-  LaborOnProposal,
-  QuoteOption,
-} from "../../middleware/Interfaces.ts";
+import { ProposalObject, TemplateObject } from "../../middleware/Interfaces.ts";
 import { markProposalAsDirty } from "./activeProposalSlice.ts";
 
 // REDUCERS
@@ -49,15 +43,18 @@ export async function addProposal(
     name,
     description,
     client_guid,
+    template,
   }: {
     name: string;
     description: string;
     client_guid: string | undefined;
+    template: TemplateObject | undefined | null;
   }
 ) {
   return updateStore({
     dispatch,
-    dbOperation: async () => add_proposal(name, description, client_guid, null),
+    dbOperation: async () =>
+      add_proposal(name, description, client_guid, template),
     methodToDispatch: updateProposals,
     dataKey: "proposals",
     successMessage: "Successfully added new proposal!",
@@ -116,42 +113,11 @@ export async function deleteProposalsForClient(
 
 export async function saveProposal(
   dispatch: Dispatch,
-  {
-    guid,
-    fees,
-    labor,
-    products,
-    unitCostTax,
-    quoteOptions,
-    start_date,
-    target_quote,
-    target_commission,
-  }: {
-    guid: string;
-    fees: FeeOnProposal[];
-    labor: LaborOnProposal[];
-    products: ProductOnProposal[];
-    unitCostTax: number;
-    quoteOptions: QuoteOption[];
-    start_date: string;
-    target_quote: number | undefined;
-    target_commission: number | undefined;
-  }
+  proposal: ProposalObject
 ) {
   const response = await updateStore({
     dispatch,
-    dbOperation: async () =>
-      save_proposal(
-        guid,
-        fees,
-        labor,
-        products,
-        unitCostTax,
-        quoteOptions,
-        start_date,
-        target_quote,
-        target_commission
-      ),
+    dbOperation: async () => save_proposal(proposal),
     methodToDispatch: updateProposals,
     dataKey: "proposals",
     successMessage: "Your proposal has been successfully saved.",

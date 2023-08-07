@@ -18,6 +18,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import PersonIcon from "@mui/icons-material/Person";
+import DraftsIcon from "@mui/icons-material/Drafts";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
@@ -151,6 +152,7 @@ const SearchResults = ({
   callBack: () => void;
 }) => {
   const dispatch = useAppDispatch();
+  const { templates } = useAppSelector((state) => state.templates);
   const { proposals } = useAppSelector((state) => state.proposals);
   const { clients } = useAppSelector((state) => state.clients);
   const { products } = useAppSelector((state) => state.products);
@@ -159,6 +161,25 @@ const SearchResults = ({
 
   const searchResults = useMemo<SearchResult[]>(() => {
     let allResults: SearchResult[] = [];
+
+    // Add proposals to search results
+    templates.forEach((template) => {
+      if (
+        template.name.toLowerCase().includes(value.toLowerCase()) ||
+        template.description.toLowerCase().includes(value.toLowerCase())
+      ) {
+        allResults.push({
+          icon: <DraftsIcon />,
+          name: template.name,
+          category: "Templates",
+          action: () => {
+            navigate("/templates");
+            selectProposal(dispatch, template);
+            callBack();
+          },
+        });
+      }
+    });
 
     // Add proposals to search results
     proposals.forEach((proposal) => {
@@ -283,6 +304,7 @@ const SearchResults = ({
     clients,
     proposals,
     filters,
+    templates,
     dispatch,
     callBack,
     navigate,

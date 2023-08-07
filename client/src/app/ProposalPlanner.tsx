@@ -32,6 +32,7 @@ import AddScalarValueDialog from "../components/dialogs/backend/AddScalarValueDi
 import { intializeAddresses } from "../services/slices/serviceAddressInfoSlice.ts";
 import { initializeProductTypes } from "../services/slices/productTypesSlice.ts";
 import { initializeMultipliers } from "../services/slices/multipliersSlice.ts";
+import { initializeTemplates } from "../services/slices/templatesSlice.ts";
 import { initializeProposals } from "../services/slices/proposalsSlice.ts";
 import { initializeFinancing } from "../services/slices/financingSlice.ts";
 import { initializeProducts } from "../services/slices/productsSlice.ts";
@@ -45,6 +46,8 @@ import ContactsView from "../views/ContactsView.tsx";
 import ContactDialog from "../components/dialogs/frontend/ContactDialog.tsx";
 import FinancingDialog from "../components/dialogs/backend/FinancingDialog.tsx";
 import MarkupsPage from "../pages/MarkupsPage.tsx";
+import NewTemplateDialog from "../components/dialogs/frontend/NewTemplateDialog.tsx";
+import TemplatesPage from "../pages/TemplatesPage.tsx";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -54,6 +57,7 @@ const ProposalPlanner = () => {
     batch(() => {
       dispatch(initializeProductTypes());
       dispatch(initializeProposals());
+      dispatch(initializeTemplates());
       dispatch(initializeProducts());
       dispatch(initializeClients());
       dispatch(initializeLabors());
@@ -70,6 +74,7 @@ const ProposalPlanner = () => {
       <CustomSnackbar />
       <NewClientDialog />
       <ContactDialog />
+      <NewTemplateDialog />
       <NewProposalDialog />
       <ConfirmDialog />
       <ProductDialog />
@@ -86,6 +91,7 @@ const ProposalPlanner = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/proposals" />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/templates" element={<TemplatesPage />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/proposals" element={<ProposalsPage />} />
           <Route path="/jobs" element={<JobsPage />} />

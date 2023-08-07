@@ -1,10 +1,4 @@
-import {
-  FeeOnProposal,
-  LaborOnProposal,
-  ProposalObject,
-  ProductOnProposal,
-  QuoteOption,
-} from "./Interfaces.ts";
+import { ProposalObject, TemplateObject } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -29,7 +23,7 @@ export async function addProposal(
   name: string,
   description: string,
   client_guid: string | undefined,
-  existingProposal?: ProposalObject | null
+  existingProposal?: ProposalObject | TemplateObject | null
 ) {
   if (name === "") {
     return {
@@ -69,7 +63,6 @@ export async function addProposal(
         quote_options: existingProposal.data.quote_options,
       },
     };
-    return runPostRequest(existingProposals.concat(newProposal), "proposals");
   }
 
   return runPostRequest(existingProposals.concat(newProposal), "proposals");
@@ -92,17 +85,7 @@ export async function deleteProposal(guid: string) {
  * Saves a given proposal
  * @returns
  */
-export async function saveProposal(
-  guid: string,
-  fees: FeeOnProposal[],
-  labor: LaborOnProposal[],
-  products: ProductOnProposal[],
-  unitCostTax: number,
-  quoteOptions: QuoteOption[],
-  start_date: string,
-  target_quote: number | undefined,
-  target_commission: number | undefined
-) {
+export async function saveProposal(proposalToSave: ProposalObject) {
   const existingProposals = await fetchProposals();
   const date = new Date();
   let day = date.getDate();
@@ -110,7 +93,7 @@ export async function saveProposal(
   let year = date.getFullYear();
 
   const index = existingProposals.findIndex((proposal) => {
-    return proposal.guid === guid;
+    return proposal.guid === proposalToSave.guid;
   });
 
   if (index === -1) {
@@ -127,14 +110,14 @@ export async function saveProposal(
     dateModified: `${month}/${day}/${year}`,
     data: {
       ...newProposals[index].data,
-      unitCostTax,
-      labor,
-      fees,
-      products,
-      quote_options: quoteOptions,
-      start_date,
-      target_quote,
-      target_commission,
+      unitCostTax: proposalToSave.data.unitCostTax,
+      labor: proposalToSave.data.labor,
+      fees: proposalToSave.data.fees,
+      products: proposalToSave.data.products,
+      quote_options: proposalToSave.data.quote_options,
+      start_date: proposalToSave.data.start_date || "",
+      target_quote: proposalToSave.data.target_quote,
+      target_commission: proposalToSave.data.target_commission,
     },
   };
 
