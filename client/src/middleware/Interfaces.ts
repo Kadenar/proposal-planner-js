@@ -108,6 +108,19 @@ export interface QuoteOption {
   summary: string | undefined;
   specifications: ProposalSpec[];
 }
+
+// Specifications that are available to be imported
+export interface AvailableSpecification extends ProposalSpec {
+  checked: boolean;
+}
+
+// Specifications the user intends to import
+export interface AddedSpecification {
+  guid: string;
+  originalText: string;
+  modifiedText: string;
+}
+
 export interface ProposalSpec {
   guid: string;
   text: string;

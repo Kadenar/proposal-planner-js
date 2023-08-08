@@ -69,7 +69,7 @@ const PricingWorkup = ({
                 paddingLeft={2}
                 paddingBottom={2}
               >
-                <Typography variant="h6">
+                <Typography variant="h6" marginBottom={1}>
                   {`${quoteTitle} - ${ccyFormat(
                     baselinePricingForQuotes[quote].invoiceTotal
                   )}`}
@@ -78,10 +78,10 @@ const PricingWorkup = ({
                   <Table stickyHeader={true} aria-label="cost breakdown table">
                     <TableHead>
                       <TableRow key="costs-header">
-                        <TableCell>Customer price</TableCell>
-                        <TableCell>% Commission</TableCell>
-                        <TableCell>$ Commission</TableCell>
-                        <TableCell>Company Margin</TableCell>
+                        <TableCell>Cost to customer $</TableCell>
+                        <TableCell>Your Commission %</TableCell>
+                        <TableCell>Your Commission $</TableCell>
+                        <TableCell>Company Margin $</TableCell>
                       </TableRow>
                     </TableHead>
 

@@ -1,16 +1,13 @@
 import { Autocomplete, Button, Stack, TextField } from "@mui/material";
 import { create } from "zustand";
 import BaseDialog from "../BaseDialog";
-import { TemplateObject } from "../../../middleware/Interfaces";
+import {
+  AddedSpecification,
+  TemplateObject,
+} from "../../../middleware/Interfaces";
 import { useState } from "react";
 import { ManageImportSpecifications } from "../../proposal-ui/documentation/specifications/ManageImportSpecifications";
 import QuoteSelection from "../../QuoteSelection";
-
-interface AddedSpecification {
-  guid: string;
-  originalText: string;
-  modifiedText: string;
-}
 
 interface ImportSpecificationActions {
   templates: TemplateObject[];

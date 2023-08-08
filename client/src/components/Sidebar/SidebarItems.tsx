@@ -12,48 +12,40 @@ export const SidebarData = [
   //   title: "Home",
   //   path: "/",
   //   icon: <HomeIcon />,
-  //   cName: "nav-text",
   // },
   {
     title: "Clients",
     path: "/clients",
     icon: <PeopleAltIcon />,
-    cName: "nav-text",
   },
   {
     title: "Contacts",
     path: "/contacts",
     icon: <ContactsIcon />,
-    cName: "nav-text",
   },
   {
     title: "Database",
     path: "/database",
     icon: <StorageIcon />,
-    cName: "nav-text",
   },
   {
     title: "Proposals",
     path: "/proposals",
     icon: <DescriptionIcon />,
-    cName: "nav-text",
   },
   // {
   //   title: "Jobs",
   //   path: "/jobs",
   //   icon: <WorkIcon />,
-  //   cName: "nav-text",
   // },
   {
     title: "Mark-ups",
     path: "/markups",
     icon: <PriceChangeIcon />,
-    cName: "nav-text",
   },
   {
     title: "Templates",
     path: "/templates",
     icon: <ArticleIcon />,
-    cName: "nav-text",
   },
 ];

@@ -12,21 +12,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { AddedSpecificationCard } from "./AddedSpecificationCard";
 import { AvailableSpecificationCard } from "./AvailableSpecificationCards";
-import { TemplateObject } from "../../../../middleware/Interfaces";
-
-// Specifications that are available to be imported
-interface AvailableSpecification {
-  guid: string;
-  text: string;
-  checked: boolean;
-}
-
-// Specifications the user intends to import
-interface AddedSpecification {
-  guid: string;
-  originalText: string;
-  modifiedText: string;
-}
+import {
+  TemplateObject,
+  AddedSpecification,
+  AvailableSpecification,
+} from "../../../../middleware/Interfaces";
 
 // This represents the combined view of left (available) & right (added) specifications
 export const ManageImportSpecifications = ({
