@@ -34,11 +34,11 @@ export default function AllClientsView() {
         columns={[
           { title: "Name", field: "name" },
           { title: "Address", field: "address" },
-          { title: "Account number", field: "accountNum" },
+          { title: "Account #", field: "accountNum" },
           { title: "Phone #", field: "phone" },
           { title: "Email", field: "email" },
           {
-            title: "# of proposals",
+            title: "# proposals",
             field: "proposals",
             cellStyle: {
               paddingLeft: "50px",

@@ -72,7 +72,7 @@ export default function AllProductsView() {
           search: true,
           filtering: true,
           actionsColumnIndex: -1,
-          pageSize: 10,
+          pageSize: 15,
         }}
         actions={[
           {

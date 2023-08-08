@@ -7,7 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import ListItem from "@mui/material/ListItem";
 import TableCell from "@mui/material/TableCell";
 import Switch from "@mui/material/Switch";
-import { IconButton, TextField } from "@mui/material";
+import { Drawer, IconButton, ListItemText, TextField } from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 
 const blue = {
@@ -97,30 +97,6 @@ export const StyledSearchItem = styled(ListItem)(({ theme }) => {
   };
 });
 
-// Table cell with min width and bolding
-export const StyledListItem = styled(ListItem)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === "light"
-      ? theme.palette.grey[100]
-      : theme.palette.grey[800];
-
-  const linkColor = theme.palette.mode === "light" ? grey[900] : "#fff";
-
-  return {
-    "&:hover": {
-      color: "#fff",
-      backgroundColor: "#1976d2",
-    },
-    color: linkColor,
-    border: "1px solid black",
-    borderRadius: ".5em",
-    paddingTop: "10px",
-    paddingBottom: "10px",
-    margin: "0 0 10px 0",
-    backgroundColor: backgroundColor,
-  };
-});
-
 export const StyledBootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -186,6 +162,118 @@ export const StyledTab = styled(Tab)(
   }
 `
 );
+
+const navbarHeight = 64;
+const drawerWidth = 200;
+
+export const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: 50,
+  ...(open && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: `calc(${drawerWidth}px - 15px)`,
+  }),
+}));
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  height: `calc(100% - ${navbarHeight}px)`,
+  top: `${navbarHeight - 13}px`,
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  alignItems: "left",
+  top: `${navbarHeight - 13}px`,
+  height: `calc(100% - ${64}px)`,
+  marginRight: `${drawerWidth}px`,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+export const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
+
+// Style the standard muidrawer to include sizing and transitions
+export const StyledDrawer = styled(Drawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+// Table cell with min width and bolding
+export const StyledListItem = styled(ListItem)(({ theme }) => {
+  const backgroundColor =
+    theme.palette.mode === "light"
+      ? theme.palette.grey[100]
+      : theme.palette.grey[800];
+
+  const linkColor = theme.palette.mode === "light" ? grey[900] : "#fff";
+
+  return {
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "#1976d2",
+    },
+    color: linkColor,
+    border: "1px solid black",
+    borderRadius: ".5em",
+    margin: "0 0 10px 0",
+    backgroundColor: backgroundColor,
+  };
+});
+
+export const StyledListItemText = styled(ListItemText, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  transition: theme.transitions.create("opacity", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    transition: theme.transitions.create("opacity", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
 export const StyledTabPanel = styled(TabPanel)(
   ({ theme }) => `

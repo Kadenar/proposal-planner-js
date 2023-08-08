@@ -1,9 +1,7 @@
-import React, { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import SidebarDrawer from "./SidebarDrawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -14,36 +12,38 @@ import TypeSearch from "../SearchInput";
 import { Stack } from "@mui/material";
 import CreateNewItem from "./CreateNewItem";
 
-export default function Navbar() {
-  const [sidebar, setSidebar] = useState(false);
+export default function Navbar({
+  expanded,
+  setExpanded,
+}: {
+  expanded: boolean;
+  setExpanded: (open: boolean) => void;
+}) {
   const location = useLocation();
   const { mode, toggleColorMode } = useThemeContext();
 
   const header = useMemo(() => {
     const pathStart = location.pathname.substring(1);
     if (pathStart !== "") {
-      return pathStart.charAt(0).toUpperCase() + pathStart.slice(1);
+      return (pathStart.charAt(0).toUpperCase() + pathStart.slice(1))
+        .replace("_", " & ")
+        .replace("/", " ");
     } else {
       return "Home";
     }
   }, [location]);
 
-  const setShowSidebar = () => setSidebar(!sidebar);
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar variant="dense">
           <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
-            <IconButton
-              edge="start"
+            <Typography
+              sx={{ minWidth: "200px" }}
+              variant="h6"
               color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={setShowSidebar}
+              component="div"
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" component="div">
               {header}
             </Typography>
             <TypeSearch />
@@ -55,15 +55,15 @@ export default function Navbar() {
               <StyledSwitch
                 sx={{ m: 1 }}
                 value={mode === "dark"}
-                defaultChecked
+                checked={mode === "dark"}
               />
             }
             label="Theme"
             onChange={toggleColorMode}
           />
         </Toolbar>
+        <SidebarDrawer showDrawer={expanded} setShowDrawer={setExpanded} />
       </AppBar>
-      <SidebarDrawer showDrawer={sidebar} setShowDrawer={setShowSidebar} />
     </>
   );
 }

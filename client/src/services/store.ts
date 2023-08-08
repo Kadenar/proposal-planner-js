@@ -13,6 +13,8 @@ import contactsSlice from "./slices/contactsSlice";
 import financingSlice from "./slices/financingSlice";
 
 import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
+import userPreferenceSlice from "./slices/userPreferenceSlice";
+import tabSlice from "./slices/tabSlice";
 
 export const useMultiplierDispatch: () => AppDispatch = useDispatch;
 export const useMultiplierSelector: TypedUseSelectorHook<RootState> =
@@ -32,6 +34,8 @@ const store = configureStore({
     contacts: contactsSlice,
     addresses: addressesSlice,
     financing: financingSlice,
+    preferences: userPreferenceSlice,
+    tabs: tabSlice,
   },
 });
 

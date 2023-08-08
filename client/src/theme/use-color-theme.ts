@@ -1,12 +1,18 @@
+import { useMemo } from "react";
+
 import { createTheme, PaletteMode } from "@mui/material";
-import { useState, useMemo } from "react";
 import theme from "./theme";
+import { useAppDispatch, useAppSelector } from "../services/store";
+import { toggleDarkMode } from "../services/slices/userPreferenceSlice";
 
 export const useColorTheme = () => {
-  const [mode, setMode] = useState<PaletteMode>("dark");
+  const dispatch = useAppDispatch();
+  const { preferences } = useAppSelector((state) => state.preferences);
+
+  const mode: PaletteMode = preferences.darkMode ? "dark" : "light";
 
   const toggleColorMode = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+    toggleDarkMode(dispatch, !preferences.darkMode);
   };
 
   const modifiedTheme = useMemo(() => {

@@ -2,12 +2,42 @@
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import DescriptionIcon from "@mui/icons-material/Description";
 // import WorkIcon from "@mui/icons-material/Work";
-import StorageIcon from "@mui/icons-material/Storage";
-import ContactsIcon from "@mui/icons-material/Contacts";
+import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import PriceChangeIcon from "@mui/icons-material/PriceChange";
-import ArticleIcon from "@mui/icons-material/Article";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import PaidIcon from "@mui/icons-material/Paid";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FolderIcon from "@mui/icons-material/Folder";
 
-export const SidebarData = [
+export const BackEndItems = [
+  {
+    title: "Financing",
+    path: "/financing",
+    icon: <AccountBalanceIcon />,
+  },
+  {
+    title: "Labor & Fees",
+    path: "/labor_fees",
+    icon: <PaidIcon />,
+  },
+  {
+    title: "Mark-ups",
+    path: "/markups",
+    icon: <PriceChangeIcon />,
+  },
+  {
+    title: "Products",
+    path: "/products",
+    icon: <ShoppingCartIcon />,
+  },
+  {
+    title: "Product types",
+    path: "/products/types",
+    icon: <FolderIcon />,
+  },
+];
+export const FrontEndItems = [
   // {
   //   title: "Home",
   //   path: "/",
@@ -21,13 +51,9 @@ export const SidebarData = [
   {
     title: "Contacts",
     path: "/contacts",
-    icon: <ContactsIcon />,
+    icon: <ContactPhoneIcon />,
   },
-  {
-    title: "Database",
-    path: "/database",
-    icon: <StorageIcon />,
-  },
+
   {
     title: "Proposals",
     path: "/proposals",
@@ -39,13 +65,8 @@ export const SidebarData = [
   //   icon: <WorkIcon />,
   // },
   {
-    title: "Mark-ups",
-    path: "/markups",
-    icon: <PriceChangeIcon />,
-  },
-  {
     title: "Templates",
     path: "/templates",
-    icon: <ArticleIcon />,
+    icon: <DraftsIcon />,
   },
 ];

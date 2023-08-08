@@ -22,6 +22,28 @@ class Router {
 
   // Configure API endpoints.
   private routes(): void {
+    // PREFERENCES \\
+    this.router.get("/preferences", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/preferences.json`,
+        res,
+        "Fetching cached preferences.",
+        "Reading preferences from file system.",
+        "preferences"
+      );
+    });
+
+    this.router.post("/preferences", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/preferences.json`,
+        req,
+        res,
+        "Preferences could not be updated",
+        "Preferences update was successful!",
+        "preferences"
+      );
+    });
+
     // FINANCING \\
     this.router.get("/financing", (req, res) => {
       this.readFileFunc(

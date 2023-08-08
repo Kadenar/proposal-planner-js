@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import PersonIcon from "@mui/icons-material/Person";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -117,7 +117,7 @@ const TypeSearch: FunctionComponent = () => {
             sx={{
               position: "absolute",
               top: 35,
-              zIndex: 1000,
+              zIndex: 10000,
               maxHeight: "50vh",
               minWidth: "400px",
               overflowY: "auto",
@@ -204,7 +204,7 @@ const SearchResults = ({
     clients.forEach((client) => {
       if (client.name.toLowerCase().includes(value.toLowerCase())) {
         allResults.push({
-          icon: <PersonIcon />,
+          icon: <PeopleAltIcon />,
           name: client.name,
           category: "Clients",
           action: () => {

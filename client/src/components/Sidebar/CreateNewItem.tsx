@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../services/store";
 
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import DescriptionIcon from "@mui/icons-material/Description";
-import ContactsIcon from "@mui/icons-material/Contacts";
+import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import AddIcon from "@mui/icons-material/Add";
@@ -60,7 +60,7 @@ export default function CreateNewItem() {
       },
       {
         label: "Contact",
-        icon: <ContactsIcon />,
+        icon: <ContactPhoneIcon />,
         action: () =>
           contactDialog({
             header: "Add new contact",

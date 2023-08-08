@@ -12,6 +12,28 @@ const filePath = path.join(
   "../extraResources"
 );
 
+// PREFERENCES \\
+router.get("/preferences", (req, res) => {
+  readFileFunc(
+    `${filePath}/preferences.json`,
+    res,
+    "Fetching cached preferences.",
+    "Reading preferences from file system.",
+    "preferences"
+  );
+});
+
+router.post("/preferences", (req, res) => {
+  writeFileFunc(
+    `${filePath}/preferences.json`,
+    req,
+    res,
+    "Preferences could not be updated",
+    "Preferences update was successful!",
+    "preferences"
+  );
+});
+
 // FINANCING \\
 router.get("/financing", (req, res) => {
   readFileFunc(

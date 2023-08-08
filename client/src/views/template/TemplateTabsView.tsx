@@ -35,7 +35,7 @@ export default function TemplateTabsView({
   });
 
   return (
-    <div className="proposals">
+    <>
       <Stack direction="row" justifyContent="space-between" marginBottom={2}>
         <BreadcrumbNavigation
           initialBreadCrumbTitle="All templates"
@@ -75,6 +75,6 @@ export default function TemplateTabsView({
           <ProposalDocumentationView />
         </StyledTabPanel>
       </Tabs>
-    </div>
+    </>
   );
 }

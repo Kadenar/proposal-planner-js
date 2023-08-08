@@ -1,12 +1,18 @@
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
 import { Link } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import { SidebarData } from "./SidebarItems";
-import { StyledListItem } from "../StyledComponents";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { BackEndItems, FrontEndItems } from "./SidebarItems";
+import {
+  DrawerHeader,
+  StyledDrawer,
+  StyledListItem,
+  StyledListItemText,
+} from "../StyledComponents";
 import { useKey } from "../../hooks/useKey";
+import { Divider, IconButton, ListItemButton, Tooltip } from "@mui/material";
 
 export default function SidebarDrawer({
   showDrawer,
@@ -32,40 +38,95 @@ export default function SidebarDrawer({
 
   return (
     <div>
-      <Drawer anchor="left" open={showDrawer} onClose={toggleDrawer(false)}>
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            boxShadow: 1,
-            p: 2,
-            minWidth: 250,
-            flexGrow: 1,
-          }}
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
-        >
-          <List
-            sx={{
-              width: "100%",
-              maxWidth: 360,
-              bgcolor: "background.paper",
-            }}
-            component="nav"
-            aria-labelledby="nested-list-subheader"
-          >
-            {SidebarData.map((item, index) => (
+      <StyledDrawer
+        variant="permanent"
+        anchor="left"
+        open={showDrawer}
+        onClose={toggleDrawer(false)}
+        sx={{ maxWidth: showDrawer ? 250 : 5 }}
+      >
+        <DrawerHeader>
+          <IconButton onClick={() => setShowDrawer(!showDrawer)}>
+            {showDrawer ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <Box padding={1}>
+          <List component="nav">
+            {FrontEndItems.map((item, index) => (
               <Link key={index} to={item.path}>
-                <StyledListItem key={index}>
-                  <ListItemIcon sx={{ paddingLeft: "5px", marginLeft: "5px" }}>
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText primary={item.title} />
+                <StyledListItem
+                  key={index}
+                  disablePadding
+                  sx={{
+                    display: "block",
+                  }}
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: showDrawer ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <Tooltip title={item.title}>
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          mr: showDrawer ? 1 : "auto",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                    </Tooltip>
+                    <StyledListItemText
+                      primary={item.title}
+                      sx={{ opacity: showDrawer ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </StyledListItem>
+              </Link>
+            ))}
+            <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
+            {BackEndItems.map((item, index) => (
+              <Link key={index} to={item.path}>
+                <StyledListItem
+                  key={index}
+                  disablePadding
+                  sx={{
+                    display: "block",
+                  }}
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: showDrawer ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <Tooltip title={item.title}>
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          mr: showDrawer ? 1 : "auto",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                    </Tooltip>
+                    <StyledListItemText
+                      primary={item.title}
+                      sx={{ opacity: showDrawer ? 1 : 0 }}
+                    />
+                  </ListItemButton>
                 </StyledListItem>
               </Link>
             ))}
           </List>
         </Box>
-      </Drawer>
+      </StyledDrawer>
     </div>
   );
 }

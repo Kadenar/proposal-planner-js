@@ -13,7 +13,7 @@ export async function updateStore({
   dbOperation: (...args: any[]) => Promise<any> | AxiosResponse<any, any>;
   methodToDispatch: (...args: any[]) => any;
   dataKey: string;
-  successMessage: string;
+  successMessage: string | undefined;
 }) {
   const response = await dbOperation();
 
@@ -28,7 +28,10 @@ export async function updateStore({
 
   if (response.status === 200) {
     dispatch(methodToDispatch(response.data[dataKey]));
-    showSnackbar({ title: successMessage, show: true, status: "success" });
+    if (successMessage) {
+      showSnackbar({ title: successMessage, show: true, status: "success" });
+    }
+
     return true;
   }
 

@@ -36,7 +36,7 @@ export default function ProposalTabsView({
   });
 
   return (
-    <div className="proposals">
+    <>
       <Stack direction="row" justifyContent="space-between" marginBottom={2}>
         <BreadcrumbNavigation
           initialBreadCrumbTitle="All proposals"
@@ -80,6 +80,6 @@ export default function ProposalTabsView({
           <ProposalPdfDocumentView activeProposal={activeProposal} />
         </StyledTabPanel>
       </Tabs>
-    </div>
+    </>
   );
 }

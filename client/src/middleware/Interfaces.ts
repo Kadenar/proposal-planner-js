@@ -1,3 +1,8 @@
+export interface UserPreferences {
+  expandedSideBar: boolean;
+  darkMode: boolean;
+}
+
 // Supported objects in the system
 export interface ProductObject {
   guid: string;
