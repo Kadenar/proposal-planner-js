@@ -52,7 +52,7 @@ const ImportSpecificationDialog = () => {
 
   return (
     <BaseDialog
-      title="Import specifications from a template"
+      title="Import details from a template"
       content={
         <Stack spacing={2} paddingTop="5px">
           {/* Input selection for available templates */}

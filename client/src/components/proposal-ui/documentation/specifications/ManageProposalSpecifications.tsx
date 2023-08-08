@@ -7,6 +7,8 @@ import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import DownloadIcon from "@mui/icons-material/Download";
+import AddIcon from "@mui/icons-material/Add";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -18,11 +20,6 @@ import {
 } from "../../../../middleware/Interfaces";
 import { setProposalSpecifications } from "../../../../services/slices/activeProposalSlice";
 import { importSpecificationDialog } from "../../../dialogs/backend/ImportSpecificationsDialog";
-
-interface AddedSpecification {
-  guid: string;
-  text: string;
-}
 
 // This represents the combined view of left (available) & right (added) specifications
 export const ManageProposalSpecifications = ({
@@ -48,7 +45,7 @@ export const ManageProposalSpecifications = ({
       const newSpecs = update(specifications, {
         $splice: [
           [dragIndex, 1],
-          [hoverIndex, 0, specifications[dragIndex] as AddedSpecification],
+          [hoverIndex, 0, specifications[dragIndex] as ProposalSpec],
         ],
       });
 
@@ -58,7 +55,7 @@ export const ManageProposalSpecifications = ({
   );
 
   const renderAddedSpecification = useCallback(
-    (spec: AddedSpecification, index: number) => {
+    (spec: ProposalSpec, index: number) => {
       return (
         <AddedSpecificationCard
           key={spec.guid}
@@ -99,6 +96,7 @@ export const ManageProposalSpecifications = ({
         <Stack direction="row" justifyContent="space-between">
           <Button
             variant="contained"
+            sx={{ gap: 1 }}
             onClick={() => {
               const newSpecs = specifications ? [...specifications] : [];
 
@@ -109,10 +107,12 @@ export const ManageProposalSpecifications = ({
               );
             }}
           >
+            <AddIcon />
             Add install detail
           </Button>
           <Button
             variant="contained"
+            sx={{ gap: 1 }}
             onClick={() => {
               importSpecificationDialog({
                 templates,
@@ -132,7 +132,8 @@ export const ManageProposalSpecifications = ({
               });
             }}
           >
-            Import install detail
+            <DownloadIcon />
+            Import install details
           </Button>
         </Stack>
         <Card
@@ -151,7 +152,7 @@ export const ManageProposalSpecifications = ({
             ) : (
               <Stack height="100%" alignItems="center">
                 <Typography variant="h5">
-                  No specifications added yet
+                  No installation details added yet
                 </Typography>
               </Stack>
             )}

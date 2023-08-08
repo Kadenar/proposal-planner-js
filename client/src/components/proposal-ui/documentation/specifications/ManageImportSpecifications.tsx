@@ -208,7 +208,7 @@ export const ManageImportSpecifications = ({
           ) : (
             <Stack height="80%" justifyContent="center" alignItems="center">
               <Typography variant="h5">
-                No specifications left to import from quote
+                No details left to import from quote
               </Typography>
             </Stack>
           )}
@@ -230,9 +230,7 @@ export const ManageImportSpecifications = ({
               })
             ) : (
               <Stack height="100%" justifyContent="center" alignItems="center">
-                <Typography variant="h5">
-                  No specifications added yet
-                </Typography>
+                <Typography variant="h5">No details added yet</Typography>
               </Stack>
             )}
           </DndProvider>

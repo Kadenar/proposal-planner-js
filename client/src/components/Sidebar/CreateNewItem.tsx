@@ -5,6 +5,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DraftsIcon from "@mui/icons-material/Drafts";
+import AddIcon from "@mui/icons-material/Add";
 
 import { Button, Divider, ListItemText, Menu, MenuItem } from "@mui/material";
 import { useMemo, useState } from "react";
@@ -145,7 +146,8 @@ export default function CreateNewItem() {
             setMenuItemInfo(event.currentTarget) // TODO Figure out why typescript isn't happy
         }
       >
-        + Create
+        <AddIcon />
+        Create
       </Button>
       <Menu
         anchorEl={menuItemInfo}

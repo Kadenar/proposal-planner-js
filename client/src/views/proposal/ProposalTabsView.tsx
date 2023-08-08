@@ -2,6 +2,8 @@ import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useKey } from "../../hooks/useKey";
 
 import { Button, Stack } from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+
 import Tabs from "@mui/base/Tabs";
 
 import {
@@ -56,7 +58,9 @@ export default function ProposalTabsView({
         <Button
           variant="contained"
           onClick={async () => saveProposal(dispatch, activeProposal)}
+          sx={{ gap: 1 }}
         >
+          <SaveIcon />
           Save proposal
         </Button>
       </Stack>

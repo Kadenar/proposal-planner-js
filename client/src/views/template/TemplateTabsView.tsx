@@ -1,7 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useKey } from "../../hooks/useKey";
 
-import { Button, Stack } from "@mui/material";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import SaveIcon from "@mui/icons-material/Save";
 import Tabs from "@mui/base/Tabs";
 
 import {
@@ -55,7 +57,9 @@ export default function TemplateTabsView({
         <Button
           variant="contained"
           onClick={async () => saveTemplate(dispatch, activeTemplate)}
+          sx={{ gap: 1 }}
         >
+          <SaveIcon />
           Save template
         </Button>
       </Stack>
