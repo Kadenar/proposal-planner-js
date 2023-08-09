@@ -41,14 +41,26 @@ export const initializeMultipliers = () => async (dispatch: Dispatch) => {
   dispatch(updateLaborMarkups(multipliers.labor_markups));
 };
 
-export const updateMultipliers = async (
+export const updateLaborMultiplier = async (
   dispatch: Dispatch,
   { category, guid, value }: { category: string; guid: string; value: number }
 ) =>
   updateStore({
     dispatch,
     dbOperation: async () => edit_multiplier(category, guid, value),
-    methodToDispatch: updateMultipliers,
+    methodToDispatch: updateLaborMarkups,
+    dataKey: "multipliers",
+    successMessage: "Successfully edited multiplier!",
+  });
+
+export const updateEquipmentMultiplier = async (
+  dispatch: Dispatch,
+  { category, guid, value }: { category: string; guid: string; value: number }
+) =>
+  updateStore({
+    dispatch,
+    dbOperation: async () => edit_multiplier(category, guid, value),
+    methodToDispatch: updateEquipmentMarkups,
     dataKey: "multipliers",
     successMessage: "Successfully edited multiplier!",
   });

@@ -44,6 +44,28 @@ class Router {
       );
     });
 
+    // USERS \\
+    this.router.get("/users", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/users.json`,
+        res,
+        "Fetching cached users.",
+        "Reading users from file system.",
+        "users"
+      );
+    });
+
+    this.router.post("/users", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/users.json`,
+        req,
+        res,
+        "Users could not be updated",
+        "Users update was successful!",
+        "users"
+      );
+    });
+
     // FINANCING \\
     this.router.get("/financing", (req, res) => {
       this.readFileFunc(

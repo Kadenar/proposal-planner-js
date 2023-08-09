@@ -148,7 +148,7 @@ const drawerWidth = 200;
 // Handle styling the main content beside the drawer
 export const Main = styled("main", {
   shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+})(({ theme, open, authenticated }) => ({
   backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[800],
   flexGrow: 1,
   minHeight: `calc(100vh - ${navbarHeight - 14}px)`,
@@ -157,8 +157,8 @@ export const Main = styled("main", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  paddingLeft: 73,
-  paddingRight: 10,
+  paddingLeft: authenticated ? 73 : 0,
+  paddingRight: authenticated ? 10 : 0,
   ...(open && {
     transition: theme.transitions.create("padding", {
       easing: theme.transitions.easing.easeOut,

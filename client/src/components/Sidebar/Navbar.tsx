@@ -8,8 +8,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { StyledAppBar, StyledSwitch } from "../StyledComponents";
 import { useThemeContext } from "../../theme/ThemeContextProvider";
 import TypeSearch from "../SearchInput";
-import { Stack } from "@mui/material";
+import { IconButton, Stack, Tooltip } from "@mui/material";
 import CreateNewItem from "./CreateNewItem";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logOut } from "../../services/slices/authenticatedSlice";
+import { useAppDispatch } from "../../services/store";
 
 export default function Navbar({
   expanded,
@@ -19,6 +22,7 @@ export default function Navbar({
   setExpanded: (open: boolean) => void;
 }) {
   const location = useLocation();
+  const dispatch = useAppDispatch();
   const { mode, toggleColorMode } = useThemeContext();
 
   const header = useMemo(() => {
@@ -60,6 +64,11 @@ export default function Navbar({
             label="Theme"
             onChange={toggleColorMode}
           />
+          <Tooltip title="Logout">
+            <IconButton onClick={() => logOut(dispatch)}>
+              <LogoutIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
         <SidebarDrawer showDrawer={expanded} setShowDrawer={setExpanded} />
       </StyledAppBar>

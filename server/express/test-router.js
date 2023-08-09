@@ -34,6 +34,28 @@ router.post("/preferences", (req, res) => {
   );
 });
 
+// USERS \\
+router.get("/users", (req, res) => {
+  readFileFunc(
+    `${filePath}/users.json`,
+    res,
+    "Fetching cached users.",
+    "Reading users from file system.",
+    "users"
+  );
+});
+
+router.post("/users", (req, res) => {
+  writeFileFunc(
+    `${filePath}/users.json`,
+    req,
+    res,
+    "Users could not be updated",
+    "Users update was successful!",
+    "users"
+  );
+});
+
 // FINANCING \\
 router.get("/financing", (req, res) => {
   readFileFunc(

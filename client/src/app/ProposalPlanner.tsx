@@ -26,7 +26,9 @@ import { useAppDispatch } from "../services/store.ts";
 
 // Content
 import { DialogContainer } from "../components/dialogs/DialogContainer.tsx";
-import { AppContainer } from "./AppContainer.tsx";
+import { initializeUsers } from "../services/slices/authenticatedSlice.ts";
+import { HashRouter } from "react-router-dom";
+import { AuthenticationPage } from "../pages/AuthenticationPage.tsx";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -48,6 +50,7 @@ const ProposalPlanner = () => {
         await dispatch(initializeFinancing());
         await dispatch(initializeMultipliers());
         await dispatch(initializePreferences());
+        await dispatch(initializeUsers());
         setIsLoading(false);
       });
     };
@@ -70,7 +73,11 @@ const ProposalPlanner = () => {
           <CircularProgress size={100} />
         </Stack>
       )}
-      {!isLoading && <AppContainer />}
+      {!isLoading && (
+        <HashRouter>
+          <AuthenticationPage />
+        </HashRouter>
+      )}
     </ThemeProvider>
   );
 };

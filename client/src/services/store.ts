@@ -1,4 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
+
 import productTypesSlice from "./slices/productTypesSlice";
 import productsSlice from "./slices/productsSlice";
 import proposalsSlice from "./slices/proposalsSlice";
@@ -11,10 +13,9 @@ import feesSlice from "./slices/feesSlice";
 import addressesSlice from "./slices/serviceAddressInfoSlice";
 import contactsSlice from "./slices/contactsSlice";
 import financingSlice from "./slices/financingSlice";
-
-import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 import userPreferenceSlice from "./slices/userPreferenceSlice";
 import tabSlice from "./slices/tabSlice";
+import authenticatedSlice from "./slices/authenticatedSlice";
 
 export const useMultiplierDispatch: () => AppDispatch = useDispatch;
 export const useMultiplierSelector: TypedUseSelectorHook<RootState> =
@@ -36,6 +37,7 @@ const store = configureStore({
     financing: financingSlice,
     preferences: userPreferenceSlice,
     tabs: tabSlice,
+    isAuthenticated: authenticatedSlice,
   },
 });
 
