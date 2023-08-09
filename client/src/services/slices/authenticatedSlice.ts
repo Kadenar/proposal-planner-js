@@ -10,11 +10,11 @@ import { updateStore } from "../Dispatcher";
 
 const initialState: { users: []; isAuthenticated: boolean } = {
   users: [],
-  isAuthenticated: false,
+  isAuthenticated: true,
 };
 
 export const authenticatedSlice = createSlice({
-  name: "isAuthenticated",
+  name: "authentication",
   initialState,
   reducers: {
     updateUsers: (state, value) => {

@@ -115,7 +115,7 @@ const ProposalPdfDocumentView = ({
       <Card sx={{ padding: 2, gap: 2 }}>
         <Stack gap={2}>
           <Typography variant="h6" fontWeight={"bold"}>
-            PDF Data Source
+            Source for PDF generation
           </Typography>
           <QuoteSelection
             initialValue={quote_option}
@@ -137,7 +137,7 @@ const ProposalPdfDocumentView = ({
               markedUpPricesForQuotes[`quote_${quote_option + 1}`].map(
                 (option, index) => {
                   return (
-                    <MenuItem value={index}>{`Cost: ${ccyFormat(
+                    <MenuItem key={index} value={index}>{`Cost: ${ccyFormat(
                       option.sellPrice
                     )} - Commission: ${option.commissionPercent}%`}</MenuItem>
                   );

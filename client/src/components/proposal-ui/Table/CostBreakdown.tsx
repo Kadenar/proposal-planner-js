@@ -174,7 +174,7 @@ const CostBreakdown = ({
               {quoteNamesArray.length > 0 ? (
                 quoteNamesArray.map((quote_name) => {
                   return (
-                    <BoldedItalicsTableCell>
+                    <BoldedItalicsTableCell key={quote_name}>
                       {getQuoteNameStr(quote_name)}
                     </BoldedItalicsTableCell>
                   );

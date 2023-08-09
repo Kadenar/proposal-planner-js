@@ -147,7 +147,7 @@ const drawerWidth = 200;
 
 // Handle styling the main content beside the drawer
 export const Main = styled("main", {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "authenticated",
 })(({ theme, open, authenticated }) => ({
   backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[800],
   flexGrow: 1,

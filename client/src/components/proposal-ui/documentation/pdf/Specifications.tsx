@@ -64,11 +64,7 @@ const Specifications = ({
       </Text>
       <View style={styles.specifications}>
         {quote.specifications?.map((spec, idx) => {
-          return (
-            <>
-              <Text>{`${idx + 1}. ${spec.text}`}</Text>
-            </>
-          );
+          return <Text key={idx}>{`${idx + 1}. ${spec.text}`}</Text>;
         })}
       </View>
     </View>

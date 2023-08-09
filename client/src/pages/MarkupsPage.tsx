@@ -6,9 +6,6 @@ const MarkupsPage = () => {
     (state) => state.multipliers
   );
 
-  console.log("labor", laborMarkups);
-  console.log("equipment", equipmentMarkups);
-
   return (
     <Card sx={{ padding: 3, marginTop: 1, marginBottom: 2 }}>
       <Stack gap={2}>

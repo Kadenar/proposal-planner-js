@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
 });
 
 const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
-  <Page style={styles.body}>
-    <View style={styles.proposal_view}>
+  <Page key={"payment-options"} style={styles.body}>
+    <View key={"payment-options-view"} style={styles.proposal_view}>
       <Text style={styles.small_text}>
         <Text style={styles.text_bolded}>Payment can be made as follows: </Text>
         <Text style={styles.text_italics}>
@@ -59,16 +59,19 @@ const PaymentOptions = ({ invoice }: { invoice: PdfInvoice }) => (
         Please initial the payment plan option you would like to proceed with.
       </Text>
       <View style={{ marginTop: 5 }}>
-        {Object.keys(invoice.financingOptions).map((provider) => {
+        {Object.keys(invoice.financingOptions).map((provider, index) => {
           return (
-            <View style={{ marginTop: 10, gap: 10 }}>
+            <View
+              key={`financing-options-${index}`}
+              style={{ marginTop: 10, gap: 10 }}
+            >
               <Text style={styles.option_category}>
                 {provider} - Financing Options
               </Text>
               {invoice.financingOptions[provider].map((option, index) => {
                 return (
                   <Text
-                    key={`${option.name}-financing-options`}
+                    key={`${option.name}-financing-options-${index}`}
                     style={styles.small_text}
                   >
                     <Text style={styles.option_prefix}>

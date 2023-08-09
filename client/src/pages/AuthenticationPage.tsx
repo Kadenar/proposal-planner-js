@@ -25,7 +25,7 @@ import { useEffect } from "react";
 export const AuthenticationPage = () => {
   const dispatch = useAppDispatch();
   const { preferences } = useAppSelector((state) => state.preferences);
-  const { isAuthenticated } = useAppSelector((state) => state.isAuthenticated);
+  const { isAuthenticated } = useAppSelector((state) => state.authentication);
   const expanded = preferences.expandedSideBar;
   const navigate = useNavigate();
 

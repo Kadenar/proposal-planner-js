@@ -37,7 +37,7 @@ const store = configureStore({
     financing: financingSlice,
     preferences: userPreferenceSlice,
     tabs: tabSlice,
-    isAuthenticated: authenticatedSlice,
+    authentication: authenticatedSlice,
   },
 });
 
