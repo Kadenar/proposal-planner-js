@@ -2,23 +2,20 @@ import { Provider } from "react-redux";
 
 import store from "../services/store.ts";
 
+import { ThemeContextProvider } from "../theme/ThemeContextProvider";
 import ProposalPlanner from "./ProposalPlanner.tsx";
-import { useThemeContext } from "../theme/ThemeContextProvider.tsx";
-import { CssBaseline, ThemeProvider } from "@mui/material";
 
 const StoreProvider = () => {
   // TODO - Only for debugging
-  store.subscribe(() => {
-    console.log(store.getState());
-  });
+  // store.subscribe(() => {
+  //   console.log(store.getState());
+  // });
 
-  const { theme } = useThemeContext();
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <ThemeContextProvider>
         <ProposalPlanner />
-      </ThemeProvider>
+      </ThemeContextProvider>
     </Provider>
   );
 };

@@ -3,8 +3,9 @@ import {
   ProductOnProposal,
   ProposalObject,
   ProposalSpec,
-  FeesOnProposal,
+  FeeOnProposal,
   LaborOnProposal,
+  TemplateObject,
 } from "../../middleware/Interfaces";
 
 const initialState: {
@@ -120,20 +121,6 @@ export const activeProposalSlice = createSlice({
       state.activeProposal.data.unitCostTax = value.payload;
       state.is_dirty = true;
     },
-    updateMultiplier: (state, value) => {
-      if (!state.activeProposal) {
-        return;
-      }
-      state.activeProposal.data.multiplier = value.payload;
-      state.is_dirty = true;
-    },
-    updateCommission: (state, value) => {
-      if (!state.activeProposal) {
-        return;
-      }
-      state.activeProposal.data.commission = value.payload;
-      state.is_dirty = true;
-    },
     updateLabors: (state, labors) => {
       if (!state.activeProposal) {
         return;
@@ -152,6 +139,18 @@ export const activeProposalSlice = createSlice({
       }
       state.activeProposal.data.start_date = value.payload;
     },
+    updateDesiredCommission: (state, value) => {
+      if (!state.activeProposal) {
+        return;
+      }
+      state.activeProposal.data.target_commission = value.payload;
+    },
+    updateTargetQuoteOption: (state, value) => {
+      if (!state.activeProposal) {
+        return;
+      }
+      state.activeProposal.data.target_quote = value.payload;
+    },
     updateDirtyFlag: (state, value) => {
       state.is_dirty = value.payload;
     },
@@ -169,17 +168,17 @@ const {
   updateProposalSummary,
   updateProposalSpecifications,
   updateUnitCostTax,
-  updateMultiplier,
-  updateCommission,
   updateLabors,
   updateFees,
   updateDirtyFlag,
   updateStartDate,
+  updateDesiredCommission,
+  updateTargetQuoteOption,
 } = activeProposalSlice.actions;
 
 export const selectProposal = (
   dispatch: Dispatch,
-  proposal: ProposalObject | undefined
+  proposal: ProposalObject | TemplateObject | undefined
 ) => dispatch(activeProposal(proposal));
 
 export const markProposalAsDirty = (dispatch: Dispatch, value: boolean) => {
@@ -240,22 +239,28 @@ export const setProposalStartDate = (
   dispatch(updateStartDate(start_date));
 };
 
+export const setTargetQuoteOption = (
+  dispatch: Dispatch,
+  target_quote: number
+) => {
+  dispatch(updateTargetQuoteOption(target_quote));
+};
+
+export const setTargetCommission = (
+  dispatch: Dispatch,
+  target_commission: number
+) => {
+  dispatch(updateDesiredCommission(target_commission));
+};
+
 export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {
   const numValue = isNaN(parseFloat(value)) ? 0 : parseFloat(value);
   dispatch(updateUnitCostTax(numValue));
 };
 
-export const setProposalMultiplier = (dispatch: Dispatch, value: number) => {
-  dispatch(updateMultiplier(value));
-};
-
-export const setProposalCommission = (dispatch: Dispatch, value: number) => {
-  dispatch(updateCommission(value));
-};
-
 export const updateProposalLabors = (
   dispatch: Dispatch,
-  newLabors: LaborOnProposal,
+  newLabors: LaborOnProposal[],
   flag_dirty: boolean
 ) => {
   dispatch(updateLabors(newLabors));
@@ -266,7 +271,7 @@ export const updateProposalLabors = (
 
 export const updateProposalFees = (
   dispatch: Dispatch,
-  newFees: FeesOnProposal,
+  newFees: FeeOnProposal[],
   flag_dirty: boolean
 ) => {
   dispatch(updateFees(newFees));

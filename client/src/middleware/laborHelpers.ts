@@ -18,8 +18,12 @@ export async function fetchLabors(): Promise<Labor[]> {
  * Add a new labor to the database
  * @returns
  */
-export async function addLabor(name: string, qty: number, cost: number) {
-  const error = validateLabor(name, qty, cost);
+export async function addLabor(
+  name: string,
+  cost: number,
+  allowCostOverride: boolean
+) {
+  const error = validateLabor(name, cost);
 
   if (error) {
     return error;
@@ -28,8 +32,8 @@ export async function addLabor(name: string, qty: number, cost: number) {
   return simpleAddObjectToDatabase(fetchLabors, "labors", {
     guid: crypto.randomUUID(),
     name,
-    qty,
     cost,
+    allowCostOverride,
   });
 }
 
@@ -40,10 +44,10 @@ export async function addLabor(name: string, qty: number, cost: number) {
 export async function editLabor(
   guid: string,
   name: string,
-  qty: number,
-  cost: number
+  cost: number,
+  allowCostOverride: boolean
 ) {
-  const errors = validateLabor(name, qty, cost);
+  const errors = validateLabor(name, cost);
 
   if (errors) {
     return errors;
@@ -66,8 +70,8 @@ export async function editLabor(
   newLabors[index] = {
     ...newLabors[index],
     name,
-    qty,
     cost,
+    allowCostOverride,
   };
 
   return runPostRequest(newLabors, "labors");
@@ -81,18 +85,11 @@ export const deleteLabor = async (guid: string) => {
   return simpleDeleteFromDatabase(fetchLabors, "labors", guid, "guid");
 };
 
-function validateLabor(name: string, qty: number, cost: number) {
+function validateLabor(name: string, cost: number) {
   if (!name || name === "") {
     return {
       status: 500,
       data: { message: "Please specify a client name." },
-    };
-  }
-
-  if (qty < 0) {
-    return {
-      status: 500,
-      data: { message: "Please specify a non-negative quantity." },
     };
   }
 

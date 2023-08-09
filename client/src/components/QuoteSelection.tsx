@@ -17,7 +17,7 @@ const QuoteSelection = ({
   return (
     <TextField
       id="select"
-      label="Quote option"
+      label="Select a quote option"
       value={quoteValue}
       onChange={({ target: { value } }) => {
         const newQuoteOption = Number(value);
@@ -26,8 +26,12 @@ const QuoteSelection = ({
       }}
       select
     >
-      {quoteOptions.map((_, index) => {
-        return <MenuItem value={index}>Quote {index + 1}</MenuItem>;
+      {quoteOptions.map((quote, index) => {
+        return (
+          <MenuItem key={index} value={index}>
+            {quote.title === "" ? `Quote ${index + 1}` : quote.title}
+          </MenuItem>
+        );
       })}
     </TextField>
   );

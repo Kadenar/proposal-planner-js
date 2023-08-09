@@ -1,12 +1,11 @@
 import { useState } from "react";
 
 import MaterialTable from "@material-table/core";
-import { Stack, Button } from "@mui/material";
+import { Stack } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 import {
-  addProposal,
   copyProposal,
   deleteProposal,
 } from "../../services/slices/proposalsSlice";
@@ -20,6 +19,7 @@ export default function AllProposalsView() {
   const dispatch = useAppDispatch();
   const { proposals } = useAppSelector((state) => state.proposals);
   const { clients } = useAppSelector((state) => state.clients);
+
   const [menuItemInfo, setMenuItemInfo] = useState<{
     anchorEl: HTMLAnchorElement | undefined;
     rowData: any;
@@ -31,31 +31,6 @@ export default function AllProposalsView() {
 
   return (
     <Stack padding={2} gap={2}>
-      <Stack spacing={1} direction="row" justifyContent="flex-end">
-        <Button
-          variant="contained"
-          onClick={() => {
-            newProposalDialog({
-              name: "",
-              description: "",
-              owner: {
-                guid: "",
-                name: "",
-                address: "",
-                state: "",
-                city: "",
-                zip: "",
-              },
-              clients,
-              isExistingProposal: false,
-              onSubmit: async (name, description, client_guid) =>
-                addProposal(dispatch, { name, description, client_guid }),
-            });
-          }}
-        >
-          Create new proposal
-        </Button>
-      </Stack>
       <MaterialTable
         title=""
         columns={[
@@ -120,21 +95,10 @@ export default function AllProposalsView() {
             selectProposal(dispatch, menuItemInfo.rowData);
           }}
         >
-          Edit proposal
+          Work on proposal
         </MenuItem>
         <MenuItem
-          onClick={(e) => {
-            setMenuItemInfo({
-              anchorEl: undefined,
-              rowData: undefined,
-            });
-            console.log("TBD");
-          }}
-        >
-          Mark as sold
-        </MenuItem>
-        <MenuItem
-          onClick={(e) => {
+          onClick={() => {
             setMenuItemInfo({
               ...menuItemInfo,
               anchorEl: undefined,
@@ -147,7 +111,7 @@ export default function AllProposalsView() {
             newProposalDialog({
               name: menuItemInfo.rowData.name,
               description: `${menuItemInfo.rowData.description} copy`,
-              owner: menuItemInfo.rowData.owner.client,
+              owner: menuItemInfo.rowData.owner,
               clients,
               isExistingProposal: true,
               onSubmit: (name, description, client_guid) =>
@@ -163,7 +127,7 @@ export default function AllProposalsView() {
           Copy proposal
         </MenuItem>
         <MenuItem
-          onClick={(e) => {
+          onClick={() => {
             setMenuItemInfo({
               ...menuItemInfo,
               anchorEl: undefined,

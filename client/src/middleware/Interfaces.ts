@@ -1,3 +1,8 @@
+export interface UserPreferences {
+  expandedSideBar: boolean;
+  darkMode: boolean;
+}
+
 // Supported objects in the system
 export interface ProductObject {
   guid: string;
@@ -8,9 +13,18 @@ export interface ProductObject {
   image?: any;
 }
 // Products added to a given proposal are mapped different than the products themselves
-export interface ProductOnProposal extends ProductObject {
+export interface ProductOnProposal {
+  category: string;
+  guid: string;
   quote_option: number; // 0 = All, 1-5 = specific quote
   qty: number;
+}
+
+// Used when calculating pricing information for a given product on a proposal
+export interface ProductOnProposalWithPricing extends ProductOnProposal {
+  cost: number;
+  model: string;
+  modelNum: string;
 }
 
 // -> Products are stored keyed under a category
@@ -21,7 +35,6 @@ export interface FlattenedProductObject extends ProductObject {
 export interface ProductTypeObject {
   label: string;
   guid: string;
-  specifications?: string[];
 }
 
 export interface NewClientObject {
@@ -50,56 +63,80 @@ export interface Fee {
   guid: string;
   name: string;
   cost: number;
-  qty: number;
   type: "add" | "subtract";
 }
+export interface FeeOnProposal {
+  guid: string;
+  cost: number;
+}
+
 export interface Labor {
   guid: string;
   name: string;
   cost: number;
+  allowCostOverride: boolean;
+}
+export interface LaborOnProposal {
+  guid: string;
+  cost: number;
   qty: number;
 }
 
-export interface ProposalObject {
+export interface TemplateObject {
   guid: string;
   name: string;
   description: string;
   dateCreated: string;
   dateModified: string;
+  data: ProposalData;
+}
+
+export interface ProposalObject extends TemplateObject {
   owner: {
     guid: string;
   };
-  data: ProposalData;
 }
+
 // Information stored within data object for a proposal
 export interface ProposalData {
-  fees: FeesOnProposal;
-  labor: LaborOnProposal;
+  fees: FeeOnProposal[];
+  labor: LaborOnProposal[];
   products: ProductOnProposal[];
-  multiplier: number;
   unitCostTax: number;
-  commission: number;
   quote_options: QuoteOption[]; // this array is 0 indexed, so index 0 = quote 1, etc
   start_date?: string;
+  target_quote?: number;
+  target_commission?: number;
 }
 export interface QuoteOption {
   title: string | undefined;
   summary: string | undefined;
   specifications: ProposalSpec[];
 }
-export interface ProposalSpec {
+
+// Specifications that are available to be imported
+export interface AvailableSpecification extends ProposalSpec {
+  checked: boolean;
+}
+
+// Specifications the user intends to import
+export interface AddedSpecification {
+  guid: string;
   originalText: string;
   modifiedText: string;
 }
 
-export interface Commission {
+export interface ProposalSpec {
   guid: string;
-  value: number;
+  text: string;
 }
+
 export interface Multiplier {
   value: number;
+  name: string;
   guid: string;
 }
+
 export interface Financing {
   guid: string;
   name: string;
@@ -110,9 +147,13 @@ export interface Financing {
   costPerMonth?: number;
 }
 
-// Objects of a given type
-export type FeesOnProposal = Record<string, Fee>;
-export type LaborOnProposal = Record<string, Labor>;
+// Company markups / used for pricing workup
+export interface Markup {
+  commissionAmount: number;
+  commissionPercent: number;
+  sellPrice: number;
+  companyMargin: number;
+}
 
 export interface PdfInvoice {
   start_date: string | undefined;
@@ -123,7 +164,7 @@ export interface PdfInvoice {
   current_date: string | undefined;
   accountNum: string | undefined;
   quoteOptions: QuoteOption[];
-  invoiceTotals: Record<number, Record<string, number>>;
+  invoiceTotal: number;
   financingOptions: Record<string, Financing[]>;
 }
 

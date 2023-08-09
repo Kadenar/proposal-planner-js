@@ -21,15 +21,14 @@ export default function AllProductTypesView() {
   const { filters } = useAppSelector((state) => state.filters);
 
   return (
-    <Stack gap={2}>
+    <Stack gap={1}>
       <AddNewItem
         onClick={() =>
           productTypeDialog({
             header: "Add product type",
             productType: "",
-            specifications: [],
-            onSubmit: async (value, specifications) =>
-              addProductType(dispatch, { label: value, specifications }),
+            onSubmit: async (value) =>
+              addProductType(dispatch, { label: value }),
           })
         }
       />
@@ -45,7 +44,6 @@ export default function AllProductTypesView() {
             id: filter.guid,
             label: filter.label,
             guid: filter.guid,
-            specifications: filter.specifications,
           };
         })}
         options={{
@@ -68,12 +66,10 @@ export default function AllProductTypesView() {
               productTypeDialog({
                 header: "Edit product type",
                 productType: rowData.label,
-                specifications: rowData.specifications,
-                onSubmit: async (value, specifications) =>
+                onSubmit: async (value) =>
                   editProductType(dispatch, {
                     guid: rowData.guid,
                     value,
-                    specifications,
                   }),
               });
             },

@@ -7,13 +7,7 @@ import {
   saveProposal as save_proposal,
 } from "../../middleware/proposalHelpers.ts";
 import { updateStore } from "../Dispatcher.ts";
-import {
-  ProductOnProposal,
-  ProposalObject,
-  FeesOnProposal,
-  LaborOnProposal,
-  QuoteOption,
-} from "../../middleware/Interfaces.ts";
+import { ProposalObject, TemplateObject } from "../../middleware/Interfaces.ts";
 import { markProposalAsDirty } from "./activeProposalSlice.ts";
 
 // REDUCERS
@@ -49,15 +43,18 @@ export async function addProposal(
     name,
     description,
     client_guid,
+    template,
   }: {
     name: string;
     description: string;
     client_guid: string | undefined;
+    template: TemplateObject | undefined | null;
   }
 ) {
   return updateStore({
     dispatch,
-    dbOperation: async () => add_proposal(name, description, client_guid, null),
+    dbOperation: async () =>
+      add_proposal(name, description, client_guid, template),
     methodToDispatch: updateProposals,
     dataKey: "proposals",
     successMessage: "Successfully added new proposal!",
@@ -116,42 +113,11 @@ export async function deleteProposalsForClient(
 
 export async function saveProposal(
   dispatch: Dispatch,
-  {
-    guid,
-    commission,
-    fees,
-    labor,
-    products,
-    unitCostTax,
-    multiplier,
-    quoteOptions,
-    start_date,
-  }: {
-    guid: string;
-    commission: number;
-    fees: FeesOnProposal;
-    labor: LaborOnProposal;
-    products: ProductOnProposal[];
-    unitCostTax: number;
-    multiplier: number;
-    quoteOptions: QuoteOption[];
-    start_date: string;
-  }
+  proposal: ProposalObject
 ) {
   const response = await updateStore({
     dispatch,
-    dbOperation: async () =>
-      save_proposal(
-        guid,
-        commission,
-        fees,
-        labor,
-        products,
-        unitCostTax,
-        multiplier,
-        quoteOptions,
-        start_date
-      ),
+    dbOperation: async () => save_proposal(proposal),
     methodToDispatch: updateProposals,
     dataKey: "proposals",
     successMessage: "Your proposal has been successfully saved.",

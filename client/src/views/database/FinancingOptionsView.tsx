@@ -18,7 +18,7 @@ export default function FinancingOptionsView() {
   const { financing } = useAppSelector((state) => state.financing);
 
   return (
-    <Stack gap={2}>
+    <Stack gap={1}>
       <AddNewItem
         onClick={() =>
           financingDialog({
@@ -71,7 +71,7 @@ export default function FinancingOptionsView() {
           search: true,
           actionsColumnIndex: -1,
           pageSizeOptions: [5, 10, 15, 20],
-          pageSize: 15,
+          pageSize: 10,
         }}
         actions={[
           {

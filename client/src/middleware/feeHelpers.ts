@@ -80,7 +80,6 @@ export async function editFee(
   newFees[index] = {
     ...newFees[index],
     name,
-    qty,
     cost,
     type,
   };

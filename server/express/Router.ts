@@ -22,6 +22,50 @@ class Router {
 
   // Configure API endpoints.
   private routes(): void {
+    // PREFERENCES \\
+    this.router.get("/preferences", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/preferences.json`,
+        res,
+        "Fetching cached preferences.",
+        "Reading preferences from file system.",
+        "preferences"
+      );
+    });
+
+    this.router.post("/preferences", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/preferences.json`,
+        req,
+        res,
+        "Preferences could not be updated",
+        "Preferences update was successful!",
+        "preferences"
+      );
+    });
+
+    // USERS \\
+    this.router.get("/users", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/users.json`,
+        res,
+        "Fetching cached users.",
+        "Reading users from file system.",
+        "users"
+      );
+    });
+
+    this.router.post("/users", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/users.json`,
+        req,
+        res,
+        "Users could not be updated",
+        "Users update was successful!",
+        "users"
+      );
+    });
+
     // FINANCING \\
     this.router.get("/financing", (req, res) => {
       this.readFileFunc(
@@ -176,47 +220,25 @@ class Router {
       );
     });
 
-    // COMMISSIONS \\
-    this.router.get("/commissions", (req, res) => {
+    // TEMPLATES \\
+    this.router.get("/templates", (req, res) => {
       this.readFileFunc(
-        `${this.filePath}/commissions.json`,
+        `${this.filePath}/templates.json`,
         res,
-        "Fetching cached commissions.",
-        "Reading commissions from file system.",
-        "commissions"
+        "Fetching cached templates.",
+        "Reading templates from file system.",
+        "templates"
       );
     });
 
-    this.router.post("/commissions", (req, res) => {
+    this.router.post("/templates", (req, res) => {
       this.writeFileFunc(
-        `${this.filePath}/commissions.json`,
+        `${this.filePath}/templates.json`,
         req,
         res,
-        "Commission could not be updated",
-        "Commission update was successful!",
-        "commissions"
-      );
-    });
-
-    // MULTIPLIERS \\
-    this.router.get("/multipliers", (req, res) => {
-      this.readFileFunc(
-        `${this.filePath}/multipliers.json`,
-        res,
-        "Fetching cached multipliers.",
-        "Reading multipliers from file system.",
-        "multipliers"
-      );
-    });
-
-    this.router.post("/multipliers", (req, res) => {
-      this.writeFileFunc(
-        `${this.filePath}/multipliers.json`,
-        req,
-        res,
-        "Multiplier could not be updated",
-        "Multiplier updated was successful!",
-        "multipliers"
+        "Template could not be updated",
+        "Template update was successful!",
+        "templates"
       );
     });
 
@@ -261,6 +283,28 @@ class Router {
         "Fee could not be updated",
         "Fee updated was successful!",
         "fees"
+      );
+    });
+
+    // PRICING WORKUP \\
+    this.router.get("/multipliers", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/multipliers.json`,
+        res,
+        "Fetching cached multipliers.",
+        "Reading multipliers from file system.",
+        "multipliers"
+      );
+    });
+
+    this.router.post("/multipliers", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/multipliers.json`,
+        req,
+        res,
+        "Multipliers could not be updated",
+        "Multipliers updated was successful!",
+        "multipliers"
       );
     });
   }

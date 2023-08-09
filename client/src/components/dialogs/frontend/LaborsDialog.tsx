@@ -9,19 +9,27 @@ import Stack from "@mui/material/Stack";
 import BaseDialog from "../BaseDialog";
 import { LaborOnProposal } from "../../../middleware/Interfaces";
 
+interface LaborBreakdown {
+  guid: string;
+  name: string;
+  qty: number;
+  cost: number;
+  allowCostOverride: boolean;
+}
+
 interface LaborStoreActions {
-  labor: LaborOnProposal | undefined;
+  labor: LaborBreakdown[] | undefined;
   onSubmit:
-    | ((labor: LaborOnProposal | undefined) => Promise<boolean | undefined>)
+    | ((labor: LaborOnProposal[] | undefined) => Promise<boolean | undefined>)
     | undefined;
 }
 interface LaborStoreType extends LaborStoreActions {
-  setLabor: (labor: LaborOnProposal) => void;
+  setLabor: (labor: LaborBreakdown[]) => void;
   close: () => void;
 }
 
 const useLaborStore = create<LaborStoreType>((set) => ({
-  labor: {},
+  labor: [],
   onSubmit: undefined,
   setLabor: (labor) => set(() => ({ labor: labor })),
   close: () => set({ onSubmit: undefined }),
@@ -41,25 +49,23 @@ const LaborsDialog = () => {
       content={
         <Stack paddingTop={3} spacing={2}>
           {labor &&
-            Object.keys(labor).map((type) => {
+            labor.map((labor_entry, index) => {
               return (
-                <Stack direction="row" gap="20px">
+                <Stack key={`${labor_entry.name}`} direction="row" gap="20px">
                   <TextField
                     id="labor-cost-id"
                     label="Quantity"
                     variant="outlined"
-                    value={labor[type].qty}
+                    value={labor_entry.qty}
                     inputProps={{
                       min: 0,
                       inputMode: "numeric",
                       pattern: "[0-9]*",
                     }}
                     onChange={(e) => {
-                      const newLabor = {
-                        ...labor,
-                      };
-                      newLabor[type] = {
-                        ...newLabor[type],
+                      const newLabor = [...labor];
+                      newLabor[index] = {
+                        ...newLabor[index],
                         qty: Number(e.target.value),
                       };
                       setLabor(newLabor);
@@ -68,7 +74,7 @@ const LaborsDialog = () => {
                   />
                   <FormControl fullWidth>
                     <InputLabel htmlFor="labor-cost-input-label">
-                      {labor[type].name}
+                      {labor_entry.name}
                     </InputLabel>
                     <OutlinedInput
                       inputProps={{
@@ -77,14 +83,13 @@ const LaborsDialog = () => {
                         pattern: "[0-9]*",
                       }}
                       id="labor-cost-input-label"
-                      value={labor[type].cost}
+                      value={labor_entry.cost}
                       type="number"
+                      disabled={!labor_entry.allowCostOverride}
                       onChange={(e) => {
-                        const newLabor = {
-                          ...labor,
-                        };
-                        newLabor[type] = {
-                          ...newLabor[type],
+                        const newLabor = [...labor];
+                        newLabor[index] = {
+                          ...newLabor[index],
                           cost: Number(e.target.value),
                         };
                         setLabor(newLabor);
@@ -92,7 +97,7 @@ const LaborsDialog = () => {
                       startAdornment={
                         <InputAdornment position="start">$</InputAdornment>
                       }
-                      label={labor[type].name}
+                      label={labor_entry.name}
                     />
                   </FormControl>
                 </Stack>
@@ -114,7 +119,16 @@ const LaborsDialog = () => {
                 return;
               }
 
-              const isValid = await onSubmit(labor);
+              // Only retain specific properties to be stored with the proposal
+              const newLabor = labor?.map((_labor) => {
+                return {
+                  guid: _labor.guid,
+                  cost: _labor.cost,
+                  qty: _labor.qty,
+                };
+              });
+
+              const isValid = await onSubmit(newLabor);
 
               if (isValid) {
                 close();

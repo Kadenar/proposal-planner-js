@@ -137,12 +137,10 @@ export async function editProduct(
 
   //         finalProposalsResult = await saveProposal(
   //           newProposal.guid,
-  //           newProposal.data.commission,
   //           newProposal.data.fees,
   //           newProposal.data.labor,
   //           newProposal.data.products,
   //           newProposal.data.unitCostTax,
-  //           newProposal.data.multiplier,
   //           newProposal.data.quote_options
   //         );
   //       }

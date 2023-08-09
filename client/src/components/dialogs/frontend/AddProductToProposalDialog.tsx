@@ -8,6 +8,7 @@ import {
   TextField,
   Autocomplete,
   MenuItem,
+  Link,
 } from "@mui/material";
 import { create } from "zustand";
 import { StyledBootstrapDialog } from "../../StyledComponents";
@@ -16,17 +17,21 @@ import {
   ProductTypeObject,
   PsuedoObjectOfProducts,
 } from "../../../middleware/Interfaces";
+import { productDialog } from "../backend/ProductDialog";
+import { addProduct } from "../../../services/slices/productsSlice";
+import { useAppDispatch } from "../../../services/store";
 
 interface ProductDialogActions {
   filters: ProductTypeObject[];
   filter: ProductTypeObject | null;
   allProducts: PsuedoObjectOfProducts;
-  selectedProduct: ProductObject | null;
+  selectedProduct: Array<ProductObject> | undefined;
   qty: number;
   quote_option: number;
   onSubmit:
     | ((
-        selectedProduct: ProductObject | null,
+        category: string | undefined,
+        selectedProduct: Array<ProductObject> | undefined,
         qty: number,
         quote_option: number
       ) => Promise<boolean | undefined>)
@@ -34,7 +39,9 @@ interface ProductDialogActions {
 }
 interface ProductDialogType extends ProductDialogActions {
   updateFilter: (filter: ProductTypeObject | null) => void;
-  updateSelectedProduct: (selectedProduct: ProductObject | null) => void;
+  updateSelectedProduct: (
+    selectedProduct: Array<ProductObject> | undefined
+  ) => void;
   updateQty: (qty: number) => void;
   updateQuoteOption: (quote_option: number) => void;
   close: () => void;
@@ -47,13 +54,15 @@ const useProductDialogStore = create<ProductDialogType>((set) => ({
     label: "",
   },
   allProducts: {},
-  selectedProduct: {
-    guid: "",
-    model: "",
-    modelNum: "",
-    description: "",
-    cost: 0,
-  },
+  selectedProduct: [
+    {
+      guid: "",
+      model: "",
+      modelNum: "",
+      description: "",
+      cost: 0,
+    },
+  ],
   qty: 0,
   quote_option: 1,
   onSubmit: undefined,
@@ -67,6 +76,7 @@ const useProductDialogStore = create<ProductDialogType>((set) => ({
 }));
 
 const AddProductToProposalDialog = () => {
+  const dispatch = useAppDispatch();
   const { onSubmit, close, filters, allProducts } = useProductDialogStore();
 
   const [filter, updateFilter] = useProductDialogStore((state) => [
@@ -149,17 +159,18 @@ const AddProductToProposalDialog = () => {
                 )}
                 onChange={(_, value) => {
                   updateFilter(value);
-                  updateSelectedProduct(null);
+                  updateSelectedProduct([]);
                 }}
               />
               <Autocomplete
+                multiple
                 disablePortal
                 id="products"
                 ListboxProps={{ style: { maxHeight: 350 } }}
                 options={productsForSelectedType}
-                getOptionLabel={(option) => option.model || ""}
+                getOptionLabel={(option) => option?.model || ""}
                 isOptionEqualToValue={(option, value) =>
-                  !value || value.guid === "" || option.guid === value.guid
+                  !value || value.guid === "" || option?.guid === value.guid
                 }
                 value={selectedProduct}
                 renderInput={(params) => (
@@ -169,6 +180,39 @@ const AddProductToProposalDialog = () => {
                   updateSelectedProduct(value);
                 }}
               />
+              <Link
+                align="left"
+                component="button"
+                onClick={() => {
+                  close();
+                  productDialog({
+                    header: "Add product",
+                    filters,
+                    filter: filters[0],
+                    modelName: "",
+                    modelNum: "",
+                    description: "",
+                    cost: 0,
+                    onSubmit: async (
+                      filter,
+                      modelName,
+                      modelNum,
+                      description,
+                      cost
+                    ) =>
+                      addProduct(dispatch, {
+                        filter,
+                        modelName,
+                        modelNum,
+                        description,
+                        cost,
+                      }),
+                  });
+                }}
+              >
+                Create a new product
+              </Link>
+
               <TextField
                 label="Quantity"
                 type="number"
@@ -210,6 +254,7 @@ const AddProductToProposalDialog = () => {
               }
 
               const returnValue = await onSubmit(
+                filter?.guid,
                 selectedProduct,
                 qty,
                 quote_option
@@ -234,13 +279,7 @@ export const addProductToProposalDialog = ({
   filters = [],
   filter,
   allProducts = {},
-  selectedProduct = {
-    guid: "",
-    model: "",
-    modelNum: "",
-    description: "",
-    cost: 0,
-  },
+  selectedProduct = [],
   qty = 0,
   quote_option = 1,
   onSubmit,

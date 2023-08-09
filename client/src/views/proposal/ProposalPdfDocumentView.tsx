@@ -1,57 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { PdfDocument } from "../../components/proposal-ui/documentation/pdf/PdfDocument";
-import { Card, Stack, TextField, Typography } from "@mui/material";
+import { Card, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import QuoteSelection from "../../components/QuoteSelection";
-import { useProposalData } from "../../hooks/useProposalData";
+import { useProposalPricing } from "../../hooks/useProposalData";
+import { PdfInvoice, ProposalObject } from "../../middleware/Interfaces";
 import {
-  Financing,
-  PdfInvoice,
-  ProposalObject,
-} from "../../middleware/Interfaces";
-import { setProposalStartDate } from "../../services/slices/activeProposalSlice";
+  setProposalStartDate,
+  setTargetCommission,
+  setTargetQuoteOption,
+} from "../../services/slices/activeProposalSlice";
 import { debounce, groupBy } from "lodash";
-
-function updateFinancingOptionsWithCost(
-  financingOptions: Financing[],
-  totalCost: number
-) {
-  return [...financingOptions].map((option) => {
-    let totalNumPayments = option.term_length;
-    // If it is yearly, multiply the payments by 12
-    if (option.term_type === "years") {
-      totalNumPayments *= 12;
-    }
-
-    const loanAmount = totalCost - 0; // Can replace 0 with the money down option if that were an option
-
-    // Calculating the Payment Amount per Period
-    // A = P * (r*(1+r)^n) / ((1+r)^n - 1)
-    // a = payment amount per period
-    // P = initial principal (loan amount)
-    // r = interest rate per period
-    // n = total number of payments or periods
-    let ratePerPeriod = option.interest / 12.0 / 100.0;
-    let paymentPerPeriod;
-
-    // If the rate is 0, then the loan is just all principal payments
-    if (ratePerPeriod === 0) {
-      paymentPerPeriod = loanAmount / totalNumPayments;
-    } else {
-      const paymentPerPeriodTop =
-        ratePerPeriod * Math.pow(1 + ratePerPeriod, totalNumPayments);
-      const paymentPerPeriodBot =
-        Math.pow(1 + ratePerPeriod, totalNumPayments) - 1;
-      paymentPerPeriod =
-        loanAmount * (paymentPerPeriodTop / paymentPerPeriodBot);
-    }
-
-    return {
-      ...option,
-      costPerMonth: paymentPerPeriod,
-    };
-  });
-}
+import {
+  ccyFormat,
+  updateFinancingOptionsWithCost,
+} from "../../lib/pricing-utils";
+import ClientCardDetails from "../../components/proposal-ui/documentation/ClientCardDetails";
 
 const ProposalPdfDocumentView = ({
   activeProposal,
@@ -61,9 +25,24 @@ const ProposalPdfDocumentView = ({
   const dispatch = useAppDispatch();
   const { clients } = useAppSelector((state) => state.clients);
   const { financing } = useAppSelector((state) => state.financing);
+  const { markedUpPricesForQuotes } = useProposalPricing(activeProposal);
 
-  const [quote_option, setQuoteOption] = useState(0);
-  const quote_options = activeProposal?.data.quote_options;
+  const quote_options = activeProposal.data.quote_options;
+
+  // Get active quote option - handling the possibility user deleted products removing quote option
+  const quote_option =
+    activeProposal.data.target_quote &&
+    quote_options[activeProposal.data.target_quote]
+      ? activeProposal.data.target_quote
+      : 0;
+
+  const markedUpPrices = markedUpPricesForQuotes[`quote_${quote_option + 1}`];
+
+  // Default markup option to most expensive unless user made a selection
+  const markUpOption =
+    activeProposal.data.target_commission === undefined
+      ? markedUpPrices.length - 1
+      : activeProposal.data.target_commission;
 
   const clientInfo = useMemo(() => {
     return clients.find((client) => {
@@ -71,11 +50,14 @@ const ProposalPdfDocumentView = ({
     });
   }, [activeProposal, clients]);
 
-  const { pricingForQuotesData } = useProposalData(activeProposal);
   const invoice_data = useMemo<PdfInvoice | undefined>(() => {
     if (!clientInfo) {
       return undefined;
     }
+
+    const pricingForQuote = markedUpPrices
+      ? markedUpPrices[markUpOption]?.sellPrice
+      : 0;
 
     return {
       submitted_to: clientInfo?.name,
@@ -86,22 +68,13 @@ const ProposalPdfDocumentView = ({
       current_date: activeProposal?.dateModified,
       accountNum: clientInfo?.accountNum,
       quoteOptions: activeProposal?.data.quote_options,
-      invoiceTotals: pricingForQuotesData,
+      invoiceTotal: pricingForQuote,
       financingOptions: groupBy(
-        updateFinancingOptionsWithCost(
-          financing,
-          pricingForQuotesData[quote_option + 1]?.invoiceTotal || 0
-        ),
+        updateFinancingOptionsWithCost(financing, pricingForQuote),
         "provider"
       ),
     };
-  }, [
-    clientInfo,
-    activeProposal,
-    pricingForQuotesData,
-    financing,
-    quote_option,
-  ]);
+  }, [clientInfo, activeProposal, markedUpPrices, markUpOption, financing]);
 
   const setStartDateDebounced = useRef(
     debounce(async (value) => {
@@ -119,8 +92,8 @@ const ProposalPdfDocumentView = ({
     return (
       <Stack alignItems="center">
         <Typography variant="h6">
-          Client details necessary to create the PDF could not be found. This
-          might be an orphaned proposal?
+          Client details which are necessary to create the PDF could not be
+          found. This might be an orphaned proposal?
         </Typography>
       </Stack>
     );
@@ -131,7 +104,7 @@ const ProposalPdfDocumentView = ({
       <Stack alignItems="center">
         <Typography variant="h6">
           Please add products to this proposal before trying to view the PDF for
-          it.
+          it
         </Typography>
       </Stack>
     );
@@ -141,17 +114,41 @@ const ProposalPdfDocumentView = ({
     <Stack gap={2}>
       <Card sx={{ padding: 2, gap: 2 }}>
         <Stack gap={2}>
+          <Typography variant="h6" fontWeight={"bold"}>
+            Source for PDF generation
+          </Typography>
           <QuoteSelection
             initialValue={quote_option}
             quoteOptions={quote_options || []}
             onChangeCallback={(value) => {
-              setQuoteOption(value);
+              setTargetQuoteOption(dispatch, value);
             }}
           />
+          <TextField
+            id="select"
+            label="Cost for customer / your commission"
+            value={markUpOption}
+            onChange={({ target: { value } }) => {
+              setTargetCommission(dispatch, Number(value));
+            }}
+            select
+          >
+            {markedUpPricesForQuotes &&
+              markedUpPricesForQuotes[`quote_${quote_option + 1}`].map(
+                (option, index) => {
+                  return (
+                    <MenuItem key={index} value={index}>{`Cost: ${ccyFormat(
+                      option.sellPrice
+                    )} - Commission: ${option.commissionPercent}%`}</MenuItem>
+                  );
+                }
+              )}
+          </TextField>
           <TextField
             autoComplete="off"
             id="start-date"
             label="Starting date"
+            placeholder="ASAP"
             defaultValue={activeProposal.data.start_date}
             onChange={({ target: { value } }) => {
               setStartDateDebounced(value);
@@ -159,6 +156,7 @@ const ProposalPdfDocumentView = ({
           />
         </Stack>
       </Card>
+      {clientInfo && <ClientCardDetails activeClient={clientInfo} />}
       <PdfDocument invoice_data={invoice_data} quote_option={quote_option} />
     </Stack>
   );

@@ -5,12 +5,13 @@ import { useDrag, useDrop } from "react-dnd";
 import { StyledTextarea } from "../../../StyledComponents";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Stack } from "@mui/material";
+import { IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import { ProposalSpec } from "../../../../middleware/Interfaces";
 
 const style = {
   border: "1px dashed gray",
-  padding: "0.5rem 1rem",
-  marginBottom: ".5rem",
+  padding: "0.5rem 0.5rem",
+  marginBottom: ".85rem",
   cursor: "move",
   transform: "translate3d(0, 0, 0)", // This is a workaround to Chrome bug issue = https://github.com/react-dnd/react-dnd/issues/832
 };
@@ -20,10 +21,7 @@ export interface SpecificationProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   deleteCard: (idx: number) => void;
   modifyText: (value: string) => void;
-  specification: {
-    originalText: string;
-    modifiedText: string;
-  };
+  specification: ProposalSpec;
 }
 
 interface DragItem {
@@ -127,20 +125,24 @@ export const AddedSpecificationCard: FC<SpecificationProps> = ({
       data-handler-id={handlerId}
     >
       <DragIndicatorIcon />
+      <Typography>{`${index + 1}.`}</Typography>
       <StyledTextarea
-        placeholder={specification.originalText}
+        placeholder={
+          "Enter some text to describe what will be done for this job"
+        }
         sx={{ flexGrow: 1, margin: "0 15px 0 15px" }}
-        minRows={3}
+        minRows={1}
         maxRows={3}
-        value={specification.modifiedText}
+        value={specification.text}
         onChange={({ target: { value } }) => {
           modifyText(value);
         }}
       />
-      <DeleteIcon
-        sx={{ cursor: "pointer" }}
-        onClick={() => deleteCard(index)}
-      />
+      <Tooltip title="Remove specification">
+        <IconButton onClick={() => deleteCard(index)}>
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
     </Stack>
   );
 };

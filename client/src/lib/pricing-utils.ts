@@ -1,113 +1,56 @@
-import { Dispatch } from "@reduxjs/toolkit";
-import { addProductToProposal } from "../services/slices/activeProposalSlice";
-import { showSnackbar } from "../components/CustomSnackbar";
 import * as Interfaces from "../middleware/Interfaces";
 
-export const handleAddProductToProposal = (
-  dispatch: Dispatch,
-  activeProposal: Interfaces.ProposalObject | undefined,
-  selectedProduct: Interfaces.ProductObject | null,
-  qty: number,
-  quote_option: number
-) => {
-  if (!activeProposal) {
-    showSnackbar({
-      title: "You can't add a product to a non-active proposal!",
-      show: true,
-      status: "error",
+// Get the full product information from the database and combine it with the data on the proposal
+export function getFullProductData(
+  proposalProducts: Interfaces.ProductOnProposal[] | undefined,
+  products: Interfaces.PsuedoObjectOfProducts
+) {
+  if (!proposalProducts) {
+    return [];
+  }
+
+  return proposalProducts.map((product) => {
+    const matchingProductInfo = products[product.category]?.find((matching) => {
+      return matching.guid === product.guid;
     });
-    return false;
-  }
 
-  if (!selectedProduct) {
-    showSnackbar({
-      title: "Please select a product to add!",
-      show: true,
-      status: "error",
-    });
-    return false;
-  }
-
-  if (qty <= 0) {
-    showSnackbar({
-      title: "Please specify a quantity greater than 0.",
-      show: true,
-      status: "error",
-    });
-    return false;
-  }
-
-  const existingProduct = activeProposal.data.products.find(
-    (product) => product.guid === selectedProduct.guid
-  );
-
-  // Check if product is added to proposal in 1 of existing options
-  if (existingProduct) {
-    if (quote_option === 0) {
-      showSnackbar({
-        title:
-          "Product is already applied to a specific quote and cannot be applied to All.",
-        show: true,
-        status: "error",
-      });
-      return false;
-    }
-
-    if (existingProduct.quote_option === 0) {
-      showSnackbar({
-        title: "Product is already being applied to All quote options.",
-        show: true,
-        status: "error",
-      });
-      return false;
-    }
-
-    if (existingProduct.quote_option === quote_option) {
-      showSnackbar({
-        title: "Product has already been added to the selected quote option.",
-        show: true,
-        status: "error",
-      });
-      return false;
-    }
-  }
-
-  addProductToProposal(dispatch, {
-    guid: selectedProduct.guid,
-    model: selectedProduct.model,
-    modelNum: selectedProduct.modelNum,
-    cost: selectedProduct.cost,
-    description: selectedProduct.description,
-    qty,
-    quote_option,
+    // Map the name, model num, cost from database
+    return {
+      category: product.category,
+      guid: matchingProductInfo?.guid || "",
+      model: matchingProductInfo?.model || "",
+      modelNum: matchingProductInfo?.modelNum || "",
+      cost: matchingProductInfo?.cost || 0,
+      quote_option: product.quote_option,
+      qty: product.qty,
+    };
   });
-
-  showSnackbar({
-    title: "Successfully added product",
-    show: true,
-    status: "success",
-  });
-
-  return true;
-};
+}
 
 // Calculate the total cost of labor
-export default function calculateLabor(labors: Interfaces.LaborOnProposal) {
+export function calculateLabor(labors: Interfaces.LaborOnProposal[]) {
   let totalLabor = 0;
-  Object.keys(labors).forEach((labor) => {
-    totalLabor += labors[labor].qty * labors[labor].cost;
+  labors.forEach((labor) => {
+    totalLabor += labor.qty * labor.cost;
   });
 
   return totalLabor;
 }
 
-export function calculateFees(fees: Interfaces.FeesOnProposal) {
+// Calculate the cost of fees on a proposal based on information in the database
+export function calculateFees(
+  fees: Interfaces.FeeOnProposal[],
+  allFees: Interfaces.Fee[]
+) {
   let costOfFees = 0;
 
-  Object.keys(fees).forEach((fee) => {
-    const cost = fees[fee].cost * fees[fee].qty;
+  fees.forEach((fee) => {
+    const matchingFee = allFees.find((matching) => matching.guid === fee.guid);
 
-    if (fees[fee].type === "add") {
+    // Only thing we let the user do is override the cost on the proposal
+    const cost = fee.cost;
+
+    if (matchingFee?.type === "add") {
       costOfFees += cost;
     } else {
       costOfFees -= cost;
@@ -115,6 +58,47 @@ export function calculateFees(fees: Interfaces.FeesOnProposal) {
   });
 
   return costOfFees;
+}
+
+export function updateFinancingOptionsWithCost(
+  financingOptions: Interfaces.Financing[],
+  totalCost: number
+) {
+  return [...financingOptions].map((option) => {
+    let totalNumPayments = option.term_length;
+    // If it is yearly, multiply the payments by 12
+    if (option.term_type === "years") {
+      totalNumPayments *= 12;
+    }
+
+    const loanAmount = totalCost - 0; // Can replace 0 with the money down option if that were an option
+
+    // Calculating the Payment Amount per Period
+    // A = P * (r*(1+r)^n) / ((1+r)^n - 1)
+    // a = payment amount per period
+    // P = initial principal (loan amount)
+    // r = interest rate per period
+    // n = total number of payments or periods
+    let ratePerPeriod = option.interest / 12.0 / 100.0;
+    let paymentPerPeriod;
+
+    // If the rate is 0, then the loan is just all principal payments
+    if (ratePerPeriod === 0) {
+      paymentPerPeriod = loanAmount / totalNumPayments;
+    } else {
+      const paymentPerPeriodTop =
+        ratePerPeriod * Math.pow(1 + ratePerPeriod, totalNumPayments);
+      const paymentPerPeriodBot =
+        Math.pow(1 + ratePerPeriod, totalNumPayments) - 1;
+      paymentPerPeriod =
+        loanAmount * (paymentPerPeriodTop / paymentPerPeriodBot);
+    }
+
+    return {
+      ...option,
+      costPerMonth: paymentPerPeriod,
+    };
+  });
 }
 
 // Handle formatting input cells with a '$' in front
@@ -129,6 +113,7 @@ export function ccyFormat(num: number) {
   return formatted;
 }
 
+// Get a quote's user friendly name based on the index
 export function getQuoteName(option_num: number) {
   if (option_num === 0) {
     return "All";
@@ -137,46 +122,45 @@ export function getQuoteName(option_num: number) {
   return `Quote ${option_num}`;
 }
 
+// Get a quote's user friendly name based on the quote_index naming
+export function getQuoteNameStr(option_name: string) {
+  return (
+    option_name.charAt(0).toUpperCase() +
+    option_name.slice(1).replaceAll("_", " ")
+  );
+}
+
+// Calculate the cost for all products for a given option
 export function calculateCostForProductsInOption(
-  option: Interfaces.ProductOnProposal[]
+  option: Interfaces.ProductOnProposalWithPricing[]
 ) {
   return option
     .map(({ cost, qty }) => cost * qty)
     .reduce((sum, i) => sum + i, 0);
 }
 
+// Calculate the total cost for an option including cost applied to all options, fees, labor
 export function calculateCostForOption(
-  proposal: Interfaces.ProposalObject,
-  option: Interfaces.ProductOnProposal[],
-  costsFromAllOption: number
+  option: Interfaces.ProductOnProposalWithPricing[],
+  costsFromAllOptions: number,
+  unitCostTax: number,
+  costOfFees: number,
+  costOfLabor: number
 ) {
-  const { unitCostTax, commission, multiplier, labor, fees } = proposal.data;
-
-  const TAX_RATE = unitCostTax / 100.0;
+  const TAX_RATE = unitCostTax < 0 ? 0 : unitCostTax / 100.0;
 
   const itemSubtotal =
-    calculateCostForProductsInOption(option) + costsFromAllOption;
+    calculateCostForProductsInOption(option) + costsFromAllOptions;
 
+  // Baseline cost after taxes
   const invoiceTaxes = TAX_RATE * itemSubtotal;
   const totalWithTaxes = itemSubtotal + invoiceTaxes;
 
-  // Cost for labor
-  const costOfLabor = calculateLabor(labor);
+  // Baseline cost after labor
   const costWithLabor = totalWithTaxes + costOfLabor;
 
-  // Get the cost after applying the multiplier to the job
-  const costAfterMultiplier = costWithLabor * multiplier;
-
-  // Get the cost that the multiplier has added to the job
-  const multiplierValue = costAfterMultiplier - costWithLabor;
-
-  // Cost of fees
-  const costOfFees = calculateFees(fees);
-  const costAfterFees = costAfterMultiplier + costOfFees;
-
-  // Commission amount expected to be earned
-  const commissionAmount = costAfterFees * (commission / 100.0);
-  const invoiceTotal = costAfterFees + commissionAmount;
+  // Baseline cost after fees
+  const costAfterFees = costWithLabor + costOfFees;
 
   return {
     itemSubtotal: itemSubtotal,
@@ -184,53 +168,72 @@ export function calculateCostForOption(
     totalWithTaxes: totalWithTaxes,
     costOfLabor: costOfLabor,
     costWithLabor: costWithLabor,
-    multiplierValue: multiplierValue,
-    costAfterMultiplier: costAfterMultiplier,
     costOfFees: costOfFees,
     costAfterFees: costAfterFees,
-    commissionAmount: commissionAmount,
-    invoiceTotal: invoiceTotal,
+    invoiceTotal: costAfterFees,
   };
 }
 
-// Takes the fees present on the proposal, and removes any that are not in sync with the system
-export function returnOnlyValidFees(
-  proposalFees: Interfaces.FeesOnProposal,
-  availableFees: Interfaces.Fee[]
+// Helper function to calculate the commission amount, and company margin for the job
+const getCostsForCommissionLevel = (
+  percent: number,
+  sellPrice: number,
+  basePrice: number
+) => {
+  const commissionAmount = sellPrice * (percent / 100.0);
+  const companyMargin = sellPrice - basePrice - commissionAmount;
+
+  return {
+    commissionPercent: percent,
+    commissionAmount,
+    sellPrice,
+    companyMargin,
+  };
+};
+
+export function calculateMarkedUpCostsForOption(
+  baseCost: number,
+  costOfFees: number,
+  costOfLabor: number,
+  totalWithTaxes: number,
+  laborMultipliers: Interfaces.Multiplier[],
+  equipmentMultipliers: Interfaces.Multiplier[]
 ) {
-  return availableFees
-    .filter((_, index) => proposalFees[index] === undefined)
-    .reduce(
-      (result, fee, index) => ({
-        ...result,
-        [fee.guid]: {
-          ...proposalFees[fee.guid],
-          name: availableFees[index].name,
-        },
-      }),
-      {}
-    );
+  // Marks up the labor cost
+  const markedUpLabor = laborMultipliers.map((multi) => {
+    return costOfLabor * multi.value;
+  });
+
+  // Marks up the equipment + taxes cost
+  const markedUpEquipment = equipmentMultipliers.map((multi) => {
+    return totalWithTaxes * multi.value;
+  });
+
+  // Calculate the min, target and max sell prices based on markups
+  const minSellPrice = markedUpLabor[0] + markedUpEquipment[0] + costOfFees;
+  const targetSellPrice = markedUpLabor[1] + markedUpEquipment[1] + costOfFees;
+  const minSellPrice2 = minSellPrice + (targetSellPrice - minSellPrice) / 3.0;
+  const minSellPrice3 = minSellPrice2 + (targetSellPrice - minSellPrice2) / 3.0;
+  const maxSellPrice = markedUpLabor[2] + markedUpEquipment[2] + costOfFees;
+  const targetSellPrice2 =
+    targetSellPrice + (maxSellPrice - targetSellPrice) / 3.0;
+  const targetSellPrice3 =
+    targetSellPrice2 + (maxSellPrice - targetSellPrice2) / 3.0;
+
+  // Min sell price + (target sell price - min sell price) / 3
+  return [
+    getCostsForCommissionLevel(2.5, minSellPrice, baseCost),
+    getCostsForCommissionLevel(4.0, minSellPrice2, baseCost),
+    getCostsForCommissionLevel(5.5, minSellPrice3, baseCost),
+    getCostsForCommissionLevel(7.0, targetSellPrice, baseCost),
+    getCostsForCommissionLevel(7.5, targetSellPrice2, baseCost),
+    getCostsForCommissionLevel(8.0, targetSellPrice3, baseCost),
+    getCostsForCommissionLevel(8.5, maxSellPrice, baseCost),
+    /*, 9.0, 9.5, 10 TODO - Add more commission options */
+  ];
 }
 
-// Takes any labor present on the proposal, and removes any that are not in sync with the system
-export function returnOnlyValidLabor(
-  proposalLabors: Interfaces.LaborOnProposal,
-  availableLabors: Interfaces.Labor[]
-) {
-  return availableLabors
-    .filter((_, index) => proposalLabors[index] === undefined)
-    .reduce(
-      (result, labor, index) => ({
-        ...result,
-        [labor.guid]: {
-          ...proposalLabors[labor.guid],
-          name: availableLabors[index].name,
-        },
-      }),
-      {}
-    );
-}
-
+// Currently only support selling in New York - so no need for others
 export const US_STATES = [
   {
     name: "New York",

@@ -1,10 +1,4 @@
-import {
-  FeesOnProposal,
-  LaborOnProposal,
-  ProposalObject,
-  ProductOnProposal,
-  QuoteOption,
-} from "./Interfaces.ts";
+import { ProposalObject, TemplateObject } from "./Interfaces.ts";
 import {
   runGetRequest,
   runPostRequest,
@@ -29,7 +23,7 @@ export async function addProposal(
   name: string,
   description: string,
   client_guid: string | undefined,
-  existingProposal?: ProposalObject | null
+  existingProposal?: ProposalObject | TemplateObject | null
 ) {
   if (name === "") {
     return {
@@ -65,13 +59,10 @@ export async function addProposal(
         products: existingProposal.data.products,
         fees: existingProposal.data.fees,
         labor: existingProposal.data.labor,
-        multiplier: existingProposal.data.multiplier,
         unitCostTax: existingProposal.data.unitCostTax,
-        commission: existingProposal.data.commission,
         quote_options: existingProposal.data.quote_options,
       },
     };
-    return runPostRequest(existingProposals.concat(newProposal), "proposals");
   }
 
   return runPostRequest(existingProposals.concat(newProposal), "proposals");
@@ -94,17 +85,7 @@ export async function deleteProposal(guid: string) {
  * Saves a given proposal
  * @returns
  */
-export async function saveProposal(
-  guid: string,
-  commission: number,
-  fees: FeesOnProposal,
-  labor: LaborOnProposal,
-  products: ProductOnProposal[],
-  unitCostTax: number,
-  multiplier: number,
-  quoteOptions: QuoteOption[],
-  start_date: string
-) {
+export async function saveProposal(proposalToSave: ProposalObject) {
   const existingProposals = await fetchProposals();
   const date = new Date();
   let day = date.getDate();
@@ -112,7 +93,7 @@ export async function saveProposal(
   let year = date.getFullYear();
 
   const index = existingProposals.findIndex((proposal) => {
-    return proposal.guid === guid;
+    return proposal.guid === proposalToSave.guid;
   });
 
   if (index === -1) {
@@ -129,14 +110,14 @@ export async function saveProposal(
     dateModified: `${month}/${day}/${year}`,
     data: {
       ...newProposals[index].data,
-      commission,
-      unitCostTax,
-      multiplier,
-      labor,
-      fees,
-      products,
-      quote_options: quoteOptions,
-      start_date,
+      unitCostTax: proposalToSave.data.unitCostTax,
+      labor: proposalToSave.data.labor,
+      fees: proposalToSave.data.fees,
+      products: proposalToSave.data.products,
+      quote_options: proposalToSave.data.quote_options,
+      start_date: proposalToSave.data.start_date || "",
+      target_quote: proposalToSave.data.target_quote,
+      target_commission: proposalToSave.data.target_commission,
     },
   };
 
@@ -167,29 +148,13 @@ const getNewProposalItem = async (
   description: string,
   client_guid: string
 ): Promise<ProposalObject> => {
-  const fees = await fetchFees();
-
-  const reducedFees = fees.reduce<FeesOnProposal>(
-    (result, fee) => ({
-      ...result,
-      [fee.guid]: fee,
-    }),
-    {} as FeesOnProposal
-  );
-
-  const labors = await fetchLabors();
-  const reducedLabors = labors.reduce<LaborOnProposal>(
-    (result, labor) => ({
-      ...result,
-      [labor.guid]: labor,
-    }),
-    {} as LaborOnProposal
-  );
-
   const date = new Date();
   const dateNow = `${
     date.getMonth() + 1
   }/${date.getDate()}/${date.getFullYear()}`;
+
+  const fees = await fetchFees();
+  const labors = await fetchLabors();
 
   return {
     guid: crypto.randomUUID(),
@@ -203,10 +168,19 @@ const getNewProposalItem = async (
     data: {
       products: [],
       unitCostTax: 8.375,
-      labor: reducedLabors,
-      fees: reducedFees,
-      multiplier: 1.75,
-      commission: 8.5,
+      labor: labors.map((labor) => {
+        return {
+          guid: labor.guid,
+          cost: labor.cost,
+          qty: 0,
+        };
+      }),
+      fees: fees.map((fee) => {
+        return {
+          guid: fee.guid,
+          cost: fee.cost,
+        };
+      }),
       quote_options: [],
       start_date: "",
     },

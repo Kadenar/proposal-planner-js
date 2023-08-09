@@ -17,7 +17,8 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import PersonIcon from "@mui/icons-material/Person";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import DraftsIcon from "@mui/icons-material/Drafts";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
@@ -116,7 +117,7 @@ const TypeSearch: FunctionComponent = () => {
             sx={{
               position: "absolute",
               top: 35,
-              zIndex: 1000,
+              zIndex: 10000,
               maxHeight: "50vh",
               minWidth: "400px",
               overflowY: "auto",
@@ -151,6 +152,7 @@ const SearchResults = ({
   callBack: () => void;
 }) => {
   const dispatch = useAppDispatch();
+  const { templates } = useAppSelector((state) => state.templates);
   const { proposals } = useAppSelector((state) => state.proposals);
   const { clients } = useAppSelector((state) => state.clients);
   const { products } = useAppSelector((state) => state.products);
@@ -159,6 +161,25 @@ const SearchResults = ({
 
   const searchResults = useMemo<SearchResult[]>(() => {
     let allResults: SearchResult[] = [];
+
+    // Add proposals to search results
+    templates.forEach((template) => {
+      if (
+        template.name.toLowerCase().includes(value.toLowerCase()) ||
+        template.description.toLowerCase().includes(value.toLowerCase())
+      ) {
+        allResults.push({
+          icon: <DraftsIcon />,
+          name: template.name,
+          category: "Templates",
+          action: () => {
+            navigate("/templates");
+            selectProposal(dispatch, template);
+            callBack();
+          },
+        });
+      }
+    });
 
     // Add proposals to search results
     proposals.forEach((proposal) => {
@@ -183,7 +204,7 @@ const SearchResults = ({
     clients.forEach((client) => {
       if (client.name.toLowerCase().includes(value.toLowerCase())) {
         allResults.push({
-          icon: <PersonIcon />,
+          icon: <PeopleAltIcon />,
           name: client.name,
           category: "Clients",
           action: () => {
@@ -283,6 +304,7 @@ const SearchResults = ({
     clients,
     proposals,
     filters,
+    templates,
     dispatch,
     callBack,
     navigate,
@@ -296,15 +318,15 @@ const SearchResults = ({
 
         if (prevCategory !== result.category) {
           contentToRender = (
-            <>
+            <div key={index}>
               <StyledSearchHeader>
                 <Typography>{result.category}</Typography>
               </StyledSearchHeader>
-              <StyledSearchItem key={index} onClick={result.action}>
+              <StyledSearchItem onClick={result.action}>
                 <>{result.icon}</>
                 <>{result.name}</>
               </StyledSearchItem>
-            </>
+            </div>
           );
         } else {
           contentToRender = (
