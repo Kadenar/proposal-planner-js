@@ -21,7 +21,7 @@ export default function AllProductTypesView() {
   const { filters } = useAppSelector((state) => state.filters);
 
   return (
-    <Stack gap={2}>
+    <Stack gap={1}>
       <AddNewItem
         onClick={() =>
           productTypeDialog({

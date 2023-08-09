@@ -7,7 +7,14 @@ import Dialog from "@mui/material/Dialog";
 import ListItem from "@mui/material/ListItem";
 import TableCell from "@mui/material/TableCell";
 import Switch from "@mui/material/Switch";
-import { Drawer, IconButton, ListItemText, TextField } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Drawer,
+  IconButton,
+  ListItemText,
+  TextField,
+} from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 
 const blue = {
@@ -37,21 +44,12 @@ const grey = {
   900: "#24292f",
 };
 
-// Table cell with just bolding
-export const BoldedTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: "bold",
-}));
-
-export const BoldedItalicsTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: "bold",
-  fontStyle: "italic",
-}));
-
-export const ActionsTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: "bold",
-  fontStyle: "italic",
-  width: "20px",
-}));
+export const StyledAppBar = styled(AppBar)(({ theme }) => {
+  return {
+    backgroundColor: theme.palette.mode === "dark" ? blue[900] : blue[700],
+    zIndex: 1000,
+  };
+});
 
 export const StyledSearch = styled(TextField)(({ theme }) => {
   return {
@@ -96,211 +94,6 @@ export const StyledSearchItem = styled(ListItem)(({ theme }) => {
     backgroundColor: backgroundColor,
   };
 });
-
-export const StyledBootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
-
-export const StyledBreadcrumb = styled(Chip)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === "light"
-      ? theme.palette.grey[100]
-      : theme.palette.grey[800];
-  return {
-    backgroundColor,
-    height: theme.spacing(4),
-    marginBottom: "15px",
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightRegular,
-    "&:hover, &:focus": {
-      backgroundColor: emphasize(backgroundColor, 0.06),
-    },
-    "&:active": {
-      boxShadow: theme.shadows[1],
-      backgroundColor: emphasize(backgroundColor, 0.12),
-    },
-  };
-});
-
-export const StyledIconButton = styled(IconButton)(
-  ({ theme }) => `
-  color: ${theme.palette.mode === "light" ? "#000" : "#fff"}
-`
-);
-
-export const StyledTab = styled(Tab)(
-  ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
-  color: ${theme.palette.mode === "dark" ? "#fff" : "#000"};
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 600;
-  background-color: ${theme.palette.mode === "dark" ? grey[900] : grey[300]};
-  width: 100%;
-  padding: 10px 12px;
-  margin: 6px 6px;
-  border: none;
-  border-radius: 7px;
-  display: flex;
-  justify-content: center;
-
-  &:hover {
-    background-color: ${blue[400]};
-  }
-
-  &:focus {
-    outline: 3px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-  }
-
-  &.${tabClasses.selected} {
-    background-color: ${theme.palette.mode === "dark" ? "#1976d2" : "#fff"};
-  }
-`
-);
-
-const navbarHeight = 64;
-const drawerWidth = 200;
-
-export const Main = styled("main", {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create("margin", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: 50,
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: `calc(${drawerWidth}px - 15px)`,
-  }),
-}));
-
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  height: `calc(100% - ${navbarHeight}px)`,
-  top: `${navbarHeight - 13}px`,
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  alignItems: "left",
-  top: `${navbarHeight - 13}px`,
-  height: `calc(100% - ${64}px)`,
-  marginRight: `${drawerWidth}px`,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-export const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
-// Style the standard muidrawer to include sizing and transitions
-export const StyledDrawer = styled(Drawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
-}));
-
-// Table cell with min width and bolding
-export const StyledListItem = styled(ListItem)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === "light"
-      ? theme.palette.grey[100]
-      : theme.palette.grey[800];
-
-  const linkColor = theme.palette.mode === "light" ? grey[900] : "#fff";
-
-  return {
-    "&:hover": {
-      color: "#fff",
-      backgroundColor: "#1976d2",
-    },
-    color: linkColor,
-    border: "1px solid black",
-    borderRadius: ".5em",
-    margin: "0 0 10px 0",
-    backgroundColor: backgroundColor,
-  };
-});
-
-export const StyledListItemText = styled(ListItemText, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create("opacity", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    transition: theme.transitions.create("opacity", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-export const StyledTabPanel = styled(TabPanel)(
-  ({ theme }) => `
-    font-family: IBM Plex Sans, sans-serif;
-    font-size: 0.875rem;
-    padding: 20px 12px;
-    background: ${theme.palette.mode === "dark" ? grey[900] : grey[200]};
-    border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-    border-radius: 12px;
-    `
-);
-
-export const StyledTabsList = styled(TabsList)(
-  ({ theme }) => `
-    min-width: 400px;
-    background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[200]};
-    border-radius: 12px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: space-between;
-    box-shadow: 0px 0px 5px ${
-      theme.palette.mode === "dark" ? grey[900] : grey[200]
-    };
-    `
-);
 
 export const StyledSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -349,6 +142,225 @@ export const StyledSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
+const navbarHeight = 64;
+const drawerWidth = 200;
+
+// Handle styling the main content beside the drawer
+export const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[800],
+  flexGrow: 1,
+  minHeight: `calc(100vh - ${navbarHeight - 14}px)`,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create("padding", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  paddingLeft: 73,
+  paddingRight: 10,
+  ...(open && {
+    transition: theme.transitions.create("padding", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    paddingLeft: `calc(${drawerWidth + 8}px)`,
+  }),
+}));
+
+// Handle styling of the drawer
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  height: `calc(100% - ${navbarHeight}px)`,
+  top: `${navbarHeight - 13}px`,
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  alignItems: "left",
+  top: `${navbarHeight - 13}px`,
+  height: `calc(100% - ${50}px)`,
+  /*marginRight: `${drawerWidth}px`,*/
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+export const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+  backgroundColor: theme.palette.mode === "light" ? grey[400] : grey[900],
+}));
+
+export const StyledDrawerBox = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "light" ? grey[400] : grey[900],
+}));
+
+// Style the standard muidrawer to include sizing and transitions
+export const StyledDrawer = styled(Drawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+export const StyledListItem = styled(ListItem)(({ theme }) => {
+  const backgroundColor =
+    theme.palette.mode === "light"
+      ? theme.palette.grey[100]
+      : theme.palette.grey[800];
+
+  const linkColor = theme.palette.mode === "light" ? grey[900] : "#fff";
+
+  return {
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "#1976d2",
+    },
+    color: linkColor,
+    border: "1px solid black",
+    borderRadius: ".5em",
+    margin: "0 0 10px 0",
+    backgroundColor: backgroundColor,
+  };
+});
+
+export const StyledListItemText = styled(ListItemText, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  transition: theme.transitions.create("opacity", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    transition: theme.transitions.create("opacity", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+// Style used for dialog
+export const StyledBootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
+// Style used for breadcrumbs on proposals / clients
+export const StyledBreadcrumb = styled(Chip)(({ theme }) => {
+  const backgroundColor =
+    theme.palette.mode === "light"
+      ? theme.palette.grey[100]
+      : theme.palette.grey[800];
+  return {
+    backgroundColor,
+    height: theme.spacing(4),
+    marginBottom: "15px",
+    color: theme.palette.text.primary,
+    fontWeight: theme.typography.fontWeightRegular,
+    "&:hover, &:focus": {
+      backgroundColor: emphasize(backgroundColor, 0.06),
+    },
+    "&:active": {
+      boxShadow: theme.shadows[1],
+      backgroundColor: emphasize(backgroundColor, 0.12),
+    },
+  };
+});
+
+// Style used for all buttons with an icon
+export const StyledIconButton = styled(IconButton)(
+  ({ theme }) => `
+  color: ${theme.palette.mode === "light" ? "#000" : "#fff"}
+`
+);
+
+// Tab Styles for within landing pages
+export const StyledTab = styled(Tab)(
+  ({ theme }) => `
+  font-family: IBM Plex Sans, sans-serif;
+  color: ${theme.palette.mode === "dark" ? "#fff" : "#000"};
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: ${theme.palette.mode === "dark" ? grey[900] : grey[300]};
+  width: 100%;
+  padding: 10px 12px;
+  margin: 6px 6px;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    background-color: ${blue[400]};
+  }
+
+  &:focus {
+    outline: 3px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+  }
+
+  &.${tabClasses.selected} {
+    background-color: ${theme.palette.mode === "dark" ? "#1976d2" : "#fff"};
+  }
+`
+);
+
+export const StyledTabPanel = styled(TabPanel)(
+  ({ theme }) => `
+    font-family: IBM Plex Sans, sans-serif;
+    font-size: 0.875rem;
+    padding: 20px 12px;
+    background: ${theme.palette.mode === "dark" ? grey[900] : grey[200]};
+    border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+    border-radius: 12px;
+    `
+);
+
+export const StyledTabsList = styled(TabsList)(
+  ({ theme }) => `
+    min-width: 400px;
+    background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[200]};
+    border-radius: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: space-between;
+    box-shadow: 0px 0px 5px ${
+      theme.palette.mode === "dark" ? grey[900] : grey[200]
+    };
+    `
+);
+
+// Styled text area for specifications / summary
 export const StyledTextarea = styled(TextareaAutosize)(
   ({ theme }) => `
       font-family: IBM Plex Sans, sans-serif;
@@ -383,3 +395,19 @@ export const StyledTextarea = styled(TextareaAutosize)(
       }
     `
 );
+
+// Table cell with just bolding
+export const BoldedTableCell = styled(TableCell)(({ theme }) => ({
+  fontWeight: "bold",
+}));
+
+export const BoldedItalicsTableCell = styled(TableCell)(({ theme }) => ({
+  fontWeight: "bold",
+  fontStyle: "italic",
+}));
+
+export const ActionsTableCell = styled(TableCell)(({ theme }) => ({
+  fontWeight: "bold",
+  fontStyle: "italic",
+  width: "20px",
+}));

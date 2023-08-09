@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -8,6 +7,7 @@ import { BackEndItems, FrontEndItems } from "./SidebarItems";
 import {
   DrawerHeader,
   StyledDrawer,
+  StyledDrawerBox,
   StyledListItem,
   StyledListItemText,
 } from "../StyledComponents";
@@ -51,7 +51,7 @@ export default function SidebarDrawer({
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <Box padding={1}>
+        <StyledDrawerBox flexGrow={1} paddingLeft={1} paddingRight={1}>
           <List component="nav">
             {FrontEndItems.map((item, index) => (
               <Link key={index} to={item.path}>
@@ -125,7 +125,7 @@ export default function SidebarDrawer({
               </Link>
             ))}
           </List>
-        </Box>
+        </StyledDrawerBox>
       </StyledDrawer>
     </div>
   );

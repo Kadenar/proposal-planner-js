@@ -35,6 +35,7 @@ export const AppContainer = () => {
           }}
         />
         <Main open={expanded}>
+          {/* <TabContainer /> */}
           <Routes>
             <Route path="/" element={<Navigate to="/proposals" />} />
             <Route path="/clients" element={<ClientsPage />} />

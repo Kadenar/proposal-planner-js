@@ -21,8 +21,8 @@ const LaborAndFeesView = () => {
   const { fees } = useAppSelector((state) => state.fees);
 
   return (
-    <Stack spacing={2}>
-      <Stack gap={2}>
+    <Stack gap={2}>
+      <Stack gap={1}>
         <AddNewItem
           onClick={() =>
             laborDialog({
@@ -37,9 +37,7 @@ const LaborAndFeesView = () => {
         />
 
         <MaterialTable
-          title={
-            "Labor management - (This controls defaults for new proposals)"
-          }
+          title={"Labor management"}
           columns={[
             { title: "Name", field: "name" },
             {
@@ -48,7 +46,7 @@ const LaborAndFeesView = () => {
               searchable: false,
             },
             {
-              title: "Cost editable on proposals",
+              title: "Is cost editable on proposals?",
               field: "allowCostOverride",
               searchable: false,
             },
@@ -131,14 +129,9 @@ const LaborAndFeesView = () => {
         />
 
         <MaterialTable
-          title="Fee management - (This controls defaults for new proposals)"
+          title="Fee management"
           columns={[
             { title: "Name", field: "name" },
-            {
-              title: "Default quantity",
-              field: "qty",
-              searchable: false,
-            },
             {
               title: "Default cost",
               field: "cost",

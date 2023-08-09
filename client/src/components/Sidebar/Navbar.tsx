@@ -1,12 +1,11 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
-import AppBar from "@mui/material/AppBar";
 import SidebarDrawer from "./SidebarDrawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { StyledSwitch } from "../StyledComponents";
+import { StyledAppBar, StyledSwitch } from "../StyledComponents";
 import { useThemeContext } from "../../theme/ThemeContextProvider";
 import TypeSearch from "../SearchInput";
 import { Stack } from "@mui/material";
@@ -35,7 +34,7 @@ export default function Navbar({
 
   return (
     <>
-      <AppBar position="sticky">
+      <StyledAppBar position="sticky">
         <Toolbar variant="dense">
           <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
             <Typography
@@ -63,7 +62,7 @@ export default function Navbar({
           />
         </Toolbar>
         <SidebarDrawer showDrawer={expanded} setShowDrawer={setExpanded} />
-      </AppBar>
+      </StyledAppBar>
     </>
   );
 }

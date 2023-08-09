@@ -26,7 +26,7 @@ export default function AllProductsView() {
   }, [products]);
 
   return (
-    <Stack gap={2}>
+    <Stack>
       <MaterialTable
         title="Products management"
         columns={[

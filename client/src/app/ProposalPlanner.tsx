@@ -1,8 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { batch } from "react-redux";
 
 import { useThemeContext } from "../theme/ThemeContextProvider.tsx";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  CircularProgress,
+  CssBaseline,
+  Stack,
+  ThemeProvider,
+} from "@mui/material";
 
 // Slices
 import { intializeAddresses } from "../services/slices/serviceAddressInfoSlice.ts";
@@ -25,23 +30,28 @@ import { AppContainer } from "./AppContainer.tsx";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
-
+  const [isLoading, setIsLoading] = useState(false);
   // Initialize the available products and filters for the system to use (loaded from back-end server)
   useEffect(() => {
-    batch(() => {
-      dispatch(initializeProductTypes());
-      dispatch(initializeProposals());
-      dispatch(initializeTemplates());
-      dispatch(initializeProducts());
-      dispatch(initializeClients());
-      dispatch(initializeLabors());
-      dispatch(initializeFees());
-      dispatch(initializeContacts());
-      dispatch(intializeAddresses());
-      dispatch(initializeFinancing());
-      dispatch(initializeMultipliers());
-      dispatch(initializePreferences());
-    });
+    const intitData = async () => {
+      setIsLoading(true);
+      batch(async () => {
+        await dispatch(initializeProductTypes());
+        await dispatch(initializeProposals());
+        await dispatch(initializeTemplates());
+        await dispatch(initializeProducts());
+        await dispatch(initializeClients());
+        await dispatch(initializeLabors());
+        await dispatch(initializeFees());
+        await dispatch(initializeContacts());
+        await dispatch(intializeAddresses());
+        await dispatch(initializeFinancing());
+        await dispatch(initializeMultipliers());
+        await dispatch(initializePreferences());
+        setIsLoading(false);
+      });
+    };
+    intitData();
   }, [dispatch]);
 
   const { theme } = useThemeContext();
@@ -50,7 +60,17 @@ const ProposalPlanner = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <DialogContainer />
-      <AppContainer />
+      {isLoading && (
+        <Stack
+          flexGrow={1}
+          height={"100vh"}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <CircularProgress size={100} />
+        </Stack>
+      )}
+      {!isLoading && <AppContainer />}
     </ThemeProvider>
   );
 };
