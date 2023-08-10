@@ -55,7 +55,7 @@ export const SoldJobMenuActions = ({
       placement="bottom-start"
       disablePortal
     >
-      <Paper sx={{ width: 215, maxWidth: "100%" }}>
+      <Paper sx={{ width: 150, maxWidth: "100%" }}>
         <ClickAwayListener
           onClickAway={() =>
             setMenuItemInfo({

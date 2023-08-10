@@ -1,16 +1,19 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/store";
-import { PdfDocument } from "../../components/proposal-ui/documentation/pdf/PdfDocument";
-import { Card, MenuItem, Stack, TextField, Typography } from "@mui/material";
-import QuoteSelection from "../../components/QuoteSelection";
-import { ProposalPricingData } from "../../hooks/ProposalPricingData";
-import { PdfInvoice, ProposalObject } from "../../middleware/Interfaces";
+import { debounce, groupBy } from "lodash";
 import {
   setProposalStartDate,
   setTargetCommission,
   setTargetQuoteOption,
 } from "../../services/slices/activeProposalSlice";
-import { debounce, groupBy } from "lodash";
+
+import { PdfDocument } from "../../components/proposal-ui/documentation/pdf/PdfDocument";
+import { Card, MenuItem, Stack, TextField, Typography } from "@mui/material";
+
+import QuoteSelection from "../../components/QuoteSelection";
+import { ProposalPricingData } from "../../hooks/ProposalPricingData";
+import { PdfInvoice, ProposalObject } from "../../middleware/Interfaces";
+
 import {
   ccyFormat,
   updateFinancingOptionsWithCost,
@@ -27,54 +30,66 @@ const ProposalPdfDocumentView = ({
   const { financing } = useAppSelector((state) => state.financing);
   const { markedUpPricesForQuotes } = ProposalPricingData(activeProposal);
 
-  const quote_options = activeProposal.data.quote_options;
-
-  // Get active quote option - handling the possibility user deleted products removing quote option
-  const quote_option =
-    activeProposal.data.target_quote &&
-    quote_options[activeProposal.data.target_quote].hasProducts
-      ? activeProposal.data.target_quote
-      : 0;
-  const selectedQuoteOption = quote_options[quote_option];
-  const markedUpPrices = markedUpPricesForQuotes[selectedQuoteOption.guid];
-
-  // Default markup option to most expensive unless user made a selection
-  const markUpOption =
-    activeProposal.data.target_commission === undefined
-      ? markedUpPrices.length - 1
-      : activeProposal.data.target_commission;
-
   const clientInfo = useMemo(() => {
     return clients.find((client) => {
       return client.guid === activeProposal.owner.guid;
     });
   }, [activeProposal, clients]);
 
+  const quote_options = activeProposal.data.quote_options;
+
+  // Get active quote option - handling the possibility user deleted products removing quote option
+  const quote_option_index =
+    activeProposal.data.target_quote &&
+    quote_options[activeProposal.data.target_quote].hasProducts
+      ? activeProposal.data.target_quote
+      : 0;
+  const selectedQuoteOption = quote_options[quote_option_index];
+  const markedUpPrices = markedUpPricesForQuotes[selectedQuoteOption.guid];
+
+  // Default markup option to most expensive unless user made a selection
+  const markUpOptionIndex =
+    activeProposal.data.target_commission === undefined
+      ? markedUpPrices?.length - 1 || 0
+      : activeProposal.data.target_commission;
+
+  // Construct invoice data to populate the pdf with
   const invoice_data = useMemo<PdfInvoice | undefined>(() => {
     if (!clientInfo) {
       return undefined;
     }
 
+    //The cost for the selected quote
     const pricingForQuote = markedUpPrices
-      ? markedUpPrices[markUpOption]?.sellPrice
+      ? markedUpPrices[markUpOptionIndex]?.sellPrice
       : 0;
 
     return {
-      submitted_to: clientInfo?.name,
-      address: `${clientInfo?.address} ${clientInfo?.apt} ${clientInfo?.city} ${clientInfo?.state} ${clientInfo?.zip}`,
-      phone: clientInfo?.phone,
-      email: clientInfo?.email,
-      start_date: activeProposal?.data.start_date,
-      current_date: activeProposal?.date_modified,
-      accountNum: clientInfo?.accountNum,
-      quoteOptions: activeProposal?.data.quote_options,
+      submitted_to: clientInfo.name,
+      address: `${clientInfo.address} ${clientInfo.apt} ${clientInfo.city} ${clientInfo.state} ${clientInfo.zip}`,
+      phone: clientInfo.phone,
+      email: clientInfo.email,
+      accountNum: clientInfo.accountNum,
+      current_date: activeProposal.date_modified,
+      start_date: activeProposal.data.start_date,
+      title: selectedQuoteOption.title,
+      summary: selectedQuoteOption.summary,
+      specifications: selectedQuoteOption.specifications,
       invoiceTotal: pricingForQuote,
       financingOptions: groupBy(
         updateFinancingOptionsWithCost(financing, pricingForQuote),
         "provider"
       ),
     };
-  }, [clientInfo, activeProposal, markedUpPrices, markUpOption, financing]);
+  }, [
+    clientInfo,
+    activeProposal.date_modified,
+    activeProposal.data.start_date,
+    selectedQuoteOption,
+    markedUpPrices,
+    markUpOptionIndex,
+    financing,
+  ]);
 
   const setStartDateDebounced = useRef(
     debounce(async (value) => {
@@ -99,7 +114,7 @@ const ProposalPdfDocumentView = ({
     );
   }
 
-  if (!invoice_data.quoteOptions || invoice_data.quoteOptions.length === 0) {
+  if (!markedUpPrices || markedUpPrices.length === 0) {
     return (
       <Stack alignItems="center">
         <Typography variant="h6">
@@ -118,8 +133,8 @@ const ProposalPdfDocumentView = ({
             Source for PDF generation
           </Typography>
           <QuoteSelection
-            quote_guid={quote_options[quote_option].guid}
-            quoteOptions={quote_options || []}
+            value={selectedQuoteOption.guid}
+            quoteOptions={quote_options}
             onChangeCallback={(value) => {
               setTargetQuoteOption(dispatch, value);
             }}
@@ -127,22 +142,20 @@ const ProposalPdfDocumentView = ({
           <TextField
             id="select"
             label="Cost for customer / your commission"
-            value={markUpOption}
+            value={markUpOptionIndex}
             onChange={({ target: { value } }) => {
               setTargetCommission(dispatch, Number(value));
             }}
             select
           >
-            {markedUpPricesForQuotes &&
-              markedUpPricesForQuotes[selectedQuoteOption.guid].map(
-                (option, index) => {
-                  return (
-                    <MenuItem key={index} value={index}>{`Cost: ${ccyFormat(
-                      option.sellPrice
-                    )} - Commission: ${option.commissionPercent}%`}</MenuItem>
-                  );
-                }
-              )}
+            {markedUpPrices &&
+              markedUpPrices.map((option, index) => {
+                return (
+                  <MenuItem key={index} value={index}>{`Cost: ${ccyFormat(
+                    option.sellPrice
+                  )} - Commission: ${option.commissionPercent}%`}</MenuItem>
+                );
+              })}
           </TextField>
           <TextField
             autoComplete="off"
@@ -156,8 +169,8 @@ const ProposalPdfDocumentView = ({
           />
         </Stack>
       </Card>
-      {clientInfo && <ClientCardDetails activeClient={clientInfo} />}
-      <PdfDocument invoice_data={invoice_data} quote_option={quote_option} />
+      <ClientCardDetails activeClient={clientInfo} />
+      <PdfDocument invoice_data={invoice_data} />
     </Stack>
   );
 };

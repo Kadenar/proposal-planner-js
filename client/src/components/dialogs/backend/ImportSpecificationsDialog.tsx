@@ -78,7 +78,7 @@ const ImportSpecificationDialog = () => {
           {template && (
             <>
               <QuoteSelection
-                quote_guid={template.data.quote_options[quoteSelection]?.guid}
+                value={template.data.quote_options[quoteSelection]?.guid}
                 quoteOptions={template.data.quote_options.filter(
                   (quote) => quote.specifications.length > 0
                 )}

@@ -176,7 +176,9 @@ export interface PdfInvoice {
   email: string | undefined;
   current_date: string | undefined;
   accountNum: string | undefined;
-  quoteOptions: QuoteOption[];
+  title: string | undefined;
+  summary: string | undefined;
+  specifications: ProposalSpec[];
   invoiceTotal: number;
   financingOptions: Record<string, Financing[]>;
 }

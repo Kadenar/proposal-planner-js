@@ -3,11 +3,11 @@ import { QuoteOption } from "../middleware/Interfaces";
 import { getQuoteNameStr } from "../lib/pricing-utils";
 
 const QuoteSelection = ({
-  quote_guid,
+  value,
   quoteOptions,
   onChangeCallback,
 }: {
-  quote_guid: string | undefined;
+  value: string | undefined;
   quoteOptions: QuoteOption[];
   onChangeCallback: (value: number) => void;
 }) => {
@@ -15,7 +15,7 @@ const QuoteSelection = ({
     <TextField
       id="select"
       label="Select a quote option"
-      value={quote_guid}
+      value={value}
       onChange={({ target: { value } }) => {
         const newIdx = quoteOptions.findIndex((quote) => quote.guid === value);
         onChangeCallback(newIdx);

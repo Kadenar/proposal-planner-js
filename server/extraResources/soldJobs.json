@@ -17,8 +17,8 @@
       "job_price": 1798.23944375,
       "commission": 152.85035271875,
       "date_sold": "8/10/2023",
-      "date_completed": "",
-      "commission_received": false
+      "date_completed": "8/10/2023",
+      "commission_received": true
     }
   }
 ]

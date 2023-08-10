@@ -66,7 +66,7 @@ const NewSoldJobDialog = () => {
         <div style={{ paddingTop: "5px" }}>
           <Stack spacing={2}>
             <QuoteSelection
-              quote_guid={selectedQuoteGuid}
+              value={selectedQuoteGuid}
               quoteOptions={proposal?.data.quote_options || []}
               onChangeCallback={(value) => {
                 updateQuoteOption(value);

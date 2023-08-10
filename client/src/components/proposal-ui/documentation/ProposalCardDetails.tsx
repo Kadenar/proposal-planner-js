@@ -32,7 +32,7 @@ const ProposalCardDetails = ({
   return (
     <Stack spacing={2}>
       <QuoteSelection
-        quote_guid={selectedQuoteOption?.guid}
+        value={selectedQuoteOption?.guid}
         quoteOptions={quote_options}
         onChangeCallback={(value) => {
           setQuoteOption(value);

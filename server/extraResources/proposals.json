@@ -4,7 +4,7 @@
     "name": "test2",
     "description": "test2",
     "date_created": "7/4/2023",
-    "date_modified": "8/9/2023",
+    "date_modified": "8/10/2023",
     "owner": {
       "guid": "e3af9751-3bd1-4509-9acf-698ea33efd63"
     },
@@ -163,8 +163,8 @@
         }
       ],
       "start_date": "2 to 3 weeks",
-      "target_quote": 4,
-      "target_commission": 3
+      "target_quote": 0,
+      "target_commission": 6
     }
   },
   {

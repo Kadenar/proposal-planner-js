@@ -22,13 +22,7 @@ import PaymentOptions from "./PaymentOptions";
 import Specifications from "./Specifications";
 import { PdfInvoice } from "../../../../middleware/Interfaces";
 
-export const PdfDocument = ({
-  invoice_data,
-  quote_option,
-}: {
-  invoice_data: PdfInvoice;
-  quote_option: number;
-}) => {
+export const PdfDocument = ({ invoice_data }: { invoice_data: PdfInvoice }) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -64,11 +58,7 @@ export const PdfDocument = ({
                 >
                   <RobisonInvoiceHeader />
                   <SubmittedToContent invoice={invoice_data} />
-                  <Specifications
-                    invoice={invoice_data}
-                    quote={invoice_data.quoteOptions[quote_option]}
-                    index={quote_option + 1}
-                  />
+                  <Specifications invoice={invoice_data} />
                   <Text
                     style={styles.pageNumber}
                     render={({ pageNumber, totalPages }) => `${1} / ${2}`}

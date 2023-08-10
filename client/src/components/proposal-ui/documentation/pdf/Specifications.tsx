@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-import { PdfInvoice, QuoteOption } from "../../../../middleware/Interfaces";
+import { PdfInvoice } from "../../../../middleware/Interfaces";
 import { ccyFormat } from "../../../../lib/pricing-utils";
 
 const styles = StyleSheet.create({
@@ -39,31 +39,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const Specifications = ({
-  invoice,
-  quote,
-  index,
-}: {
-  invoice: PdfInvoice;
-  quote: QuoteOption;
-  index: number;
-}) => (
+const Specifications = ({ invoice }: { invoice: PdfInvoice }) => (
   <>
     <View style={styles.proposal_view}>
       <Text style={{ fontSize: 7 }}>
         We hereby submit specifications and estimate for:
       </Text>
       <Text style={styles.title}>
-        {quote.title || `Quote option #${index}`}
+        {invoice.title || "Specify a title for your quote"}
       </Text>
       <Text style={styles.summary}>
-        {quote.summary || "Enter a brief summary for this proposal!"}
+        {invoice.summary || "Enter a brief summary for this proposal!"}
       </Text>
       <Text style={styles.specification_title}>
         Installation with include the following:
       </Text>
       <View style={styles.specifications}>
-        {quote.specifications?.map((spec, idx) => {
+        {invoice.specifications?.map((spec, idx) => {
           return <Text key={idx}>{`${idx + 1}. ${spec.text}`}</Text>;
         })}
       </View>
