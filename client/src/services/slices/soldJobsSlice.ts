@@ -76,12 +76,12 @@ export async function deleteSoldJob(
 export async function saveJob(
   dispatch: Dispatch,
   guid: string,
-  sold: boolean,
+  completed: boolean,
   received_commission: boolean
 ) {
   const response = await updateStore({
     dispatch,
-    dbOperation: async () => save_job(guid, sold, received_commission),
+    dbOperation: async () => save_job(guid, completed, received_commission),
     methodToDispatch: updateSoldJobs,
     dataKey: "jobs",
     successMessage: "Your sold job has been successfully updated.",
@@ -90,4 +90,6 @@ export async function saveJob(
   if (response) {
     markProposalAsDirty(dispatch, false);
   }
+
+  return response;
 }

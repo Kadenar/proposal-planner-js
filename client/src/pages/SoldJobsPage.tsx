@@ -5,6 +5,7 @@ import { Stack } from "@mui/material";
 
 import { useAppSelector } from "../services/store";
 import { ccyFormat } from "../lib/pricing-utils";
+import { SoldJobMenuActions } from "../components/SoldJobMenuActions";
 
 export default function SoldJobsPage() {
   const { soldJobs } = useAppSelector((state) => state.soldJobs);
@@ -62,12 +63,11 @@ export default function SoldJobsPage() {
           },
         ]}
       />
-      {/* <ProposalMenuActions
-        owner={menuItemInfo?.rowData?.owner}
+      <SoldJobMenuActions
         menuItemInfo={menuItemInfo}
         setMenuItemInfo={setMenuItemInfo}
         open={open}
-      /> */}
+      />
     </Stack>
   );
 }

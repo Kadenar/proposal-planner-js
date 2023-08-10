@@ -13,11 +13,12 @@ import FinancingOptionsView from "../views/database/FinancingOptionsView.tsx";
 import LaborAndFeesView from "../views/database/LaborAndFeesView.tsx";
 import AllProductTypesView from "../views/database/AllProductTypesView.tsx";
 import AllProductsView from "../views/database/AllProductsView.tsx";
+import CredentialsView from "../views/CredentialsView.tsx";
 
 // PAGES
+import HomePage from "./HomePage.tsx";
 import ProposalsPage from "../pages/ProposalsPage.tsx";
 import ClientsPage from "../pages/ClientsPage.tsx";
-import { CredentialsView } from "../views/CredentialsView.tsx";
 
 import { toggleSidebar } from "../services/slices/userPreferenceSlice.ts";
 import { useEffect } from "react";
@@ -50,6 +51,7 @@ export const AuthenticationPage = () => {
         {/* <TabContainer /> */}
         <Routes>
           <Route path="/" element={<Navigate to="/auth" />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/auth" element={<CredentialsView />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/contacts" element={<ContactsView />} />

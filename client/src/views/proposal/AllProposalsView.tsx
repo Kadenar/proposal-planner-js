@@ -4,7 +4,7 @@ import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
 
 import { useAppSelector } from "../../services/store";
-import { ProposalMenuActions } from "./ProposalMenuActions";
+import { ProposalMenuActions } from "../../components/proposal-ui/ProposalMenuActions";
 
 export default function AllProposalsView() {
   const { proposals } = useAppSelector((state) => state.proposals);

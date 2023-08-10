@@ -1,4 +1,4 @@
-// import HomeIcon from "@mui/icons-material/Home";
+import HomeIcon from "@mui/icons-material/Home";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import DescriptionIcon from "@mui/icons-material/Description";
 import WorkIcon from "@mui/icons-material/Work";
@@ -10,12 +10,15 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FolderIcon from "@mui/icons-material/Folder";
 
+export const DashBoardItems = [
+  {
+    title: "Home",
+    path: "/home",
+    icon: <HomeIcon />,
+  },
+];
+
 export const FrontEndItems = [
-  // {
-  //   title: "Home",
-  //   path: "/",
-  //   icon: <HomeIcon />,
-  // },
   {
     title: "Clients",
     path: "/clients",

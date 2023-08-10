@@ -6,7 +6,7 @@ import MaterialTable from "@material-table/core";
 import { ClientObject } from "../../middleware/Interfaces";
 
 import Stack from "@mui/material/Stack";
-import { ProposalMenuActions } from "../proposal/ProposalMenuActions";
+import { ProposalMenuActions } from "../../components/proposal-ui/ProposalMenuActions";
 
 const ClientProposalsView = ({
   selectedClient,
@@ -14,6 +14,7 @@ const ClientProposalsView = ({
   selectedClient: ClientObject;
 }) => {
   const { proposals } = useAppSelector((state) => state.proposals);
+  const { soldJobs } = useAppSelector((state) => state.soldJobs);
 
   const proposalsForClient = useMemo(() => {
     return proposals.filter(
@@ -39,6 +40,7 @@ const ClientProposalsView = ({
           { title: "Description", field: "description" },
           { title: "Date created", field: "date_created" },
           { title: "Date modified", field: "date_modified" },
+          { title: "Sold", field: "sold" },
         ]}
         data={proposalsForClient.map((proposal) => {
           return {
@@ -50,6 +52,9 @@ const ClientProposalsView = ({
             date_modified: proposal.date_modified,
             guid: proposal.guid,
             data: proposal.data,
+            sold: soldJobs.find((job) => job.guid === proposal.guid)
+              ? "Yes"
+              : "No",
           };
         })}
         options={{

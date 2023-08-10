@@ -53,35 +53,24 @@ export const StyledAppBar = styled(AppBar)(({ theme }) => {
 
 export const StyledSearch = styled(TextField)(({ theme }) => {
   return {
-    backgroundColor: theme.palette.mode === "dark" ? grey[900] : "#fff",
-    color: "#fff",
+    backgroundColor: theme.palette.mode === "dark" ? grey[900] : grey[100],
     borderRadius: ".5em",
   };
 });
 
 export const StyledSearchHeader = styled(ListItem)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === "light"
-      ? theme.palette.grey[400]
-      : theme.palette.grey[900];
-  const textColor = theme.palette.mode === "light" ? grey[900] : "#fff";
-
   return {
     gap: 25,
-    color: textColor,
+    color: theme.palette.mode === "light" ? grey[900] : "#fff",
     border: "1px solid black",
-    backgroundColor: backgroundColor,
+    backgroundColor:
+      theme.palette.mode === "light"
+        ? theme.palette.grey[400]
+        : theme.palette.grey[900],
   };
 });
 
 export const StyledSearchItem = styled(ListItem)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === "light"
-      ? theme.palette.grey[100]
-      : theme.palette.grey[800];
-
-  const linkColor = theme.palette.mode === "light" ? grey[900] : "#fff";
-
   return {
     "&:hover": {
       color: "#fff",
@@ -89,9 +78,12 @@ export const StyledSearchItem = styled(ListItem)(({ theme }) => {
       backgroundColor: "#1976d2",
     },
     gap: 15,
-    color: linkColor,
+    color: theme.palette.mode === "light" ? grey[900] : "#fff",
     border: "1px solid black",
-    backgroundColor: backgroundColor,
+    backgroundColor:
+      theme.palette.mode === "light"
+        ? theme.palette.grey[100]
+        : theme.palette.grey[800],
   };
 });
 
@@ -227,20 +219,27 @@ export const StyledDrawer = styled(Drawer, {
   }),
 }));
 
-export const StyledListItem = styled(ListItem)(({ theme }) => {
+export const StyledListItem = styled(ListItem, {
+  shouldForwardProp: (prop) => prop !== "active",
+})(({ theme, active }) => {
   const backgroundColor =
     theme.palette.mode === "light"
-      ? theme.palette.grey[100]
+      ? active
+        ? blue[400]
+        : theme.palette.grey[100]
+      : active
+      ? blue[800]
       : theme.palette.grey[800];
-
-  const linkColor = theme.palette.mode === "light" ? grey[900] : "#fff";
 
   return {
     "&:hover": {
-      color: "#fff",
-      backgroundColor: "#1976d2",
+      backgroundColor: active
+        ? backgroundColor
+        : theme.palette.mode === "dark"
+        ? blue[600]
+        : blue[200],
     },
-    color: linkColor,
+    color: theme.palette.mode === "light" ? grey[900] : "#fff",
     border: "1px solid black",
     borderRadius: ".5em",
     margin: "0 0 10px 0",

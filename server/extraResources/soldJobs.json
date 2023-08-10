@@ -5,7 +5,7 @@
       "name": "test2",
       "job_price": 5044.0002187499995,
       "commission": 353.0800153125,
-      "date_sold": "8/9/2023",
+      "date_sold": "8/10/2023",
       "date_completed": "",
       "commission_received": false
     }
@@ -16,7 +16,7 @@
       "name": "Test",
       "job_price": 1798.23944375,
       "commission": 152.85035271875,
-      "date_sold": "8/9/2023",
+      "date_sold": "8/10/2023",
       "date_completed": "",
       "commission_received": false
     }

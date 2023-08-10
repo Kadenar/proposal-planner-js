@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { BackEndItems, FrontEndItems } from "./SidebarItems";
+import { BackEndItems, DashBoardItems, FrontEndItems } from "./SidebarItems";
 import {
   DrawerHeader,
   StyledDrawer,
@@ -21,6 +21,7 @@ export default function SidebarDrawer({
   showDrawer: boolean;
   setShowDrawer: (open: boolean) => void;
 }) {
+  const location = useLocation();
   const toggleDrawer = (open: boolean) => (event: KeyboardEvent) => {
     if (
       event.type === "keydown" &&
@@ -53,10 +54,11 @@ export default function SidebarDrawer({
         <Divider />
         <StyledDrawerBox flexGrow={1} paddingLeft={1} paddingRight={1}>
           <List component="nav">
-            {FrontEndItems.map((item, index) => (
+            {DashBoardItems.map((item, index) => (
               <Link key={index} to={item.path}>
                 <StyledListItem
                   key={index}
+                  active={item.path === location.pathname}
                   disablePadding
                   sx={{
                     display: "block",
@@ -88,11 +90,54 @@ export default function SidebarDrawer({
                 </StyledListItem>
               </Link>
             ))}
-            <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
+            <Divider
+              light
+              sx={{ border: "1px solid #fff", marginTop: 2, marginBottom: 2 }}
+            />
+            {FrontEndItems.map((item, index) => (
+              <Link key={index} to={item.path}>
+                <StyledListItem
+                  key={index}
+                  active={item.path === location.pathname}
+                  disablePadding
+                  sx={{
+                    display: "block",
+                  }}
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: showDrawer ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <Tooltip title={item.title}>
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          mr: showDrawer ? 1 : "auto",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                    </Tooltip>
+                    <StyledListItemText
+                      primary={item.title}
+                      sx={{ opacity: showDrawer ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </StyledListItem>
+              </Link>
+            ))}
+            <Divider
+              sx={{ border: "1px solid #fff", marginTop: 2, marginBottom: 2 }}
+            />
             {BackEndItems.map((item, index) => (
               <Link key={index} to={item.path}>
                 <StyledListItem
                   key={index}
+                  active={item.path === location.pathname}
                   disablePadding
                   sx={{
                     display: "block",

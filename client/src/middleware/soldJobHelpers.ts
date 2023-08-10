@@ -46,7 +46,7 @@ export async function addSoldJob(
 
 export async function updateSoldJob(
   guid: string,
-  isSold: boolean,
+  completed: boolean,
   commissionReceived: boolean
 ) {
   const existingJobs = await fetchSoldJobs();
@@ -64,15 +64,22 @@ export async function updateSoldJob(
 
   const newJobs = [...existingJobs];
 
-  let dateSold = newJobs[index].data.date_sold;
+  if (!completed && commissionReceived) {
+    return {
+      status: 500,
+      data: { message: "Cannot receive commission for an incomplete job!" },
+    };
+  }
+
+  let dateCompleted = completed ? newJobs[index].data.date_completed : "";
 
   // If updating the job as sold (not already sold), set the date to now
-  if (isSold && dateSold !== "") {
+  if (completed && dateCompleted === "") {
     const date = new Date();
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
-    dateSold = `${month}/${day}/${year}`;
+    dateCompleted = `${month}/${day}/${year}`;
   }
 
   newJobs[index] = {
@@ -80,7 +87,7 @@ export async function updateSoldJob(
     data: {
       ...newJobs[index].data,
       commission_received: commissionReceived,
-      date_sold: dateSold,
+      date_completed: dateCompleted,
     },
   };
 

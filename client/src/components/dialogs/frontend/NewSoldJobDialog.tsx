@@ -8,8 +8,8 @@ import { ccyFormat } from "../../../lib/pricing-utils";
 
 interface SoldJobDialogActions {
   proposal: ProposalObject | undefined;
-  quote_option: number | string;
-  target_commission: number | string;
+  quote_option: number;
+  target_commission: number | undefined;
   onSubmit:
     | ((job_price: number, commission: number) => Promise<boolean | undefined>)
     | undefined;
@@ -24,8 +24,8 @@ interface SoldJobDialogType extends SoldJobDialogActions {
 
 const useSoldJobDialogStore = create<SoldJobDialogType>((set) => ({
   proposal: undefined,
-  quote_option: "",
-  target_commission: "",
+  quote_option: 0,
+  target_commission: 0,
   updateProposal: (proposal) => set(() => ({ proposal: proposal })),
   updateQuoteOption: (quote_option) =>
     set(() => ({ quote_option: quote_option })),
@@ -35,7 +35,7 @@ const useSoldJobDialogStore = create<SoldJobDialogType>((set) => ({
   close: () => set({ onSubmit: undefined }),
 }));
 
-const SoldJobDialog = () => {
+const NewSoldJobDialog = () => {
   const { onSubmit, close, proposal } = useSoldJobDialogStore();
 
   const [quote_option, updateQuoteOption] = useSoldJobDialogStore((state) => [
@@ -48,7 +48,16 @@ const SoldJobDialog = () => {
   );
 
   const { markedUpPricesForQuotes } = ProposalPricingData(proposal);
+
+  // Default the quote option from the proposal
   const selectedQuoteGuid = proposal?.data.quote_options[quote_option]?.guid;
+
+  // Default the commission value from user's selection on the actual proposal
+  const commissionValue = target_commission
+    ? target_commission
+    : markedUpPricesForQuotes[`quote_${quote_option}`]
+    ? markedUpPricesForQuotes[`quote_${quote_option}`].length - 1
+    : 0;
 
   return (
     <BaseDialog
@@ -66,7 +75,7 @@ const SoldJobDialog = () => {
             <TextField
               id="select-target-commission"
               label="Cost for customer / your commission"
-              value={target_commission}
+              value={commissionValue}
               onChange={({ target: { value } }) => {
                 updateTargetCommission(Number(value));
               }}
@@ -106,7 +115,7 @@ const SoldJobDialog = () => {
               }
 
               const selectedJobInfo =
-                markedUpPricesForQuotes[selectedQuoteGuid][target_commission];
+                markedUpPricesForQuotes[selectedQuoteGuid][commissionValue];
 
               const returnValue = await onSubmit(
                 selectedJobInfo.sellPrice,
@@ -128,7 +137,7 @@ const SoldJobDialog = () => {
   );
 };
 
-export const soldJobDialog = ({
+export const newSoldJobDialog = ({
   proposal,
   quote_option,
   target_commission,
@@ -142,4 +151,4 @@ export const soldJobDialog = ({
   });
 };
 
-export default SoldJobDialog;
+export default NewSoldJobDialog;

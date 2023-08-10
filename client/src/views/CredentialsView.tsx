@@ -18,7 +18,7 @@ import {
 import { useAppDispatch } from "../services/store";
 import { useNavigate } from "react-router-dom";
 
-export const CredentialsView = () => {
+const CredentialsView = () => {
   const dispatch = useAppDispatch();
   const [userName, setUserName] = useState("tim");
   const [password, setPassword] = useState("");
@@ -93,3 +93,5 @@ export const CredentialsView = () => {
     </Stack>
   );
 };
+
+export default CredentialsView;

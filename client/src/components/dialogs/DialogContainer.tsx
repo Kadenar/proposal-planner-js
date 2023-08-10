@@ -16,7 +16,8 @@ import ContactDialog from "./frontend/ContactDialog.tsx";
 import FinancingDialog from "./backend/FinancingDialog.tsx";
 import NewTemplateDialog from "./frontend/NewTemplateDialog.tsx";
 import ImportSpecificationDialog from "./backend/ImportSpecificationsDialog.tsx";
-import SoldJobDialog from "./frontend/SoldJobDialog.tsx";
+import NewSoldJobDialog from "./frontend/NewSoldJobDialog.tsx";
+import EditSoldJobDialog from "./frontend/EditSoldJobDialog.tsx";
 
 export const DialogContainer = () => {
   return (
@@ -37,7 +38,8 @@ export const DialogContainer = () => {
       <FeesDialog />
       <FinancingDialog />
       <ImportSpecificationDialog />
-      <SoldJobDialog />
+      <NewSoldJobDialog />
+      <EditSoldJobDialog />
     </>
   );
 };

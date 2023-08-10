@@ -10,12 +10,12 @@ import {
 } from "@mui/material";
 import { selectProposal } from "../../services/slices/activeProposalSlice";
 import { useAppDispatch, useAppSelector } from "../../services/store";
-import { newProposalDialog } from "../../components/dialogs/frontend/NewProposalDialog";
+import { newProposalDialog } from "../dialogs/frontend/NewProposalDialog";
 import {
   copyProposal,
   deleteProposal,
 } from "../../services/slices/proposalsSlice";
-import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
+import { confirmDialog } from "../dialogs/ConfirmDialog";
 import { ClientObject, QuoteOption } from "../../middleware/Interfaces";
 import { useNavigate } from "react-router-dom";
 import { updateActiveClient } from "../../services/slices/clientsSlice";
@@ -24,7 +24,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import WorkIcon from "@mui/icons-material/Work";
 import SellIcon from "@mui/icons-material/Sell";
 import ContentPasteGoIcon from "@mui/icons-material/ContentPasteGo";
-import { soldJobDialog } from "../../components/dialogs/frontend/SoldJobDialog";
+import { newSoldJobDialog } from "../dialogs/frontend/NewSoldJobDialog";
 import { addSoldJob } from "../../services/slices/soldJobsSlice";
 
 interface MenuItemInfo {
@@ -85,7 +85,16 @@ export const ProposalMenuActions = ({
             })
           }
         >
-          <MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+          <MenuList
+            autoFocusItem={open}
+            onClick={() => {
+              setMenuItemInfo({
+                ...menuItemInfo,
+                anchorEl: undefined,
+              });
+            }}
+            onKeyDown={handleListKeyDown}
+          >
             <MenuItem
               onClick={() => {
                 updateActiveClient(dispatch, undefined);
@@ -102,19 +111,18 @@ export const ProposalMenuActions = ({
             {!isJobSold && doesProposalHaveQuoteOptions && (
               <MenuItem
                 onClick={() => {
-                  soldJobDialog({
+                  newSoldJobDialog({
                     proposal: menuItemInfo.rowData,
-                    quote_option: 0,
+                    quote_option: menuItemInfo.rowData.data.target_quote || 0,
                     target_commission:
                       menuItemInfo.rowData.data.target_commission || 0,
-                    onSubmit: async (job_price, commission) => {
-                      return addSoldJob(dispatch, {
+                    onSubmit: async (job_price, commission) =>
+                      addSoldJob(dispatch, {
                         proposal_name: menuItemInfo.rowData.name,
                         proposal_guid: menuItemInfo.rowData.guid,
                         job_price,
                         commission,
-                      });
-                    },
+                      }),
                   });
                 }}
               >
@@ -126,22 +134,13 @@ export const ProposalMenuActions = ({
             )}
             <MenuItem
               onClick={() => {
-                setMenuItemInfo({
-                  ...menuItemInfo,
-                  anchorEl: undefined,
-                });
-
-                if (!menuItemInfo.rowData) {
-                  return;
-                }
-
                 newProposalDialog({
                   name: menuItemInfo.rowData.name,
                   description: `${menuItemInfo.rowData.description} copy`,
                   owner: { ...owner },
                   clients,
                   isExistingProposal: true,
-                  onSubmit: (name, description, client_guid) =>
+                  onSubmit: async (name, description, client_guid) =>
                     copyProposal(dispatch, {
                       name,
                       description,
@@ -158,11 +157,6 @@ export const ProposalMenuActions = ({
             </MenuItem>
             <MenuItem
               onClick={() => {
-                setMenuItemInfo({
-                  ...menuItemInfo,
-                  anchorEl: undefined,
-                });
-
                 confirmDialog({
                   message:
                     "Do you really want to delete this? This action cannot be undone.",
