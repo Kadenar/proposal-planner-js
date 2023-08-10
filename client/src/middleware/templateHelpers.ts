@@ -149,7 +149,43 @@ const getNewTemplateItem = async (
           cost: fee.cost,
         };
       }),
-      quote_options: [],
+      quote_options: [
+        {
+          guid: "quote_1",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_2",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_3",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_4",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_5",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+      ],
       start_date: "",
     },
   };
