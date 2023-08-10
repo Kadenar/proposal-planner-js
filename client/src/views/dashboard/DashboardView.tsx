@@ -1,3 +1,5 @@
+import { Box, Card, Collapse, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 import {
   AreaChart,
   Area,
@@ -5,84 +7,213 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  BarChart,
+  Bar,
 } from "recharts";
 
+import { StyledIconButton } from "../../components/StyledComponents";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { SoldJob } from "../../middleware/Interfaces";
+
 interface SalesData {
+  numberOfCommissionsReceived: number;
   commissionsReceived: number;
+  numberOfCommissionsOutstanding: number;
   commissionsOutstanding: number;
   jobsCompleted: number;
   jobsOutstanding: number;
   totalJobsSold: number;
+  numberOfDraftedProposals: number;
+  numberOfClients: number;
+  jobsSoldByMonth: Array<{ jobs: SoldJob[] }>;
+  jobsCompletedByMonth: Array<{ jobs: SoldJob[] }>;
 }
 
+const MonthNameLookup = (index: number) => {
+  let ret;
+
+  switch (index) {
+    case 0:
+      ret = "Jan";
+      break;
+    case 1:
+      ret = "Feb";
+      break;
+    case 2:
+      ret = "Mar";
+      break;
+    case 3:
+      ret = "Apr";
+      break;
+    case 4:
+      ret = "May";
+      break;
+    case 5:
+      ret = "Jun";
+      break;
+    case 6:
+      ret = "Jul";
+      break;
+    case 7:
+      ret = "Aug";
+      break;
+    case 8:
+      ret = "Sep";
+      break;
+    case 9:
+      ret = "Oct";
+      break;
+    case 10:
+      ret = "Nov";
+      break;
+    case 11:
+      ret = "Dec";
+      break;
+    default:
+      ret = "";
+  }
+
+  return ret;
+};
+
 const DashboardView = ({ salesData }: { salesData: SalesData }) => {
-  const commissionsReceived = [
-    { name: "Jan", amt: salesData.commissionsReceived },
-    { name: "Feb", amt: salesData.commissionsReceived },
-    { name: "Mar", amt: salesData.commissionsReceived },
-    { name: "Apr", amt: salesData.commissionsReceived },
-    { name: "May", amt: salesData.commissionsReceived },
-    { name: "Jun", amt: salesData.commissionsReceived },
-    { name: "Jul", amt: salesData.commissionsReceived },
-    { name: "Aug", amt: salesData.commissionsReceived },
-    { name: "Sep", amt: salesData.commissionsReceived },
-    { name: "Oct", amt: salesData.commissionsReceived },
-    { name: "Nov", amt: salesData.commissionsReceived },
-    { name: "Dec", amt: salesData.commissionsReceived },
-  ];
+  const [statsOpen, setStatsOpen] = useState(true);
 
-  const commissionsOutstanding = [
-    { name: "Jan", amt: salesData.commissionsOutstanding },
-    { name: "Feb", amt: salesData.commissionsOutstanding },
-    { name: "Mar", amt: salesData.commissionsOutstanding },
-    { name: "Apr", amt: salesData.commissionsOutstanding },
-    { name: "May", amt: salesData.commissionsOutstanding },
-    { name: "Jun", amt: salesData.commissionsOutstanding },
-    { name: "Jul", amt: salesData.commissionsOutstanding },
-    { name: "Aug", amt: salesData.commissionsOutstanding - 100 },
-    { name: "Sep", amt: salesData.commissionsOutstanding },
-    { name: "Oct", amt: salesData.commissionsOutstanding },
-    { name: "Nov", amt: salesData.commissionsOutstanding },
-    { name: "Dec", amt: salesData.commissionsOutstanding },
-  ];
   return (
-    <>
-      <AreaChart
-        width={900}
-        height={400}
-        data={commissionsReceived}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Area type="monotone" dataKey="amt" stroke="#8884d8" fill="#8884d8" />
-      </AreaChart>
+    <Stack ml={2} gap={2}>
+      <Card sx={{ padding: 2 }}>
+        <StyledIconButton
+          aria-label="expand row"
+          size="small"
+          onClick={() => setStatsOpen(!statsOpen)}
+          style={{ fontWeight: "bold", marginBottom: 10 }}
+        >
+          {statsOpen ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
+          Statistics
+        </StyledIconButton>
+        <Collapse
+          in={statsOpen}
+          timeout="auto"
+          unmountOnExit
+          sx={{ paddingLeft: 2 }}
+        >
+          <Stack>
+            <Typography sx={{ display: "list-item" }}>
+              {`You have drafted ${salesData.numberOfDraftedProposals} proposal(s)`}
+            </Typography>
+            <Typography sx={{ display: "list-item" }}>
+              {`You have ${salesData.numberOfClients} client(s)`}
+            </Typography>
+            <Typography sx={{ display: "list-item" }}>
+              {`You have sold a total of ${salesData.totalJobsSold} job(s)`}
+            </Typography>
+            <Typography sx={{ display: "list-item" }}>
+              {`You have ${salesData.jobsOutstanding} job(s) outstanding`}
+            </Typography>
+            <Typography sx={{ display: "list-item" }}>
+              {`You have ${salesData.jobsCompleted} job(s) completed`}
+            </Typography>
+          </Stack>
+        </Collapse>
+      </Card>
+      <Card sx={{ padding: 2 }}>
+        <Stack direction="row" justifyContent={"center"}>
+          <Box justifyContent="center">
+            <Typography>Jobs sold by month</Typography>
+            <AreaChart
+              width={450}
+              height={300}
+              data={salesData.jobsSoldByMonth.map((job, index) => {
+                return {
+                  name: MonthNameLookup(index),
+                  jobs: job.jobs.length,
+                };
+              })}
+              margin={{
+                top: 10,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis domain={["dataMin", "dataMax"]} />
+              <Tooltip />
+              <Area
+                type="monotone"
+                dataKey="jobs"
+                stroke="#8884d8"
+                fill="#8884d8"
+              />
+            </AreaChart>
+          </Box>
 
-      <AreaChart
-        width={900}
-        height={400}
-        data={commissionsOutstanding}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Area type="monotone" dataKey="amt" stroke="#8884d8" fill="#8884d8" />
-      </AreaChart>
-    </>
+          <Box justifyContent="center">
+            <Typography>Jobs completed by month</Typography>
+            <AreaChart
+              width={450}
+              height={300}
+              data={salesData.jobsCompletedByMonth.map((job, index) => {
+                return {
+                  name: MonthNameLookup(index),
+                  jobs: job.jobs.length,
+                };
+              })}
+              margin={{
+                top: 10,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis domain={["dataMin", "dataMax"]} />
+              <Tooltip />
+              <Area
+                type="monotone"
+                dataKey="jobs"
+                stroke="#8884d8"
+                fill="#8884d8"
+              />
+            </AreaChart>
+          </Box>
+        </Stack>
+      </Card>
+      <Card sx={{ padding: 2 }}>
+        <Stack direction="row" justifyContent={"center"}>
+          <Box justifyContent="center">
+            <Typography>Commissions received vs. outstanding</Typography>
+            <BarChart
+              width={450}
+              height={300}
+              data={[
+                {
+                  name: "Commissions",
+                  received: salesData.numberOfCommissionsReceived,
+                  outstanding: salesData.numberOfCommissionsOutstanding,
+                },
+              ]}
+              margin={{
+                top: 10,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis domain={[0, "dataMax + 2"]} />
+              <Tooltip />
+              <Bar dataKey="received" fill="#8884d8" />
+              <Bar dataKey="outstanding" fill="#82ca9d" />
+            </BarChart>
+          </Box>
+        </Stack>
+      </Card>
+    </Stack>
   );
 };
 

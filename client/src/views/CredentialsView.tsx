@@ -30,7 +30,7 @@ const CredentialsView = () => {
 
     // If successfully logged in, navigate to proposals view
     if (validated) {
-      navigate("/proposals");
+      navigate("/home");
     }
   };
 
