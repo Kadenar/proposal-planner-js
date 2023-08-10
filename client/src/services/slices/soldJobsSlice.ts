@@ -6,7 +6,7 @@ import {
   updateSoldJob as save_job,
 } from "../../middleware/soldJobHelpers";
 import { updateStore } from "../Dispatcher";
-import { SoldJob, TemplateObject } from "../../middleware/Interfaces.ts";
+import { SoldJob } from "../../middleware/Interfaces.ts";
 import { markProposalAsDirty } from "./activeProposalSlice.ts";
 
 // REDUCERS
