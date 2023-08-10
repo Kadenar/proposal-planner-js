@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../services/store";
 import { PdfDocument } from "../../components/proposal-ui/documentation/pdf/PdfDocument";
 import { Card, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import QuoteSelection from "../../components/QuoteSelection";
-import { useProposalPricing } from "../../hooks/useProposalData";
+import { ProposalPricingData } from "../../hooks/ProposalPricingData";
 import { PdfInvoice, ProposalObject } from "../../middleware/Interfaces";
 import {
   setProposalStartDate,
@@ -25,7 +25,7 @@ const ProposalPdfDocumentView = ({
   const dispatch = useAppDispatch();
   const { clients } = useAppSelector((state) => state.clients);
   const { financing } = useAppSelector((state) => state.financing);
-  const { markedUpPricesForQuotes } = useProposalPricing(activeProposal);
+  const { markedUpPricesForQuotes } = ProposalPricingData(activeProposal);
 
   const quote_options = activeProposal.data.quote_options;
 
@@ -35,8 +35,8 @@ const ProposalPdfDocumentView = ({
     quote_options[activeProposal.data.target_quote].hasProducts
       ? activeProposal.data.target_quote
       : 0;
-
-  const markedUpPrices = markedUpPricesForQuotes[`quote_${quote_option + 1}`];
+  const selectedQuoteOption = quote_options[quote_option];
+  const markedUpPrices = markedUpPricesForQuotes[selectedQuoteOption.guid];
 
   // Default markup option to most expensive unless user made a selection
   const markUpOption =
@@ -134,7 +134,7 @@ const ProposalPdfDocumentView = ({
             select
           >
             {markedUpPricesForQuotes &&
-              markedUpPricesForQuotes[`quote_${quote_option + 1}`].map(
+              markedUpPricesForQuotes[selectedQuoteOption.guid].map(
                 (option, index) => {
                   return (
                     <MenuItem key={index} value={index}>{`Cost: ${ccyFormat(

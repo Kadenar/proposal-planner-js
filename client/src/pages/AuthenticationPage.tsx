@@ -1,18 +1,18 @@
+import { useAppDispatch, useAppSelector } from "../services/store.ts";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+
 import Stack from "@mui/material/Stack";
+import Navbar from "../components/Sidebar/Navbar.tsx";
+import { Main } from "../components/StyledComponents.jsx";
 
 import ContactsView from "../views/ContactsView.tsx";
 import MarkupsPage from "../pages/MarkupsPage.tsx";
+import SoldJobsPage from "./SoldJobsPage.tsx";
 import TemplatesPage from "../pages/TemplatesPage.tsx";
-import { Main } from "../components/StyledComponents.jsx";
 import FinancingOptionsView from "../views/database/FinancingOptionsView.tsx";
 import LaborAndFeesView from "../views/database/LaborAndFeesView.tsx";
 import AllProductTypesView from "../views/database/AllProductTypesView.tsx";
 import AllProductsView from "../views/database/AllProductsView.tsx";
-import { useAppDispatch, useAppSelector } from "../services/store.ts";
-
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-
-import Navbar from "../components/Sidebar/Navbar.tsx";
 
 // PAGES
 import ProposalsPage from "../pages/ProposalsPage.tsx";
@@ -55,6 +55,7 @@ export const AuthenticationPage = () => {
           <Route path="/contacts" element={<ContactsView />} />
           <Route path="/financing" element={<FinancingOptionsView />} />
           <Route path="/labor_fees" element={<LaborAndFeesView />} />
+          <Route path="/jobs" element={<SoldJobsPage />} />
           <Route path="/markups" element={<MarkupsPage />} />
           <Route path="/products" element={<AllProductsView />} />
           <Route path="/products/types" element={<AllProductTypesView />} />

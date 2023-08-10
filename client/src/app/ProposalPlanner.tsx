@@ -29,6 +29,7 @@ import { DialogContainer } from "../components/dialogs/DialogContainer.tsx";
 import { initializeUsers } from "../services/slices/authenticatedSlice.ts";
 import { HashRouter } from "react-router-dom";
 import { AuthenticationPage } from "../pages/AuthenticationPage.tsx";
+import { initializeSoldJobs } from "../services/slices/soldJobsSlice.ts";
 
 const ProposalPlanner = () => {
   const dispatch = useAppDispatch();
@@ -40,6 +41,7 @@ const ProposalPlanner = () => {
       batch(async () => {
         await dispatch(initializeProductTypes());
         await dispatch(initializeProposals());
+        await dispatch(initializeSoldJobs());
         await dispatch(initializeTemplates());
         await dispatch(initializeProducts());
         await dispatch(initializeClients());

@@ -15,14 +15,16 @@ import {
 } from "../middleware/Interfaces";
 import { useAppSelector } from "../services/store";
 
-export function useProposalPricing(activeProposal: ProposalObject) {
+export function ProposalPricingData(
+  activeProposal: ProposalObject | undefined
+) {
   const { products } = useAppSelector((state) => state.products);
   const { fees } = useAppSelector((state) => state.fees);
   const { equipmentMarkups, laborMarkups } = useAppSelector(
     (state) => state.multipliers
   );
-  const productsOnProposal = activeProposal.data.products;
-  const unit_cost_tax = activeProposal.data.unit_cost_tax;
+  const productsOnProposal = activeProposal?.data.products;
+  const unit_cost_tax = activeProposal?.data.unit_cost_tax || 0;
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
@@ -47,12 +49,12 @@ export function useProposalPricing(activeProposal: ProposalObject) {
   }, [productsInOptionsArrays]);
 
   const costOfFees = useMemo(() => {
-    return calculateFees(activeProposal.data.fees, fees);
-  }, [activeProposal.data.fees, fees]);
+    return calculateFees(activeProposal?.data.fees || [], fees);
+  }, [activeProposal?.data.fees, fees]);
 
   const costOfLabor = useMemo(() => {
-    return calculateLabor(activeProposal.data.labor);
-  }, [activeProposal.data.labor]);
+    return calculateLabor(activeProposal?.data.labor || []);
+  }, [activeProposal?.data.labor]);
 
   // Construct table information for each quote
   const baselinePricingForQuotes = useMemo(() => {

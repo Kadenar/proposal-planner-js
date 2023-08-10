@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-import { useProposalPricing } from "../../../hooks/useProposalData";
+import { ProposalPricingData } from "../../../hooks/ProposalPricingData";
 import {
   BoldedItalicsTableCell,
   BoldedTableCell,
@@ -106,7 +106,7 @@ const CostBreakdown = ({
     baselinePricingForQuotes,
     costOfLabor,
     costOfFees,
-  } = useProposalPricing(activeProposal);
+  } = ProposalPricingData(activeProposal);
 
   useEffect(() => {
     // On load of the form, remove any invalid labors

@@ -17,7 +17,7 @@ import {
   deleteProposal,
 } from "../../services/slices/proposalsSlice";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
-import { ClientObject } from "../../middleware/Interfaces";
+import { ClientObject, QuoteOption } from "../../middleware/Interfaces";
 import { useNavigate } from "react-router-dom";
 import { updateActiveClient } from "../../services/slices/clientsSlice";
 
@@ -25,6 +25,8 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import WorkIcon from "@mui/icons-material/Work";
 import SellIcon from "@mui/icons-material/Sell";
 import ContentPasteGoIcon from "@mui/icons-material/ContentPasteGo";
+import { soldJobDialog } from "../../components/dialogs/frontend/SoldJobDialog";
+import { addSoldJob } from "../../services/slices/soldJobsSlice";
 
 interface MenuItemInfo {
   anchorEl: HTMLAnchorElement | undefined;
@@ -44,6 +46,7 @@ export const ProposalMenuActions = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { clients } = useAppSelector((state) => state.clients);
+  const { soldJobs } = useAppSelector((state) => state.soldJobs);
 
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Tab") {
@@ -60,6 +63,13 @@ export const ProposalMenuActions = ({
     }
   }
 
+  const isJobSold = soldJobs.find(
+    (job) => job.guid === menuItemInfo?.rowData?.guid
+  );
+  const doesProposalHaveQuoteOptions =
+    menuItemInfo?.rowData?.data.quote_options.find(
+      (quote: QuoteOption) => quote.hasProducts
+    );
   return (
     <Popper
       anchorEl={menuItemInfo?.anchorEl}
@@ -90,12 +100,31 @@ export const ProposalMenuActions = ({
               </ListItemIcon>
             </MenuItem>
             <Divider />
-            <MenuItem onClick={() => {}}>
-              <ListItemText>Mark job as sold</ListItemText>
-              <ListItemIcon>
-                <SellIcon fontSize="small" />
-              </ListItemIcon>
-            </MenuItem>
+            {!isJobSold && doesProposalHaveQuoteOptions && (
+              <MenuItem
+                onClick={() => {
+                  soldJobDialog({
+                    proposal: menuItemInfo.rowData,
+                    quote_option: 0,
+                    target_commission:
+                      menuItemInfo.rowData.data.target_commission || 0,
+                    onSubmit: async (job_price, commission) => {
+                      return addSoldJob(dispatch, {
+                        proposal_name: menuItemInfo.rowData.name,
+                        proposal_guid: menuItemInfo.rowData.guid,
+                        job_price,
+                        commission,
+                      });
+                    },
+                  });
+                }}
+              >
+                <ListItemText>Mark job as sold</ListItemText>
+                <ListItemIcon>
+                  <SellIcon fontSize="small" />
+                </ListItemIcon>
+              </MenuItem>
+            )}
             <MenuItem
               onClick={() => {
                 setMenuItemInfo({

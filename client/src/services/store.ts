@@ -16,6 +16,7 @@ import financingSlice from "./slices/financingSlice";
 import userPreferenceSlice from "./slices/userPreferenceSlice";
 import tabSlice from "./slices/tabSlice";
 import authenticatedSlice from "./slices/authenticatedSlice";
+import soldJobsSlice from "./slices/soldJobsSlice";
 
 export const useMultiplierDispatch: () => AppDispatch = useDispatch;
 export const useMultiplierSelector: TypedUseSelectorHook<RootState> =
@@ -38,6 +39,7 @@ const store = configureStore({
     preferences: userPreferenceSlice,
     tabs: tabSlice,
     authentication: authenticatedSlice,
+    soldJobs: soldJobsSlice,
   },
 });
 

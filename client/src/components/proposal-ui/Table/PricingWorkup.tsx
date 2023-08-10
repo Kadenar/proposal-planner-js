@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ProposalObject } from "../../../middleware/Interfaces";
-import { useProposalPricing } from "../../../hooks/useProposalData";
+import { ProposalPricingData } from "../../../hooks/ProposalPricingData";
 import { ccyFormat, getQuoteNameStr } from "../../../lib/pricing-utils";
 import { useState } from "react";
 import { StyledIconButton } from "../../StyledComponents";
@@ -26,7 +26,7 @@ const PricingWorkup = ({
   activeProposal: ProposalObject;
 }) => {
   const { markedUpPricesForQuotes, baselinePricingForQuotes } =
-    useProposalPricing(activeProposal);
+    ProposalPricingData(activeProposal);
 
   const quote_options = activeProposal.data.quote_options;
 

@@ -220,6 +220,28 @@ class Router {
       );
     });
 
+    // SOLD JOBS \\
+    this.router.get("/jobs", (req, res) => {
+      this.readFileFunc(
+        `${this.filePath}/soldJobs.json`,
+        res,
+        "Fetching cached sold jobs.",
+        "Reading sold jobs from file system.",
+        "jobs"
+      );
+    });
+
+    this.router.post("/jobs", (req, res) => {
+      this.writeFileFunc(
+        `${this.filePath}/soldJobs.json`,
+        req,
+        res,
+        "Sold jobs could not be updated",
+        "Sold jobs update was successful!",
+        "jobs"
+      );
+    });
+
     // TEMPLATES \\
     this.router.get("/templates", (req, res) => {
       this.readFileFunc(

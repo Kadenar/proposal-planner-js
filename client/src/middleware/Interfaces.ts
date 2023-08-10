@@ -97,11 +97,11 @@ export interface ProposalObject extends TemplateObject {
   };
 }
 
-export interface SoldJobs {
+export interface SoldJob {
   guid: string; // this will match the guid of the proposal itself
   data: {
     date_sold: string;
-    date_completed: string;
+    date_completed?: string;
     commission_received: boolean;
     job_price: number;
     commission: number;

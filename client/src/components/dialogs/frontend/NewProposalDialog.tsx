@@ -10,7 +10,7 @@ interface NewProposalActions {
   clients: ClientObject[];
   owner?: ClientObject | null;
   templates?: TemplateObject[];
-  template?: TemplateObject | null;
+  template?: TemplateObject | undefined | null;
   onSubmit:
     | ((
         name: string,
@@ -43,20 +43,7 @@ const useProposalDialogStore = create<NewProposalType>((set) => ({
   },
   clients: [],
   templates: [],
-  template: {
-    guid: "",
-    name: "",
-    description: "",
-    date_created: "",
-    data: {
-      fees: [],
-      labor: [],
-      products: [],
-      unit_cost_tax: 0,
-      quote_options: [],
-    },
-    date_modified: "",
-  },
+  template: undefined,
   onSubmit: undefined,
   isExistingProposal: false,
   updateName: (name) => set(() => ({ name: name })),
@@ -200,20 +187,7 @@ export const newProposalDialog = ({
   },
   clients = [],
   templates = [],
-  template = {
-    guid: "",
-    name: "",
-    description: "",
-    date_created: "",
-    data: {
-      fees: [],
-      labor: [],
-      products: [],
-      unit_cost_tax: 0,
-      quote_options: [],
-    },
-    date_modified: "",
-  },
+  template,
   isExistingProposal = false,
   onSubmit,
 }: NewProposalActions) => {

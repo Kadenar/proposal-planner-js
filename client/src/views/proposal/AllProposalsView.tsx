@@ -9,6 +9,7 @@ import { ProposalMenuActions } from "./ProposalMenuActions";
 export default function AllProposalsView() {
   const { proposals } = useAppSelector((state) => state.proposals);
   const { clients } = useAppSelector((state) => state.clients);
+  const { soldJobs } = useAppSelector((state) => state.soldJobs);
 
   const [menuItemInfo, setMenuItemInfo] = useState<{
     anchorEl: HTMLAnchorElement | undefined;
@@ -29,6 +30,7 @@ export default function AllProposalsView() {
           { title: "Client", field: "owner.name" },
           { title: "Date created", field: "date_created" },
           { title: "Date modified", field: "date_modified" },
+          { title: "Sold?", field: "sold" },
         ]}
         data={proposals.map((proposal) => {
           return {
@@ -45,6 +47,9 @@ export default function AllProposalsView() {
             date_modified: proposal.date_modified,
             guid: proposal.guid,
             data: proposal.data,
+            sold: soldJobs.find((job) => job.guid === proposal.guid)
+              ? "Yes"
+              : "No",
           };
         })}
         options={{

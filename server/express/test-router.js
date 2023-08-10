@@ -210,6 +210,28 @@ router.post("/proposals", (req, res) => {
   );
 });
 
+// SOLD JOBS \\
+router.get("/jobs", (req, res) => {
+  readFileFunc(
+    `${filePath}/soldJobs.json`,
+    res,
+    "Fetching cached sold jobs.",
+    "Reading sold jobs from file system.",
+    "jobs"
+  );
+});
+
+router.post("/jobs", (req, res) => {
+  writeFileFunc(
+    `${filePath}/soldJobs.json`,
+    req,
+    res,
+    "Sold jobs could not be updated",
+    "Sold jobs update was successful!",
+    "jobs"
+  );
+});
+
 // TEMPLATES \\
 router.get("/templates", (req, res) => {
   readFileFunc(
