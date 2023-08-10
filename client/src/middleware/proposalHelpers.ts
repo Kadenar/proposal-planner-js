@@ -59,7 +59,7 @@ export async function addProposal(
         products: existingProposal.data.products,
         fees: existingProposal.data.fees,
         labor: existingProposal.data.labor,
-        unitCostTax: existingProposal.data.unitCostTax,
+        unit_cost_tax: existingProposal.data.unit_cost_tax,
         quote_options: existingProposal.data.quote_options,
       },
     };
@@ -107,10 +107,10 @@ export async function saveProposal(proposalToSave: ProposalObject) {
 
   newProposals[index] = {
     ...newProposals[index],
-    dateModified: `${month}/${day}/${year}`,
+    date_modified: `${month}/${day}/${year}`,
     data: {
       ...newProposals[index].data,
-      unitCostTax: proposalToSave.data.unitCostTax,
+      unit_cost_tax: proposalToSave.data.unit_cost_tax,
       labor: proposalToSave.data.labor,
       fees: proposalToSave.data.fees,
       products: proposalToSave.data.products,
@@ -160,14 +160,14 @@ const getNewProposalItem = async (
     guid: crypto.randomUUID(),
     name,
     description,
-    dateCreated: dateNow,
-    dateModified: dateNow,
+    date_created: dateNow,
+    date_modified: dateNow,
     owner: {
       guid: client_guid,
     },
     data: {
       products: [],
-      unitCostTax: 8.375,
+      unit_cost_tax: 8.375,
       labor: labors.map((labor) => {
         return {
           guid: labor.guid,
@@ -181,7 +181,43 @@ const getNewProposalItem = async (
           cost: fee.cost,
         };
       }),
-      quote_options: [],
+      quote_options: [
+        {
+          guid: "quote_1",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_2",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_3",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_4",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+        {
+          guid: "quote_5",
+          title: "",
+          summary: "",
+          specifications: [],
+          hasProducts: false,
+        },
+      ],
       start_date: "",
     },
   };

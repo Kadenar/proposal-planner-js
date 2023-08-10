@@ -143,11 +143,11 @@ export function calculateCostForProductsInOption(
 export function calculateCostForOption(
   option: Interfaces.ProductOnProposalWithPricing[],
   costsFromAllOptions: number,
-  unitCostTax: number,
+  unit_cost_tax: number,
   costOfFees: number,
   costOfLabor: number
 ) {
-  const TAX_RATE = unitCostTax < 0 ? 0 : unitCostTax / 100.0;
+  const TAX_RATE = unit_cost_tax < 0 ? 0 : unit_cost_tax / 100.0;
 
   const itemSubtotal =
     calculateCostForProductsInOption(option) + costsFromAllOptions;

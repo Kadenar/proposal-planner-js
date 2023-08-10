@@ -2,21 +2,11 @@ import { useState } from "react";
 
 import MaterialTable from "@material-table/core";
 import { Stack } from "@mui/material";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 
-import {
-  copyProposal,
-  deleteProposal,
-} from "../../services/slices/proposalsSlice";
-import { selectProposal } from "../../services/slices/activeProposalSlice";
-
-import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
-import { newProposalDialog } from "../../components/dialogs/frontend/NewProposalDialog";
-import { useAppDispatch, useAppSelector } from "../../services/store";
+import { useAppSelector } from "../../services/store";
+import { ProposalMenuActions } from "./ProposalMenuActions";
 
 export default function AllProposalsView() {
-  const dispatch = useAppDispatch();
   const { proposals } = useAppSelector((state) => state.proposals);
   const { clients } = useAppSelector((state) => state.clients);
 
@@ -37,8 +27,8 @@ export default function AllProposalsView() {
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
           { title: "Client", field: "owner.name" },
-          { title: "Date created", field: "dateCreated" },
-          { title: "Date modified", field: "dateModified" },
+          { title: "Date created", field: "date_created" },
+          { title: "Date modified", field: "date_modified" },
         ]}
         data={proposals.map((proposal) => {
           return {
@@ -51,8 +41,8 @@ export default function AllProposalsView() {
                 clients.find((client) => client.guid === proposal?.owner?.guid)
                   ?.name || "Orphaned proposal",
             },
-            dateCreated: proposal.dateCreated,
-            dateModified: proposal.dateModified,
+            date_created: proposal.date_created,
+            date_modified: proposal.date_modified,
             guid: proposal.guid,
             data: proposal.data,
           };
@@ -77,73 +67,12 @@ export default function AllProposalsView() {
           },
         ]}
       />
-      <Menu
-        anchorEl={menuItemInfo?.anchorEl}
+      <ProposalMenuActions
+        owner={menuItemInfo?.rowData?.owner}
+        menuItemInfo={menuItemInfo}
+        setMenuItemInfo={setMenuItemInfo}
         open={open}
-        onClose={() =>
-          setMenuItemInfo({
-            anchorEl: undefined,
-            rowData: undefined,
-          })
-        }
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuItem
-          onClick={(e) => {
-            selectProposal(dispatch, menuItemInfo.rowData);
-          }}
-        >
-          Work on proposal
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setMenuItemInfo({
-              ...menuItemInfo,
-              anchorEl: undefined,
-            });
-
-            if (!menuItemInfo.rowData) {
-              return;
-            }
-
-            newProposalDialog({
-              name: menuItemInfo.rowData.name,
-              description: `${menuItemInfo.rowData.description} copy`,
-              owner: menuItemInfo.rowData.owner,
-              clients,
-              isExistingProposal: true,
-              onSubmit: (name, description, client_guid) =>
-                copyProposal(dispatch, {
-                  name,
-                  description,
-                  client_guid,
-                  existing_proposal: menuItemInfo.rowData,
-                }),
-            });
-          }}
-        >
-          Copy proposal
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setMenuItemInfo({
-              ...menuItemInfo,
-              anchorEl: undefined,
-            });
-
-            confirmDialog({
-              message:
-                "Do you really want to delete this? This action cannot be undone.",
-              onSubmit: async () =>
-                deleteProposal(dispatch, { guid: menuItemInfo.rowData.guid }),
-            });
-          }}
-        >
-          Delete proposal
-        </MenuItem>
-      </Menu>
+      />
     </Stack>
   );
 }

@@ -29,20 +29,16 @@ export const activeProposalSlice = createSlice({
         return;
       }
 
+      // Add our product
       state.activeProposal.data.products =
         state.activeProposal.data.products.concat(product.payload);
 
-      // If we don't have a quote option available yet, then add it
-      if (
-        state.activeProposal.data.quote_options.length <
-        product.payload.quote_option
-      ) {
-        state.activeProposal.data.quote_options =
-          state.activeProposal.data.quote_options.concat([
-            { title: "", summary: "", specifications: [] },
-          ]);
-      }
+      // Flag the quote as having products
+      state.activeProposal.data.quote_options[
+        product.payload.quote_option - 1
+      ].hasProducts = true;
 
+      // Mark proposal as dirty
       state.is_dirty = true;
     },
     removeProductFromTable: (state, index) => {
@@ -50,30 +46,31 @@ export const activeProposalSlice = createSlice({
         return;
       }
 
-      const productBeingRemoved =
-        state.activeProposal.data.products[index.payload];
+      const proposalData = state.activeProposal.data;
 
-      // Get the products on the proposal
-      const filteredProducts = state.activeProposal.data.products.filter(
+      const productBeingRemoved = proposalData.products[index.payload];
+
+      // Get the products on the proposal with the same quote option as what was removed
+      const productsWithSameQuoteOption = proposalData.products.filter(
         (product: ProductOnProposal) => {
           return product.quote_option === productBeingRemoved.quote_option;
         }
       );
 
+      // Mark quote option as not having any products
       if (
-        filteredProducts.length === 1 &&
-        filteredProducts[0].quote_option !== 0
+        productsWithSameQuoteOption.length === 1 &&
+        productBeingRemoved.quote_option !== 0
       ) {
-        state.activeProposal.data.quote_options?.splice(
-          filteredProducts[0].quote_option - 1,
-          1
-        );
+        proposalData.quote_options[
+          productBeingRemoved.quote_option - 1
+        ].hasProducts = false;
       }
 
-      state.activeProposal.data.products =
-        state.activeProposal.data.products.filter(
-          (_, i) => i !== index.payload
-        );
+      // Remove the product after updating quote options
+      proposalData.products = proposalData.products.filter(
+        (_, i) => i !== index.payload
+      );
 
       state.is_dirty = true;
     },
@@ -118,7 +115,7 @@ export const activeProposalSlice = createSlice({
       if (!state.activeProposal) {
         return;
       }
-      state.activeProposal.data.unitCostTax = value.payload;
+      state.activeProposal.data.unit_cost_tax = value.payload;
       state.is_dirty = true;
     },
     updateLabors: (state, labors) => {

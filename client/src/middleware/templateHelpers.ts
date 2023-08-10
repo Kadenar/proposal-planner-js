@@ -46,7 +46,7 @@ export async function addTemplate(
         products: existingTemplate.data.products,
         fees: existingTemplate.data.fees,
         labor: existingTemplate.data.labor,
-        unitCostTax: existingTemplate.data.unitCostTax,
+        unit_cost_tax: existingTemplate.data.unit_cost_tax,
         quote_options: existingTemplate.data.quote_options,
       },
     };
@@ -94,10 +94,10 @@ export async function saveTemplate(templateToSave: TemplateObject) {
 
   newTemplates[index] = {
     ...newTemplates[index],
-    dateModified: `${month}/${day}/${year}`,
+    date_modified: `${month}/${day}/${year}`,
     data: {
       ...newTemplates[index].data,
-      unitCostTax: templateToSave.data.unitCostTax,
+      unit_cost_tax: templateToSave.data.unit_cost_tax,
       labor: templateToSave.data.labor,
       fees: templateToSave.data.fees,
       products: templateToSave.data.products,
@@ -131,11 +131,11 @@ const getNewTemplateItem = async (
     guid: crypto.randomUUID(),
     name,
     description,
-    dateCreated: dateNow,
-    dateModified: dateNow,
+    date_created: dateNow,
+    date_modified: dateNow,
     data: {
       products: [],
-      unitCostTax: 8.375,
+      unit_cost_tax: 8.375,
       labor: labors.map((labor) => {
         return {
           guid: labor.guid,

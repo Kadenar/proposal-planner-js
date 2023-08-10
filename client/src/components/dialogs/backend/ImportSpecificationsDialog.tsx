@@ -44,7 +44,7 @@ const ImportSpecificationDialog = () => {
     state.updateTemplate,
   ]);
 
-  const [quoteSelection, updateQuoteSelection] = useState(0);
+  const [quoteSelection, updateQuoteSelection] = useState<number>(0);
 
   const [addedSpecifications, updateAddedSpecifications] = useProductTypeStore(
     (state) => [state.addedSpecifications, state.updateAddedSpecifications]
@@ -75,22 +75,26 @@ const ImportSpecificationDialog = () => {
             }}
           />
           {/* Input selection for available quotes for a given template*/}
-          <QuoteSelection
-            initialValue={quoteSelection}
-            quoteOptions={template?.data.quote_options || []}
-            onChangeCallback={(value) => {
-              // When the quote is changed, the available specifications should also cahnge
-              updateQuoteSelection(value);
-            }}
-          />
           {template && (
-            <ManageImportSpecifications
-              selectedTemplate={template}
-              quoteOption={quoteSelection}
-              onChangeCallback={(value) => {
-                updateAddedSpecifications(value);
-              }}
-            />
+            <>
+              <QuoteSelection
+                quote_guid={template.data.quote_options[0]?.guid}
+                quoteOptions={template.data.quote_options.filter(
+                  (quote) => quote.specifications.length > 0
+                )}
+                onChangeCallback={(value) => {
+                  // When the quote is changed, the available specifications should also cahnge
+                  updateQuoteSelection(value);
+                }}
+              />
+              <ManageImportSpecifications
+                selectedTemplate={template}
+                quoteOption={quoteSelection}
+                onChangeCallback={(value) => {
+                  updateAddedSpecifications(value);
+                }}
+              />
+            </>
           )}
         </Stack>
       }

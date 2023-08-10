@@ -25,14 +25,18 @@ const PricingWorkup = ({
 }: {
   activeProposal: ProposalObject;
 }) => {
-  const { quoteNamesArray, markedUpPricesForQuotes, baselinePricingForQuotes } =
+  const { markedUpPricesForQuotes, baselinePricingForQuotes } =
     useProposalPricing(activeProposal);
 
   const quote_options = activeProposal.data.quote_options;
 
+  const filteredQuoteOptions = quote_options.filter(
+    (quote) => quote.hasProducts
+  );
+
   const [open, setOpen] = useState(false);
 
-  if (quoteNamesArray.length === 0) {
+  if (filteredQuoteOptions.length === 0) {
     return <></>;
   }
 
@@ -57,21 +61,21 @@ const PricingWorkup = ({
 
       <Collapse in={open} timeout="auto" unmountOnExit>
         <>
-          {quoteNamesArray.map((quote, index) => {
+          {filteredQuoteOptions.map((quote, index) => {
             const quoteTitle =
-              quote_options[index].title === ""
-                ? getQuoteNameStr(quote)
-                : quote_options[index].title;
+              filteredQuoteOptions[index].title === ""
+                ? getQuoteNameStr(quote.guid)
+                : filteredQuoteOptions[index].title;
             return (
               <Stack
-                key={quote}
+                key={quote.guid}
                 marginBottom={1}
                 paddingLeft={2}
                 paddingBottom={2}
               >
                 <Typography variant="h6" marginBottom={1}>
                   {`${quoteTitle} - ${ccyFormat(
-                    baselinePricingForQuotes[quote].invoiceTotal
+                    baselinePricingForQuotes[quote.guid].invoiceTotal
                   )}`}
                 </Typography>
                 <TableContainer component={Paper}>
@@ -86,7 +90,7 @@ const PricingWorkup = ({
                     </TableHead>
 
                     <TableBody>
-                      {markedUpPricesForQuotes[quote].map(
+                      {markedUpPricesForQuotes[quote.guid].map(
                         (quoteData, index) => {
                           return (
                             <TableRow key={`costs-body-${index}`}>

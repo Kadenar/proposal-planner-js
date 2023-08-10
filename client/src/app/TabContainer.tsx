@@ -82,7 +82,7 @@ const getElementFromPath = (path: string) => {
     </Stack>
   );
 };
-export const TabContainer = () => {
+const TabContainer = () => {
   const dispatch = useAppDispatch();
   const { tabs, activeTab } = useAppSelector((state) => state.tabs);
 
@@ -138,3 +138,5 @@ export const TabContainer = () => {
     </>
   );
 };
+
+export default TabContainer;

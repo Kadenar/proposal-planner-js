@@ -22,7 +22,7 @@ export function useProposalPricing(activeProposal: ProposalObject) {
     (state) => state.multipliers
   );
   const productsOnProposal = activeProposal.data.products;
-  const unitCostTax = activeProposal.data.unitCostTax;
+  const unit_cost_tax = activeProposal.data.unit_cost_tax;
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
@@ -68,7 +68,7 @@ export function useProposalPricing(activeProposal: ProposalObject) {
         [option]: calculateCostForOption(
           productsInOptionsArrays[option],
           costAppliedToAllQuotes,
-          unitCostTax,
+          unit_cost_tax,
           costOfFees,
           costOfLabor
         ),
@@ -78,7 +78,7 @@ export function useProposalPricing(activeProposal: ProposalObject) {
   }, [
     productsInOptionsArrays,
     costAppliedToAllQuotes,
-    unitCostTax,
+    unit_cost_tax,
     costOfFees,
     costOfLabor,
   ]);
@@ -106,7 +106,6 @@ export function useProposalPricing(activeProposal: ProposalObject) {
     costAppliedToAllQuotes,
     baselinePricingForQuotes,
     markedUpPricesForQuotes,
-    quoteNamesArray: Object.keys(baselinePricingForQuotes),
     costOfFees,
     costOfLabor,
   };

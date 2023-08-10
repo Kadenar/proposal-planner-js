@@ -86,8 +86,8 @@ export interface TemplateObject {
   guid: string;
   name: string;
   description: string;
-  dateCreated: string;
-  dateModified: string;
+  date_created: string;
+  date_modified: string;
   data: ProposalData;
 }
 
@@ -97,21 +97,34 @@ export interface ProposalObject extends TemplateObject {
   };
 }
 
+export interface SoldJobs {
+  guid: string; // this will match the guid of the proposal itself
+  data: {
+    date_sold: string;
+    date_completed: string;
+    commission_received: boolean;
+    job_price: number;
+    commission: number;
+  };
+}
+
 // Information stored within data object for a proposal
 export interface ProposalData {
   fees: FeeOnProposal[];
   labor: LaborOnProposal[];
   products: ProductOnProposal[];
-  unitCostTax: number;
+  unit_cost_tax: number;
   quote_options: QuoteOption[]; // this array is 0 indexed, so index 0 = quote 1, etc
   start_date?: string;
   target_quote?: number;
   target_commission?: number;
 }
 export interface QuoteOption {
+  guid: string;
   title: string | undefined;
   summary: string | undefined;
   specifications: ProposalSpec[];
+  hasProducts: boolean;
 }
 
 // Specifications that are available to be imported

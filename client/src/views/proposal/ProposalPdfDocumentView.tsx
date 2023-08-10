@@ -32,7 +32,7 @@ const ProposalPdfDocumentView = ({
   // Get active quote option - handling the possibility user deleted products removing quote option
   const quote_option =
     activeProposal.data.target_quote &&
-    quote_options[activeProposal.data.target_quote]
+    quote_options[activeProposal.data.target_quote].hasProducts
       ? activeProposal.data.target_quote
       : 0;
 
@@ -65,7 +65,7 @@ const ProposalPdfDocumentView = ({
       phone: clientInfo?.phone,
       email: clientInfo?.email,
       start_date: activeProposal?.data.start_date,
-      current_date: activeProposal?.dateModified,
+      current_date: activeProposal?.date_modified,
       accountNum: clientInfo?.accountNum,
       quoteOptions: activeProposal?.data.quote_options,
       invoiceTotal: pricingForQuote,
@@ -118,7 +118,7 @@ const ProposalPdfDocumentView = ({
             Source for PDF generation
           </Typography>
           <QuoteSelection
-            initialValue={quote_option}
+            quote_guid={quote_options[quote_option].guid}
             quoteOptions={quote_options || []}
             onChangeCallback={(value) => {
               setTargetQuoteOption(dispatch, value);

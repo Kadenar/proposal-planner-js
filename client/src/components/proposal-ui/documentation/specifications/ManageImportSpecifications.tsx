@@ -85,6 +85,7 @@ export const ManageImportSpecifications = ({
     (index: number, spec: AvailableSpecification) => {
       return (
         <AvailableSpecificationCard
+          key={spec.guid}
           index={index}
           text={spec.text}
           isChecked={spec.checked}

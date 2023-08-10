@@ -23,18 +23,16 @@ const ProposalCardDetails = ({
   const [quote_option, setQuoteOption] = useState(0);
 
   const dispatch = useAppDispatch();
-
   const quote_options = activeProposal.data.quote_options;
-  const selectedQuoteOption = quote_options
-    ? quote_options[quote_option]
-    : undefined;
-  const title = selectedQuoteOption ? selectedQuoteOption.title : "";
-  const summary = selectedQuoteOption ? selectedQuoteOption.summary : "";
+
+  const selectedQuoteOption = quote_options[quote_option];
+  const title = selectedQuoteOption?.title || "";
+  const summary = selectedQuoteOption?.summary || "";
 
   return (
     <Stack spacing={2}>
       <QuoteSelection
-        initialValue={quote_option}
+        quote_guid={selectedQuoteOption?.guid}
         quoteOptions={quote_options}
         onChangeCallback={(value) => {
           setQuoteOption(value);

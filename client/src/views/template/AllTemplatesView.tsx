@@ -35,16 +35,16 @@ export default function AllTemplatesView() {
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
-          { title: "Date created", field: "dateCreated" },
-          { title: "Date modified", field: "dateModified" },
+          { title: "Date created", field: "date_created" },
+          { title: "Date modified", field: "date_modified" },
         ]}
         data={templates.map((template) => {
           return {
             id: template.guid, // needed for material table dev tools warning
             name: template.name,
             description: template.description,
-            dateCreated: template.dateCreated,
-            dateModified: template.dateModified,
+            date_created: template.date_created,
+            date_modified: template.date_modified,
             guid: template.guid,
             data: template.data,
           };

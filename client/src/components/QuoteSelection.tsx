@@ -1,38 +1,39 @@
-import { useState } from "react";
-
 import { MenuItem, TextField } from "@mui/material";
 import { QuoteOption } from "../middleware/Interfaces";
+import { getQuoteNameStr } from "../lib/pricing-utils";
 
 const QuoteSelection = ({
-  initialValue,
+  quote_guid,
   quoteOptions,
   onChangeCallback,
 }: {
-  initialValue: number;
+  quote_guid: string | undefined;
   quoteOptions: QuoteOption[];
   onChangeCallback: (value: number) => void;
 }) => {
-  const [quoteValue, setQuoteValue] = useState(initialValue);
-
   return (
     <TextField
       id="select"
       label="Select a quote option"
-      value={quoteValue}
+      value={quote_guid}
       onChange={({ target: { value } }) => {
-        const newQuoteOption = Number(value);
-        setQuoteValue(newQuoteOption);
-        onChangeCallback(newQuoteOption);
+        const newIdx = quoteOptions.findIndex((quote) => quote.guid === value);
+        onChangeCallback(newIdx);
       }}
       select
     >
-      {quoteOptions.map((quote, index) => {
-        return (
-          <MenuItem key={index} value={index}>
-            {quote.title === "" ? `Quote ${index + 1}` : quote.title}
-          </MenuItem>
-        );
-      })}
+      {
+        // Only quotes with products specified are considered for selection
+        quoteOptions
+          .filter((quote) => quote.hasProducts)
+          .map((quote) => {
+            return (
+              <MenuItem key={quote.guid} value={quote.guid}>
+                {quote.title === "" ? getQuoteNameStr(quote.guid) : quote.title}
+              </MenuItem>
+            );
+          })
+      }
     </TextField>
   );
 };

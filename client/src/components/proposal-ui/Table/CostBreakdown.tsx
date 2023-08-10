@@ -23,6 +23,7 @@ import {
   Labor,
   LaborOnProposal,
   ProposalObject,
+  QuoteOption,
 } from "../../../middleware/Interfaces";
 import { useAppDispatch, useAppSelector } from "../../../services/store";
 import {
@@ -102,7 +103,6 @@ const CostBreakdown = ({
 
   const {
     costAppliedToAllQuotes,
-    quoteNamesArray,
     baselinePricingForQuotes,
     costOfLabor,
     costOfFees,
@@ -161,6 +161,10 @@ const CostBreakdown = ({
     });
   }, [proposalFees, _fees]);
 
+  const quotesWithProducts = activeProposal.data.quote_options.filter(
+    (quote) => quote.hasProducts
+  );
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -171,11 +175,11 @@ const CostBreakdown = ({
               <BoldedItalicsTableCell>
                 Cost applied to all quotes
               </BoldedItalicsTableCell>
-              {quoteNamesArray.length > 0 ? (
-                quoteNamesArray.map((quote_name) => {
+              {quotesWithProducts.length > 0 ? (
+                quotesWithProducts.map((quote) => {
                   return (
-                    <BoldedItalicsTableCell key={quote_name}>
-                      {getQuoteNameStr(quote_name)}
+                    <BoldedItalicsTableCell key={quote.guid}>
+                      {getQuoteNameStr(quote.guid)}
                     </BoldedItalicsTableCell>
                   );
                 })
@@ -190,7 +194,7 @@ const CostBreakdown = ({
               <BoldedTableCell>Cost of equipment</BoldedTableCell>
               <TableCell>{ccyFormat(costAppliedToAllQuotes)}</TableCell>
               <QuoteOptionPriceCell
-                arrayOfQuoteNames={quoteNamesArray}
+                quotes={quotesWithProducts}
                 pricingForQuotesData={baselinePricingForQuotes}
                 valueToFetch="itemSubtotal"
                 valueToSubtract={undefined}
@@ -203,7 +207,7 @@ const CostBreakdown = ({
                   id="unit-cost-id"
                   label="Unit cost tax"
                   variant="outlined"
-                  value={activeProposal.data.unitCostTax}
+                  value={activeProposal.data.unit_cost_tax}
                   onChange={(e) =>
                     setProposalUnitCostTax(dispatch, e.target?.value)
                   }
@@ -212,7 +216,7 @@ const CostBreakdown = ({
                 />
               </TableCell>
               <QuoteOptionPriceCell
-                arrayOfQuoteNames={quoteNamesArray}
+                quotes={quotesWithProducts}
                 pricingForQuotesData={baselinePricingForQuotes}
                 valueToFetch="totalWithTaxes"
                 valueToSubtract="itemSubtotal"
@@ -272,7 +276,7 @@ const CostBreakdown = ({
               </BoldedTableCell>
               <TableCell>{ccyFormat(costOfLabor)}</TableCell>
               <QuoteOptionPriceCell
-                arrayOfQuoteNames={quoteNamesArray}
+                quotes={quotesWithProducts}
                 pricingForQuotesData={baselinePricingForQuotes}
                 valueToFetch="costWithLabor"
                 valueToSubtract={undefined}
@@ -332,7 +336,7 @@ const CostBreakdown = ({
               </BoldedTableCell>
               <TableCell>{ccyFormat(costOfFees)}</TableCell>
               <QuoteOptionPriceCell
-                arrayOfQuoteNames={quoteNamesArray}
+                quotes={quotesWithProducts}
                 pricingForQuotesData={baselinePricingForQuotes}
                 valueToFetch="costAfterFees"
                 valueToSubtract={undefined}
@@ -346,12 +350,12 @@ const CostBreakdown = ({
 };
 
 const QuoteOptionPriceCell = ({
-  arrayOfQuoteNames,
+  quotes,
   pricingForQuotesData,
   valueToFetch,
   valueToSubtract,
 }: {
-  arrayOfQuoteNames: string[];
+  quotes: QuoteOption[];
   pricingForQuotesData: Record<string, Record<string, number>>;
   valueToFetch: string;
   valueToSubtract: string | undefined;
@@ -376,11 +380,11 @@ const QuoteOptionPriceCell = ({
 
   return (
     <>
-      {arrayOfQuoteNames.length > 0 ? (
-        arrayOfQuoteNames.map((quote_name) => {
+      {quotes.length > 0 ? (
+        quotes.map((quote) => {
           return (
-            <TableCell key={quote_name}>
-              {formattedContent(quote_name)}
+            <TableCell key={quote.guid}>
+              {formattedContent(quote.guid)}
             </TableCell>
           );
         })

@@ -140,7 +140,7 @@ export async function editProduct(
   //           newProposal.data.fees,
   //           newProposal.data.labor,
   //           newProposal.data.products,
-  //           newProposal.data.unitCostTax,
+  //           newProposal.data.unit_cost_tax,
   //           newProposal.data.quote_options
   //         );
   //       }

@@ -3,8 +3,8 @@
     "guid": "31da4e6e-c063-463e-ae74-cc450485cadd",
     "name": "Test Template",
     "description": "Test",
-    "dateCreated": "8/6/2023",
-    "dateModified": "8/7/2023",
+    "date_created": "8/6/2023",
+    "date_modified": "8/7/2023",
     "data": {
       "products": [
         {
@@ -20,7 +20,7 @@
           "quote_option": 2
         }
       ],
-      "unitCostTax": 8.375,
+      "unit_cost_tax": 8.375,
       "labor": [
         {
           "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
@@ -77,6 +77,7 @@
       ],
       "quote_options": [
         {
+          "guid": "quote_1",
           "title": "Test title",
           "summary": "Test summary",
           "specifications": [
@@ -88,9 +89,11 @@
               "guid": "cc06a01f-b20f-4e1e-ab31-f7f58b838b98",
               "text": "Install.."
             }
-          ]
+          ],
+          "hasProducts": true
         },
         {
+          "guid": "quote_2",
           "title": "",
           "summary": "",
           "specifications": [
@@ -102,7 +105,29 @@
               "guid": "c6c5b6b6-f1b7-40d5-8c9c-98307eaa079b",
               "text": "Test spec 2"
             }
-          ]
+          ],
+          "hasProducts": true
+        },
+        {
+          "guid": "quote_3",
+          "title": "",
+          "summary": "",
+          "specifications": [],
+          "hasProducts": false
+        },
+        {
+          "guid": "quote_4",
+          "title": "",
+          "summary": "",
+          "specifications": [],
+          "hasProducts": false
+        },
+        {
+          "guid": "quote_5",
+          "title": "",
+          "summary": "",
+          "specifications": [],
+          "hasProducts": false
         }
       ],
       "start_date": ""
