@@ -1,10 +1,10 @@
 [
   {
-    "guid": "5ee6240d-c56b-4aa2-8646-5315cc07c8e6",
-    "name": "test2",
-    "description": "test2",
-    "date_created": "7/4/2023",
-    "date_modified": "8/10/2023",
+    "guid": "1d73d282-0c87-4599-b478-6ef2eb0a04ce",
+    "name": "Test 3",
+    "description": "test 3 desc",
+    "date_created": "8/10/2023",
+    "date_modified": "8/13/2023",
     "owner": {
       "guid": "e3af9751-3bd1-4509-9acf-698ea33efd63"
     },
@@ -18,54 +18,42 @@
         },
         {
           "category": "air_handlers",
-          "guid": "78f257d7-096e-4a0d-8020-c857377b4e8f",
+          "guid": "dffba4b6-9aad-4e56-b33d-8e0e524366d7",
           "qty": 1,
-          "quote_option": 3
-        },
-        {
-          "category": "air_handlers",
-          "guid": "617e8f28-190c-4fec-8e02-9d210610438b",
-          "qty": 1,
-          "quote_option": 5
-        },
-        {
-          "category": "condensers",
-          "guid": "e822772a-3ae7-4f19-9cdb-f7086ac5a428",
-          "qty": 1,
-          "quote_option": 5
+          "quote_option": 0
         }
       ],
       "unit_cost_tax": 8.375,
       "labor": [
         {
           "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
-          "cost": 1520,
+          "cost": 1600,
+          "qty": 0
+        },
+        {
+          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458",
+          "cost": 3200,
           "qty": 1
         },
         {
-          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458",
-          "cost": 3040,
-          "qty": 0
-        },
-        {
           "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7",
-          "cost": 3800,
+          "cost": 4000,
           "qty": 0
         },
         {
           "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb",
-          "cost": 6840,
+          "cost": 7200,
           "qty": 0
         },
         {
           "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7",
-          "cost": 8550,
+          "cost": 9000,
           "qty": 0
         },
         {
           "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146",
-          "cost": 0,
-          "qty": 0
+          "cost": 700,
+          "qty": 1
         }
       ],
       "fees": [
@@ -93,278 +81,54 @@
       "quote_options": [
         {
           "guid": "quote_1",
-          "title": "My first quote",
-          "summary": "test",
+          "title": "Energy Kinetics - System 2000 - High Efficiency Oil Fired Boiler",
+          "summary": "This proposal is for the installation of an Energy Kinetics System 2000 high efficiency oil-fired boiler. We will file all necessary permits and specifications with the Town of Southeast Building Department as required by code. All parts and labor are included in this proposal to complete items listed in this proposal to local and state codes as well as manufacturers specifications.",
           "specifications": [
             {
-              "guid": "992ef79f-8573-4d2d-8dc8-1b50a3db4d28",
-              "text": "Test 1"
+              "guid": "43353538-7a91-492e-bc5f-b1857cf9f5f5",
+              "text": "We will file permits with the Town of Southeast Building Department immediately upon receiving the signed proposal, capital improvement form, deposit, or financing approval"
             },
             {
-              "guid": "5047b5ae-cd4c-4a77-9537-ee877f3598db",
-              "text": "We will remove.."
+              "guid": "0474e5af-8ee2-4358-a96c-50f03e3d8ebf",
+              "text": "We will remove the old Weil McLain 69 series oil-fired boiler that was manufactured in 1994."
             },
             {
-              "guid": "a6dc32c0-2f26-421d-bb8f-5e32a71f7d88",
-              "text": "Install.."
+              "guid": "368dc920-8188-4165-b828-cb6ebdccae97",
+              "text": "Install (1) Energy Kinetics - System 2000 - Model # EK1 - High Efficiency - Oil Fired Boiler"
             },
             {
-              "guid": "0ef82b46-d7f4-4197-ae45-26bc98c5f104",
-              "text": "Test spec"
+              "guid": "649e415d-7b62-4e7a-b37d-ce3eb70db593",
+              "text": "Install (1) Energy Kinetics/Beckett high speed retention burner"
             },
             {
-              "guid": "fbaf868a-a7c1-4638-ac92-e9fbdb376442",
-              "text": "Test spec 2"
+              "guid": "75ad39c0-87bc-4729-98f0-af6521462b9e",
+              "text": "The boiler installation will include (3) 3/4\" heating zone kits, air elimination device, back flow preventing"
+            },
+            {
+              "guid": "9a601688-e962-4794-b845-6d2bbf417845",
+              "text": "The existing boiler has a hot water coil in it and will be eliminated. Homeowner had an electric hot water heater installed and is no longer using the hot water coil."
+            },
+            {
+              "guid": "5455122a-03c1-48ac-be74-f56613bf1d1e",
+              "text": "Installation includes a complimentary inspection and cleaning of the home heating chimney by Guaranteed Home Improvement - per National Fire Protection Association (NFPA) 211 to ensure safe venting."
+            },
+            {
+              "guid": "df734000-7077-4e18-a33c-e776ae196514",
+              "text": "All old equipment and debris will be removed from the property."
+            },
+            {
+              "guid": "c6fd14cb-7dd5-41b2-96b5-96581a644d8f",
+              "text": "Energy Kinetics - Lifetime Heat Exchanger warranty (customer must register product within 60 days of installation)"
+            },
+            {
+              "guid": "beb73f34-f933-42e5-b218-55ed82184ca8",
+              "text": "(1) Year Robison Gold Service Contract ($550.00 Value) FREE (customer must purchase oil from Robison for free contract)"
+            },
+            {
+              "guid": "215e4891-27a9-4277-8119-9bdb477d2ab6",
+              "text": "Permit and application fees are Included in proposal pricing"
             }
           ],
-          "hasProducts": true
-        },
-        {
-          "guid": "quote_2",
-          "title": "Quote 2 test",
-          "summary": "test",
-          "specifications": [
-            {
-              "guid": "c2ab6145-6bcb-4c6a-942b-4827a6f36511",
-              "text": "terst"
-            },
-            {
-              "guid": "1b86c5c8-b788-41ca-9026-efc339482e5b",
-              "text": "test 2"
-            }
-          ],
-          "hasProducts": false
-        },
-        {
-          "guid": "quote_3",
-          "title": "test title for 3rd",
-          "summary": "test",
-          "specifications": [
-            {
-              "guid": "0eaea519-3f3a-4ad1-8641-ac97549e60c1",
-              "text": "test 3"
-            }
-          ],
-          "hasProducts": true
-        },
-        {
-          "guid": "quote_4",
-          "title": "",
-          "summary": "",
-          "specifications": [],
-          "hasProducts": false
-        },
-        {
-          "guid": "quote_5",
-          "title": "5th quote",
-          "summary": "",
-          "specifications": [],
-          "hasProducts": true
-        }
-      ],
-      "start_date": "2 to 3 weeks",
-      "target_quote": 0,
-      "target_commission": 6
-    }
-  },
-  {
-    "guid": "420aa09b-1e0b-4d3d-9c26-3f46e7f63f2e",
-    "name": "Test",
-    "description": "Test",
-    "date_created": "8/9/2023",
-    "date_modified": "8/9/2023",
-    "owner": {
-      "guid": "e3af9751-3bd1-4509-9acf-698ea33efd63"
-    },
-    "data": {
-      "products": [
-        {
-          "category": "air_handlers",
-          "guid": "dffba4b6-9aad-4e56-b33d-8e0e524366d7",
-          "qty": 1,
-          "quote_option": 1
-        }
-      ],
-      "unit_cost_tax": 8.375,
-      "labor": [
-        {
-          "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
-          "cost": 1520,
-          "qty": 0
-        },
-        {
-          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458",
-          "cost": 3040,
-          "qty": 0
-        },
-        {
-          "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7",
-          "cost": 3800,
-          "qty": 0
-        },
-        {
-          "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb",
-          "cost": 6840,
-          "qty": 0
-        },
-        {
-          "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7",
-          "cost": 8550,
-          "qty": 0
-        },
-        {
-          "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146",
-          "cost": 0,
-          "qty": 0
-        }
-      ],
-      "fees": [
-        {
-          "guid": "c9ca67fa-6625-4865-aa9f-1544ef0bfa96",
-          "cost": 350
-        },
-        {
-          "guid": "e8cdc9a1-de5f-4a95-8637-2010c04af0df",
-          "cost": 315
-        },
-        {
-          "guid": "40a42c3d-de63-474c-b7b1-53201c5999f3",
-          "cost": 0
-        },
-        {
-          "guid": "66d0ac7b-8293-4712-ab52-a43ffb626c47",
-          "cost": 0
-        },
-        {
-          "guid": "6e133019-054a-448c-a515-d580d2a1f448",
-          "cost": 0
-        }
-      ],
-      "quote_options": [
-        {
-          "guid": "quote_1",
-          "title": "",
-          "summary": "",
-          "specifications": [],
-          "hasProducts": true
-        },
-        {
-          "guid": "quote_2",
-          "title": "",
-          "summary": "",
-          "specifications": [],
-          "hasProducts": false
-        },
-        {
-          "guid": "quote_3",
-          "title": "",
-          "summary": "",
-          "specifications": [],
-          "hasProducts": false
-        },
-        {
-          "guid": "quote_4",
-          "title": "",
-          "summary": "",
-          "specifications": [],
-          "hasProducts": false
-        },
-        {
-          "guid": "quote_5",
-          "title": "",
-          "summary": "",
-          "specifications": [],
-          "hasProducts": false
-        }
-      ],
-      "start_date": ""
-    }
-  },
-  {
-    "guid": "1d73d282-0c87-4599-b478-6ef2eb0a04ce",
-    "name": "Test 3",
-    "description": "Test 3",
-    "date_created": "8/10/2023",
-    "date_modified": "8/12/2023",
-    "owner": {
-      "guid": "e3af9751-3bd1-4509-9acf-698ea33efd63"
-    },
-    "data": {
-      "products": [
-        {
-          "category": "air_handlers",
-          "guid": "617e8f28-190c-4fec-8e02-9d210610438b",
-          "qty": 1,
-          "quote_option": 1
-        },
-        {
-          "category": "air_handlers",
-          "guid": "dffba4b6-9aad-4e56-b33d-8e0e524366d7",
-          "qty": 1,
-          "quote_option": 2
-        }
-      ],
-      "unit_cost_tax": 8.375,
-      "labor": [
-        {
-          "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
-          "cost": 1520,
-          "qty": 0
-        },
-        {
-          "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458",
-          "cost": 3040,
-          "qty": 0
-        },
-        {
-          "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7",
-          "cost": 3800,
-          "qty": 0
-        },
-        {
-          "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb",
-          "cost": 6840,
-          "qty": 0
-        },
-        {
-          "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7",
-          "cost": 8550,
-          "qty": 0
-        },
-        {
-          "guid": "8f6c6905-0bc5-4084-85ab-4d722677d146",
-          "cost": 0,
-          "qty": 0
-        }
-      ],
-      "fees": [
-        {
-          "guid": "c9ca67fa-6625-4865-aa9f-1544ef0bfa96",
-          "cost": 350
-        },
-        {
-          "guid": "e8cdc9a1-de5f-4a95-8637-2010c04af0df",
-          "cost": 315
-        },
-        {
-          "guid": "40a42c3d-de63-474c-b7b1-53201c5999f3",
-          "cost": 0
-        },
-        {
-          "guid": "66d0ac7b-8293-4712-ab52-a43ffb626c47",
-          "cost": 0
-        },
-        {
-          "guid": "6e133019-054a-448c-a515-d580d2a1f448",
-          "cost": 0
-        }
-      ],
-      "quote_options": [
-        {
-          "guid": "quote_1",
-          "title": "Energy Kinetics EK2 - 40 gal HWH",
-          "summary": "",
-          "specifications": [],
           "hasProducts": true,
           "name": "Energy Kinetics EK2 - 40 gal HWH"
         },
@@ -373,7 +137,7 @@
           "title": "Energy Kinetics EK2 HWH",
           "summary": "",
           "specifications": [],
-          "hasProducts": true,
+          "hasProducts": false,
           "name": "Energy Kinetics EK2 - 80 gal HWH"
         },
         {
@@ -400,7 +164,8 @@
       ],
       "start_date": "",
       "target_quote": 0,
-      "target_commission": 2
+      "target_commission": 2,
+      "misc_materials": 1000
     }
   }
 ]

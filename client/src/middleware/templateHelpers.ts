@@ -44,6 +44,7 @@ export async function addTemplate(
       description,
       data: {
         products: existingTemplate.data.products,
+        misc_materials: existingTemplate.data.misc_materials,
         fees: existingTemplate.data.fees,
         labor: existingTemplate.data.labor,
         unit_cost_tax: existingTemplate.data.unit_cost_tax,
@@ -90,13 +91,23 @@ export async function saveTemplate(templateToSave: TemplateObject) {
     };
   }
 
+  if (!templateToSave.name || templateToSave.name === "") {
+    return {
+      status: 500,
+      data: { message: "Template must have a name." },
+    };
+  }
+
   const newTemplates = [...existingTemplates];
 
   newTemplates[index] = {
     ...newTemplates[index],
+    name: templateToSave.name,
+    description: templateToSave.description,
     date_modified: `${month}/${day}/${year}`,
     data: {
       ...newTemplates[index].data,
+      misc_materials: templateToSave.data.misc_materials,
       unit_cost_tax: templateToSave.data.unit_cost_tax,
       labor: templateToSave.data.labor,
       fees: templateToSave.data.fees,
@@ -136,6 +147,7 @@ const getNewTemplateItem = async (
     data: {
       products: [],
       unit_cost_tax: 8.375,
+      misc_materials: 0,
       labor: labors.map((labor) => {
         return {
           guid: labor.guid,
@@ -152,6 +164,7 @@ const getNewTemplateItem = async (
       quote_options: [
         {
           guid: "quote_1",
+          name: "Quote 1",
           title: "",
           summary: "",
           specifications: [],
@@ -159,6 +172,7 @@ const getNewTemplateItem = async (
         },
         {
           guid: "quote_2",
+          name: "Quote 2",
           title: "",
           summary: "",
           specifications: [],
@@ -166,6 +180,7 @@ const getNewTemplateItem = async (
         },
         {
           guid: "quote_3",
+          name: "Quote 3",
           title: "",
           summary: "",
           specifications: [],
@@ -173,6 +188,7 @@ const getNewTemplateItem = async (
         },
         {
           guid: "quote_4",
+          name: "Quote 4",
           title: "",
           summary: "",
           specifications: [],
@@ -180,6 +196,7 @@ const getNewTemplateItem = async (
         },
         {
           guid: "quote_5",
+          name: "Quote 5",
           title: "",
           summary: "",
           specifications: [],

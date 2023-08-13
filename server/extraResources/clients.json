@@ -6,6 +6,9 @@
     "apt": "",
     "state": "NY",
     "city": "Carmel",
-    "zip": "10512"
+    "zip": "10512",
+    "phone": "111-222-3333",
+    "email": "tfernandez@robisonoil.com",
+    "accountNum": "111222"
   }
 ]

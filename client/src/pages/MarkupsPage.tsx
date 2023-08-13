@@ -2,9 +2,8 @@ import { Card, Stack, TextField, Typography } from "@mui/material";
 import { useAppSelector } from "../services/store";
 
 const MarkupsPage = () => {
-  const { equipmentMarkups, laborMarkups } = useAppSelector(
-    (state) => state.multipliers
-  );
+  const { equipmentMarkups, laborMarkups, miscMaterialMarkups } =
+    useAppSelector((state) => state.multipliers);
 
   return (
     <Card sx={{ padding: 3, marginTop: 1, marginBottom: 2 }}>
@@ -26,6 +25,16 @@ const MarkupsPage = () => {
               disabled={true} // TODO ENABLE THIS WHEN ABLE TO EDIT
               label={equipment.name}
               value={equipment.value}
+            />
+          );
+        })}
+        <Typography>Miscellaneous materials markup</Typography>
+        {miscMaterialMarkups.map((material) => {
+          return (
+            <TextField
+              disabled={true} // TODO ENABLE THIS WHEN ABLE TO EDIT
+              label={material.name}
+              value={material.value}
             />
           );
         })}

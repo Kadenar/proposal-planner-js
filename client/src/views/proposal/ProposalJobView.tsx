@@ -15,10 +15,13 @@ import { ProductObject, ProposalObject } from "../../middleware/Interfaces";
 import {
   addProductToProposal,
   removeAllProductsFromProposal,
+  updateProposalDescription,
+  updateProposalName,
 } from "../../services/slices/activeProposalSlice";
 import { saveProposal } from "../../services/slices/proposalsSlice";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
 import PricingWorkup from "../../components/proposal-ui/Table/PricingWorkup";
+import { TextField } from "@mui/material";
 
 export const handleAddProductToProposal = (
   dispatch: Dispatch,
@@ -130,6 +133,23 @@ export default function ProposalJobView({
 
   return (
     <>
+      <Stack gap={2} marginBottom={2}>
+        <TextField
+          required
+          label="Proposal name"
+          value={activeProposal.name}
+          onChange={({ target: { value } }) => {
+            updateProposalName(dispatch, value);
+          }}
+        />
+        <TextField
+          label="Proposal description"
+          value={activeProposal.description || ""}
+          onChange={({ target: { value } }) => {
+            updateProposalDescription(dispatch, value);
+          }}
+        />
+      </Stack>
       <Stack gap={2} direction="row" justifyContent="space-between">
         <Button
           variant="contained"

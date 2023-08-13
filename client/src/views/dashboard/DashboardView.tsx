@@ -1,4 +1,4 @@
-import { Box, Card, Collapse, Stack, Typography } from "@mui/material";
+import { Box, Card, Collapse, Divider, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import {
   AreaChart,
@@ -15,6 +15,7 @@ import { StyledIconButton } from "../../components/StyledComponents";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { SoldJob } from "../../middleware/Interfaces";
+import { ccyFormat } from "../../lib/pricing-utils";
 
 interface SalesData {
   numberOfCommissionsReceived: number;
@@ -100,19 +101,43 @@ const DashboardView = ({ salesData }: { salesData: SalesData }) => {
         >
           <Stack>
             <Typography sx={{ display: "list-item" }}>
-              {`You have drafted ${salesData.numberOfDraftedProposals} proposal(s)`}
+              {`You have ${salesData.numberOfClients} client(s)`}
             </Typography>
             <Typography sx={{ display: "list-item" }}>
-              {`You have ${salesData.numberOfClients} client(s)`}
+              {`You have drafted ${salesData.numberOfDraftedProposals} proposal(s)`}
             </Typography>
             <Typography sx={{ display: "list-item" }}>
               {`You have sold a total of ${salesData.totalJobsSold} job(s)`}
             </Typography>
-            <Typography sx={{ display: "list-item" }}>
-              {`You have ${salesData.jobsOutstanding} job(s) outstanding`}
-            </Typography>
+            <Divider
+              sx={{
+                border: "1px solid #6e7781",
+                marginBottom: 2,
+                marginTop: 2,
+              }}
+            />
             <Typography sx={{ display: "list-item" }}>
               {`You have ${salesData.jobsCompleted} job(s) completed`}
+            </Typography>
+            <Typography sx={{ display: "list-item" }}>
+              {`You have ${salesData.jobsOutstanding} job(s) in-progress`}
+            </Typography>
+            <Divider
+              sx={{
+                border: "1px solid #6e7781",
+                marginBottom: 2,
+                marginTop: 2,
+              }}
+            />
+            <Typography sx={{ display: "list-item" }}>
+              {`You have received ${ccyFormat(
+                salesData.commissionsReceived
+              )} in commission`}
+            </Typography>
+            <Typography sx={{ display: "list-item" }}>
+              {`You have ${ccyFormat(
+                salesData.commissionsOutstanding
+              )} pending payment`}
             </Typography>
           </Stack>
         </Collapse>
@@ -120,7 +145,7 @@ const DashboardView = ({ salesData }: { salesData: SalesData }) => {
       <Card sx={{ padding: 2 }}>
         <Stack direction="row" justifyContent={"center"}>
           <Box justifyContent="center">
-            <Typography>Jobs sold by month</Typography>
+            <Typography variant="h6">Jobs sold by month</Typography>
             <AreaChart
               width={450}
               height={300}
@@ -149,9 +174,11 @@ const DashboardView = ({ salesData }: { salesData: SalesData }) => {
               />
             </AreaChart>
           </Box>
-
+          <Divider
+            sx={{ border: "1px solid #6e7781", marginLeft: 2, marginRight: 2 }}
+          />
           <Box justifyContent="center">
-            <Typography>Jobs completed by month</Typography>
+            <Typography variant="h6">Jobs completed by month</Typography>
             <AreaChart
               width={450}
               height={300}
@@ -185,7 +212,9 @@ const DashboardView = ({ salesData }: { salesData: SalesData }) => {
       <Card sx={{ padding: 2 }}>
         <Stack direction="row" justifyContent={"center"}>
           <Box justifyContent="center">
-            <Typography>Commissions received vs. outstanding</Typography>
+            <Typography variant="h6">
+              # of Commissions received vs. outstanding
+            </Typography>
             <BarChart
               width={450}
               height={300}
@@ -206,6 +235,40 @@ const DashboardView = ({ salesData }: { salesData: SalesData }) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis domain={[0, "dataMax + 2"]} />
+              <Tooltip />
+              <Bar dataKey="received" fill="#8884d8" />
+              <Bar dataKey="outstanding" fill="#82ca9d" />
+            </BarChart>
+          </Box>
+          <Divider
+            sx={{ border: "1px solid #6e7781", marginLeft: 2, marginRight: 2 }}
+          />
+          <Box justifyContent="center">
+            <Typography variant="h6">
+              $ Commission received vs. outstanding
+            </Typography>
+            <BarChart
+              width={450}
+              height={300}
+              data={[
+                {
+                  name: "Commissions",
+                  received: Number(salesData.commissionsReceived).toFixed(2),
+                  outstanding: Number(salesData.commissionsOutstanding).toFixed(
+                    2
+                  ),
+                },
+              ]}
+              margin={{
+                top: 10,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis domain={[0, "dataMax + 100"]} />
               <Tooltip />
               <Bar dataKey="received" fill="#8884d8" />
               <Bar dataKey="outstanding" fill="#82ca9d" />

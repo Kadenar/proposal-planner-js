@@ -1,13 +1,14 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import { PdfInvoice } from "../../../../middleware/Interfaces";
 import { ccyFormat } from "../../../../lib/pricing-utils";
+import ListItem from "./ListItem";
 
 const styles = StyleSheet.create({
   proposal_view: {
     border: "1px solid black",
     padding: 5,
     flexGrow: 1,
-    gap: 10,
+    gap: 5,
   },
   proposal_body: {
     padding: 12,
@@ -23,10 +24,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "Times-Bold",
     textDecoration: "underline",
-    marginTop: 5,
+    margin: 0,
   },
   summary: {
-    fontSize: 12,
+    fontSize: 11,
   },
   specification_title: {
     fontSize: 12,
@@ -34,8 +35,10 @@ const styles = StyleSheet.create({
     textDecoration: "underline",
   },
   specifications: {
-    fontSize: 12,
+    fontSize: 10,
     gap: 5,
+    marginLeft: 5,
+    marginRight: 25,
   },
 });
 
@@ -52,11 +55,11 @@ const Specifications = ({ invoice }: { invoice: PdfInvoice }) => (
         {invoice.summary || "Enter a brief summary for this proposal!"}
       </Text>
       <Text style={styles.specification_title}>
-        Installation with include the following:
+        Installation will include the following:
       </Text>
       <View style={styles.specifications}>
         {invoice.specifications?.map((spec, idx) => {
-          return <Text key={idx}>{`${idx + 1}. ${spec.text}`}</Text>;
+          return <ListItem key={idx} index={idx + 1} text={spec.text} />;
         })}
       </View>
     </View>

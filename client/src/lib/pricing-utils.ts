@@ -29,12 +29,9 @@ export function getFullProductData(
 
 // Calculate the total cost of labor
 export function calculateLabor(labors: Interfaces.LaborOnProposal[]) {
-  let totalLabor = 0;
-  labors.forEach((labor) => {
-    totalLabor += labor.qty * labor.cost;
-  });
-
-  return totalLabor;
+  return labors
+    .map(({ cost, qty }) => cost * qty)
+    .reduce((sum, i) => sum + i, 0);
 }
 
 // Calculate the cost of fees on a proposal based on information in the database
@@ -45,6 +42,7 @@ export function calculateFees(
   let costOfFees = 0;
 
   fees.forEach((fee) => {
+    // Find matching fee in database
     const matchingFee = allFees.find((matching) => matching.guid === fee.guid);
 
     // Only thing we let the user do is override the cost on the proposal
@@ -143,39 +141,46 @@ export function calculateCostForProductsInOption(
 export function calculateCostForOption(
   option: Interfaces.ProductOnProposalWithPricing[],
   costsFromAllOptions: number,
+  misc_materials: number,
   unit_cost_tax: number,
   costOfFees: number,
   costOfLabor: number
 ) {
   const TAX_RATE = unit_cost_tax < 0 ? 0 : unit_cost_tax / 100.0;
 
-  const itemSubtotal =
+  const costOfEquipment = //8365;
     calculateCostForProductsInOption(option) + costsFromAllOptions;
+  const equipmentPlusMaterials = costOfEquipment + misc_materials;
 
   // Baseline cost after taxes
-  const invoiceTaxes = TAX_RATE * itemSubtotal;
-  const totalWithTaxes = itemSubtotal + invoiceTaxes;
+  const costOfTaxes = TAX_RATE * equipmentPlusMaterials; // Just the cost of taxes
+  const equipmentAndMaterialsWithTaxes = equipmentPlusMaterials + costOfTaxes; // Cost of taxes + cost of equipment and materials
 
   // Baseline cost after labor
-  const costWithLabor = totalWithTaxes + costOfLabor;
+  const costWithLabor = equipmentAndMaterialsWithTaxes + costOfLabor;
 
   // Baseline cost after fees
   const costAfterFees = costWithLabor + costOfFees;
 
   return {
-    itemSubtotal: itemSubtotal,
-    invoiceTaxes: invoiceTaxes,
-    totalWithTaxes: totalWithTaxes,
-    costOfLabor: costOfLabor,
-    costWithLabor: costWithLabor,
-    costOfFees: costOfFees,
-    costAfterFees: costAfterFees,
+    costOfEquipment,
+    misc_materials,
+    equipmentPlusMaterials,
+    costOfTaxes,
+    equipmentAndMaterialsWithTaxes,
+    costOfLabor,
+    costWithLabor,
+    costOfFees,
+    costAfterFees,
     invoiceTotal: costAfterFees,
   };
 }
 
 // Helper function to calculate the commission amount, and company margin for the job
-const getCostsForCommissionLevel = (
+const getMarkupTableInfo = (
+  markedUpLabor: number,
+  markedUpEquipment: number,
+  markedUpMiscMaterials: number,
   percent: number,
   sellPrice: number,
   basePrice: number
@@ -184,6 +189,9 @@ const getCostsForCommissionLevel = (
   const companyMargin = sellPrice - basePrice - commissionAmount;
 
   return {
+    laborMarkup: markedUpLabor,
+    equipmentMarkup: markedUpEquipment,
+    miscMaterialMarkup: markedUpMiscMaterials,
     commissionPercent: percent,
     commissionAmount,
     sellPrice,
@@ -191,14 +199,25 @@ const getCostsForCommissionLevel = (
   };
 };
 
-export function calculateMarkedUpCostsForOption(
-  baseCost: number,
-  costOfFees: number,
-  costOfLabor: number,
-  totalWithTaxes: number,
-  laborMultipliers: Interfaces.Multiplier[],
-  equipmentMultipliers: Interfaces.Multiplier[]
-) {
+export function calculateMarkedUpCostsForOption({
+  misc_materials,
+  costOfFees,
+  costOfLabor,
+  costOfEquipment,
+  costOfTaxes,
+  laborMultipliers,
+  equipmentMultipliers,
+  miscMaterialMultipliers,
+}: {
+  misc_materials: number;
+  costOfFees: number;
+  costOfLabor: number;
+  costOfEquipment: number;
+  costOfTaxes: number;
+  laborMultipliers: Interfaces.Multiplier[];
+  equipmentMultipliers: Interfaces.Multiplier[];
+  miscMaterialMultipliers: Interfaces.Multiplier[];
+}) {
   // Marks up the labor cost
   const markedUpLabor = laborMultipliers.map((multi) => {
     return costOfLabor * multi.value;
@@ -206,15 +225,78 @@ export function calculateMarkedUpCostsForOption(
 
   // Marks up the equipment + taxes cost
   const markedUpEquipment = equipmentMultipliers.map((multi) => {
-    return totalWithTaxes * multi.value;
+    return costOfEquipment * multi.value;
+  });
+
+  // Marks up the misc materials
+  const markedUpMiscMaterials = miscMaterialMultipliers.map((multi) => {
+    return misc_materials * multi.value;
   });
 
   // Calculate the min, target and max sell prices based on markups
-  const minSellPrice = markedUpLabor[0] + markedUpEquipment[0] + costOfFees;
-  const targetSellPrice = markedUpLabor[1] + markedUpEquipment[1] + costOfFees;
+  const minSellPrice =
+    markedUpLabor[0] +
+    markedUpEquipment[0] +
+    markedUpMiscMaterials[0] +
+    costOfFees +
+    costOfTaxes;
+
+  // The target sale price
+  const targetSellPrice =
+    markedUpLabor[1] +
+    markedUpEquipment[1] +
+    markedUpMiscMaterials[1] +
+    costOfFees +
+    costOfTaxes;
+
+  // Prices between minimum and target
+  const minLaborPrice2 =
+    markedUpLabor[0] + (markedUpLabor[1] - markedUpLabor[0]) / 3.0;
+  const minLaborPrice3 =
+    minLaborPrice2 + (markedUpLabor[1] - minLaborPrice2) / 3.0;
+
+  const minEquipmentPrice2 =
+    markedUpEquipment[0] + (markedUpEquipment[1] - markedUpEquipment[0]) / 3.0;
+  const minEquipmentPrice3 =
+    minEquipmentPrice2 + (markedUpEquipment[1] - minLaborPrice2) / 3.0;
+
+  const minMiscMaterialPrice2 =
+    markedUpMiscMaterials[0] +
+    (markedUpMiscMaterials[1] - markedUpMiscMaterials[0]) / 3.0;
+  const minMiscMaterialPrice3 =
+    minMiscMaterialPrice2 +
+    (markedUpMiscMaterials[1] - minMiscMaterialPrice2) / 3.0;
+
   const minSellPrice2 = minSellPrice + (targetSellPrice - minSellPrice) / 3.0;
   const minSellPrice3 = minSellPrice2 + (targetSellPrice - minSellPrice2) / 3.0;
-  const maxSellPrice = markedUpLabor[2] + markedUpEquipment[2] + costOfFees;
+
+  // The maximum sale price
+  const maxSellPrice =
+    markedUpLabor[2] +
+    markedUpEquipment[2] +
+    markedUpMiscMaterials[2] +
+    costOfFees +
+    costOfTaxes;
+
+  // The prices between max and target
+  const targetLaborPrice2 =
+    markedUpLabor[1] + (markedUpLabor[2] - markedUpLabor[1]) / 3.0;
+  const targetLaborPrice3 =
+    targetLaborPrice2 + (markedUpLabor[2] - targetLaborPrice2) / 3.0;
+
+  const targetEquipmentPrice2 =
+    markedUpEquipment[1] + (markedUpEquipment[2] - markedUpEquipment[1]) / 3.0;
+  const targetEquipmentPrice3 =
+    targetEquipmentPrice2 +
+    (markedUpEquipment[2] - targetEquipmentPrice2) / 3.0;
+
+  const targetMiscMaterialPrice2 =
+    markedUpMiscMaterials[1] +
+    (markedUpMiscMaterials[2] - markedUpMiscMaterials[1]) / 3.0;
+  const targetMiscMaterialPrice3 =
+    targetMiscMaterialPrice2 +
+    (markedUpMiscMaterials[2] - targetMiscMaterialPrice2) / 3.0;
+
   const targetSellPrice2 =
     targetSellPrice + (maxSellPrice - targetSellPrice) / 3.0;
   const targetSellPrice3 =
@@ -222,14 +304,65 @@ export function calculateMarkedUpCostsForOption(
 
   // Min sell price + (target sell price - min sell price) / 3
   return [
-    getCostsForCommissionLevel(2.5, minSellPrice, baseCost),
-    getCostsForCommissionLevel(4.0, minSellPrice2, baseCost),
-    getCostsForCommissionLevel(5.5, minSellPrice3, baseCost),
-    getCostsForCommissionLevel(7.0, targetSellPrice, baseCost),
-    getCostsForCommissionLevel(7.5, targetSellPrice2, baseCost),
-    getCostsForCommissionLevel(8.0, targetSellPrice3, baseCost),
-    getCostsForCommissionLevel(8.5, maxSellPrice, baseCost),
-    /*, 9.0, 9.5, 10 TODO - Add more commission options */
+    getMarkupTableInfo(
+      markedUpLabor[0],
+      markedUpEquipment[0],
+      markedUpMiscMaterials[0],
+      2.5,
+      minSellPrice,
+      costOfEquipment
+    ),
+    getMarkupTableInfo(
+      minLaborPrice2,
+      minEquipmentPrice2,
+      minMiscMaterialPrice2,
+      4.0,
+      minSellPrice2,
+      costOfEquipment
+    ),
+    getMarkupTableInfo(
+      minLaborPrice3,
+      minEquipmentPrice3,
+      minMiscMaterialPrice3,
+      5.5,
+      minSellPrice3,
+      costOfEquipment
+    ),
+    getMarkupTableInfo(
+      markedUpLabor[1],
+      markedUpEquipment[1],
+      markedUpMiscMaterials[1],
+      7.0,
+      targetSellPrice,
+      costOfEquipment
+    ),
+    getMarkupTableInfo(
+      targetLaborPrice2,
+      targetEquipmentPrice2,
+      targetMiscMaterialPrice2,
+      7.5,
+      targetSellPrice2,
+      costOfEquipment
+    ),
+    getMarkupTableInfo(
+      targetLaborPrice3,
+      targetEquipmentPrice3,
+      targetMiscMaterialPrice3,
+      8.0,
+      targetSellPrice3,
+      costOfEquipment
+    ),
+    getMarkupTableInfo(
+      markedUpLabor[2],
+      markedUpEquipment[2],
+      markedUpMiscMaterials[2],
+      8.5,
+      maxSellPrice,
+      costOfEquipment
+    ),
+    // getCostsForCommissionLevel(9.0, maxSellPrice, costOfEquipment),
+    // getCostsForCommissionLevel(9.5, maxSellPrice, costOfEquipment),
+    // getCostsForCommissionLevel(10.0, maxSellPrice, costOfEquipment),
   ];
 }
 

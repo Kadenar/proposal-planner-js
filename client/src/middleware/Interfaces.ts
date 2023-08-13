@@ -113,6 +113,7 @@ export interface ProposalData {
   fees: FeeOnProposal[];
   labor: LaborOnProposal[];
   products: ProductOnProposal[];
+  misc_materials: number;
   unit_cost_tax: number;
   quote_options: QuoteOption[]; // this array is 0 indexed, so index 0 = quote 1, etc
   start_date?: string;
@@ -128,6 +129,11 @@ export interface QuoteOption {
   hasProducts: boolean;
 }
 
+export interface ProposalSpec {
+  guid: string;
+  text: string;
+}
+
 // Specifications that are available to be imported
 export interface AvailableSpecification extends ProposalSpec {
   checked: boolean;
@@ -138,11 +144,6 @@ export interface AddedSpecification {
   guid: string;
   originalText: string;
   modifiedText: string;
-}
-
-export interface ProposalSpec {
-  guid: string;
-  text: string;
 }
 
 export interface Multiplier {
@@ -163,6 +164,9 @@ export interface Financing {
 
 // Company markups / used for pricing workup
 export interface Markup {
+  laborMarkup: number;
+  equipmentMarkup: number;
+  miscMaterialMarkup: number;
   commissionAmount: number;
   commissionPercent: number;
   sellPrice: number;

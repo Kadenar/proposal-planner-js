@@ -2,30 +2,30 @@
   {
     "name": "(2) men (8) hours",
     "guid": "bf03e1a6-0666-436f-9b4f-e4f215efa71f",
-    "cost": 1520,
+    "cost": 1600,
     "allowCostOverride": false
   },
   {
     "name": "(2) men (16) hours",
-    "cost": 3040,
+    "cost": 3200,
     "guid": "6c07b831-e531-4848-8b6e-45f22ffaf458",
     "allowCostOverride": false
   },
   {
     "name": "(2) men (20) hours",
-    "cost": 3800,
+    "cost": 4000,
     "guid": "76b0f97b-10aa-4ac9-bfdd-39bd7bea85f7",
     "allowCostOverride": false
   },
   {
     "name": "(3) men (24) hours",
-    "cost": 6840,
+    "cost": 7200,
     "guid": "f6c3576d-eb5d-4fb8-ae96-42db536fc2fb",
     "allowCostOverride": false
   },
   {
     "name": "(3) men (30) hours",
-    "cost": 8550,
+    "cost": 9000,
     "guid": "59f5dfe8-15e7-4fe4-b9bc-54407316aaf7",
     "allowCostOverride": false
   },

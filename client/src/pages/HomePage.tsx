@@ -92,7 +92,7 @@ export default function HomePage() {
       commissionsReceived: commissionInfo.commissionsReceived,
       numberOfCommissionsOutstanding:
         commissionInfo.numberOfCommissionsOutstanding,
-      commissionsOutstanding: commissionInfo.numberOfCommissionsOutstanding,
+      commissionsOutstanding: commissionInfo.commissionsOutstanding,
 
       // Job info
       totalJobsSold: soldJobs.length,

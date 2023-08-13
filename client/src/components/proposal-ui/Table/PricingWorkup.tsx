@@ -20,6 +20,22 @@ import { StyledIconButton } from "../../StyledComponents";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
+function getMarkupLabelText(index: number) {
+  if (index === 0) {
+    return "Minimum";
+  }
+
+  if (index === 3) {
+    return "Target";
+  }
+
+  if (index === 6) {
+    return "Max";
+  }
+
+  return "";
+}
+
 const PricingWorkup = ({
   activeProposal,
 }: {
@@ -80,6 +96,10 @@ const PricingWorkup = ({
                   <Table stickyHeader={true} aria-label="cost breakdown table">
                     <TableHead>
                       <TableRow key="costs-header">
+                        <TableCell></TableCell>
+                        <TableCell>Equipment markup</TableCell>
+                        <TableCell>Labor markup</TableCell>
+                        <TableCell>Misc material markup</TableCell>
                         <TableCell>Cost to customer $</TableCell>
                         <TableCell>Your Commission %</TableCell>
                         <TableCell>Your Commission $</TableCell>
@@ -92,6 +112,16 @@ const PricingWorkup = ({
                         (quoteData, index) => {
                           return (
                             <TableRow key={`costs-body-${index}`}>
+                              <TableCell>{getMarkupLabelText(index)}</TableCell>
+                              <TableCell>
+                                {ccyFormat(quoteData.equipmentMarkup)}
+                              </TableCell>
+                              <TableCell>
+                                {ccyFormat(quoteData.laborMarkup)}
+                              </TableCell>
+                              <TableCell>
+                                {ccyFormat(quoteData.miscMaterialMarkup)}
+                              </TableCell>
                               <TableCell>
                                 {ccyFormat(quoteData.sellPrice)}
                               </TableCell>

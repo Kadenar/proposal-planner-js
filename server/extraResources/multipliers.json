@@ -32,5 +32,22 @@
       "name": "Maximum",
       "value": 2.5
     }
+  ],
+  "misc_materials": [
+    {
+      "guid": "27d3bb1a-91eb-4d8a-b9e0-0d6d089ea89d",
+      "name": "Minimum",
+      "value": 1.5
+    },
+    {
+      "guid": "fee0b9fc-b8a1-4fcd-809a-9e7ac418d9b8",
+      "name": "Target",
+      "value": 2.0
+    },
+    {
+      "guid": "da2e3992-8f27-4531-99b0-b4b95775fe6c",
+      "name": "Maximum",
+      "value": 2.5
+    }
   ]
 }

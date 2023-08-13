@@ -20,16 +20,18 @@ export function ProposalPricingData(
 ) {
   const { products } = useAppSelector((state) => state.products);
   const { fees } = useAppSelector((state) => state.fees);
-  const { equipmentMarkups, laborMarkups } = useAppSelector(
-    (state) => state.multipliers
-  );
+  const { equipmentMarkups, laborMarkups, miscMaterialMarkups } =
+    useAppSelector((state) => state.multipliers);
   const productsOnProposal = activeProposal?.data.products;
+  const misc_materials = activeProposal?.data.misc_materials || 0;
   const unit_cost_tax = activeProposal?.data.unit_cost_tax || 0;
 
   // The columns that should be dynamically added to the table to represent each option quoted
   const productsInOptionsArrays = useMemo(() => {
+    // Gets all producti info from db / cache
     const fullProducts = getFullProductData(productsOnProposal, products);
 
+    // Convert products into object of arrays corresponding to their appropriate quote
     const reducedProducts = fullProducts.reduce<
       Record<string, ProductOnProposalWithPricing[]>
     >((result, currentValue) => {
@@ -70,6 +72,7 @@ export function ProposalPricingData(
         [option]: calculateCostForOption(
           productsInOptionsArrays[option],
           costAppliedToAllQuotes,
+          misc_materials,
           unit_cost_tax,
           costOfFees,
           costOfLabor
@@ -80,6 +83,7 @@ export function ProposalPricingData(
   }, [
     productsInOptionsArrays,
     costAppliedToAllQuotes,
+    misc_materials,
     unit_cost_tax,
     costOfFees,
     costOfLabor,
@@ -91,18 +95,25 @@ export function ProposalPricingData(
     >(
       (result, option) => ({
         ...result,
-        [option]: calculateMarkedUpCostsForOption(
-          baselinePricingForQuotes[option].invoiceTotal,
-          baselinePricingForQuotes[option].costOfFees,
-          baselinePricingForQuotes[option].costOfLabor,
-          baselinePricingForQuotes[option].totalWithTaxes,
-          laborMarkups,
-          equipmentMarkups
-        ),
+        [option]: calculateMarkedUpCostsForOption({
+          misc_materials: baselinePricingForQuotes[option].misc_materials,
+          costOfFees: baselinePricingForQuotes[option].costOfFees,
+          costOfLabor: baselinePricingForQuotes[option].costOfLabor,
+          costOfEquipment: baselinePricingForQuotes[option].costOfEquipment,
+          costOfTaxes: baselinePricingForQuotes[option].costOfTaxes,
+          laborMultipliers: laborMarkups,
+          equipmentMultipliers: equipmentMarkups,
+          miscMaterialMultipliers: miscMaterialMarkups,
+        }),
       }),
       {} as Record<string, Markup[]>
     );
-  }, [baselinePricingForQuotes, laborMarkups, equipmentMarkups]);
+  }, [
+    baselinePricingForQuotes,
+    laborMarkups,
+    equipmentMarkups,
+    miscMaterialMarkups,
+  ]);
 
   return {
     costAppliedToAllQuotes,

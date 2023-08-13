@@ -11,9 +11,11 @@ import { Multiplier } from "../../middleware/Interfaces.ts";
 const initialState: {
   laborMarkups: Multiplier[];
   equipmentMarkups: Multiplier[];
+  miscMaterialMarkups: Multiplier[];
 } = {
   laborMarkups: [],
   equipmentMarkups: [],
+  miscMaterialMarkups: [],
 };
 
 export const multipliersSlice = createSlice({
@@ -26,6 +28,9 @@ export const multipliersSlice = createSlice({
     updateEquipmentMarkups: (state, value) => {
       state.equipmentMarkups = value.payload;
     },
+    updateMiscMaterialMarkups: (state, value) => {
+      state.miscMaterialMarkups = value.payload;
+    },
   },
 });
 
@@ -33,12 +38,17 @@ export default multipliersSlice.reducer;
 
 // ACTIONS
 
-const { updateLaborMarkups, updateEquipmentMarkups } = multipliersSlice.actions;
+const {
+  updateLaborMarkups,
+  updateEquipmentMarkups,
+  updateMiscMaterialMarkups,
+} = multipliersSlice.actions;
 
 export const initializeMultipliers = () => async (dispatch: Dispatch) => {
   const multipliers = await fetchMultipliers();
   dispatch(updateEquipmentMarkups(multipliers.equipment_markups));
   dispatch(updateLaborMarkups(multipliers.labor_markups));
+  dispatch(updateMiscMaterialMarkups(multipliers.misc_materials));
 };
 
 export const updateLaborMultiplier = async (
@@ -61,6 +71,18 @@ export const updateEquipmentMultiplier = async (
     dispatch,
     dbOperation: async () => edit_multiplier(category, guid, value),
     methodToDispatch: updateEquipmentMarkups,
+    dataKey: "multipliers",
+    successMessage: "Successfully edited multiplier!",
+  });
+
+export const updateMiscMaterialMultiplier = async (
+  dispatch: Dispatch,
+  { category, guid, value }: { category: string; guid: string; value: number }
+) =>
+  updateStore({
+    dispatch,
+    dbOperation: async () => edit_multiplier(category, guid, value),
+    methodToDispatch: updateMiscMaterialMarkups,
     dataKey: "multipliers",
     successMessage: "Successfully edited multiplier!",
   });

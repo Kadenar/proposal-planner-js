@@ -24,6 +24,20 @@ export const activeProposalSlice = createSlice({
       state.activeProposal = value.payload;
       state.is_dirty = false;
     },
+    updateName: (state, name) => {
+      if (!state.activeProposal) {
+        return;
+      }
+
+      state.activeProposal.name = name.payload;
+    },
+    updateDescription: (state, description) => {
+      if (!state.activeProposal) {
+        return;
+      }
+
+      state.activeProposal.description = description.payload;
+    },
     addProductToTable: (state, product) => {
       if (!state.activeProposal) {
         return;
@@ -130,6 +144,13 @@ export const activeProposalSlice = createSlice({
       state.activeProposal.data.unit_cost_tax = value.payload;
       state.is_dirty = true;
     },
+    updateMiscMaterialCost: (state, value) => {
+      if (!state.activeProposal) {
+        return;
+      }
+      state.activeProposal.data.misc_materials = value.payload;
+      state.is_dirty = true;
+    },
     updateLabors: (state, labors) => {
       if (!state.activeProposal) {
         return;
@@ -170,6 +191,8 @@ export default activeProposalSlice.reducer;
 
 const {
   activeProposal,
+  updateName,
+  updateDescription,
   addProductToTable,
   removeProductFromTable,
   resetProposal,
@@ -178,6 +201,7 @@ const {
   updateProposalSummary,
   updateProposalSpecifications,
   updateUnitCostTax,
+  updateMiscMaterialCost,
   updateLabors,
   updateFees,
   updateDirtyFlag,
@@ -193,6 +217,17 @@ export const selectProposal = (
 
 export const markProposalAsDirty = (dispatch: Dispatch, value: boolean) => {
   dispatch(updateDirtyFlag(value));
+};
+
+export const updateProposalName = (dispatch: Dispatch, name: string) => {
+  dispatch(updateName(name));
+};
+
+export const updateProposalDescription = (
+  dispatch: Dispatch,
+  description: string
+) => {
+  dispatch(updateDescription(description));
 };
 
 export const addProductToProposal = (
@@ -274,6 +309,14 @@ export const setTargetCommission = (
 export const setProposalUnitCostTax = (dispatch: Dispatch, value: string) => {
   const numValue = isNaN(parseFloat(value)) ? 0 : parseFloat(value);
   dispatch(updateUnitCostTax(numValue));
+};
+
+export const setProposalMiscMaterialCost = (
+  dispatch: Dispatch,
+  value: string
+) => {
+  const numValue = isNaN(parseFloat(value)) ? 0 : parseFloat(value);
+  dispatch(updateMiscMaterialCost(numValue));
 };
 
 export const updateProposalLabors = (

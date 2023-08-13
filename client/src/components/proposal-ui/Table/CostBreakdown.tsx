@@ -1,4 +1,7 @@
 import {
+  FormControl,
+  Input,
+  InputAdornment,
   Paper,
   Table,
   TableBody,
@@ -27,6 +30,7 @@ import {
 } from "../../../middleware/Interfaces";
 import { useAppDispatch, useAppSelector } from "../../../services/store";
 import {
+  setProposalMiscMaterialCost,
   setProposalUnitCostTax,
   updateProposalFees,
   updateProposalLabors,
@@ -188,7 +192,6 @@ const CostBreakdown = ({
               )}
             </TableRow>
           </TableHead>
-
           <TableBody>
             <TableRow key="base-cost-row">
               <BoldedTableCell>Cost of equipment</BoldedTableCell>
@@ -196,7 +199,30 @@ const CostBreakdown = ({
               <QuoteOptionPriceCell
                 quotes={quotesWithProducts}
                 pricingForQuotesData={baselinePricingForQuotes}
-                valueToFetch="itemSubtotal"
+                valueToFetch="costOfEquipment"
+                valueToSubtract={undefined}
+              />
+            </TableRow>
+            <TableRow key="misc-cost-row">
+              <BoldedTableCell>Cost of misc materials</BoldedTableCell>
+              <TableCell>
+                <FormControl sx={{ maxWidth: "100px" }}>
+                  <Input
+                    type="number"
+                    startAdornment={
+                      <InputAdornment position="start">$</InputAdornment>
+                    }
+                    value={activeProposal.data.misc_materials}
+                    onChange={(e) =>
+                      setProposalMiscMaterialCost(dispatch, e.target?.value)
+                    }
+                  />
+                </FormControl>
+              </TableCell>
+              <QuoteOptionPriceCell
+                quotes={quotesWithProducts}
+                pricingForQuotesData={baselinePricingForQuotes}
+                valueToFetch="equipmentPlusMaterials"
                 valueToSubtract={undefined}
               />
             </TableRow>
@@ -218,8 +244,8 @@ const CostBreakdown = ({
               <QuoteOptionPriceCell
                 quotes={quotesWithProducts}
                 pricingForQuotesData={baselinePricingForQuotes}
-                valueToFetch="totalWithTaxes"
-                valueToSubtract="itemSubtotal"
+                valueToFetch="equipmentAndMaterialsWithTaxes"
+                valueToSubtract="equipmentPlusMaterials"
               />
             </TableRow>
             <TableRow key="labor-row">

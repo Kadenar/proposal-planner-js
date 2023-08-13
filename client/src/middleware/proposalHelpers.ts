@@ -56,6 +56,7 @@ export async function addProposal(
         guid: client_guid,
       },
       data: {
+        misc_materials: existingProposal.data.misc_materials,
         products: existingProposal.data.products,
         fees: existingProposal.data.fees,
         labor: existingProposal.data.labor,
@@ -103,13 +104,23 @@ export async function saveProposal(proposalToSave: ProposalObject) {
     };
   }
 
+  if (!proposalToSave.name || proposalToSave.name === "") {
+    return {
+      status: 500,
+      data: { message: "Proposal must have a name." },
+    };
+  }
+
   const newProposals = [...existingProposals];
 
   newProposals[index] = {
     ...newProposals[index],
+    name: proposalToSave.name,
+    description: proposalToSave.description,
     date_modified: `${month}/${day}/${year}`,
     data: {
       ...newProposals[index].data,
+      misc_materials: proposalToSave.data.misc_materials,
       unit_cost_tax: proposalToSave.data.unit_cost_tax,
       labor: proposalToSave.data.labor,
       fees: proposalToSave.data.fees,
@@ -168,6 +179,7 @@ const getNewProposalItem = async (
     data: {
       products: [],
       unit_cost_tax: 8.375,
+      misc_materials: 0,
       labor: labors.map((labor) => {
         return {
           guid: labor.guid,
