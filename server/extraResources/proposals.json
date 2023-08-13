@@ -285,7 +285,7 @@
     "name": "Test 3",
     "description": "Test 3",
     "date_created": "8/10/2023",
-    "date_modified": "8/10/2023",
+    "date_modified": "8/12/2023",
     "owner": {
       "guid": "e3af9751-3bd1-4509-9acf-698ea33efd63"
     },
@@ -362,17 +362,19 @@
       "quote_options": [
         {
           "guid": "quote_1",
-          "title": "",
+          "title": "Energy Kinetics EK2 - 40 gal HWH",
           "summary": "",
           "specifications": [],
-          "hasProducts": true
+          "hasProducts": true,
+          "name": "Energy Kinetics EK2 - 40 gal HWH"
         },
         {
           "guid": "quote_2",
-          "title": "",
+          "title": "Energy Kinetics EK2 HWH",
           "summary": "",
           "specifications": [],
-          "hasProducts": true
+          "hasProducts": true,
+          "name": "Energy Kinetics EK2 - 80 gal HWH"
         },
         {
           "guid": "quote_3",
@@ -397,7 +399,7 @@
         }
       ],
       "start_date": "",
-      "target_quote": 1,
+      "target_quote": 0,
       "target_commission": 2
     }
   }

@@ -33,10 +33,12 @@ export const activeProposalSlice = createSlice({
       state.activeProposal.data.products =
         state.activeProposal.data.products.concat(product.payload);
 
-      // Flag the quote as having products
-      state.activeProposal.data.quote_options[
-        product.payload.quote_option - 1
-      ].hasProducts = true;
+      // Mark quote option as having any products if not applied to ALL
+      if (product.payload.quote_option !== 0) {
+        state.activeProposal.data.quote_options[
+          product.payload.quote_option - 1
+        ].hasProducts = true;
+      }
 
       // Mark proposal as dirty
       state.is_dirty = true;
@@ -80,6 +82,16 @@ export const activeProposalSlice = createSlice({
       }
       state.activeProposal.data.products = [];
       state.activeProposal.data.quote_options = [];
+      state.is_dirty = true;
+    },
+    updateQuoteName: (state, value) => {
+      if (!state.activeProposal) {
+        return;
+      }
+
+      const { index, name } = value.payload;
+
+      state.activeProposal.data.quote_options[index].name = name;
       state.is_dirty = true;
     },
     updateProposalTitle: (state, value) => {
@@ -161,6 +173,7 @@ const {
   addProductToTable,
   removeProductFromTable,
   resetProposal,
+  updateQuoteName,
   updateProposalTitle,
   updateProposalSummary,
   updateProposalSpecifications,
@@ -198,6 +211,14 @@ export const removeProductFromProposal = (
 
 export const removeAllProductsFromProposal = (dispatch: Dispatch) => {
   dispatch(resetProposal());
+};
+
+export const setQuoteName = (
+  dispatch: Dispatch,
+  name: string,
+  quote_option: number
+) => {
+  dispatch(updateQuoteName({ index: quote_option, name: name }));
 };
 
 export const setProposalTitle = (

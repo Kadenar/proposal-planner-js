@@ -11,6 +11,7 @@ const QuoteSelection = ({
   quoteOptions: QuoteOption[];
   onChangeCallback: (value: number) => void;
 }) => {
+  const filteredOptions = quoteOptions.filter((quote) => quote.hasProducts);
   return (
     <TextField
       id="select"
@@ -24,15 +25,14 @@ const QuoteSelection = ({
     >
       {
         // Only quotes with products specified are considered for selection
-        quoteOptions
-          .filter((quote) => quote.hasProducts)
-          .map((quote) => {
-            return (
-              <MenuItem key={quote.guid} value={quote.guid}>
-                {quote.title === "" ? getQuoteNameStr(quote.guid) : quote.title}
-              </MenuItem>
-            );
-          })
+
+        filteredOptions.map((quote) => {
+          return (
+            <MenuItem key={quote.guid} value={quote.guid}>
+              {quote.name || getQuoteNameStr(quote.guid)}
+            </MenuItem>
+          );
+        })
       }
     </TextField>
   );

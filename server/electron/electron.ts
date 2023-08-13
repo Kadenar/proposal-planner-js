@@ -1,7 +1,8 @@
-import Electron from "electron";
+import Electron, { shell } from "electron";
 // import isDev from "electron-is-dev";
 import http from "http";
 import path from "path";
+import contextMenu from "electron-context-menu";
 
 import server from "../express/server";
 
@@ -42,8 +43,18 @@ export default class Main {
       process.env.ELECTRON_START_URL ||
       `file://${path.join(__dirname, "../client/index.html")}`;
 
+    contextMenu({
+      showInspectElement: false,
+      showSearchWithGoogle: false,
+      showLearnSpelling: false,
+      showCopyLink: false,
+      showCopyImage: false,
+    });
+
     Main.mainWindow.loadURL(startUrl);
     Main.mainWindow.removeMenu();
+
+    // Menu.setApplicationMenu(InputMenu);
     Main.mainWindow.on("closed", Main.onClose);
   }
 

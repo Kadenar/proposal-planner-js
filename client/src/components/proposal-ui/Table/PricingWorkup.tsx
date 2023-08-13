@@ -63,9 +63,7 @@ const PricingWorkup = ({
         <>
           {filteredQuoteOptions.map((quote, index) => {
             const quoteTitle =
-              filteredQuoteOptions[index].title === ""
-                ? getQuoteNameStr(quote.guid)
-                : filteredQuoteOptions[index].title;
+              filteredQuoteOptions[index].name || getQuoteNameStr(quote.guid);
             return (
               <Stack
                 key={quote.guid}

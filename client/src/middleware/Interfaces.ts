@@ -121,6 +121,7 @@ export interface ProposalData {
 }
 export interface QuoteOption {
   guid: string;
+  name: string | undefined;
   title: string | undefined;
   summary: string | undefined;
   specifications: ProposalSpec[];

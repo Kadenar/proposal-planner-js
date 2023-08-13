@@ -9,11 +9,13 @@ import { StyledTextarea } from "../../StyledComponents";
 import {
   setProposalSummary,
   setProposalTitle,
+  setQuoteName,
 } from "../../../services/slices/activeProposalSlice";
 import { Divider, Typography } from "@mui/material";
 import { ProposalObject } from "../../../middleware/Interfaces";
 import QuoteSelection from "../../QuoteSelection";
 import { ManageProposalSpecifications } from "./specifications/ManageProposalSpecifications";
+import { getQuoteName } from "../../../lib/pricing-utils";
 
 const ProposalCardDetails = ({
   activeProposal,
@@ -26,6 +28,7 @@ const ProposalCardDetails = ({
   const quote_options = activeProposal.data.quote_options;
 
   const selectedQuoteOption = quote_options[quote_option];
+  const name = selectedQuoteOption?.name || "";
   const title = selectedQuoteOption?.title || "";
   const summary = selectedQuoteOption?.summary || "";
 
@@ -46,8 +49,18 @@ const ProposalCardDetails = ({
             <Stack gap={2} marginTop={2} marginLeft={2} marginRight={2}>
               <TextField
                 sx={{ flexGrow: 1 }}
+                label="Quote name"
+                placeholder="Give this quote a name to remember it by"
+                value={name}
+                onChange={({ target: { value } }) => {
+                  setQuoteName(dispatch, value, quote_option);
+                }}
+              />
+
+              <TextField
+                sx={{ flexGrow: 1 }}
                 label="Proposal title"
-                placeholder="Enter a title"
+                placeholder="Enter a title - this will be used in the generated pdf"
                 value={title}
                 onChange={({ target: { value } }) => {
                   setProposalTitle(dispatch, value, quote_option);

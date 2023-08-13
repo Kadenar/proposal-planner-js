@@ -184,6 +184,7 @@ const getNewProposalItem = async (
       quote_options: [
         {
           guid: "quote_1",
+          name: "Quote 1",
           title: "",
           summary: "",
           specifications: [],
@@ -191,6 +192,7 @@ const getNewProposalItem = async (
         },
         {
           guid: "quote_2",
+          name: "Quote 2",
           title: "",
           summary: "",
           specifications: [],
@@ -198,6 +200,7 @@ const getNewProposalItem = async (
         },
         {
           guid: "quote_3",
+          name: "Quote 3",
           title: "",
           summary: "",
           specifications: [],
@@ -205,6 +208,7 @@ const getNewProposalItem = async (
         },
         {
           guid: "quote_4",
+          name: "Quote 4",
           title: "",
           summary: "",
           specifications: [],
@@ -212,6 +216,7 @@ const getNewProposalItem = async (
         },
         {
           guid: "quote_5",
+          name: "Quote 5",
           title: "",
           summary: "",
           specifications: [],
