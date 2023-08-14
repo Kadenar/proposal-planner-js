@@ -43,7 +43,6 @@ export async function addUser(name: string, password: string) {
   const hash = bcrypt.hashSync(password, salt);
 
   return simpleAddObjectToDatabase(fetchUsers, "users", {
-    salt: salt,
     name,
     password: hash,
   });
