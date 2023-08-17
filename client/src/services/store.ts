@@ -18,10 +18,6 @@ import tabSlice from "./slices/tabSlice";
 import authenticatedSlice from "./slices/authenticatedSlice";
 import soldJobsSlice from "./slices/soldJobsSlice";
 
-export const useMultiplierDispatch: () => AppDispatch = useDispatch;
-export const useMultiplierSelector: TypedUseSelectorHook<RootState> =
-  useSelector;
-
 const store = configureStore({
   reducer: {
     filters: productTypesSlice,

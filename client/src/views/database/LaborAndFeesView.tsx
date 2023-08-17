@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../services/store";
 
 import Stack from "@mui/material/Stack";
 
-import AddNewItem from "../../components/AddNewItem";
+import ButtonWithAddIcon from "../../components/ButtonWithAddIcon";
 import MaterialTable from "@material-table/core";
 import { laborDialog } from "../../components/dialogs/backend/LaborDialog";
 import {
@@ -23,7 +23,7 @@ const LaborAndFeesView = () => {
   return (
     <Stack gap={2}>
       <Stack gap={1}>
-        <AddNewItem
+        <ButtonWithAddIcon
           onClick={() =>
             laborDialog({
               header: "Add labor",
@@ -114,7 +114,7 @@ const LaborAndFeesView = () => {
         />
       </Stack>
       <Stack gap={2}>
-        <AddNewItem
+        <ButtonWithAddIcon
           onClick={() =>
             feeDialog({
               header: "Add fee",

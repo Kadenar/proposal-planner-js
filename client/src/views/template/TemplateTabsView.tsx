@@ -4,7 +4,7 @@ import { useKey } from "../../hooks/useKey";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import SaveIcon from "@mui/icons-material/Save";
-import Tabs from "@mui/base/Tabs";
+import { Tabs } from "@mui/base";
 
 import {
   StyledTabsList,

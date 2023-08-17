@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../services/store";
 
-import Tabs from "@mui/base/Tabs";
+import { Tabs } from "@mui/base";
 import {
   StyledTabsList,
   StyledTab,

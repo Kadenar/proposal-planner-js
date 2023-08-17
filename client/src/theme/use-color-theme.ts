@@ -1,9 +1,14 @@
 import { useMemo } from "react";
 
 import { createTheme, PaletteMode } from "@mui/material";
-import theme from "./theme";
 import { useAppDispatch, useAppSelector } from "../services/store";
 import { toggleDarkMode } from "../services/slices/userPreferenceSlice";
+
+const theme = {
+  palette: {
+    mode: "dark",
+  },
+};
 
 export const useColorTheme = () => {
   const dispatch = useAppDispatch();

@@ -1,6 +1,11 @@
-import Tab, { tabClasses } from "@mui/base/Tab";
-import TabsList from "@mui/base/TabsList";
-import TabPanel from "@mui/base/TabPanel";
+import {
+  Tab,
+  TabsList,
+  TabPanel,
+  tabClasses,
+  TextareaAutosize,
+} from "@mui/base";
+
 import { emphasize, styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Dialog from "@mui/material/Dialog";
@@ -15,7 +20,6 @@ import {
   ListItemText,
   TextField,
 } from "@mui/material";
-import TextareaAutosize from "@mui/base/TextareaAutosize";
 
 const blue = {
   50: "#F0F7FF",

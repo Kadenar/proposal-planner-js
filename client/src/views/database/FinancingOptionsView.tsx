@@ -4,7 +4,7 @@ import MaterialTable from "@material-table/core";
 import Stack from "@mui/material/Stack";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
 
-import AddNewItem from "../../components/AddNewItem";
+import ButtonWithAddIcon from "../../components/ButtonWithAddIcon";
 
 import {
   addFinancingOption,
@@ -19,7 +19,7 @@ export default function FinancingOptionsView() {
 
   return (
     <Stack gap={1}>
-      <AddNewItem
+      <ButtonWithAddIcon
         onClick={() =>
           financingDialog({
             header: "Add financing option",

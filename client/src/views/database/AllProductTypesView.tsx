@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import { confirmDialog } from "../../components/dialogs/ConfirmDialog";
 import { productTypeDialog } from "../../components/dialogs/backend/ProductTypeDialog";
 
-import AddNewItem from "../../components/AddNewItem";
+import ButtonWithAddIcon from "../../components/ButtonWithAddIcon";
 import {
   addProductType,
   deleteProductType,
@@ -22,7 +22,7 @@ export default function AllProductTypesView() {
 
   return (
     <Stack gap={1}>
-      <AddNewItem
+      <ButtonWithAddIcon
         onClick={() =>
           productTypeDialog({
             header: "Add product type",
