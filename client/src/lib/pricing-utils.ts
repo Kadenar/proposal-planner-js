@@ -250,15 +250,18 @@ export function calculateMarkedUpCostsForOption({
     costOfTaxes;
 
   // Prices between minimum and target
+  // Calculation for min 2 = Min + (Target - Min) / 3
+  // Calculation for min 3 = Min 2 + (Target - Min) / 3
   const minLaborPrice2 =
     markedUpLabor[0] + (markedUpLabor[1] - markedUpLabor[0]) / 3.0;
+
   const minLaborPrice3 =
-    minLaborPrice2 + (markedUpLabor[1] - minLaborPrice2) / 3.0;
+    minLaborPrice2 + (markedUpLabor[1] - markedUpLabor[0]) / 3.0;
 
   const minEquipmentPrice2 =
     markedUpEquipment[0] + (markedUpEquipment[1] - markedUpEquipment[0]) / 3.0;
   const minEquipmentPrice3 =
-    minEquipmentPrice2 + (markedUpEquipment[1] - minLaborPrice2) / 3.0;
+    minEquipmentPrice2 + (markedUpEquipment[1] - markedUpEquipment[0]) / 3.0;
 
   const minMiscMaterialPrice2 =
     markedUpMiscMaterials[0] +
@@ -268,7 +271,7 @@ export function calculateMarkedUpCostsForOption({
     (markedUpMiscMaterials[1] - minMiscMaterialPrice2) / 3.0;
 
   const minSellPrice2 = minSellPrice + (targetSellPrice - minSellPrice) / 3.0;
-  const minSellPrice3 = minSellPrice2 + (targetSellPrice - minSellPrice2) / 3.0;
+  const minSellPrice3 = minSellPrice2 + (targetSellPrice - minSellPrice) / 3.0;
 
   // The maximum sale price
   const maxSellPrice =
@@ -279,30 +282,35 @@ export function calculateMarkedUpCostsForOption({
     costOfTaxes;
 
   // The prices between max and target
+  // Calculation for target 2 = Target + (Max - Target) / 3
+  // Calculation for target 3 = Target 2 + (Max - Target) / 3
   const targetLaborPrice2 =
     markedUpLabor[1] + (markedUpLabor[2] - markedUpLabor[1]) / 3.0;
   const targetLaborPrice3 =
-    targetLaborPrice2 + (markedUpLabor[2] - targetLaborPrice2) / 3.0;
+    targetLaborPrice2 + (markedUpLabor[2] - markedUpLabor[1]) / 3.0;
 
   const targetEquipmentPrice2 =
     markedUpEquipment[1] + (markedUpEquipment[2] - markedUpEquipment[1]) / 3.0;
   const targetEquipmentPrice3 =
-    targetEquipmentPrice2 +
-    (markedUpEquipment[2] - targetEquipmentPrice2) / 3.0;
+    targetEquipmentPrice2 + (markedUpEquipment[2] - markedUpEquipment[1]) / 3.0;
 
   const targetMiscMaterialPrice2 =
     markedUpMiscMaterials[1] +
     (markedUpMiscMaterials[2] - markedUpMiscMaterials[1]) / 3.0;
   const targetMiscMaterialPrice3 =
     targetMiscMaterialPrice2 +
-    (markedUpMiscMaterials[2] - targetMiscMaterialPrice2) / 3.0;
+    (markedUpMiscMaterials[2] - markedUpMiscMaterials[1]) / 3.0;
 
   const targetSellPrice2 =
     targetSellPrice + (maxSellPrice - targetSellPrice) / 3.0;
   const targetSellPrice3 =
-    targetSellPrice2 + (maxSellPrice - targetSellPrice2) / 3.0;
+    targetSellPrice2 + (maxSellPrice - targetSellPrice) / 3.0;
 
-  // Min sell price + (target sell price - min sell price) / 3
+  // Base price of the job
+  const basePriceOfJob =
+    costOfEquipment + costOfLabor + costOfTaxes + misc_materials + costOfFees;
+
+  // Get markup information
   return [
     getMarkupTableInfo(
       markedUpLabor[0],
@@ -310,7 +318,7 @@ export function calculateMarkedUpCostsForOption({
       markedUpMiscMaterials[0],
       2.5,
       minSellPrice,
-      costOfEquipment
+      basePriceOfJob
     ),
     getMarkupTableInfo(
       minLaborPrice2,
@@ -318,7 +326,7 @@ export function calculateMarkedUpCostsForOption({
       minMiscMaterialPrice2,
       4.0,
       minSellPrice2,
-      costOfEquipment
+      basePriceOfJob
     ),
     getMarkupTableInfo(
       minLaborPrice3,
@@ -326,7 +334,7 @@ export function calculateMarkedUpCostsForOption({
       minMiscMaterialPrice3,
       5.5,
       minSellPrice3,
-      costOfEquipment
+      basePriceOfJob
     ),
     getMarkupTableInfo(
       markedUpLabor[1],
@@ -334,7 +342,7 @@ export function calculateMarkedUpCostsForOption({
       markedUpMiscMaterials[1],
       7.0,
       targetSellPrice,
-      costOfEquipment
+      basePriceOfJob
     ),
     getMarkupTableInfo(
       targetLaborPrice2,
@@ -342,7 +350,7 @@ export function calculateMarkedUpCostsForOption({
       targetMiscMaterialPrice2,
       7.5,
       targetSellPrice2,
-      costOfEquipment
+      basePriceOfJob
     ),
     getMarkupTableInfo(
       targetLaborPrice3,
@@ -350,7 +358,7 @@ export function calculateMarkedUpCostsForOption({
       targetMiscMaterialPrice3,
       8.0,
       targetSellPrice3,
-      costOfEquipment
+      basePriceOfJob
     ),
     getMarkupTableInfo(
       markedUpLabor[2],
@@ -358,7 +366,7 @@ export function calculateMarkedUpCostsForOption({
       markedUpMiscMaterials[2],
       8.5,
       maxSellPrice,
-      costOfEquipment
+      basePriceOfJob
     ),
     // getCostsForCommissionLevel(9.0, maxSellPrice, costOfEquipment),
     // getCostsForCommissionLevel(9.5, maxSellPrice, costOfEquipment),

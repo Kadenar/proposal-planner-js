@@ -14,15 +14,15 @@ import {
 import { ProposalObject } from "../../../middleware/Interfaces";
 import { ProposalPricingData } from "../../../hooks/ProposalPricingData";
 import { ccyFormat, getQuoteNameStr } from "../../../lib/pricing-utils";
-import { useState } from "react";
-import { StyledIconButton } from "../../StyledComponents";
+import { useMemo, useState } from "react";
+import { BoldedTableCell, StyledIconButton } from "../../StyledComponents";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 function getMarkupLabelText(index: number) {
   if (index === 0) {
-    return "Minimum";
+    return "Min";
   }
 
   if (index === 3) {
@@ -49,6 +49,54 @@ const PricingWorkup = ({
   const filteredQuoteOptions = quote_options.filter(
     (quote) => quote.hasProducts
   );
+
+  const markups = useMemo(() => {
+    const clonedMarkups = { ...markedUpPricesForQuotes };
+    const markUpMap = Object.keys(clonedMarkups).reduce((obj, key) => {
+      obj[key] = clonedMarkups[key]; // TODO Fix typescript being unhappy
+
+      // I'm sure there are more performant ways to do this, but we only ever have 5 entries in this array so no need to over-optimize
+      const labor = obj[key].map((l) => {
+        return Number(
+          baselinePricingForQuotes[key].costOfLabor > 0
+            ? (l.laborMarkup / baselinePricingForQuotes[key].costOfLabor) *
+                100 -
+                100
+            : 0
+        ).toFixed(2);
+      });
+
+      const equipment = obj[key].map((e) => {
+        return Number(
+          baselinePricingForQuotes[key].costOfEquipment > 0
+            ? (e.equipmentMarkup /
+                baselinePricingForQuotes[key].costOfEquipment) *
+                100 -
+                100
+            : 0
+        ).toFixed(2);
+      });
+
+      const materials = obj[key].map((m) => {
+        return Number(
+          baselinePricingForQuotes[key].misc_materials > 0
+            ? (m.miscMaterialMarkup /
+                baselinePricingForQuotes[key].misc_materials) *
+                100 -
+                100
+            : 0
+        ).toFixed(2);
+      });
+
+      return {
+        labor,
+        equipment,
+        materials,
+      };
+    }, {} as { labor: number[]; equipment: number[]; materials: number[] });
+
+    return markUpMap;
+  }, [markedUpPricesForQuotes, baselinePricingForQuotes]);
 
   const [open, setOpen] = useState(false);
 
@@ -97,13 +145,19 @@ const PricingWorkup = ({
                     <TableHead>
                       <TableRow key="costs-header">
                         <TableCell></TableCell>
-                        <TableCell>Equipment markup</TableCell>
-                        <TableCell>Labor markup</TableCell>
-                        <TableCell>Misc material markup</TableCell>
-                        <TableCell>Cost to customer $</TableCell>
-                        <TableCell>Your Commission %</TableCell>
-                        <TableCell>Your Commission $</TableCell>
-                        <TableCell>Company Margin $</TableCell>
+                        <BoldedTableCell>{`Equipment ${ccyFormat(
+                          baselinePricingForQuotes[quote.guid].costOfEquipment
+                        )}`}</BoldedTableCell>
+                        <BoldedTableCell>{`Labor ${ccyFormat(
+                          baselinePricingForQuotes[quote.guid].costOfLabor
+                        )}`}</BoldedTableCell>
+                        <BoldedTableCell>{`Misc materials ${ccyFormat(
+                          baselinePricingForQuotes[quote.guid].misc_materials
+                        )}`}</BoldedTableCell>
+                        <BoldedTableCell>Cost to customer $</BoldedTableCell>
+                        <BoldedTableCell>Commission %</BoldedTableCell>
+                        <BoldedTableCell>Commission $</BoldedTableCell>
+                        <BoldedTableCell>Company Margin $</BoldedTableCell>
                       </TableRow>
                     </TableHead>
 
@@ -114,13 +168,19 @@ const PricingWorkup = ({
                             <TableRow key={`costs-body-${index}`}>
                               <TableCell>{getMarkupLabelText(index)}</TableCell>
                               <TableCell>
-                                {ccyFormat(quoteData.equipmentMarkup)}
+                                {`${ccyFormat(quoteData.equipmentMarkup)} (${
+                                  markups.equipment[index]
+                                }%)`}
                               </TableCell>
                               <TableCell>
-                                {ccyFormat(quoteData.laborMarkup)}
+                                {`${ccyFormat(quoteData.laborMarkup)} (${
+                                  markups.labor[index]
+                                }%)`}
                               </TableCell>
                               <TableCell>
-                                {ccyFormat(quoteData.miscMaterialMarkup)}
+                                {`${ccyFormat(quoteData.miscMaterialMarkup)} (${
+                                  markups.materials[index]
+                                }%)`}
                               </TableCell>
                               <TableCell>
                                 {ccyFormat(quoteData.sellPrice)}
