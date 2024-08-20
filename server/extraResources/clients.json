@@ -1,14 +1,14 @@
 [
   {
     "guid": "e3af9751-3bd1-4509-9acf-698ea33efd63",
-    "name": "Tim Fernandez",
-    "address": "13 Kelly Ridge Rd",
+    "name": "Tim F",
+    "address": "13 K R",
     "apt": "",
     "state": "NY",
     "city": "Carmel",
     "zip": "10512",
     "phone": "111-222-3333",
-    "email": "tfernandez@robisonoil.com",
+    "email": "tf@robisonoil.com",
     "accountNum": "111222"
   }
 ]
